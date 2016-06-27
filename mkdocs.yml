@@ -2,7 +2,8 @@ site_name: Screwdriver Guide
 repo_url: https://github.com/screwdriver-cd/guide
 repo_name: GitHub
 site_description: All you need to know about Screwdriver and more
-strict: true
+# Due to bug in MKDocs: https://github.com/mkdocs/mkdocs/issues/974
+# strict: true
 theme: yeti
 copyright: Yahoo Inc. BSD-3-Clause
 
