@@ -8,3 +8,5 @@ copyright: Yahoo Inc. BSD-3-Clause
 
 pages:
     - Home: 'index.md'
+    - Architecture:
+        - Overall: 'architecture/overall.md'
