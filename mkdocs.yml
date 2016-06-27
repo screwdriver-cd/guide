@@ -1,0 +1,10 @@
+site_name: Screwdriver Guide
+repo_url: https://github.com/screwdriver-cd/guide
+repo_name: GitHub
+site_description: All you need to know about Screwdriver and more
+strict: true
+theme: yeti
+copyright: Yahoo Inc. BSD-3-Clause
+
+pages:
+    - Home: 'index.md'
