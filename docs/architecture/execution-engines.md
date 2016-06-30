@@ -1,23 +1,31 @@
-## Execution Engines(?)
+## Execution Engines
 
-A workload management system for the scheduling and running of jobs.  The typical enterprise requires support for multiple operating systems.  A core tenet of the project is to leverage both open source projects and commercial cloud products and their capabilities where we can. 
+Execution engine: A workload management system for the scheduling and running of jobs.
+
+The typical enterprise requires support for multiple operating systems.  A core tenet of the project is to leverage both open source projects and commercial cloud products and their capabilities where we can.
 TODO: Tie back to targeted use cases and typical enterprise
 
-Tier 1 supported environment is Linux and a typical use case of web serving and associated backend systems.  
+### Supported environments
 
-Tier 2 supported environment is Mac OSX for iOS and desktop clients.  We may also support Windows in the future.
+Tier 1:
 
-For tier 2 supported environments, we use Jenkins as our execution engine to handle scheduling across Mac OSX slaves.  Jenkins support across many OSes is useful here.
+- Linux and a typical use case of web serving and associated backend systems.  For the Open Source release we are evaluating a number of options as explained below.
 
-For tier 1, we are evaluating multiple options for open source release.  While Jenkins serves us well in other areas, it has issues scaling and limits overall performance with its architecture.  In addition, managing a Jenkins cluster and the slaves has high operational overhead.
+Tier 2:
+
+- Mac OSX for iOS and desktop clients.  Windows may be supported in the future.  Jenkins will be a supported execution engine to handle scheduling across Mac OSX slaves.  Jenkins support across many OSes is useful here.
+
+
+Why not Jenkins everywhere?  While Jenkins serves us well in other areas, it has issues scaling and limits overall performance with its architecture.  In addition, managing a Jenkins cluster has high operational overhead.  A downside to not using Jenkins is not having access to the existing plugin ecosystem.
+
 
 ### Selection Criteria
 
-- Available outside of Yahoo
+- Availability outside of Yahoo
 - Ease of setup
 - Community momentum (leverage industry innovation and future proof our solution)
 - Capabilities (semi-persistent storage, scheduler options, etc)
-- Run on-premise or in cloud (AWS or GCP) 
+- Run on-premise or in cloud (AWS or GCP)
 - Operability
 
 ### Candidates
@@ -35,8 +43,6 @@ For tier 1, we are evaluating multiple options for open source release.  While J
 - Mesos is used internally at Yahoo.  Getting started is more difficult. Need more time to investigate frameworks.
 - Docker Swarm is a candidate but is less mature than other options.  Something to keep an eye on.
 
-Capabilities analysis requires learning the underlying systems to a certain degree.  We decided to pick a solution and do an end to end integration to understand integration points as well as the strength and weaknesses of the system. 
-
-Kubernetes was chosen as the first system to evaluate.
+Capabilities analysis requires learning the underlying systems to a certain degree.  The evaluation process includes an end to end integration to understand integration points as well as the strength and weaknesses of the system.  Kubernetes was chosen for the first end to end integration.
 
 TODO: add results of evaluations
