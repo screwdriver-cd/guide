@@ -1,0 +1,3 @@
+[general]
+# rules can be ignored by name or by id
+ignore=max-line-length
