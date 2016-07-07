@@ -11,3 +11,5 @@ pages:
     - Home: 'index.md'
     - Architecture:
         - Overall: 'architecture/overall.md'
+        - API: 'architecture/api.md'
+        - Engines: 'architecture/execution-engines.md'

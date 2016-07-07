@@ -1,6 +1,6 @@
 ## Execution Engines
 
-Execution engine: A workload management system for the scheduling and running of jobs.
+> A workload management system for the scheduling and running of jobs.
 
 The typical enterprise requires support for multiple operating systems.  A core tenet of the project is to leverage both open source projects and commercial cloud products and their capabilities where we can.
 TODO: Tie back to targeted use cases and typical enterprise
