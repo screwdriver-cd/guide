@@ -12,4 +12,5 @@ pages:
     - Architecture:
         - Overall: 'architecture/overall.md'
         - API: 'architecture/api.md'
-        - Engines: 'architecture/execution-engines.md'
+        - Execution Engines: 'architecture/execution-engines.md'
+        - Domain Model: 'architecture/domain.md'
