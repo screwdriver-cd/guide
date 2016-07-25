@@ -39,3 +39,27 @@ Open up [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser, and yo
 
 ## Adding docs
 Simply add a new markdown document to the folder hierarchy in `docs`, and add an entry to the tree in `mkdocs.yml`
+
+## Documentation Structure
+
+* Architecture
+	* Overall
+	* API
+	* Execution Engines
+	* Domain Model
+	* Plugin Design
+	* Datastores
+	* Schemas
+	* Authorization Model
+* Reference
+	* Setting up a Cluster
+	* Starting your first Pipeline
+	* Demo
+	* Miscellaneous
+		* Yaml Configuration
+		* Metadata
+		* Environment Variables
+* Community
+	* FAQ
+	* Contributing
+	* Contact/Support
