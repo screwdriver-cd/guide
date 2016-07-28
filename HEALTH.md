@@ -58,15 +58,15 @@ _todo: client, guide_
 
 [dbase-veri]: https://img.shields.io/npm/v/screwdriver-datastore-base.svg
 [dbase-veru]: https://npmjs.org/package/screwdriver-datastore-base
-[dbase-bldi]: https://app.wercker.com/status/dcb5f2a518c165578b8e0b4c5023ced8
-[dbase-bldu]: https://app.wercker.com/project/bykey/dcb5f2a518c165578b8e0b4c5023ced8
+[dbase-bldi]: https://app.wercker.com/status/fbf5553a4f8821567edc6394e976f4ab
+[dbase-bldu]: https://app.wercker.com/project/bykey/fbf5553a4f8821567edc6394e976f4ab
 [dbase-depi]: https://david-dm.org/screwdriver-cd/datastore-base.svg?theme=shields.io
 [dbase-depu]: https://david-dm.org/screwdriver-cd/datastore-base
 
 [imdb-veri]: https://img.shields.io/npm/v/screwdriver-datastore-imdb.svg
 [imdb-veru]: https://npmjs.org/package/screwdriver-datastore-imdb
-[imdb-bldi]: https://app.wercker.com/status/f613d096556c053ce524ffff36259d1c
-[imdb-bldu]: https://app.wercker.com/project/bykey/f613d096556c053ce524ffff36259d1c
+[imdb-bldi]: https://app.wercker.com/status/e4c32e69dde44ca5a62dc4b12355930c
+[imdb-bldu]: https://app.wercker.com/project/bykey/e4c32e69dde44ca5a62dc4b12355930c
 [imdb-depi]: https://david-dm.org/screwdriver-cd/datastore-imdb.svg?theme=shields.io
 [imdb-depu]: https://david-dm.org/screwdriver-cd/datastore-imdb
 
