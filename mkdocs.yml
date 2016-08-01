@@ -18,3 +18,5 @@ pages:
         - Domain Model: 'architecture/domain.md'
     - Reference:
         - Setting Up DynamoDB: 'reference/dynamodb-setup.md'
+    - Community:
+        - Contributing: 'community/contributing.md'
