@@ -1,5 +1,5 @@
-
 # screw·driv·er
+[/ˈskrü-drī-vər/](http://www.merriam-webster.com/dictionary/screwdriver)
 
 > noun
 
