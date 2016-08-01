@@ -1,0 +1,6 @@
+/* NAVIGATION */
+.navbar-brand {
+    background: transparent url(../assets/screwdriver-logo.png) no-repeat 10% 40% / 40px 40px;
+    text-indent: 60px;
+    width: 300px;
+}
