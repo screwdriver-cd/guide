@@ -54,7 +54,7 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 * Getting Started
 	* Setting Up a Datastore
 	* Setting Up a Cluster
-	* Starting your first Pipeline
+	* Creating a Pipeline
 * Reference
 	* Demo
 	* Yaml Configuration
