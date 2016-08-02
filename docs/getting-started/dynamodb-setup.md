@@ -1,7 +1,8 @@
-## Setting Up DynamoDB
+# Setting Up a Datastore
 
 Screwdriver can be configured to store data in [DynamoDB](https://aws.amazon.com/dynamodb/).
 
+## DynamoDB
 
 ### Setting up AWS Credentials
 
@@ -22,7 +23,9 @@ Substitute your own AWS credentials values for `{YOUR_ACCESS_KEY_ID}` and `{YOUR
 
 ### Create Screwdriver tables in DynamoDB
 
-#### Install dynamic-dynamodb CLI
+#### Install dynamic-dynamodb
+[Dynamic-dynamodb](https://github.com/screwdriver-cd/dynamic-dynamodb) is a utility CLI for creating Screwdriver datastore tables in DynamoDB
+
 ```bash
 $ npm install -g screwdriver-dynamic-dynamodb
 ```
@@ -31,7 +34,7 @@ $ npm install -g screwdriver-dynamic-dynamodb
 Dynamic-dynamodb CLI will create tables `builds`, `jobs`, `pipelines`, `users` in DynamoDB for you.
 Pick a region that is near your location for the best performance (Screwdriver default region is `us-west-2`). Depending on what region you are in, run the appropriate command below:
 
-- In region `us-west-2`
+- For `us-west-2` region
 
 ```bash
 $ screwdriver-db-setup create
@@ -49,4 +52,4 @@ To see your newly created Screwdriver tables, navigate to the DynamoDB service. 
 
 ![DynamoDB tables](assets/dynamodb-tables.png)
 
-_Note in the upper right corner you can select the region where the table will be created. Select the region you specified when creating Screwdriver tables above._
+_Note: In the upper right corner you can select the region where the table will be created. Select the region you specified when creating Screwdriver tables above._

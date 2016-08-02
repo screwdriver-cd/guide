@@ -51,14 +51,15 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 	* Datastores
 	* Schemas
 	* Authorization Model
-* Reference
-	* Setting up a Cluster
+* Getting Started
+	* Setting Up a Datastore
+	* Setting Up a Cluster
 	* Starting your first Pipeline
+* Reference
 	* Demo
-	* Miscellaneous
-		* Yaml Configuration
-		* Metadata
-		* Environment Variables
+	* Yaml Configuration
+	* Metadata
+	* Environment Variables
 * Community
 	* FAQ
 	* Contributing

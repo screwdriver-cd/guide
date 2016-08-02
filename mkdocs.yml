@@ -16,7 +16,8 @@ pages:
         - API: 'architecture/api.md'
         - Execution Engines: 'architecture/execution-engines.md'
         - Domain Model: 'architecture/domain.md'
-    - Reference:
-        - Setting Up DynamoDB: 'reference/dynamodb-setup.md'
+    - Getting Started:
+        - Setting Up a Datastore: 'getting-started/dynamodb-setup.md'
     - Community:
         - Contributing: 'community/contributing.md'
+        - Support: 'community/support.md'
