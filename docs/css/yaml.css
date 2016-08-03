@@ -1,0 +1,43 @@
+.example {
+    background-color: #fafafa;
+    padding: 5px;
+    border-radius: 5px;
+    width: 65%;
+    float: left;
+    margin-right: 10px;
+    color: #000;
+    white-space: pre;
+}
+
+.example a {
+    text-decoration: none;
+    color: #000;
+    padding: 0 10px;
+    display: inline-block;
+    white-space: pre-wrap;
+}
+
+.example a.highlight {
+    background-color: #eee;
+}
+
+.example .key {
+    color: #000080;
+}
+
+.example .value {
+    color: #d14;
+}
+
+.yaml-side {
+    padding-top: 5px;
+    width: 30%;
+    float: left;
+}
+
+.yaml-side .hidden {
+    display: none;
+}
+.yaml-side h4 {
+    font-weight: bold;
+}
