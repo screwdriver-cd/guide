@@ -18,8 +18,9 @@ pages:
         - Execution Engines: 'architecture/execution-engines.md'
         - Domain Model: 'architecture/domain.md'
     - Getting Started:
-        - Setting Up a Datastore: 'getting-started/dynamodb-setup.md'
+        - Setting Up a Datastore: 'getting-started/datastore-setup.md'
         - Yaml Configuration: 'getting-started/yaml.md'
+        - Creating a Pipeline: 'getting-started/create-pipeline.md'
     - Community:
         - Contributing: 'community/contributing.md'
         - Support: 'community/support.md'
