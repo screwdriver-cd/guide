@@ -1,4 +1,5 @@
 # Screwdriver Guide
+[![Build Status][wercker-image]][wercker-url] [![Open Issues][issues-image]][issues-url]
 
 ## Installation of MkDocs
 In order to install MkDocs you'll need Python installed on your system, as well as the Python package manager, pip. You can check if you have these already installed like so:
@@ -64,3 +65,8 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 	* FAQ
 	* Contributing
 	* Contact/Support
+
+[issues-image]: https://img.shields.io/github/issues/screwdriver-cd/guide.svg
+[issues-url]: https://github.com/screwdriver-cd/guide/issues
+[wercker-image]: https://app.wercker.com/status/59c5c65398dcb0a527d24b10bb92dd4d
+[wercker-url]: https://app.wercker.com/project/bykey/59c5c65398dcb0a527d24b10bb92dd4d
