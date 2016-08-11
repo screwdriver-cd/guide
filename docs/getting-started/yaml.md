@@ -2,7 +2,7 @@
 
 This is an interactive guide for exploring various important properties of the screwdriver.yaml configuration for projects.
 
-You can access information about properties by mousing over the property name.
+You can access information about properties by hovering over the property name.
 
 <div class="yaml-docs">
 
@@ -25,19 +25,19 @@ You can access information about properties by mousing over the property name.
         <a href="#matrix"><span class="key">matrix</span>:
     <span class="key">NODE_VERSION</span>: <span class="value">[4,5,6]</span></a>
         <a href="#steps"><span class="key">steps</span>:
-    <span class="key">init</span>: <span class="value">npm install</span>
-    <span class="key">test</span>: <span class="value">npm test</span></a>
+    - <span class="key">init</span>: <span class="value">npm install</span>
+    - <span class="key">test</span>: <span class="value">npm test</span></a>
     <a href="#jobs"><span class="key">publish</span>:
     <span class="key">image</span>: <span class="value">node:6</span>
     <span class="key">steps</span>:
-        <span class="key">publish</span>: <span class="value">npm publish</span></a>
+        - <span class="key">publish</span>: <span class="value">npm publish</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
     <span class="key">image</span>: <span class="value">node:6</span>
     <span class="key">environment</span>:
         <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
     <span class="key">steps</span>:
-        <span class="key">init</span>: <span class="value">npm install</span>
-        <span class="key">publish</span>: <span class="value">npm deploy</span></a>
+        - <span class="key">init</span>: <span class="value">npm install</span>
+        - <span class="key">publish</span>: <span class="value">npm deploy</span></a>
     <a href="#jobs">...</a>
 </pre>
     <div class="yaml-side">
@@ -72,7 +72,7 @@ You can access information about properties by mousing over the property name.
         </div>
         <div id="steps" class="hidden">
             <h4>Steps</h4>
-            <p>Defines the explicit commands that are executed in the build, just as if they were entered on the command line. Step definitions are required for all jobs.</p>
+            <p>Defines the explicit list of commands that are executed in the build, just as if they were entered on the command line. Step definitions are required for all jobs.</p>
         </div>
     </div>
 </div>
