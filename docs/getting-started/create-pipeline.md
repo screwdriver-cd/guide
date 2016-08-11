@@ -6,32 +6,7 @@ Using the Screwdriver CLI, you can build pipelines locally on your machine.
 **The Screwdriver CLI does not exist yet, but here is what the instructions would look like.**
 
 ### Installing Go
-####Install Go
-
-```bash
-brew install go
-```
-
-#### Setup your path
-The GOPATH environment variable specifies the location of your workspace. Create a workspace directory and set GOPATH accordingly. We will use `$HOME/work` in this document.
-
-```bash
-$ mkdir $HOME/work
-$ mkdir -p $HOME/work/src/github.com/$user
-
-$ export GOPATH=$HOME/work
-$ export GOROOT=/usr/local/opt/go/libexec
-$ export PATH=$PATH:$GOPATH/bin # add the workspace's bin subdirectory to your PATH
-$ export PATH=$PATH:$GOROOT/bin
-```
-
-#### Installing Go
-There are many ways to install Go, here we will use Brew.
-```bash
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-$ brew update
-$ brew install go
-```
+[Go](https://golang.org/) v1.6 or higher is required. To find out how to setup your Go environment, follow instructions in their [Getting Started](https://golang.org/doc/install) page.
 
 ### Installing the CLI
 
