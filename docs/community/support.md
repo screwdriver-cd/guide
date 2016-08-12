@@ -1,7 +1,7 @@
 # Support
 
 ## GitHub
-Screwdriver is completely open source and can be found under the [Screwdriver-cd organization](https://github.com/screwdriver-cd/screwdriver)
+Screwdriver is completely open source and can be found under the [screwdriver-cd organization](https://github.com/screwdriver-cd)
 on Github. We welcome any [issues](https://github.com/screwdriver-cd/screwdriver/issues) and [pull requests](https://github.com/screwdriver-cd/screwdriver/pulls)!
 For more information on our Github repositories and how to contribute, see the [Contributing](contributing.md) page.
 
