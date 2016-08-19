@@ -28,7 +28,7 @@ First, you will need to gather some secrets:
 | SECRET_OAUTH_CLIENT_ID | The client ID used for [OAuth](https://developer.github.com/v3/oauth/) with Github |
 | SECRET_OAUTH_CLIENT_SECRET | The client secret used for OAuth with github |
 | SECRET_JWT_PRIVATE_KEY | A private key used for signing JWT tokens. Can be anything |
-| SECRET_PASSWORD | A password used for encrypting session, and OAuth data. **Needs to be minimum 32 characters** |
+| SECRET_PASSWORD | A password used for encrypting session, and OAuth data. Can be anything. **Needs to be minimum 32 characters** |
 
 Here are some directions for getting your secrets:
 
@@ -57,8 +57,18 @@ To get your `accessKeyId` and `secretAccessKey`:
 
 You should see a `Client ID` and `Client Secret`, which will be used for your `oauthclientid` and `oauthclientsecret`, respectively.
 
+### Base64 encode your secrets
+Each secret must be [base64 encoded](http://kubernetes.io/docs/user-guide/secrets/#creating-a-secret-manually). You must base64 encode each of your secrets:
+
+```bash
+$ echo -n "somejwtprivatekey" | base64
+c29tZWp3dHByaXZhdGVrZXk=
+$ echo -n "1f2d1e2e67df" | base64
+MWYyZDFlMmU2N2Rm
+```
+
 ### Setting up secrets in Kubernetes
-To create secrets in Kubernetes, create a `secret.yaml` file and populate it with your secrets. These secrets will be used in your Kubernetes `deployment.yaml` file.
+To create secrets in Kubernetes, create a `secret.yaml` file and populate it with your secrets. These secrets will be used in your Kubernetes `api_deployment.yaml` file.
 
 It should look similar to the following:
 ```yaml
@@ -68,12 +78,13 @@ metadata:
   name: secrets
 type: Opaque
 data:
+  # make sure the values are all base64 encoded
   dynamodbid: someid
   dynamodbsecret: somesecret
-  password: somepassword
+  password: MWYyZDFlMmU2N2Rm
   oauthclientid: someclientid
   oauthclientsecret: someclientsecret
-  jwtprivatekey: someprivatekey
+  jwtprivatekey: c29tZWp3dHByaXZhdGVrZXk=
 ```
 
 Create the secrets using `kubectl create`:
@@ -92,7 +103,7 @@ You can check out the [Screwdriver API repo](https://github.com/screwdriver-cd/s
 A Kubernetes Service is an abstraction which defines a set of Pods and is assigned a unique IP address which persists.
 Follow instructions in [Creating a Service](http://kubernetes.io/docs/user-guide/connecting-applications/#creating-a-service) to set up your `service.yaml`.
 
-It should look like the `service.yaml` here: https://github.com/screwdriver-cd/screwdriver/blob/master/kubernetes/api_service.yaml.
+It should look like the [api_service.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/kubernetes/api_service.yaml).
 
 To create your service, run the `kubectl create` command on your `service.yaml` file:
 ```bash
@@ -100,7 +111,7 @@ $ kubectl create -f service.yaml
 ```
 
 ### Get your Kubernetes token name
-Kubernetes actually sets up your Kubernetes token by default. You will need this for your `deployment.yaml`.
+Kubernetes actually sets up your Kubernetes token by default. You will need this for your `api_deployment.yaml`.
 Kubectl can be used to see your [Kubernetes secrets](http://kubernetes.io/docs/user-guide/secrets/walkthrough/).
 
 - Get the `<DEFAULT_TOKEN_NAME>`, by running:
@@ -113,14 +124,22 @@ default-token-abc55       kubernetes.io/service-account-token   3         50d
 
 The `<DEFAULT_TOKEN_NAME>` will be listed under `Name` when the `Type` is `kubernetes.io/service-account-token`.
 
+### Get your URI
+You will need to get the Load Balancer Ingress to set your `URI` in your `api_deployment.yaml`.
+
+- Get the `LoadBalancer Ingress`, by running:
+```bash
+$ kubectl describe services sdapi
+```
+
 
 ### Create a Deployment
-A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `deployment.yaml`.
+A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `api_deployment.yaml`.
 
-It should look like the `deployment.yaml` here: https://github.com/screwdriver-cd/screwdriver/blob/master/kubernetes/api_deployment.yaml.
+It should look like the [api_deployment.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/kubernetes/api_deployment.yaml).
 
 ### Deploy
-For a fresh deployment, run the `kubectl create` command on your `deployment.yaml` file:
+For a fresh deployment, run the `kubectl create` command on your `api_deployment.yaml` file:
 ```bash
 $ kubectl create -f deployment.yaml
 ```
