@@ -7,7 +7,10 @@ For more information on our Github repositories and how to contribute, see the [
 
 ## Slack
 We use Slack for discussion and support. For any Screwdriver-related questions, join the `#general` channel on the
-[Screwdriver Slack team](https://screwdriver-cd.slack.com). For everything else, join the `#random` channel. To sign up, use our Slack inviter.
+[Screwdriver Slack team](https://screwdriver-cd.slack.com). For everything else, join the `#random` channel.
+
+To sign up, use our [Slack inviter](http://slack.screwdriver.cd).
+
 
 ## Stack Overflow
 We monitor Stack Overflow for any posts tagged with `screwdriver`. If
