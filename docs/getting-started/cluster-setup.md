@@ -144,6 +144,7 @@ For a fresh deployment, run the `kubectl create` command on your `api_deployment
 $ kubectl create -f deployment.yaml
 ```
 
+
 ## View your pods
 A Kubernetes [pod](http://kubernetes.io/docs/user-guide/pods/) is a group of containers, tied together for the purposes of administration and networking.
 
@@ -158,3 +159,12 @@ To view the stdout / stderr from a pod, run:
 ```bash
 $ kubectl logs <POD-NAME>
 ```
+
+## Update your OAuth Application
+You will need to navigate back to your original OAuth Application that you used for your OAuth Client ID and Secret to update the URLs.
+
+1. Navigate to the [OAuth applications](https://github.com/settings/developers) page.
+
+2. Click on the application you created to get your OAuth Client ID and Secret.
+
+3. Fill out the `Homepage URL` and `Authorization callback URL` with your `LoadBalancer Ingress`.
