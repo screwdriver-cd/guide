@@ -13,7 +13,7 @@ extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js]
 pages:
     - Home: 'index.md'
     - Getting Started:
-        - Set up a Screwdriver Cluster: 'getting-started/cluster-setup.md'
+        - Set Up a Screwdriver Cluster: 'getting-started/cluster-setup.md'
         - Set Up a Datastore: 'getting-started/datastore-setup.md'
         - Create a Pipeline: 'getting-started/create-pipeline.md'
         - Config File Reference: 'getting-started/yaml.md'
