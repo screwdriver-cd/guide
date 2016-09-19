@@ -12,16 +12,17 @@ extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js]
 
 pages:
     - Home: 'index.md'
-    - Architecture:
-        - Overall: 'architecture/overall.md'
+    - Getting Started:
+        - Set Up a Screwdriver Cluster: 'getting-started/cluster-setup.md'
+        - Set Up a Datastore: 'getting-started/datastore-setup.md'
+        - Create a Pipeline: 'getting-started/create-pipeline.md'
+        - Config File Reference: 'getting-started/yaml.md'
+    - Internals:
+        - Overall Architecture: 'architecture/overall.md'
         - API: 'architecture/api.md'
         - Execution Engines: 'architecture/execution-engines.md'
         - Domain Model: 'architecture/domain.md'
-    - Getting Started:
-        - Yaml Configuration: 'getting-started/yaml.md'
-        - Setting Up a Datastore: 'getting-started/datastore-setup.md'
-        - Setting Up a Cluster: 'getting-started/cluster-setup.md'
-        - Creating a Pipeline: 'getting-started/create-pipeline.md'
     - Community:
         - Contributing: 'community/contributing.md'
         - Support: 'community/support.md'
+ 
