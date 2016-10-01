@@ -1,0 +1,81 @@
+.homepage div[role="main"] {
+    width: 100%;
+}
+
+body.homepage div.container img {
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.homepage .top {
+    padding: 20px 0;
+    background: url('/img/main_bkgrd_home.png') no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+
+.homepage .top p {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.homepage .top img {
+    height: 62px;
+    width: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+.homepage .top h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300px;
+    margin: 0;
+    padding: 0;
+}
+
+.homepage h2 {
+    color: #003abc;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.homepage .row {
+    padding: 20px 0;
+    margin: 0;
+}
+
+.homepage .row:nth-child(odd) {
+    background-color: #f1f1f5;
+}
+
+.homepage .row p {
+    width: 100%;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+@media (min-width: 768px) {
+    .homepage .row p {
+        width: 70%;
+    }
+}
+
+.homepage .cd {
+    height: 124px;
+}
+.homepage .dh {
+    height: 100px;
+}
+.homepage .pc {
+    height: 200px;
+}
+.homepage .party {
+    height: 160px;
+}
