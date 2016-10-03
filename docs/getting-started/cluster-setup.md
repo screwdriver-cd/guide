@@ -68,9 +68,10 @@ MWYyZDFlMmU2N2Rm
 ```
 
 ### Setting up secrets in Kubernetes
-To create secrets in Kubernetes, create a `secret.yaml` file and populate it with your secrets. These secrets will be used in your Kubernetes `api_deployment.yaml` file.
+To create secrets in Kubernetes, create a `secret.yaml` file and populate it with your secrets. These secrets will be used in your Kubernetes `deployment.yaml` file.
 
 It should look similar to the following:
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -88,6 +89,7 @@ data:
 ```
 
 Create the secrets using `kubectl create`:
+
 ```bash
 $ kubectl create -f ./secret.yaml
 ```
@@ -97,13 +99,13 @@ Other environment variables can also be customized for Screwdriver. For a full l
 
 
 ## Deploy Screwdriver
-You can check out the [Screwdriver API repo](https://github.com/screwdriver-cd/screwdriver) and look in the `kubernetes` directory for service and deployment definitions for running the Screwdriver API. Both files are required to deploy Screwdriver.
+You can check out the `api.yaml` in the [Screwdriver Kubernetes repo](https://github.com/screwdriver-cd/kubernetes) for service and deployment definitions to run the Screwdriver API.
 
 ### Create a Service
 A Kubernetes Service is an abstraction which defines a set of Pods and is assigned a unique IP address which persists.
 Follow instructions in [Creating a Service](http://kubernetes.io/docs/user-guide/connecting-applications/#creating-a-service) to set up your `service.yaml`.
 
-It should look like the [api_service.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/kubernetes/api_service.yaml).
+It should look like the Service in [api.yaml](https://github.com/screwdriver-cd/kubernetes/blob/master/api.yaml).
 
 To create your service, run the `kubectl create` command on your `service.yaml` file:
 ```bash
@@ -111,10 +113,11 @@ $ kubectl create -f service.yaml
 ```
 
 ### Get your Kubernetes token name
-Kubernetes actually sets up your Kubernetes token by default. You will need this for your `api_deployment.yaml`.
+Kubernetes actually sets up your Kubernetes token by default. You will need this for your `deployment.yaml`.
 Kubectl can be used to see your [Kubernetes secrets](http://kubernetes.io/docs/user-guide/secrets/walkthrough/).
 
-- Get the `<DEFAULT_TOKEN_NAME>`, by running:
+Get the `<DEFAULT_TOKEN_NAME>`, by running:
+
 ```bash
 $ kubectl get secrets
 
@@ -125,21 +128,23 @@ default-token-abc55       kubernetes.io/service-account-token   3         50d
 The `<DEFAULT_TOKEN_NAME>` will be listed under `Name` when the `Type` is `kubernetes.io/service-account-token`.
 
 ### Get your URI
-You will need to get the Load Balancer Ingress to set your `URI` in your `api_deployment.yaml`.
+You will need to get the Load Balancer Ingress to set your `URI` in your `deployment.yaml`.
 
-- Get the `LoadBalancer Ingress`, by running:
+Get the `LoadBalancer Ingress`, by running:
+
 ```bash
 $ kubectl describe services sdapi
 ```
 
 
 ### Create a Deployment
-A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `api_deployment.yaml`.
+A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `deployment.yaml`.
 
-It should look like the [api_deployment.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/kubernetes/api_deployment.yaml).
+It should look like the Deployment in [api.yaml](https://github.com/screwdriver-cd/kubernetes/blob/master/api.yaml).
 
 ### Deploy
-For a fresh deployment, run the `kubectl create` command on your `api_deployment.yaml` file:
+For a fresh deployment, run the `kubectl create` command on your `deployment.yaml` file:
+
 ```bash
 $ kubectl create -f deployment.yaml
 ```
