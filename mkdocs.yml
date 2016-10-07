@@ -17,6 +17,7 @@ pages:
         - Set Up a Datastore: 'getting-started/datastore-setup.md'
         - Create a Pipeline: 'getting-started/create-pipeline.md'
         - Config File Reference: 'getting-started/yaml.md'
+        - Build Secrets: 'getting-started/secrets.md'
     - Internals:
         - Overall Architecture: 'internals/overall-architecture.md'
         - API: 'internals/api.md'
