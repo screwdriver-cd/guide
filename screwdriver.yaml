@@ -1,7 +1,20 @@
+workflow:
+    - deploy
+
+shared:
+    image: python:2
+
 jobs:
   main:
-    image: python:2
     steps:
       - init: pip install -r requirements.txt
       - validate: markdownlint docs/
       - build: mkdocs build
+
+  deploy:
+      steps:
+          - init: pip install -r requirements.txt
+          - deploy: mkdocs gh-deploy --clean
+      secrets:
+          # Pushing tags to Git
+          - GIT_KEY
