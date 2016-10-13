@@ -11,11 +11,10 @@ body.homepage div.container img {
 
 .homepage .top {
     padding: 20px 0;
-    background: url('/img/main_bkgrd_home.png') no-repeat;
-    background-size: cover;
     text-align: center;
-    color: #fff;
+    color: #26282a;
     width: 100%;
+    border-bottom: 1px solid #f1f1f5;
 }
 
 .homepage .top p {
@@ -31,10 +30,11 @@ body.homepage div.container img {
 }
 
 .homepage .top h1 {
-    color: #fff;
-    font-size: 24px;
+    color: #003abc;
+    font-size: 26px;
     font-weight: 300px;
     margin: 0;
+    margin-top: 10px;
     padding: 0;
 }
 
@@ -49,10 +49,11 @@ body.homepage div.container img {
 .homepage .row {
     padding: 20px 0;
     margin: 0;
+    border-bottom: 1px solid #f1f1f5;
 }
 
-.homepage .row:nth-child(odd) {
-    background-color: #f1f1f5;
+.homepage .row:last-child {
+    border-width: 0px;
 }
 
 .homepage .row p {
