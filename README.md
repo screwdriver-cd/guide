@@ -68,5 +68,5 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 
 [issues-image]: https://img.shields.io/github/issues/screwdriver-cd/guide.svg
 [issues-url]: https://github.com/screwdriver-cd/guide/issues
-[status-image]: https://cd.screwdriver.cd/pipelines/9c2af925377a0c67a0500519df9d72dcfc78d404/badge
-[status-url]: https://cd.screwdriver.cd/pipelines/9c2af925377a0c67a0500519df9d72dcfc78d404
+[status-image]: https://cd.screwdriver.cd/pipelines/baa6a0374df961ac97669bf3a3089a24cfb72794/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/baa6a0374df961ac97669bf3a3089a24cfb72794
