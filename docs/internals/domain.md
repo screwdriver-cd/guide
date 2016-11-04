@@ -54,15 +54,22 @@ matrix:
 
 ### Build
 
-A build is an instance of a running [job]. All builds are assigned a unique build number. With a basic job configuration, only one build of a job will be running at any given time. If a [job matrix] is configured, then there can be multiple builds running in parallel.
+A build is an instance of a running [job]. All builds are assigned a unique build number. Each build is associated with an [event]. With a basic job configuration, only one build of a job will be running at any given time. If a [job matrix] is configured, then there can be multiple builds running in parallel.
 
 A build can be in one of five different states:
 
- - `queued` - Build is waiting for available resources
- - `running` - Build is actively running on an executor
- - `success` - All steps completed successfully
- - `aborted` - User canceled the running build
- - `failure` - One of the steps failed
+ - `QUEUED` - Build is waiting for available resources
+ - `RUNNING` - Build is actively running on an executor
+ - `SUCCESS` - All steps completed successfully
+ - `FAILURE` - One of the steps failed
+ - `ABORTED` - User canceled the running build
+
+### Event
+
+An event represents a commit or a manual restart of a [pipeline]. There are 2 types of events:
+
+- `pipeline`: - Events created when a user manually restarts a pipeline or merges a pull request. This type of event triggers the same sequence of jobs as the pipeline's workflow. For example: `['main', 'publish', 'deploy']`
+- `pr`:  - Events created by opening or updating a pull request. This type of event only triggers the `main` job.
 
 ### Metadata
 
@@ -118,6 +125,8 @@ The `main` job is required to be defined in every pipeline as it is the one that
 [metadata]: #metadata
 [builds]: #builds
 [build]: #build
+[event]: #event
+[pipeline]: #pipeline
 [container]: #container
 [containers]: #container
 [workflow]: #workflow

@@ -10,7 +10,7 @@ Set these environment variables:
 | Environment name | Required | Default Value | Description |
 | :--- | :---- | :--- | :--- | :--- |
 | DATASTORE_PLUGIN | Yes | | Set to `dynamodb`
-| DATASTORE_DYNAMODB_PREFIX | No | "" (empty string) | Prefix to add before all table names
+| DATASTORE_DYNAMODB_PREFIX | No | '' (empty string) | Prefix to add before all table names
 | DATASTORE_DYNAMODB_ID | Yes | | AWS Access Key Id
 | DATASTORE_DYNAMODB_SECRET | Yes | |  AWS Secret Access Key
 
@@ -59,21 +59,24 @@ We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s
 #### Kubernetes
 Set these environment variables:
 
-| Environment name | Description |
-| :--- | :---- |
-| EXECUTOR_PLUGIN | Set to `k8s` |
-| LAUNCH_VERSION | Launcher version to use |
-| K8S_HOST | Kubernetes host |
-| K8S_TOKEN | JWT for authenticating Kubernetes requests  |
+| Environment name | Required | Default Value | Description |
+| :--- | :---- | :--- | :--- | :--- |
+| EXECUTOR_PLUGIN | Yes | | Set to `k8s` |
+| LAUNCH_VERSION | Yes | | Launcher version to use |
+| K8S_HOST | Yes | | Kubernetes host |
+| K8S_TOKEN | Yes | | JWT for authenticating Kubernetes requests  |
+| K8S_JOBS_NAMESPACE | No | 'default' | Jobs namespace for Kubernetes jobs URL  |
 
 Or modify your `local.yaml`:
 ```yaml
 executor:
     plugin: k8s
     k8s:
-        # The host or IP of the kubernetes cluster
-        host: YOUR-KUBERNETES-HOST
-        token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
+        kubernetes:
+            # The host or IP of the kubernetes cluster
+            host: YOUR-KUBERNETES-HOST
+            token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
+            jobsNamespace: JOBS-NAMESPACE
         launchVersion: LAUNCHER-VERSION
 ```
 
