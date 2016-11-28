@@ -9,6 +9,7 @@ theme_dir: themes/sd
 copyright: © 2016 Yahoo! Inc. All rights reserved.
 extra_css: [css/homepage.css, css/yaml.css]
 extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js]
+google_analytics: ['UA-88158708-1', 'docs.screwdriver.cd']
 
 pages:
     - Home: 'index.md'
