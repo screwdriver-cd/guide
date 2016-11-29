@@ -13,15 +13,17 @@ google_analytics: ['UA-88158708-1', 'docs.screwdriver.cd']
 
 pages:
     - Home: 'index.md'
+    - Cluster Management:
+        - Configure and Deploy the API: 'cluster-management/configure-api.md'
+        - Configure Plugins: 'cluster-management/plugins.md'
+        - Overall Architecture: 'cluster-management/overall-architecture.md'
+        - Examples:
+            - Kubernetes: 'cluster-management/kubernetes.md'
     - Getting Started:
-        - Set Up a Screwdriver Cluster: 'getting-started/cluster-setup.md'
-        - Set Up a Datastore: 'getting-started/datastore-setup.md'
-        - Configure your plugins: 'getting-started/plugins.md'
         - Create a Pipeline: 'getting-started/create-pipeline.md'
         - Config File Reference: 'getting-started/yaml.md'
         - Build Secrets: 'getting-started/secrets.md'
     - Internals:
-        - Overall Architecture: 'internals/overall-architecture.md'
         - API: 'internals/api.md'
         - Execution Engines: 'internals/execution-engines.md'
         - Domain Model: 'internals/domain.md'
