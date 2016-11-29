@@ -10,7 +10,6 @@ A Screwdriver cluster consists of a Kubernetes cluster running the Screwdriver A
 - [kubectl](http://kubernetes.io/docs/user-guide/prereqs/)
 - an [AWS](http://aws.amazon.com) account
 - [AWS CLI](https://aws.amazon.com/cli/)
-- [Screwdriver tables on DynamoDB](datastore-setup/)
 
 ## Create your Kubernetes cluster
 Follow instructions at [Getting Started with AWS](http://kubernetes.io/docs/getting-started-guides/aws/).
@@ -19,21 +18,32 @@ Follow instructions at [Getting Started with AWS](http://kubernetes.io/docs/gett
 ## Setup Kubernetes secrets
 A [Secret](http://kubernetes.io/docs/user-guide/secrets/) is an object that contains a small amount of sensitive data such as a password, a token, or a key. You will need to setup secrets for Screwdriver for your cluster to work properly.
 
-First, you will need to gather some secrets:
+First, you will need to gather some secrets. Directions for getting your secrets are below.
+:
 
-| Secret Key        | Description |
-| :------------- |:-------------|
-| DATASTORE_DYNAMODB_ID | AWS Access Key ID |
-| DATASTORE_DYNAMODB_SECRET | AWS Secret Access Key |
-| SECRET_OAUTH_CLIENT_ID | The client ID used for [OAuth](https://developer.github.com/v3/oauth/) with Github |
-| SECRET_OAUTH_CLIENT_SECRET | The client secret used for OAuth with github |
-| SECRET_JWT_PRIVATE_KEY | A private key used for signing JWT tokens. Can be anything |
-| SECRET_PASSWORD | A password used for encrypting session, and OAuth data. Can be anything. **Needs to be minimum 32 characters** |
+| Secret Key        | Required | Description |
+| :------------- |:-------------| :-------------|
+| DATASTORE_DYNAMODB_ID | No | AWS Access Key ID |
+| DATASTORE_DYNAMODB_SECRET | No | AWS Secret Access Key |
+| SECRET_OAUTH_CLIENT_ID | Yes | The client ID used for [OAuth](https://developer.github.com/v3/oauth) with Github |
+| SECRET_OAUTH_CLIENT_SECRET | Yes | The client secret used for OAuth with github |
+| SECRET_JWT_PRIVATE_KEY | Yes | A private key used for signing JWT tokens. |
+| SECRET_JWT_PUBLIC_KEY | Yes | A public key used for signing JWT tokens. |
+| WEBHOOK_GITHUB_SECRET | Yes | Secret to add to GitHub webhooks so that we can validate them |
+| SECRET_PASSWORD | Yes | A password used for encrypting session, and OAuth data. Can be anything. **Needs to be minimum 32 characters** |
+| K8S_TOKEN | Yes | Your Kubernetes <DEFAULT_TOKEN_NAME> |
 
-Here are some directions for getting your secrets:
+### Generate your JWT keys
+To generate a `jwtprivatekey`, run:
+
+`$ openssl genrsa -out jwt.pem 2048`
+
+To generate a `jwtpublickey`, run:
+
+`$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
 
 ### Get your DynamoDB secrets
-To get your `accessKeyId` and `secretAccessKey`:
+To get your `dynamodbid` and `dynamodbsecret`:
 
 1. Navigate to [IAM](https://console.aws.amazon.com/iam) in your AWS console
 
@@ -76,7 +86,7 @@ It should look similar to the following:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: secrets
+  name: screwdriver-api-secrets
 type: Opaque
 data:
   # make sure the values are all base64 encoded
@@ -86,6 +96,8 @@ data:
   oauthclientid: someclientid
   oauthclientsecret: someclientsecret
   jwtprivatekey: c29tZWp3dHByaXZhdGVrZXk=
+  jwtpublickey: somejwtpublickey
+  githubsecret: somegithubsecret
 ```
 
 Create the secrets using `kubectl create`:
