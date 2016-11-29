@@ -19,14 +19,15 @@ pages:
         - Overall Architecture: 'cluster-management/overall-architecture.md'
         - Examples:
             - Kubernetes: 'cluster-management/kubernetes.md'
-    - Getting Started:
-        - Create a Pipeline: 'getting-started/create-pipeline.md'
-        - Config File Reference: 'getting-started/yaml.md'
-        - Build Secrets: 'getting-started/secrets.md'
     - Internals:
         - API: 'internals/api.md'
         - Execution Engines: 'internals/execution-engines.md'
         - Domain Model: 'internals/domain.md'
+    - User Guide:
+        - Authentication and Authorization: 'user-guide/authentication-authorization.md'
+        - Configuration:
+            - Overall: 'user-guide/configuration/overall.md'
+            - Secrets: 'user-guide/configuration/secrets.md'
     - Community:
         - Contributing: 'community/contributing.md'
         - Support: 'community/support.md'

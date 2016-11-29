@@ -39,7 +39,7 @@ main:
 
 When a secret is created via the UI, or API, enabling `allowInPR` will cause that secret to be available to pull-request builds, if those secrets are also configured to be exposed in the `main` job.
 
-## Secrets UI
+## User Interface
 The easiest way to create a secret for your pipeline is via the Screwdriver UI.
 ![Secrets UI](/assets/secrets.png)
 
@@ -51,52 +51,3 @@ A secret's original value is never delivered to the UI, but values of secrets ma
 
 ### Deleting secrets
 Individual secrets may be removed by clicking the Delete button.
-
-## Screwdriver API
-### Creating secrets
-Send a POST request to the screwdriver api server with appropriate security token headers:
-
-```
-POST /secrets
-```
-
-Payload:
-
-```json
-{
-    "pipelineId": "abcd",
-    "name": "MY_SECRET_NAME",
-    "value": "MY_SECRET_VALUE!",
-    "allowInPR": false
-}
-```
-
-# Fetching Secrets
-Send a GET request to the screwdriver api server with appropriate security token headers:
-
-```
-GET /pipeline/:id/secrets
-```
-
-### Updating Secrets
-Send a PUT request to the screwdriver api server with appropriate security token headers:
-
-```
-PUT /secrets/:id
-```
-
-Payload:
-
-```json
-{
-    "value": "MY_SECRET_VALUE!",
-    "allowInPR": false
-}
-```
-
-### Deleting Secrets
-Send a DELETE request to the screwdriver api server with appropriate security token headers:
-
-```
-DELETE /secrets/:id
-```
