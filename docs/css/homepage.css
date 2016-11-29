@@ -9,6 +9,10 @@ body.homepage div.container img {
     background-color: transparent;
 }
 
+.homepage .navbar-brand {
+    margin-top: 10px;
+}
+
 .homepage .top {
     padding: 20px 0;
     text-align: center;
