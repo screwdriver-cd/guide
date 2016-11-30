@@ -14,8 +14,7 @@ is possible.
 ## AuthN and AuthZ
 
 For Authentication we're using [JSON Web Tokens]. They need to be passed via
-an `Authorization` header. Generating a JWT can be done by visiting our
-`/auth/login` endpoint.
+an `Authorization` header. To generate a JWT, visit the `/auth/login` endpoint which will redirect you to the `/auth/token` endpoint.
 
 Authorization on the other hand is handled by OAuth. This occurs when
 you visit the `/auth/login` endpoint. Screwdriver uses SCM user tokens

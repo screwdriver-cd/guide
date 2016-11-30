@@ -14,7 +14,7 @@ google_analytics: ['UA-88158708-1', 'docs.screwdriver.cd']
 pages:
     - Home: 'index.md'
     - Cluster Management:
-        - Overall Architecture: 'cluster-management/overall-architecture.md'
+        - Overall Architecture: 'cluster-management/index.md'
         - Configuring the API: 'cluster-management/configure-api.md'
         - Configuring Plugins: 'cluster-management/plugins.md'
         - Examples:
@@ -22,7 +22,7 @@ pages:
     - User Guide:
         - Authentication and Authorization: 'user-guide/authentication-authorization.md'
         - Configuration:
-            - Overall: 'user-guide/configuration/overall.md'
+            - Overall: 'user-guide/configuration/index.md'
             - Secrets: 'user-guide/configuration/secrets.md'
         - API: 'user-guide/api.md'
     - About:
