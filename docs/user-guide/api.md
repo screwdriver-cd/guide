@@ -9,16 +9,15 @@ is clear and human readable.
 1. API should be versioned and self-documented, so that client code generation
 is possible.
 
-> **Version 3** is the current API, all links should be prefixed with `/v3`
+> **Version 4** is the current API, all links should be prefixed with `/v4`
 
 ## AuthN and AuthZ
 
 For Authentication we're using [JSON Web Tokens]. They need to be passed via
-an `Authorization` header. Generating a JWT can be done by visiting our
-`/login` endpoint.
+an `Authorization` header. To generate a JWT, visit the `/auth/login` endpoint which will redirect you to the `/auth/token` endpoint.
 
-Authorization on the other hand is handled by [GitHub OAuth]. This occurs when
-you visit the `/login` endpoint. Screwdriver uses the GitHub user tokens
+Authorization on the other hand is handled by OAuth. This occurs when
+you visit the `/auth/login` endpoint. Screwdriver uses SCM user tokens
 and identity to:
 
  - identify what repositories you have read, write, and admin access to
@@ -29,6 +28,8 @@ and identity to:
  - enumerate the list of pull-requests open on your repository
  - update the pull-request with the success/failure of the build
  - add/remove repository web-hooks so Screwdriver can be notified on changes
+
+For more information, see the [GitHub OAuth] documentation.
 
 ## Swagger
 

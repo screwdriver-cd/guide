@@ -11,9 +11,9 @@ Continuous Delivery pipelines.
 
     User starts a new build by one of the following operations:
 
-    - User pushes code to GitHub
-    - User opens a new pull request on GitHub
-    - User pushes code to GitHub on an open pull request
+    - User pushes code to SCM
+    - User opens a new pull request on SCM
+    - User pushes code to SCM on an open pull request
     - User tells Screwdriver (via API or UI) to rebuild a given commit
 
 2. **Notify Screwdriver**

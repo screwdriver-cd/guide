@@ -5,7 +5,7 @@
 
 ### Source Code
 
-Source Code is a specified GitHub repository and branch that contains a `screwdriver.yaml` and the code required to build, test, and publish your application.
+Source Code is a specified SCM repository and branch that contains a `screwdriver.yaml` and the code required to build, test, and publish your application.
 
 ### Step
 
