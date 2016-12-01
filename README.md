@@ -43,28 +43,25 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 
 ## Documentation Structure
 
-* Architecture
-	* Overall
-	* API
-	* Execution Engines
-	* Domain Model
-	* Plugin Design
-	* Datastores
-	* Schemas
-	* Authorization Model
-* Getting Started
-	* Setting Up a Datastore
-	* Setting Up a Cluster
-	* Creating a Pipeline
-* Reference
-	* Demo
-	* Yaml Configuration
-	* Metadata
-	* Environment Variables
-* Community
-	* FAQ
-	* Contributing
-	* Contact/Support
+- Homepage
+   - [ ] What are the sections for
+- Cluster Management
+   - [x] Overall Architecture
+   - [ ] Running Locally
+   - [x] Configuring API + plugins
+   - [x] Configuring UI
+   - [x] Configuring Store + plugins
+   - [ ] Debugging
+- Using Screwdriver
+   - [ ] Getting Started
+   - [x] Setting up the SD yaml + secrets
+   - [x] API/documentation page
+   - [x] Authentication and Authorization
+- About
+   - Appendix
+     - [ ] What is SD?
+     - [x] Domain model
+   - Support
 
 [issues-image]: https://img.shields.io/github/issues/screwdriver-cd/guide.svg
 [issues-url]: https://github.com/screwdriver-cd/guide/issues
