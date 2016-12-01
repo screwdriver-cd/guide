@@ -19,27 +19,6 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                {% if repo_url %}
-                    <li>
-                        <a href="{{ repo_url }}">
-                            {% if repo_name == 'GitHub' %}
-                                <i class="fa fa-github"></i>
-                            {% elif repo_name == 'Bitbucket' %}
-                                <i class="fa fa-bitbucket"></i>
-                            {% endif %}
-                            {{ repo_name }}
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="navbar-collapse collapse">
             {% if include_nav %}
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
@@ -61,6 +40,28 @@
                 {% endfor %}
                 </ul>
             {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                {% if repo_url %}
+                    <li>
+                        <a href="{{ repo_url }}">
+                            {% if repo_name == 'GitHub' %}
+                                <i class="fa fa-github"></i>
+                            {% elif repo_name == 'Bitbucket' %}
+                                <i class="fa fa-bitbucket"></i>
+                            {% endif %}
+                            {{ repo_name }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse">
+
         </div>
     </div>
 </div>
