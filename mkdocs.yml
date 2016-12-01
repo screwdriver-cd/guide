@@ -21,6 +21,7 @@ pages:
         - Examples:
             - Kubernetes: 'cluster-management/kubernetes.md'
     - User Guide:
+        - Quickstart: 'user-guide/quickstart.md'
         - Authentication and Authorization: 'user-guide/authentication-authorization.md'
         - Configuration:
             - Overall: 'user-guide/configuration/index.md'
