@@ -1,55 +1,14 @@
-<div class="top">
-    <img src="/assets/sd_icon.png">
-    <h1>Introducing Screwdriver</h1>
-    <p>A collection of services that facilitate the workflow for continuous delivery pipelines.</p>
-</div>
 
-<div class="row">
-    <div class="col-xs-12 col-md-8">
-        <h2>Secure Continuous Delivery</h2>
-        <p>Screwdriver treats Continuous Delivery as a first-class citizen in your build pipeline.
-        Easily define the path that your code takes from Pull Request to Production.</p>
-    </div>
-    <div class="col-xs-12 col-md-4">
-        <img src="/assets/continuous_delivery.png" class="cd">
-    </div>
-</div>
+# Welcome to Screwdriver!
 
-<div class="row">
-    <div class="col-xs-12 col-md-4">
-        <img src="/assets/daily_habits.png" class="dh">
-    </div>
-    <div class="col-xs-12 col-md-8">
-        <h2>Integrates with Daily Habits</h2>
-        <p>Screwdriver ties directly into your DevOps daily habits.
-        It tests your pull requests, builds your merged commits, and deploys to your environments.
-        Define load tests, canary deployments, and multi-environment deployment pipelines with ease.</p>
-    </div>
-</div>
+We've split up our documentation into three distinct sections depending on what you're looking for:
 
-<div class="row">
-    <div class="col-xs-12 col-md-8">
-        <h2>Pipeline as Code</h2>
-        <p>Define your pipeline in a simple YAML file that lives beside your code.
-        There is no external configuration of your pipeline to deal with,
-        so your pipeline changes can be reviewed and rolled out with the rest of your codebase.</p>
-    </div>
-    <div class="col-xs-12 col-md-4">
-        <img src="/assets/pipeline_code.png" class="pc">
-    </div>
-</div>
+ - To learn more about Screwdriver in general, visit the [About](about/index.md) section.
 
-<div class="row">
-    <div class="col-xs-12 col-md-4">
-        <img src="/assets/3rd_party_services.png" class="party">
-    </div>
-    <div class="col-xs-12 col-md-8">
-        <h2>Runs Anywhere</h2>
-        <p>Screwdriver's architecture uses pluggable components under the hood
-        to allow you to swap out the pieces that make sense for your infrastructure.
-        Swap in Postgres for the Datastore or Jenkins for the Executor.
-        You can even dynamically select an execution engine based on the needs of each pipeline.
-        For example, send golang builds to the kubernetes executor while your iOS builds got to a
-        Jenkins execution farm.</p>
-    </div>
-</div>
+- To find more information about managing your own Screwdriver cluster, visit the [Cluster Management](cluster-management/index.md) section.
+
+- If you'd like to use Screwdriver to run a build, visit our [User Guide](user-guide/quickstart.md).
+
+If you are new to Screwdriver, we suggest you start by reading through the [Domain model](about/appendix/domain.md) and [YAML configuration](user-guide/configuration/index.md) to get an idea of different concepts in Screwdriver and how they tie together.
+
+To see some working examples, you can try out our [quickstart examples](user-guide/quickstart.md) with different languages to choose from.

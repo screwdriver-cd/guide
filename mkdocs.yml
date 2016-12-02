@@ -28,6 +28,7 @@ pages:
             - Secrets: 'user-guide/configuration/secrets.md'
         - API: 'user-guide/api.md'
     - About:
+        - What is Screwdriver?: 'about/index.md'
         - Appendix:
             - Domain Model: 'about/appendix/domain.md'
             - Execution Engines: 'about/appendix/execution-engines.md'
