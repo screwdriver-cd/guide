@@ -1,5 +1,7 @@
 # What is Screwdriver?
 
+A collection of services that facilitate the workflow for continuous delivery pipelines.
+
 <div class="row">
     <div class="col-xs-12 col-md-8">
         <h2>Secure Continuous Delivery</h2>

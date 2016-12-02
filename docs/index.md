@@ -1,14 +1,29 @@
+<div class="top">
+    <img src="/assets/sd_icon.png">
+    <h1>Welcome to Screwdriver!</h1>
+    <p>We've split documentation into 3 distinct sections:</p>
+</div>
 
-# Welcome to Screwdriver!
+<div class="row">
+    <div class="col-xs-6 col-md-4 cm">
+        <h2>Cluster Management</h2>
+        <p>To find more information about managing your own Screwdriver cluster,
+        visit the <a href="http://docs.screwdriver.cd/cluster-management">Cluster Management</a> section.</p>
+    </div>
+    <div class="col-xs-6 col-md-4 ug">
+        <h2>User Guide</h2>
+        <p>If you'd like to use Screwdriver to run a build, visit our <a href="http://docs.screwdriver.cd/user-guide/quickstart">User Guide</a>.</p>
+    </div>
+    <div class="col-xs-6 col-md-4 about">
+        <h2>About</h2>
+        <p>To learn more about Screwdriver in general, visit the <a href="http://docs.screwdriver.cd/about">About</a> section.</p>
+    </div>
+</div>
 
-We've split up our documentation into three distinct sections depending on what you're looking for:
+<div class="row">
+    <div class="col-xs-12 extra">
+        <p>If you are new to Screwdriver, we suggest you start by reading through the <a href="http://docs.screwdriver.cd/about/appendix/domain">Domain model</a> and <a href="http://docs.screwdriver.cd/user-guide/configuration/index">YAML configuration</a> to get an idea of different concepts in Screwdriver and how they tie together.
 
- - To learn more about Screwdriver in general, visit the [About](about/index.md) section.
-
-- To find more information about managing your own Screwdriver cluster, visit the [Cluster Management](cluster-management/index.md) section.
-
-- If you'd like to use Screwdriver to run a build, visit our [User Guide](user-guide/quickstart.md).
-
-If you are new to Screwdriver, we suggest you start by reading through the [Domain model](about/appendix/domain.md) and [YAML configuration](user-guide/configuration/index.md) to get an idea of different concepts in Screwdriver and how they tie together.
-
-To see some working examples, you can try out our [quickstart examples](user-guide/quickstart.md) with different languages to choose from.
+        To see some working examples, you can try out our <a href="http://docs.screwdriver.cd/user-guide/quickstart">quickstart examples</a> with different languages to choose from.</p>
+    </div>
+</div>
