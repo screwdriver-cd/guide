@@ -18,6 +18,7 @@ pages:
         - Configuring the API: 'cluster-management/configure-api.md'
         - Configuring the UI: 'cluster-management/configure-ui.md'
         - Configuring the Store: 'cluster-management/configure-store.md'
+        - Running Locally: 'cluster-management/running-locally.md'
         - Examples:
             - Kubernetes: 'cluster-management/kubernetes.md'
     - User Guide:
