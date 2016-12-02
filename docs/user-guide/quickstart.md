@@ -80,7 +80,7 @@ jobs:
       - run_arbitrary_script: ./my_script.sh
 ```
 
-Now that we have a working repository, let's head over to the Screwdriver UI to build and deploy an app.
+Now that we have a working repository, let's head over to the Screwdriver UI to build and deploy an app. (For more information on Screwdriver YAMLs, see the [configuration](configuration/index.md) page.)
 
 ## Building with Screwdriver
 

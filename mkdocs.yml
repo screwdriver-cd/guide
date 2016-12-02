@@ -18,6 +18,7 @@ pages:
         - Configuring the API: 'cluster-management/configure-api.md'
         - Configuring the UI: 'cluster-management/configure-ui.md'
         - Configuring the Store: 'cluster-management/configure-store.md'
+        - Running Locally: 'cluster-management/running-locally.md'
         - Examples:
             - Kubernetes: 'cluster-management/kubernetes.md'
     - User Guide:
@@ -28,6 +29,7 @@ pages:
             - Secrets: 'user-guide/configuration/secrets.md'
         - API: 'user-guide/api.md'
     - About:
+        - What is Screwdriver?: 'about/index.md'
         - Appendix:
             - Domain Model: 'about/appendix/domain.md'
             - Execution Engines: 'about/appendix/execution-engines.md'
