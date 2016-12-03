@@ -13,6 +13,8 @@ pip 1.5.2
 
 MkDocs supports Python 2.6, 2.7, 3.3, 3.4 and 3.5.
 
+### Standard
+
 Install the `mkdocs` package and our theme using pip:
 
 ```bash
@@ -26,8 +28,27 @@ $ mkdocs --version
 mkdocs, version 0.15.3
 ```
 
+### Virtualenv
+
+If you prefer to develop the Screwdriver guide in an isolated Python environment, you can use [virtualenv](https://pypi.python.org/pypi/virtualenv).
+
+```
+$ virtualenv --version
+15.0.2
+```
+
+With `virtualenv`, you can simply run a Makefile target to configure a virtual environment with all the necessary dependencies.
+
+```
+$ make venv
+```
+
 ## Viewing docs locally
 There's a single configuration file named `mkdocs.yml`, and a folder named `docs` that will contain our documentation source files.
+
+MkDocs comes with a built-in webserver that lets you preview your documentation as you work on it. You can start the webserver locally either with MkDocs directly or with `virtualenv`.
+
+### Standard
 
 MkDocs comes with a built-in webserver that lets you preview your documentation as you work on it. We start the webserver by making sure we're in the same directory as the `mkdocs.yml` config file, and then running the `mkdocs serve` command:
 
@@ -36,7 +57,16 @@ $ mkdocs serve
 Running at: http://127.0.0.1:8000/
 ```
 
-Open up [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser, and you'll see the index page being displayed.
+### Virtualenv
+
+```
+# This will also run the "venv" Makefile target
+$ make local
+```
+
+### Browse your local guide
+
+Once you successfully start the webserver, open up [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser. You'll be able to see the index page being displayed.
 
 ## Adding docs
 Simply add a new markdown document to the folder hierarchy in `docs`, and add an entry to the tree in `mkdocs.yml`
