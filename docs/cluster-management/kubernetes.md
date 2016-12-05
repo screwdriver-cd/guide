@@ -126,7 +126,7 @@ $ kubectl create -f service.yaml
 
 ### Get your Kubernetes token name
 Kubernetes actually sets up your Kubernetes token by default. You will need this for your `deployment.yaml`.
-Kubectl can be used to see your [Kubernetes secrets](http://kubernetes.io/docs/user-guide/secrets/walkthrough/).
+You can use `kubectl` to see your [Kubernetes secrets](http://kubernetes.io/docs/user-guide/secrets/walkthrough/).
 
 Get the `<DEFAULT_TOKEN_NAME>`, by running:
 

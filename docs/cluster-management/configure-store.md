@@ -13,7 +13,7 @@ Our images are tagged for their version (eg. `1.2.3`) as well as a floating `lat
 
 ## Configuration
 
-Screwdriver already [defaults most configuration](https://github.com/screwdriver-cd/store/blob/master/config/default.yaml), but defaults can be overridden using a `config/local.yaml` or environment variables. All the possible environment variables are [defined here](https://github.com/screwdriver-cd/store/blob/master/config/custom-environment-variables.yaml).
+Screwdriver already [defaults most configuration](https://github.com/screwdriver-cd/store/blob/master/config/default.yaml), but you can override defaults using a `config/local.yaml` or environment variables. All the possible environment variables are [defined here](https://github.com/screwdriver-cd/store/blob/master/config/custom-environment-variables.yaml).
 
 ### Authentication
 

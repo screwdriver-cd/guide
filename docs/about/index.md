@@ -30,7 +30,7 @@ A collection of services that facilitate the workflow for continuous delivery pi
         <h2>Pipeline as Code</h2>
         <p>Define your pipeline in a simple YAML file that lives beside your code.
         There is no external configuration of your pipeline to deal with,
-        so your pipeline changes can be reviewed and rolled out with the rest of your codebase.</p>
+        so you can review pipeline changes and roll them out with the rest of your codebase.</p>
     </div>
     <div class="col-xs-12 col-md-4">
         <img src="/assets/pipeline_code.png" class="pc">
