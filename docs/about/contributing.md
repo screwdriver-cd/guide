@@ -11,7 +11,7 @@ File an issue if you think you've found a bug. Be sure to describe
 3. What actually occurred?
 4. Version, platform, etc. if possibly relevant.
 
-All issues can be filed in the [screwdriver repo]([api-issues-url]).
+You can file all issues with Screwdriver in the [screwdriver repo][api-issues-url].
 
 ## Docs
 
