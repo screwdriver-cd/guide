@@ -29,6 +29,10 @@ During the job, the executing [steps] share three pieces of context:
 
 Jobs can be started automatically by changes made in the [source code] or triggered through the [workflow]. Jobs can also be started manually through the UI.
 
+#### Pull Requests
+
+Pull requests are run separately from existing pipeline jobs. They will only execute steps from the `main` job in the Screwdriver configuration.
+
 #### Parallelization
 
 It is possible to parallelize a job by defining a matrix of environment variables. These are usually used for testing against multiple [containers] or test types.
