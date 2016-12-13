@@ -7,6 +7,11 @@ body {
         padding-top: 110px;
     }
 }
+@media (min-width: 992px) {
+    body {
+        padding-top: 70px;
+    }
+}
 
 body>.container {
     min-height: 400px;
@@ -145,6 +150,7 @@ footer .container > div:last-child {
     height: 40px;
     width: 194px;
     display: inline-block;
+    margin-top: 10px;
 }
 .navbar-nav > li {
     border-bottom: 4px solid transparent;
@@ -369,4 +375,8 @@ h6:hover .headerlink {
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+.navbar div.navbar-header {
+    margin-right: 25px;
 }
