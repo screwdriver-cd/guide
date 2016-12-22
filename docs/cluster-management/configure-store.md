@@ -81,6 +81,7 @@ We have two methods of storing artifacts right now: - `memory` - In-memory store
 | S3_ACCESS_KEY_SECRET | *none*  | Amazon secret access key                       |
 | S3_REGION            | *none*  | Amazon S3 region                               |
 | S3_BUCKET            | *none*  | Amazon S3 bucket that you have write access to |
+| S3_ENDPOINT          | *none*  | Custom endpoint for Amazon S3 compatible API   |
 
 ```yaml
 # config/local.yaml
@@ -91,5 +92,5 @@ strategy:
         secretAccessKey: YOUR-KEY-SECRET
         region: YOUR-REGION
         bucket: YOUR-BUCKET-ID
-
+        endpoint: YOUR-S3-API-URL
 ```
