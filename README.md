@@ -74,26 +74,36 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 ## Documentation Structure
 
 - Homepage
-   - [ ] What are the sections for
-- Cluster Management
-   - [x] Overall Architecture
-   - [ ] Running Locally
-   - [x] Configuring API + plugins
-   - [x] Configuring UI
-   - [x] Configuring Store + plugins
-   - [ ] Debugging
-- Using Screwdriver
-   - [ ] Getting Started
-   - [x] Setting up the SD yaml + secrets
-   - [x] API/documentation page
-   - [x] Authentication and Authorization
+  - [x] What are the sections for
+- Cluster Management (for SD owners)
+  - [x] Overall architecture
+  - [x] Running locally
+  - [x] Configuring API
+     - [x] Scm plugins
+     - [x] Datastore plugins
+  - [x] Configuring UI
+  - [x] Configuring Store
+     - [x] Logging plugins
+  - Examples
+    - [x] Setting up Kubernetes
+  - [ ] Debugging
+- User Guide
+  - [x] Quickstart
+  - [x] Configuration
+    - [x] Overall YAML
+    - [x] Secrets
+  - [x] API
+  - [x] Authentication and Authorization
 - About
-   - Appendix
-     - [ ] What is SD?
-     - [x] Domain model
-   - Support
+  - [x] What is SD?
+  - [x] Appendix
+    - [x] Execution engines
+    - [x] Domain model
+  - [x] Contributing
+  - [x] Support
 
-[issues-image]: https://img.shields.io/github/issues/screwdriver-cd/guide.svg
-[issues-url]: https://github.com/screwdriver-cd/guide/issues
-[status-image]: https://cd.screwdriver.cd/pipelines/baa6a0374df961ac97669bf3a3089a24cfb72794/badge
-[status-url]: https://cd.screwdriver.cd/pipelines/baa6a0374df961ac97669bf3a3089a24cfb72794
+
+[issues-image]: https://img.shields.io/github/issues/screwdriver-cd/screwdriver.svg
+[issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
+[status-image]: https://cd.screwdriver.cd/pipelines/27/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/27
