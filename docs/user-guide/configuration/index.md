@@ -72,7 +72,7 @@ You can access information about properties by hovering over the property name.
         </div>
         <div id="steps" class="hidden">
             <h4>Steps</h4>
-            <p>Defines the explicit list of commands that are executed in the build, just as if they were entered on the command line. Step definitions are required for all jobs.</p>
+            <p>Defines the explicit list of commands that are executed in the build, just as if they were entered on the command line. Step definitions are required for all jobs. Step names cannot start with `sd-`, as those steps are reserved for Screwdriver steps.</p>
         </div>
     </div>
 </div>

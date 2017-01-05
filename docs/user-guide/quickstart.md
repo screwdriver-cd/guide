@@ -61,7 +61,7 @@ The `jobs` section is where all the tasks (or `steps`) that each job will execut
 ### Steps
 The `steps` section contains a list of commands to execute.
 Each step takes the form "step_name: command_to_run". The "step_name" is a convenient label to reference it by. The
-"command_to_run" is the single command that is executed during this step.
+"command_to_run" is the single command that is executed during this step. Step names cannot start with `sd-`, as those steps are reserved for Screwdriver steps.
 
 In our example, our "main" job executes a simple piece of inline bash code. We also define another job called "second_job". In this job, we intend on running a different set of commands. The "make_target" step calls a Makefile target to perform some set of actions. This is incredibly useful when you need to perform a multi-line command.
 The "run_arbitrary_script" executes a script. This is an alternative to a Makefile target where you want to run a series of commands related to this step.
