@@ -61,6 +61,41 @@ To start up the SD-in-a-Box, execute the following command
 $ docker-compose -p screwdriver up
 ```
 
+### Volume-Mounted Source Code
+
+You can choose to replace a component with a local copy. This is incredibly helpful if you're trying to implement an update to a service and want to see how it impacts the entire cluster.
+
+Modify the `docker-compose.yaml`, targeting the component you would like to replace. In the following snippet, we replace the API with a local source.
+
+   ```
+   services:
+     . . .
+     api:
+       # this "build" stanza replaces the default "image" setting
+       build:
+         context: ./relative/path/to/api_source
+         dockerfile: Dockerfile.local
+   ```
+
+To set your update, you'll need to rebuild the docker-compose services first.
+
+   ```
+   $ docker-compose build
+   ```
+
+Restart the local cluster to have your changes take effect.
+
+   ```
+   $ docker-compose -p screwdriver down
+   $ docker-compose -p screwdriver up
+   ```
+
+#### Caveats
+
+This approach does very well with replacing complete services, and also carries some limitations:
+
+* Unable to replace individual modules with this methodology.
+
 ### Local Development Instances
 
 If you plan on making adjustments to a specific Screwdriver component, you can choose to replace a component with your development instance. This will give you a good idea on how it affects the other Screwdriver components before submitting it via Pull Request.
