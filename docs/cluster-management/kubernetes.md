@@ -111,13 +111,13 @@ Other environment variables can also be customized for Screwdriver. For a full l
 
 
 ## Deploy Screwdriver
-You can check out the `api.yaml` in the [Screwdriver Kubernetes repo](https://github.com/screwdriver-cd/kubernetes) for service and deployment definitions to run the Screwdriver API.
+You can check out the `api.yaml` in the [Screwdriver config examples repo](https://github.com/screwdriver-cd-test/config-examples) for service and deployment definitions to run the Screwdriver API.
 
 ### Create a Service
 A Kubernetes Service is an abstraction which defines a set of Pods and is assigned a unique IP address which persists.
 Follow instructions in [Creating a Service](http://kubernetes.io/docs/user-guide/connecting-applications/#creating-a-service) to set up your `service.yaml`.
 
-It should look like the Service in [api.yaml](https://github.com/screwdriver-cd/kubernetes/blob/master/api.yaml).
+It should look like the Service in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/kubernetes/api.yaml).
 
 To create your service, run the `kubectl create` command on your `service.yaml` file:
 ```bash
@@ -152,7 +152,7 @@ $ kubectl describe services sdapi
 ### Create a Deployment
 A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `deployment.yaml`.
 
-It should look like the Deployment in [api.yaml](https://github.com/screwdriver-cd/kubernetes/blob/master/api.yaml).
+It should look like the Deployment in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/kubernetes/api.yaml).
 
 ### Deploy
 For a fresh deployment, run the `kubectl create` command on your `deployment.yaml` file:
