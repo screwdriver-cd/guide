@@ -64,9 +64,9 @@ built/maintained by Screwdriver:
  - **Execution Engine**
 
     Pluggable build executor that supports executing commands inside of a
-    container (e.g. Jenkins, Kubernetes, and Mesos).
+    container (e.g. Jenkins, Kubernetes, and Docker).
 
  - **Datastore**
 
-    Pluggable NoSQL-based storage for keeping information about pipelines
-    (e.g. DynamoDB, MongoDB, and CouchDB).
+    Pluggable storage for keeping information about pipelines
+    (e.g. Postgres, MySQL, and Sqlite).

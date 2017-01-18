@@ -65,7 +65,6 @@ The object models provide the definition of the data that is stored in data stor
 A datastore implementation is used as the interface between the API and a data storage mechanism. There are several implementations written in node around a common interface.
 
 * **[datastore-base][datastore-base-repo]**: Common interface [![Version][datastore-base-npm-image]][datastore-base-npm-url]
-* **[datastore-dynamodb][datastore-dynamodb-repo]**: DynamoDB implementation [![Version][datastore-dynamodb-npm-image]][datastore-dynamodb-npm-url]
 * **[datastore-sequelize][datastore-sequelize-repo]**: Mysql, postgres, sqlite3 and mssql implementation [![Version][datastore-sequelize-npm-image]][datastore-sequelize-npm-url]
 
 ### Scms
@@ -132,10 +131,6 @@ We have some tools to help start out new repos for screwdriver:
 [datastore-base-repo]: https://github.com/screwdriver-cd/datastore-base
 [datastore-base-npm-image]: https://img.shields.io/npm/v/screwdriver-datastore-base.svg
 [datastore-base-npm-url]: https://npmjs.org/package/screwdriver-datastore-base
-
-[datastore-dynamodb-repo]: https://github.com/screwdriver-cd/datastore-dynamodb
-[datastore-dynamodb-npm-image]: https://img.shields.io/npm/v/screwdriver-datastore-dynamodb.svg
-[datastore-dynamodb-npm-url]: https://npmjs.org/package/screwdriver-datastore-dynamodb
 
 [datastore-sequelize-repo]: https://github.com/screwdriver-cd/datastore-sequelize
 [datastore-sequelize-npm-image]: https://img.shields.io/npm/v/screwdriver-datastore-sequelize.svg
