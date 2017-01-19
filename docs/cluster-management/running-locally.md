@@ -1,5 +1,5 @@
 # Running Locally
-You can run Screwdriver locally by using our sd-in-a-box tool.
+You can run Screwdriver locally by using our screwdriver-in-a-box tool.
 
 ## SD-in-a-Box
 This handy feature will bring up an entire Screwdriver instance (UI, API, and log store) locally for you to play with.
@@ -11,6 +11,7 @@ This handy feature will bring up an entire Screwdriver instance (UI, API, and lo
  - Python 2.6+
 
 Run the below command in your terminal to bring up a Screwdriver cluster locally.
+
 ```bash
 $ python <(curl https://raw.githubusercontent.com/screwdriver-cd/screwdriver/master/in-a-box.py)
 ```
@@ -53,11 +54,9 @@ services:
 
 You can make a local Docker image to use instead of one of these.
 
-We could do a blog post on locally building a docker image that extends one of the Screwdriver ones.
-
 To start up the SD-in-a-Box, execute the following command
 
-```
+```bash
 $ docker-compose -p screwdriver up
 ```
 
@@ -67,28 +66,31 @@ You can choose to replace a component with a local copy. This is incredibly help
 
 Modify the `docker-compose.yaml`, targeting the component you would like to replace. In the following snippet, we replace the API with a local source.
 
-   ```
-   services:
-     . . .
-     api:
-       # this "build" stanza replaces the default "image" setting
-       build:
-         context: ./relative/path/to/api_source
-         dockerfile: Dockerfile.local
-   ```
+```
+services:
+  api:
+    # this "build" stanza replaces the default "image" setting
+    build:
+      context: ./relative/path/to/api_source
+      dockerfile: Dockerfile.local
+  ui:
+    . . .
+  store:
+    . . .
+```
 
 To set your update, you'll need to rebuild the docker-compose services first.
 
-   ```
-   $ docker-compose build
-   ```
+```bash
+$ docker-compose build
+```
 
 Restart the local cluster to have your changes take effect.
 
-   ```
-   $ docker-compose -p screwdriver down
-   $ docker-compose -p screwdriver up
-   ```
+```bash
+$ docker-compose -p screwdriver down
+$ docker-compose -p screwdriver up
+```
 
 #### Caveats
 
@@ -114,7 +116,7 @@ In development mode, the UI hosts itself on port `4200` and assumes the API is s
 
 The following is a snippet that highlights the change you would make in the `config/environment.js`
 
-```
+```js
  . . .
  ENV.APP.SDAPI_HOSTNAME = 'http://11.22.33.44:8080';  // 8080 is the default. You can also change this
  return ENV;
@@ -122,7 +124,7 @@ The following is a snippet that highlights the change you would make in the `con
 
 The following snippet highlights the `docker-compose.yml` values that need to be modified to use your local UI instance along with the SD-in-a-box cluster.
 
-```yaml
+```
 version: '2'
 services:
   api:
@@ -161,6 +163,6 @@ services:
       - 8888:80    # Port 8888 is arbitrary. You can choose another if you prefer
     environment:
       URI: http://11.22.33.44:9001
-      ECOSYSTEM_STORE: http://10.73.202.183: 8888    # Tells the API where the store is hosted
+      ECOSYSTEM_STORE: http://10.73.202.183:8888    # Tells the API where the store is hosted
     . . .
 ```
