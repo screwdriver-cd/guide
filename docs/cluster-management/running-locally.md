@@ -1,5 +1,5 @@
 # Running Locally
-You can run Screwdriver locally by using our screwdriver-in-a-box tool.
+You can run Screwdriver locally by using our Screwdriver-in-a-box tool.
 
 ## SD-in-a-Box
 This handy feature will bring up an entire Screwdriver instance (UI, API, and log store) locally for you to play with.
