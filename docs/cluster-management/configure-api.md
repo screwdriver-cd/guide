@@ -96,28 +96,7 @@ ecosystem:
 
 ### Datastore Plugin
 
-To use DynamoDB, use [dynamodb](https://github.com/screwdriver-cd/datastore-dynamodb) plugin. To use Postgres, MySQL, and Sqlite, use [sequelize](https://github.com/screwdriver-cd/datastore-sequelize) plugin.
-
-#### DynamoDB
-Set these environment variables:
-
-| Environment name          | Required | Default Value     | Description                          |
-|:--------------------------|:---------|:------------------|:-------------------------------------|
-| DATASTORE_PLUGIN          | Yes      |                   | Set to `dynamodb`                    |
-| DATASTORE_DYNAMODB_PREFIX | No       | '' (empty string) | Prefix to add before all table names |
-| DATASTORE_DYNAMODB_ID     | Yes      |                   | AWS Access Key Id                    |
-| DATASTORE_DYNAMODB_SECRET | Yes      |                   | AWS Secret Access Key                |
-
-```yaml
-# config/local.yaml
-datastore:
-    plugin: dynamodb
-    dynamodb:
-        # Prefix to the table names
-        prefix: TABLE-PREFIX
-        accessKeyId: AWS-ACCESS-KEY-ID
-        secretAccessKey: AWS-SECRET-ACCESS-KEY
-```
+To use Postgres, MySQL, and Sqlite, use [sequelize](https://github.com/screwdriver-cd/datastore-sequelize) plugin.
 
 #### Sequelize
 Set these environment variables:
