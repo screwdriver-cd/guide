@@ -47,7 +47,7 @@ A collection of services that facilitate the workflow for continuous delivery pi
         to allow you to swap out the pieces that make sense for your infrastructure.
         Swap in Postgres for the Datastore or Jenkins for the Executor.
         You can even dynamically select an execution engine based on the needs of each pipeline.
-        For example, send golang builds to the kubernetes executor while your iOS builds got to a
+        For example, send golang builds to the kubernetes executor while your iOS builds go to a
         Jenkins execution farm.</p>
     </div>
 </div>
