@@ -11,11 +11,11 @@ File an issue if you think you've found a bug. Be sure to describe
 3. What actually occurred?
 4. Version, platform, etc. if possibly relevant.
 
-You can file all issues with Screwdriver in the [screwdriver repo][api-issues-url].
+You can file all issues with Screwdriver in the [screwdriver repo][api-issues-url]. We will update any issues we're working on with a daily summary. To see what we're currently working on, you can check out our [digital scrum board](https://github.com/screwdriver-cd/screwdriver/projects/4) in the Projects section in the [Screwdriver API repo][api-repo].
 
 ## Docs
 
-Documentation, READMEs, and examples are extremely important. Please help improve them and if you find a typo or notice a problem, please send a fix or say something.
+Documentation, READMEs, and examples are extremely important. Please help improve them and if you find a typo or notice a problem, feel free to send a fix or say something.
 
 ## Submitting Patches
 
@@ -23,11 +23,30 @@ Patches for fixes, features, and improvements are accepted through pull requests
 
 * Write good commit messages, in the present tense! (Add X, not Added X). Short title, blank line, bullet points if needed. Capitalize the first letter of the title or bullet item. No punctuation in the title.
 * Code must pass lint and style checks.
-* All external methods must be documented.
+* All external methods must be documented. Add README docs and/or user documentation in our [guide][guide-repo] when appropriate.
 * Include tests to improve coverage and prevent regressions.
 * Squash changes into a single commit per feature/fix. Ask if you're unsure how to discretize your work.
 
 Please ask before embarking on a large improvement so you're not disappointed if it does not align with the goals of the project or owner(s).
+
+### Commit Message Format
+
+We use [semantic-release](https://www.npmjs.com/package/semantic-release), which requires commit messages to be in this specific format: `<type>(<scope>): <subject>`
+
+* Types:
+  * feat (feature)
+  * fix (bug fix)
+  * docs (documentation)
+  * style (formatting, missing semi colons, …)
+  * refactor
+  * test (when adding missing tests)
+  * chore (maintain)
+* Scope: anything that specifies the scope of the commit. Can be blank or `*`
+* Subject: description of the commit. For **breaking changes** that require major version bump, add `BREAKING CHANGE` to the commit message.
+
+**Examples commit messages:**
+* Bug fix: `fix: Remove extra space`
+* Breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
 
 ## Feature Requests
 
