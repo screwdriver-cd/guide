@@ -9,7 +9,7 @@ Source Code is a specified SCM repository and branch that contains a `screwdrive
 
 ### Step
 
-A step is a named action that needs to be performed, usually a single shell command. If the command finishes with a non-zero exit code, the step is considered a failure.
+A step is a named action that needs to be performed, usually a single shell command. In essence, Screwdriver runs `/bin/sh` in your terminal then executes all the steps; in rare cases, different terminal/shell setups may have unexpected behavior. If the command finishes with a non-zero exit code, the step is considered a failure. Environment variables will be passed between steps, within the same job.
 
 ### Container
 
