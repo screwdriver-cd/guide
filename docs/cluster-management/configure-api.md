@@ -1,4 +1,4 @@
-## Managing the API
+# Managing the API
 
 ## Packages
 
@@ -47,6 +47,26 @@ auth:
         - robin
     admins:
         - batman
+```
+
+### Bookend Plugins
+
+You can globally configure which built-in bookend plugins will be used during a build. By default, `scm` is enabled to begin builds with a SCM checkout command.
+
+If you're looking to include a custom bookend in the API, please refer [here](#extending-the-docker-container).
+
+| Key | Default| Description |
+|:----|:-------|:------------|
+| BOOKENDS_SETUP | None | The ordered list of plugins to execute at the beginning of every build. Take the forms of `'["first", "second", ...]'` |
+| BOOKENDS_TEARDOWN | None | The ordered list of plugins to execute at the end of every build. Take the forms of `'["first", "second", ...]'` |
+
+
+```yaml
+# config/local.yaml
+bookends:
+    setup:
+        - scm
+        - my-custom-bookend
 ```
 
 ### Serving
@@ -224,4 +244,57 @@ scm:
     bitbucket:
         oauthClientId: YOUR-APP-KEY
         oauthClientSecret: YOUR-APP-SECRET
+```
+
+## Extending the Docker container
+
+There are some scenarios where you would prefer to extend the Screwdriver.cd Docker image, such as using custom Bookend plugins. This section is not meant to be exhaustive or complete, but will provide insight into some of the fundamental cases.
+
+### Using a custom bookend
+
+Using a custom bookend is a common case where you would extend the Screwdriver.cd Docker image.
+
+In this chosen example, we want to have our bookend execute before the `scm` (which checks out the code from the configured SCM). Although the bookend plugins can be configured by environment variables, we will show how to accomplish the same task with a `local.yaml` file.
+
+This is shown in the following `local.yaml` snippet:
+
+```yaml
+# local.yaml
+---
+  ...
+bookends:
+  setup:
+    - my-custom-bookend
+    - scm
+```
+
+For building our extended Docker image, we will need to create a `Dockerfile` that will have our extra dependencies installed. If you would prefer to save the `local.yaml` configuration file in the Docker image instead of mounting it in later, you may do so in the Dockerfile as well.
+
+```dockerfile
+# Dockerfile
+FROM screwdrivercd/screwdriver:stable
+
+# Install additional NPM bookend plugin
+RUN cd /usr/src/app && /usr/local/bin/npm install my-custom-bookend
+
+# Optionally save the configuration file in the image
+ADD local.yaml /config/local.yaml
+```
+
+Once you build the Docker image, you will need to deploy it to your Screwdriver.cd cluster. For instance, if you're using Kubernetes, you would replace the `screwdrivercd/api:stable` image to your custom Docker image.
+
+The following is an example snippet of an updated Kubernetes deployment configuration:
+
+```yaml
+# partial Kubernetes configuration
+  ...
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: screwdriver-api
+        # The image name is the one you specified when built
+        # The tag name is the tag you specified when built
+        image: my_extended_docker_image_name:tag_name
 ```
