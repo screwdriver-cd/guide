@@ -220,6 +220,7 @@ Set these environment variables:
 | SECRET_OAUTH_CLIENT_SECRET | Yes                       |               | You OAuth Client secret (Application secret) |
 | WEBHOOK_GITHUB_SECRET      | Yes for Github            |               | Secret to sign for webhooks                  |
 | SCM_GITHUB_GHE_HOST        | Yes for Github Enterprise |               | GHE host for Github Enterprise               |
+| SCM_PRIVATE_REPO_SUPPORT   | No                        | false         | Ask Github users for 'repo' scope to allow read/write access to public and private repo |
 
 
 ##### Github:
