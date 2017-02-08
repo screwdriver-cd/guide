@@ -221,6 +221,8 @@ Set these environment variables:
 | WEBHOOK_GITHUB_SECRET      | Yes for Github            |               | Secret to sign for webhooks                  |
 | SCM_GITHUB_GHE_HOST        | Yes for Github Enterprise |               | GHE host for Github Enterprise               |
 | SCM_PRIVATE_REPO_SUPPORT   | No                        | false         | Ask Github users for 'repo' scope to allow read/write access to public and private repo |
+| SCM_USERNAME               | No                        | sd-buildbot   | Username for checkout                        |
+| SCM_EMAIL                  | No                        | dev-null@screwdriver.cd | Email of user for checkout         |
 
 
 ##### Github:
