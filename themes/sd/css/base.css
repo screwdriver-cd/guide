@@ -1,5 +1,11 @@
+html {
+    height: 100%;
+}
+
 body {
     padding-top: 70px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -110,6 +116,10 @@ footer {
     font-weight: 300;
     font-size: 11px;
     line-height: 11px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 footer p {
     height: 11px;
