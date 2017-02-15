@@ -237,7 +237,11 @@ scm:
         secret: SUPER-SECRET-SIGNING-THING
         # You can also configure for use with GitHub enterprise
         # gheHost: github.screwdriver.cd
+        # Whether to support private repo
+        # privateRepo: true
 ```
+
+If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../user-guide/configuration/secrets.md) in their `screwdriver.yaml`.
 
 ##### Bitbucket.org
 ```yaml
