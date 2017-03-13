@@ -18,7 +18,11 @@ You can access information about properties by hovering over the property name.
             - <span class="value">validate-west</span></a>
 <a href="#shared"><span class="key">shared</span>:</a>
     <a href="#environment"><span class="key">environment</span>:
-        <span class="key">NODE_ENV</span>: <span class="value">test</span></a>
+    <span class="key">NODE_ENV</span>: <span class="value">test</span></a>
+    <a href="#settings"><span class="key">settings</span>:</a>
+        <a href="#email"><span class="key">email</span>:
+    <span class="key">addresses</span>: <span class="value">[test@email.com, test2@email.com]</span>
+    <span class="key">statuses</span>: <span class="value">[SUCCESS, FAILURE]</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
     <a href="#main-job"><span class="key">main</span>:</a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:{{NODE_VERSION}}</span></a>
@@ -53,6 +57,14 @@ You can access information about properties by hovering over the property name.
         <div id="environment" class="hidden">
             <h4>Environment</h4>
             <p>A set of key/value pairs for environment variables that need to be set. Any configuration that is valid for a job configuration is valid in shared, but will be overridden by specific job configurations.</p>
+        </div>
+        <div id="settings" class="hidden">
+            <h4>Settings</h4>
+            <p>Configurable settings for any additional build plugins added to Screwdriver.cd.</p>
+        </div>
+        <div id="email" class="hidden">
+            <h4>Email</h4>
+            <p>Emails addresses to send notifications to and statuses to send notifications for.</p>
         </div>
         <div id="jobs" class="hidden">
             <h4>Jobs</h4>

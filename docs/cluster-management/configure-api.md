@@ -193,6 +193,21 @@ executor:
         launchVersion: stable
 ```
 
+### Email Notifications
+
+Configure the SMTP server and sender address that email notifications will be sent from.
+
+```yaml
+# config/local.yaml
+notifications:
+    email:
+        host: smtp.yourhost.com
+        port: 25
+        from: example@email.com
+```
+
+Configurable authentication settings have not yet been built, but can easily be added. We’re using the <a href="https://nodemailer.com/about/">nodemailer</a> package to power emails, so authentication features will be similar to any typical nodemailer setup. Contribute at: <a href="https://github.com/screwdriver-cd/notifications-email">https://github.com/screwdriver-cd/notifications-email</a>
+
 ### Source Control Plugin
 
 We currently support [Github](https://github.com/screwdriver-cd/scm-github) and [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)
