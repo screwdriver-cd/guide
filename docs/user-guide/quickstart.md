@@ -46,7 +46,7 @@ workflow:
 #### Shared
 The `shared` section is where you would define any attributes that all your jobs will inherit.
 
-In our example, we state that all our jobs will run in the same Docker container image "buildpack-deps". The `image` is usually defined in the form of "repo_name". Alternatively, you can define the image as "repo_name:tag_label", where "tag_label" is a version. See the [Docker documentation](https://docs.docker.com/engine/reference/commandline/pull/#/pull-an-image-from-docker-hub) for more information.
+In our example, we state that all our jobs will run in the same Docker container image "buildpack-deps". The `image` is usually defined in the form of "repo_name". Alternatively, you can define the image as "repo_name:tag_label", where "tag_label" is a version. See the [Docker documentation](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-from-docker-hub) for more information.
 
 ```yaml
 # Shared definition block
