@@ -77,14 +77,14 @@ An event represents a commit or a manual restart of a [pipeline]. There are 2 ty
 
 ### Metadata
 
-Metadata is a structured key/value storage of relevant information about a [build]. This is automatically populated with basic information like git SHA1 and start/stop time. It can be updated throughout the job by using the built-in CLI (`meta`).
+Metadata is a structured key/value storage of relevant information about a [build]. Metadata will be shared with subsequent builds in the same [workflow]. It can be updated or retrieved throughout the build by using the built-in CLI ([meta](https://github.com/screwdriver-cd/meta-cli)) in the [steps].
 
 Example:
 ```bash
-$ meta set meta.coverage 99.95
-$ meta get meta.coverage
+$ /opt/sd/meta set meta.coverage 99.95
+$ /opt/sd/meta get meta.coverage
 99.95
-$ meta get --json meta
+$ /opt/sd/meta get meta
 {"coverage":99.95}
 ```
 
