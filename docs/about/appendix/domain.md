@@ -81,10 +81,10 @@ Metadata is a structured key/value storage of relevant information about a [buil
 
 Example:
 ```bash
-$ /opt/sd/meta set meta.coverage 99.95
-$ /opt/sd/meta get meta.coverage
+$ meta set example.coverage 99.95
+$ meta get example.coverage
 99.95
-$ /opt/sd/meta get meta
+$ meta get example
 {"coverage":99.95}
 ```
 
