@@ -1,8 +1,8 @@
 # Setting Up a Screwdriver Cluster on AWS using Kubernetes
-You can setup a Screwdriver cluster using [Kubernetes](http://kubernetes.io/docs/whatisk8s/).
+We'll go over how to set up a Screwdriver cluster on AWS using Kubernetes, Github, and a Postgres database. You can setup a Screwdriver cluster using [Kubernetes](http://kubernetes.io/docs/whatisk8s/).
 
 ## Screwdriver cluster
-A Screwdriver cluster consists of a Kubernetes cluster running the Screwdriver API. The Screwdriver API modifies Screwdriver tables in DynamoDB.
+A Screwdriver cluster consists of a Kubernetes cluster running the Screwdriver API. The Screwdriver API modifies Screwdriver tables in AWS RDS.
 
 ![Cluster setup architecture](./assets/cluster-setup-architecture.png)
 
@@ -12,28 +12,29 @@ A Screwdriver cluster consists of a Kubernetes cluster running the Screwdriver A
 - [AWS CLI](https://aws.amazon.com/cli/)
 
 ## Create your Kubernetes cluster
-Follow instructions at [Getting Started with AWS](http://kubernetes.io/docs/getting-started-guides/aws/).
+Follow instructions at [Running Kubernetes on AWS EC2](http://kubernetes.io/docs/getting-started-guides/aws/).
 
 
-## Setup Kubernetes secrets
-A [Secret](http://kubernetes.io/docs/user-guide/secrets/) is an object that contains a small amount of sensitive data such as a password, a token, or a key. You will need to setup secrets for Screwdriver for your cluster to work properly.
+## Setup Screwdriver secrets
+After creating your Kubernetes cluster, you'll need to populate it with some secrets that will give you access to your database and Github.
+A [Secret](http://kubernetes.io/docs/user-guide/secrets/) is an object that contains a small amount of sensitive data such as a password, token, or key.
 
-First, you will need to gather some secrets. Directions for getting your secrets are below.
-:
+Here's a list of secrets we will need:
 
-| Secret Key        | Required | Description |
-| :------------- |:-------------| :-------------|
-| DATASTORE_DYNAMODB_ID | No | AWS Access Key ID |
-| DATASTORE_DYNAMODB_SECRET | No | AWS Secret Access Key |
-| SECRET_OAUTH_CLIENT_ID | Yes | The client ID used for [OAuth](https://developer.github.com/v3/oauth) with Github |
-| SECRET_OAUTH_CLIENT_SECRET | Yes | The client secret used for OAuth with github |
-| SECRET_JWT_PRIVATE_KEY | Yes | A private key used for signing JWT tokens. |
-| SECRET_JWT_PUBLIC_KEY | Yes | A public key used for signing JWT tokens. |
-| WEBHOOK_GITHUB_SECRET | Yes | Secret to add to GitHub webhooks so that we can validate them |
-| SECRET_PASSWORD | Yes | A password used for encrypting session, and OAuth data. Can be anything. **Needs to be minimum 32 characters** |
-| K8S_TOKEN | Yes | Your Kubernetes <DEFAULT_TOKEN_NAME> |
+| Secret Key            | Description |
+| :-------------------- | :-------------|
+| SECRET_JWT_PRIVATE_KEY | A private key used for signing JWT tokens |
+| SECRET_JWT_PUBLIC_KEY | A public key used for signing JWT tokens |
+| DATASTORE_SEQUELIZE_DATABASE | SQL database name |
+| DATASTORE_SEQUELIZE_USERNAME | SQL database username |
+| DATASTORE_SEQUELIZE_PASSWORD | SQL database password |
+| SECRET_OAUTH_CLIENT_ID | The client ID used for [OAuth](https://developer.github.com/v3/oauth) with Github |
+| SECRET_OAUTH_CLIENT_SECRET | The client secret used for OAuth with github |
+| WEBHOOK_GITHUB_SECRET | Secret to add to GitHub webhooks so that we can validate them |
+| SECRET_PASSWORD | A password used for encrypting session, and OAuth data. Can be anything. **Needs to be minimum 32 characters** |
+| K8S_TOKEN | Your Kubernetes <DEFAULT_TOKEN_NAME> |
 
-### Generate your JWT keys
+### Generate JWT keys
 To generate a `jwtprivatekey`, run:
 
 `$ openssl genrsa -out jwt.pem 2048`
@@ -41,19 +42,6 @@ To generate a `jwtprivatekey`, run:
 To generate a `jwtpublickey`, run:
 
 `$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
-
-### Get your DynamoDB secrets
-To get your `dynamodbid` and `dynamodbsecret`:
-
-1. Navigate to [IAM](https://console.aws.amazon.com/iam) in your AWS console
-
-2. Click on Users, and create a Screwdriver user. We recommend installing using an account which has read/write access to AWS DynamoDB. _For information on how to create an AWS DynamoDB policy, see [Policy Examples](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/using-identity-based-policies.html#access-policy-examples-for-sdk-cli.example1)._
-
-3. Select the `Security Credentials` tab
-
-4. Click `Create Access Key`
-
-5. Download the file and keep note of those values for your `dynamodbid` and `dynamodbsecret`.
 
 ### Get your OAuth Client ID and Secret
 
@@ -67,14 +55,42 @@ To get your `dynamodbid` and `dynamodbsecret`:
 
 You should see a `Client ID` and `Client Secret`, which will be used for your `oauthclientid` and `oauthclientsecret`, respectively.
 
+### Create a datastore
+To get your SQL datastore secrets, set up a datastore with [AWS RDS](https://us-west-2.console.aws.amazon.com/rds).
+
+1. Navigate to [AWS RDS](https://us-west-2.console.aws.amazon.com/rds). Click on Launch a DB Instance.
+
+    ![AWS RDS page](./assets/launch-db.png)
+
+2. Select the `PostgreSQL` tab. Click Select.
+
+    ![Select engine](./assets/select-db-engine.png)
+
+3. Choose an environment (Production or Dev/Test) and click Next Step.
+
+    ![Select environment](./assets/select-db-env.png)
+
+4. Fill out the DB Instance Identifier (`DATASTORE_SEQUELIZE_DATABASE`), Master Username (`DATASTORE_SEQUELIZE_USERNAME`), Master Password (`DATASTORE_SEQUELIZE_PASSWORD`), and Confirm Password. Click Next Step.
+
+    ![Configure details](./assets/db-details.png)
+
+4. Add a Database Name. Make sure the VPC Security Group chosen gives inbound access to all IPs. Click Launch DB Instance.
+
+    ![Configure settings](./assets/db-settings.png)
+
+5. Click View Your DB Instances. Click on the small triangle next to the Engine column on your DB instance row to open up the details. Your endpoint will be your Database host name.
+
+    ![Host name](./assets/db-hostname.png)
+
+
 ### Base64 encode your secrets
 Each secret must be [base64 encoded](http://kubernetes.io/docs/user-guide/secrets/#creating-a-secret-manually). You must base64 encode each of your secrets:
 
 ```bash
 $ echo -n "somejwtprivatekey" | base64
 c29tZWp3dHByaXZhdGVrZXk=
-$ echo -n "1f2d1e2e67df" | base64
-MWYyZDFlMmU2N2Rm
+$ echo -n "anypassword" | base64
+YW55cGFzc3dvcmQ=
 ```
 
 ### Setting up secrets in Kubernetes
@@ -90,14 +106,15 @@ metadata:
 type: Opaque
 data:
   # make sure the values are all base64 encoded
-  dynamodbid: someid
-  dynamodbsecret: somesecret
-  password: MWYyZDFlMmU2N2Rm
-  oauthclientid: someclientid
-  oauthclientsecret: someclientsecret
+  dbhost: ZGJob3N0bmFtZWhlcmU=
+  dbusername: bXlkYXRhYmFzZQ==
+  dbpassword: c29tZXBhc3N3b3Jk
+  password: YW55cGFzc3dvcmQ=
+  oauthclientid: c29tZWNsaWVudGlk
+  oauthclientsecret: c29tZWNsaWVudHNlY3JldA==
   jwtprivatekey: c29tZWp3dHByaXZhdGVrZXk=
-  jwtpublickey: somejwtpublickey
-  githubsecret: somegithubsecret
+  jwtpublickey: c29tZWp3dHB1YmxpY2tleQ==
+  githubsecret: c29tZWdpdGh1YnNlY3JldA==
 ```
 
 Create the secrets using `kubectl create`:
@@ -111,7 +128,7 @@ Other environment variables can also be customized for Screwdriver. For a full l
 
 
 ## Deploy Screwdriver
-You can check out the `api.yaml` in the [Screwdriver config examples repo](https://github.com/screwdriver-cd-test/config-examples) for service and deployment definitions to run the Screwdriver API.
+You can check out the `api.yaml` in the [Screwdriver config examples repo](https://github.com/screwdriver-cd-test/config-examples) for example service and deployment definitions to run the Screwdriver API.
 
 ### Create a Service
 A Kubernetes Service is an abstraction which defines a set of Pods and is assigned a unique IP address which persists.
