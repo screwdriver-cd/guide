@@ -148,7 +148,7 @@ footer .container > div:last-child {
     background-size: cover;
 }
 .navbar-brand {
-    background: transparent url('/img/sd_logo.png') no-repeat;
+    background: transparent url('/svg/Screwdriver_Logo_White.svg') no-repeat;
     background-size: contain;
     direction: ltr;
     text-indent: -9000px;
