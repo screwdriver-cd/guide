@@ -1,5 +1,5 @@
 <div class="top">
-    <img src="/assets/sd_icon.png">
+    <img src="/assets/Screwdriver_Icon_Full@1x.png">
     <h1>Welcome to Screwdriver!</h1>
     <p>We've split documentation into 3 distinct sections:</p>
 </div>
