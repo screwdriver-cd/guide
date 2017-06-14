@@ -42,13 +42,13 @@ Here is a snippet of the `docker-compose.yml` file
 version: '2'
 services:
   api:
-    image: screwdriver-cd/screwdriver:stable
+    image: screwdrivercd/screwdriver:stable
     . . .
   ui:
-    image: screwdriver-cd/ui:stable
+    image: screwdrivercd/ui:stable
     . . .
   store:
-    image: screwdriver-cd/store:stable
+    image: screwdrivercd/store:stable
     . . .
 ```
 
