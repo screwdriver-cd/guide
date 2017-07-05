@@ -29,6 +29,7 @@ pages:
             - Secrets: 'user-guide/configuration/secrets.md'
         - Environment Variables: 'user-guide/environment-variables.md'
         - API: 'user-guide/api.md'
+        - FAQ: 'user-guide/FAQ.md'
     - About:
         - What is Screwdriver?: 'about/index.md'
         - Appendix:
