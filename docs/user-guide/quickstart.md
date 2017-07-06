@@ -18,7 +18,7 @@ $ git clone git@github.com:<YOUR_USERNAME_HERE>/quickstart-generic.git
 $ cd quickstart-generic/
 ```
 
-*For applications that are better suited to Makefiles and small scripts, we recommend referencing the generic `screwdriver.yaml`.
+*For applications that are better suited to Makefiles and small scripts, we recommend referencing the generic `screwdriver.yaml`.*
 
 ## Developing the App
 
@@ -63,7 +63,7 @@ The `steps` section contains a list of commands to execute.
 Each step takes the form "step_name: command_to_run". The "step_name" is a convenient label to reference it by. The
 "command_to_run" is the single command that is executed during this step. Step names cannot start with `sd-`, as those steps are reserved for Screwdriver steps. Environment variables will be passed between steps, within the same job. In essence, Screwdriver runs `/bin/sh` in your terminal then executes all the steps; in rare cases, different terminal/shell setups may have unexpected behavior.
 
-In our example, our "main" job executes a simple piece of inline bash code. The first step (`export`) exports an environment variable, `GREETING="Hello, world!"`. The second step (`hello`) echoes the environment variable from the first step.
+In our example, our "main" job executes a simple piece of inline bash code. The first step (`export`) exports an environment variable, `GREETING="Hello, world!"`. The second step (`hello`) echoes the environment variable from the first step. The third step uses [metadata](./configuration/metadata.md), a structured key/value storage of relevant information about a build, to set an arbitrary key in the "main" job and get it in the "second_job".
 
 We also define another job called "second_job". In this job, we intend on running a different set of commands. The "make_target" step calls a Makefile target to perform some set of actions. This is incredibly useful when you need to perform a multi-line command.
 The "run_arbitrary_script" executes a script. This is an alternative to a Makefile target where you want to run a series of commands related to this step.
@@ -77,9 +77,11 @@ jobs:
     steps:
       - export: export GREETING="Hello, world!"
       - hello: echo $GREETING
+      - set-metadata: meta set example.coverage 99.95
   second_job:
     steps:
       - make_target: make greetings
+      - get-metadata: meta get example
       - run_arbitrary_script: ./my_script.sh
 ```
 
