@@ -26,6 +26,7 @@ pages:
         - Authentication and Authorization: 'user-guide/authentication-authorization.md'
         - Configuration:
             - Overall: 'user-guide/configuration/index.md'
+            - Metadata: 'user-guide/configuration/metadata.md'
             - Secrets: 'user-guide/configuration/secrets.md'
         - Environment Variables: 'user-guide/environment-variables.md'
         - API: 'user-guide/api.md'
