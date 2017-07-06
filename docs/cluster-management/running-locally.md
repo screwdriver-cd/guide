@@ -1,3 +1,17 @@
+---
+layout: main
+title: Running Locally
+category: Cluster Management
+menu: menu
+toc: 
+    - title: Running Locally
+      url: "#running-locally"
+      active: true
+    - title: SD-in-a-Box
+      url: "#sd-in-a-box"
+    - title: Configuring SD-in-a-Box
+      url: "#configuring-sd-in-a-box"
+---
 # Running Locally
 You can run Screwdriver locally by using our Screwdriver-in-a-box tool.
 
@@ -18,7 +32,7 @@ $ python <(curl https://raw.githubusercontent.com/screwdriver-cd/screwdriver/mas
 
 You will be prompted to enter your Client ID and Client Secret. Afterwards, type `y` to launch Screwdriver!
 
-![SD-in-a-box](assets/sd-in-a-box.png)
+![SD-in-a-box](./assets/sd-in-a-box.png)
 
 [docker]: https://www.docker.com/products/docker
 [docker-compose]: https://www.docker.com/products/docker-compose

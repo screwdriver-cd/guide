@@ -1,3 +1,10 @@
+---
+layout: main
+title: Home
+category: Home
+menu: menu
+is_homepage: true
+---
 <div class="top">
     <img src="/assets/Screwdriver_Icon_Full@1x.png">
     <h1>Welcome to Screwdriver!</h1>

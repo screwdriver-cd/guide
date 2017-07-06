@@ -1,3 +1,17 @@
+---
+layout: main
+title: Configuring the Store
+category: Cluster Management
+menu: menu
+toc: 
+    - title: Managing the User Interface
+      url: "#managing-the-user-interface"
+      active: true
+    - title: Packages
+      url: "#packages"
+    - title: Configuration
+      url: "#configuration"
+---
 # Managing the Store
 
 ## Packages

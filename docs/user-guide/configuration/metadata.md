@@ -1,3 +1,16 @@
+---
+layout: main
+title: Metadata
+category: User Guide
+menu: menu
+toc:
+    - title: Metadata
+      url: "#metadata"
+    - title: What is Metadata?
+      url: "#what-is-metadata"
+    - title: Manipulating Metadata
+      url: "#manipulating-metadata"
+---
 # Metadata
 
 ## What is Metadata?

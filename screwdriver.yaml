@@ -2,19 +2,19 @@ workflow:
     - deploy
 
 shared:
-    image: python:2
+    image: ruby:2
 
 jobs:
   main:
     steps:
-      - init: pip install -r requirements.txt
-      - validate: markdownlint docs/
-      - build: mkdocs build
+      - bundle_install: bundle install
+      - build: bundle exec jekyll build --source docs --destination _site
 
   deploy:
       steps:
           - setup-ci: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
-          - init: pip install -r requirements.txt
+          - bundle_install: bundle install
+          - build: bundle exec jekyll build --source docs --destination _site
           - deploy: ./deploy.sh
       secrets:
           # Pushing tags to Git

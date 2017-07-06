@@ -1,6 +1,21 @@
+---
+layout: main
+title: Templates
+category: User Guide
+menu: menu
+toc:
+    - title: Templates
+      url: "#templates"
+    - title: Using a template
+      url: "#using-a-template"
+    - title: Creating a template
+      url: "#creating-a-template"
+    - title: Finding templates
+      url: "#finding-templates"
+---
 # Templates
 
-Templates are snippets of predefined code that people can use to replace a job definition in a [screwdriver.yaml](./configuration/index.md). A template contains a series of predefined steps along with a selected Docker image.
+Templates are snippets of predefined code that people can use to replace a job definition in a [screwdriver.yaml](./configuration). A template contains a series of predefined steps along with a selected Docker image.
 
 ## Using a template
 
@@ -115,4 +130,4 @@ To update a Screwdriver template, make changes in your SCM repository and rerun 
 
 ## Finding templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api.md) for more information.
+To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api) for more information.

@@ -1,4 +1,2 @@
-site
-
-# For ignoring the python virtualenv
-venv
+_site
+.jekyll-metadata

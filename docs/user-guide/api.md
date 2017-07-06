@@ -1,3 +1,21 @@
+---
+layout: main
+title: API
+category: User Guide
+menu: menu
+toc: 
+    - title: API
+      url: "#api"
+      active: true
+    - title: Using the API
+      url: "#using-the-api"
+    - title: Authorization and Authentication
+      url: "#authorization-and-authentication"
+    - title: Design
+      url: "#design"
+    - title: Make Your Own
+      url: "#make-your-own"
+---
 # API
 
 Screwdriver APIs and the data models around them are documented via [Swagger]. This prevents out-of-date documentation, enables clients to be auto-generated, and most importantly exposes a human-readable interface.
@@ -11,10 +29,10 @@ Our API documentation can be found at [api.screwdriver.cd/v4/documentation](http
 Swagger documentation includes examples and editable parameters to play around with. Visit the `/v4/documentation` page and use the interactive `Try it out!` buttons to make calls to our API.
 
 Swagger page:
-![Swagger page](assets/swagger-page.png)
+![Swagger page](./assets/swagger-page.png)
 
 Response:
-![Swagger response](assets/swagger-response.png)
+![Swagger response](./assets/swagger-response.png)
 
 ### With a REST Client
 Use a REST client like [Postman] to make requests against the API. You will need an authorization token. To get an authorization token, login using `/v4/auth/login` and copy the token value when redirected to `/v4/auth/token`. See the [Authorization and Authentication](#authorization-and-authentication) section for more information.
@@ -26,7 +44,7 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 ```
 
 Example request:
-![Postman response](assets/postman.png)
+![Postman response](./assets/postman.png)
 
 For more information and examples, check out our [API documentation](https://api.screwdriver.cd/v4/documentation).
 

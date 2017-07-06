@@ -1,21 +1,20 @@
 ---
 layout: main
-title: Overall
+title: 全体
 category: User Guide
-menu: menu
-toc: 
-    - title: Yaml Configuration
-      url: "#yaml-configuration"
-      active: true
+menu: menu_ja
+toc:
+- title: Yaml設定
+  url: "#yaml設定"
+  active: 'true'
 ---
 
-# Yaml Configuration
+# Yaml設定
 
-This is an interactive guide for exploring various important properties of the screwdriver.yaml configuration for projects.
+ここではscrewdriver.yamlの主要な設定についてインタラクティブに紹介します。
 
-You can access information about properties by hovering over the property name.
+各プロパティ名にマウスカーソルを乗せるとそれらの説明が表示されます。
 
-_Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
 
 <div class="yaml-docs">
 
@@ -60,16 +59,16 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
     <div class="yaml-side">
         <div id="workflow" class="hidden">
             <h4>Workflow</h4>
-            <p>Defines the order of jobs that are executed for the project. All jobs referenced by the workflow must be defined in the jobs section.</p>
-            <p>Jobs can execute in parallel, in series, or in any combination of the two, per this example. Special keywords <strong><em>parallel</em></strong> and <strong><em>series</em></strong> define the flow of the jobs. By default, the jobs in the workflow list are run in series after <em>main</em> job has completed successfully.</p>
+            <p>パイプラインで実行されるジョブの順番を定義します。workflowで参照される全てのジョブはjosセクションに定義されている必要があります。</p>
+            <p>ジョブの実行は並列、順次、またはこの例のように両者の組み合わせも可能です。特別なキーワード <strong><em>parallel</em></strong> と <strong><em>series</em></strong> によりジョブのフローを定義できます。 デフォルトではworkflow内のジョブは<em>main</em>ジョブの成功後に順次実行されます。</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
-            <p>Defines a global configuration that applies to all jobs. Shared configurations are merged with each job, but may be overridden by more specific configuration in a specific job.</p>
+            <p>全てのジョブの適用されるグローバル設定を定義します。Sharedの設定は各ジョブにマージされますが、それぞれのジョブで更に設定が行われている場合はその設定により上書きされます。</p>
         </div>
         <div id="environment" class="hidden">
             <h4>Environment</h4>
-            <p>A set of key/value pairs for environment variables that need to be set. Any configuration that is valid for a job configuration is valid in shared, but will be overridden by specific job configurations.</p>
+            <p>ビルドに必要な環境変数のキーと値の組み合わせです。ジョブに設定できる全ての設定はSharedにも設定できますが、ジョブの設定により上書きされます。</p>
         </div>
         <div id="settings" class="hidden">
             <h4>Settings</h4>
@@ -81,23 +80,23 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         </div>
         <div id="jobs" class="hidden">
             <h4>Jobs</h4>
-            <p>A series of jobs that define the behavior of your builds.</p>
+            <p>ビルドの挙動を定義するジョブのリストです。</p>
         </div>
         <div id="main-job" class="hidden">
             <h4>Main</h4>
-            <p>The only required job. This job is executed automatically whenever there is a code change.</p>
+            <p>唯一の必須ジョブです。このジョブはコードに変更が行われた際に自動的に実行されます。</p>
         </div>
         <div id="image" class="hidden">
             <h4>Image</h4>
-            <p>This defines the docker image(s) used for the builds. This example shows a template replacement, where a variable is enclosed in curly braces, e.g. {{NODE_VERSION}}. This variable will be changed to the value(s) of the equivalent variable in the matrix setting, resulting in multiple builds running in parallel, each using one of those various images.</p>
+            <p>ビルドで利用されるDockerイメージを指定します。この例ではテンプレートを使用しており、{{NODE_VERSION}}のように波括弧で囲まれた変数が展開されます。 この変数はmatrixで指定されている値に変更され、それら複数のイメージを利用したビルドが並列に実行されます。</p>
         </div>
         <div id="matrix" class="hidden">
             <h4>Matrix</h4>
-            <p>This causes the builds for the job to execute on multiple images in parallel, when used a templated image configuration.</p>
+            <p>image設定にテンプレートが利用されている場合、そのジョブのビルドが複数のイメージを利用して並列に実行されます。</p>
         </div>
         <div id="steps" class="hidden">
             <h4>Steps</h4>
-            <p>Defines the explicit list of commands that are executed in the build, just as if they were entered on the command line. Environment variables will be passed between steps, within the same job. Step definitions are required for all jobs. Step names cannot start with `sd-`, as those steps are reserved for Screwdriver steps. In essence, Screwdriver runs `/bin/sh` in your terminal then executes all the steps; in rare cases, different terminal/shell setups may have unexpected behavior.</p>
+            <p>コマンドラインで入力するように、ビルドで実行されるコマンドのリストを定義します。同じジョブ内では、環境変数はステップ間で受け渡されます。ステップの定義は全てのジョブに必須です。Screwdriverのステップとして予約語になっているため、ステップ名を'sd-'で始めることはできません。Screwdriverは'/bin/sh'をステップ実行のために使用するため、異なるターミナルやシェルを使用すると予期せぬ振る舞いをするかもしれません。</p>
         </div>
     </div>
 </div>

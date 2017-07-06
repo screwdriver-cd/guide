@@ -1,3 +1,19 @@
+---
+layout: main
+title: Configuring the API
+category: Cluster Management
+menu: menu
+toc: 
+    - title: Managing the API
+      url: "#managing-the-api"
+      active: true
+    - title: Packages
+      url: "#packages"
+    - title: Configuration
+      url: "#configuration"
+    - title: Extending the Docker container
+      url: "#extending-the-docker-container"
+---
 # Managing the API
 
 ## Packages
@@ -252,7 +268,7 @@ scm:
         # privateRepo: true
 ```
 
-If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../user-guide/configuration/secrets.md) in their `screwdriver.yaml`.
+If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
 
 ##### Bitbucket.org
 ```yaml
