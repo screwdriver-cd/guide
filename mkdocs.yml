@@ -23,12 +23,13 @@ pages:
             - Kubernetes: 'cluster-management/kubernetes.md'
     - User Guide:
         - Quickstart: 'user-guide/quickstart.md'
+        - API: 'user-guide/api.md'
         - Authentication and Authorization: 'user-guide/authentication-authorization.md'
         - Configuration:
             - Overall: 'user-guide/configuration/index.md'
             - Secrets: 'user-guide/configuration/secrets.md'
         - Environment Variables: 'user-guide/environment-variables.md'
-        - API: 'user-guide/api.md'
+        - Templates: 'user-guide/templates.md'
         - FAQ: 'user-guide/FAQ.md'
     - About:
         - What is Screwdriver?: 'about/index.md'
