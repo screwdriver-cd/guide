@@ -77,7 +77,7 @@ An event represents a commit or a manual restart of a [pipeline]. There are 2 ty
 
 ### Metadata
 
-Metadata is a structured key/value storage of relevant information about a [build]. Metadata will be shared with subsequent builds in the same [workflow]. It can be updated or retrieved throughout the build by using the built-in CLI ([meta](https://github.com/screwdriver-cd/meta-cli)) in the [steps].
+Metadata is a structured key/value storage of relevant information about a [build]. Metadata will be shared with subsequent builds in the same [workflow]. It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps].
 
 Example:
 ```bash
@@ -87,6 +87,8 @@ $ meta get example.coverage
 $ meta get example
 {"coverage":99.95}
 ```
+
+See the [metadata page](../../user-guide/configuration/metadata.md) for more information.
 
 ### Workflow
 

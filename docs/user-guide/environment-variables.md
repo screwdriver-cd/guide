@@ -2,6 +2,8 @@
 
 Screwdriver exports a set of environment variables that you can rely on during the course of a build.
 
+_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./configuration/metadata.md)._
+
 ## Build Specific
 | Name | Value |
 |------|-------|
