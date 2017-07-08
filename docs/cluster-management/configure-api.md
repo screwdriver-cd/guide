@@ -22,8 +22,6 @@ Configure how users can and who can access the API.
 |:-----------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------|
 | SECRET_JWT_PRIVATE_KEY | Yes      | A private key uses for signing jwt tokens. Generate one by running `$ openssl genrsa -out jwt.pem 2048`                   |
 | SECRET_JWT_PUBLIC_KEY  | Yes      | The public key used for verifying the signature. Generate one by running `$ openssl rsa -in jwt.pem -pubout -out jwt.pub` |
-| SECRET_ACCESS_KEY      | No       | The access token to use on behalf of a user to access the API. Used as an alternative to the OAuth flow                   |
-| SECRET_ACCESS_USER     | No       | The user name associated with the temporary access token. Used as a means of functionally testing the API                 |
 | SECRET_COOKIE_PASSWORD | Yes      | A password used for encrypting session data. **Needs to be minimum 32 characters**                                        |
 | SECRET_PASSWORD        | Yes      | A password used for encrypting stored secrets. **Needs to be minimum 32 characters**                                      |
 | IS_HTTPS               | No       | A flag to set if the server is running over https. Used as a flag for the OAuth flow (default to `false`)                 |
@@ -37,8 +35,6 @@ auth:
         PRIVATE KEY HERE
     jwtPublicKey: |
         PUBLIC KEY HERE
-    temporaryAccessKey: 2e422dca8345df03d8f6c306349cbdada30175a4
-    temporaryAccessUser: robin
     cookiePassword: 975452d6554228b581bf34197bcb4e0a08622e24
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
