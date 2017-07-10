@@ -4,6 +4,8 @@ This is an interactive guide for exploring various important properties of the s
 
 You can access information about properties by hovering over the property name.
 
+_Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
+
 <div class="yaml-docs">
 
 <pre class="example">

@@ -1,5 +1,7 @@
 ## Domain Model
 
+_Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
+
 ![Definition](assets/definition-model.png)
 ![Runtime](assets/runtime-model.png)
 
@@ -92,7 +94,7 @@ See the [metadata page](../../user-guide/configuration/metadata.md) for more inf
 
 ### Workflow
 
-Workflow is the order that [jobs] will execute in after a successful [build] of the `main` job on the default branch. Jobs can be executed in parallel, series, or a combination of the two to allow for all possibilities. Workflow must contain all defined jobs in the pipeline.
+Workflow is the order that [jobs] will execute in after a successful [build] of the `main` job. The `main` job will always run first. Jobs can be executed in parallel, series, or a combination of the two to allow for all possibilities. Workflow must contain all defined jobs in the pipeline.
 
 All jobs executed in a given workflow share:
 
