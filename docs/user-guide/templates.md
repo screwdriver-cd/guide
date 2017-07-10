@@ -8,15 +8,15 @@ To use a template, define a `screwdriver.yaml`:
 
 ```yaml
 jobs:
-   main:
-      template: template_name@1.3.0
+    main:
+        template: template_name@1.3.0
 ```
 
 Screwdriver takes the template configuration and plugs it in, so that the `screwdriver.yaml` becomes:
 
 ```yaml
 jobs:
-   main:
+    main:
         image: node:6
         steps:
           - install: npm install
@@ -34,14 +34,28 @@ Wrapping is when you add commands to run before and/or after an existing step. T
 Example:
 ```yaml
 jobs:
-   main:
-      template: template_name@1.3.0
-      steps:
-          - preinstall: echo pre-install
-          - postinstall: echo post-install
+    main:
+        template: template_name@1.3.0
+        steps:
+            - preinstall: echo pre-install
+            - postinstall: echo post-install
 ```
 
 This will run the command `echo pre-install` before the template's `install` step, and `echo post-install` after the template's `install` step.
+
+### Replace
+To replace a step from a template, add your command with the same template's step name.
+
+Example:
+```yaml
+jobs:
+    main:
+        template: template_name@1.3.0
+        steps:
+            - install: echo skip installing
+```
+
+This will run the command `echo skip installing` for the `install` step.
 
 ## Creating a template
 
@@ -57,15 +71,15 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 config:
-  image: node:6
-  steps:
-    - install: npm install
-    - test: npm test
-    - echo: echo $FOO
-  environment:
-    FOO: bar
-  secrets:
-     - NPM_TOKEN
+    image: node:6
+    steps:
+        - install: npm install
+        - test: npm test
+        - echo: echo $FOO
+    environment:
+        FOO: bar
+    secrets:
+        - NPM_TOKEN
 ```
 
 ### Writing a screwdriver.yaml for your template repo
