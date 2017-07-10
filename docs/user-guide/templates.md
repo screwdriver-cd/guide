@@ -28,6 +28,21 @@ jobs:
           - NPM_TOKEN
 ```
 
+### Wrap
+Wrapping is when you add commands to run before and/or after an existing step. To wrap a step from a template, add a `pre` or `post` in front of the step name.
+
+Example:
+```yaml
+jobs:
+   main:
+      template: template_name@1.3.0
+      steps:
+          - preinstall: echo pre-install
+          - postinstall: echo post-install
+```
+
+This will run the command `echo pre-install` before the template's `install` step, and `echo post-install` after the template's `install` step.
+
 ## Creating a template
 
 ### Writing a template yaml
