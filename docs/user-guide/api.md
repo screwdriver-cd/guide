@@ -28,7 +28,7 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 Example request:
 ![Postman response](assets/postman.png)
 
-For more information and examples, check out our [API documentation].
+For more information and examples, check out our [API documentation](https://api.screwdriver.cd/v4/documentation).
 
 ## Authorization and Authentication
 
@@ -49,6 +49,24 @@ and identity to:
  - add/remove repository web-hooks so Screwdriver can be notified on changes
 
 For more information, see the [GitHub OAuth] documentation.
+
+## Badges
+
+To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`.
+
+[![Build Status][status-image]][status-url]
+
+[status-image]: https://cd.screwdriver.cd/pipelines/1/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/1
+
+For example, we display the badge above by using this code in Markdown. The `status-image` URL gives you the badge image and the `status-url` should be the link to your pipeline.
+
+```markdown
+[![Build Status][status-image]][status-url]
+
+[status-image]: https://cd.screwdriver.cd/pipelines/1/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/1
+```
 
 ## Design
 
