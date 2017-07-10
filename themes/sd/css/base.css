@@ -144,11 +144,10 @@ footer .container > div:last-child {
  * Top Navigation
  */
 .navbar {
-    background: url('/img/main_bkgrd_home.png') no-repeat;
-    background-size: cover;
+    background: #333;
 }
 .navbar-brand {
-    background: transparent url('/svg/Screwdriver_Logo_White.svg') no-repeat;
+    background: transparent url('/svg/Screwdriver_Logo_FullWhite.svg') no-repeat;
     background-size: contain;
     direction: ltr;
     text-indent: -9000px;
