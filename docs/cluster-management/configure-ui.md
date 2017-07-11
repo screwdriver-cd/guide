@@ -1,4 +1,4 @@
-## Managing the User Interface
+# Managing the User Interface
 
 ## Packages
 

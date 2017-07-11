@@ -1,4 +1,4 @@
-## Managing the Store
+# Managing the Store
 
 ## Packages
 

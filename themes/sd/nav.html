@@ -40,6 +40,17 @@
             </ul>
         </div>
         <div class="navbar-collapse collapse">
+            {% if page and page.is_homepage %}
+            <div class="navbar-title col-md-12">
+                Guide Homepage
+            </div>
+            {% elif page and page.title %}
+            <div class="navbar-title col-md-12">
+                {{ page.title }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="navbar-collapse collapse">
             {% if nav|length>1 %}
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">

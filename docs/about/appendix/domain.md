@@ -1,4 +1,4 @@
-## Domain Model
+# Domain Model
 
 _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
 
