@@ -61,9 +61,9 @@ This will run the command `echo skip installing` for the `install` step.
 
 ### Writing a template yaml
 
-To create a template, create a new repo with a `screwdriver-template.yaml` file. The file should contain a name, version, description, maintainer email, and a config with an image and steps.
+To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a name, version, description, maintainer email, and a config with an image and steps.
 
-Example `screwdriver-template.yaml`:
+Example `sd-template.yaml`:
 
 ```yaml
 name: template_name
@@ -84,7 +84,7 @@ config:
 
 ### Writing a screwdriver.yaml for your template repo
 
-To validate your template, run the `template-validate` script from the `screwdriver-template-main` npm module in your `main` job to validate your template. To publish your template, run the `template-publish` script from the same module in a separate job.
+To validate your template, run the `template-validate` script from the `screwdriver-template-main` npm module in your `main` job to validate your template. This means the build image must have NodeJS and NPM properly installed to use it. To publish your template, run the `template-publish` script from the same module in a separate job.
 
 By default, the file at `./sd-template.yaml` will be read. However, a user can specify a custom path using the env variable: `SD_TEMPLATE_PATH`.
 
