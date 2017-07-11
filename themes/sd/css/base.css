@@ -20,6 +20,7 @@ body>.container {
 
 ul.nav li.main {
     font-weight: 600;
+    margin-top: 40px;
 }
 
 div.col-md-3 {
@@ -28,6 +29,7 @@ div.col-md-3 {
 
 div.col-md-9 {
     padding-bottom: 100px;
+    margin-top: 40px;
 }
 
 div.source-links {
@@ -144,7 +146,7 @@ footer .container > div:last-child {
  * Top Navigation
  */
 .navbar {
-    background: #333;
+    background: #05121C;
 }
 .navbar-brand {
     background: transparent url('/svg/Screwdriver_Logo_FullWhite.svg') no-repeat;
@@ -154,6 +156,11 @@ footer .container > div:last-child {
     height: 40px;
     width: 194px;
     display: inline-block;
+}
+.navbar-title {
+    font-size: 30px;
+    color: #FFFFFF;
+    padding-left: 0px;
 }
 .navbar-nav > li {
     border-bottom: 4px solid transparent;
@@ -167,7 +174,7 @@ footer .container > div:last-child {
         border-bottom: 4px solid #0078ff;
     }
     .navbar-nav > li.active:hover, .navbar-nav > .active {
-        border-bottom: 4px solid #003abc;
+        border-bottom: 4px solid #3570f4;
     }
 }
 
@@ -227,10 +234,10 @@ footer .container > div:last-child {
 .bs-sidebar .nav>.active>a,
 .bs-sidebar .nav>.active:hover>a,
 .bs-sidebar .nav>.active:focus>a {
-    color: #003abc;
+    color: #3570f4;
     font-weight: 600;
     background-color: transparent;
-    border-left: 4px solid #003abc;
+    border-left: 4px solid #3570f4;
 }
 
 
