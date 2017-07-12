@@ -27,7 +27,7 @@ GEM
       listen (~> 3.0, < 3.1)
     json (2.1.0)
     kramdown (1.14.0)
-    libv8 (3.16.14.19)
+    libv8 (3.16.14.19-x86_64-darwin-15)
     liquid (4.0.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -45,7 +45,7 @@ GEM
     ref (2.0.0)
     rouge (1.11.1)
     safe_yaml (1.0.4)
-    sass (3.4.24)
+    sass (3.4.25)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref

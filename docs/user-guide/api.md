@@ -11,6 +11,8 @@ toc:
       url: "#using-the-api"
     - title: Authorization and Authentication
       url: "#authorization-and-authentication"
+    - title: Badges
+      url: "#badges"
     - title: Design
       url: "#design"
     - title: Make Your Own

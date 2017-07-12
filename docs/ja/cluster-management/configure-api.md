@@ -40,8 +40,6 @@ Screwdriverは最初から[多くのデフォルト設定](https://github.com/sc
 --- | --- | ---
 SECRET_JWT_PRIVATE_KEY | はい | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。`$ openssl genrsa -out jwt.pem 2048`
 SECRET_JWT_PUBLIC_KEY | はい | 署名を検証するための公開鍵です。次のコマンドにより生成できます。`$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
-SECRET_ACCESS_KEY | いいえ | ユーザーの代わりにAPIを利用するためのアクセストークンです。OAuthフローの代替として使用されます。
-SECRET_ACCESS_USER | いいえ | 一時的なアクセストークンと紐づけられたユーザ名です。APIの機能テストのために利用されます。
 SECRET_COOKIE_PASSWORD | はい | セッションデータを暗号化するためのパスワードです。**32文字以上である必要があります。**
 SECRET_PASSWORD | はい | SECRETを暗号化するためのパスワードです。**32文字以上である必要があります。**
 IS_HTTPS | いいえ | サーバーがhttpsで動作しているかどうかを設定するフラグです。OAuthフローのフラグとして利用されます。(デフォルトは`false`です)
@@ -55,8 +53,6 @@ auth:
         PRIVATE KEY HERE
     jwtPublicKey: |
         PUBLIC KEY HERE
-    temporaryAccessKey: 2e422dca8345df03d8f6c306349cbdada30175a4
-    temporaryAccessUser: robin
     cookiePassword: 975452d6554228b581bf34197bcb4e0a08622e24
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
