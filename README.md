@@ -1,75 +1,63 @@
 # Screwdriver Guide
 [![Build Status][status-image]][status-url] [![Open Issues][issues-image]][issues-url]
 
-## Installation of MkDocs
-In order to install MkDocs you'll need Python installed on your system, as well as the Python package manager, pip. You can check if you have these already installed like so:
+## Installation of Jekyll
+In order to install Jekyll you'll need Ruby installed on your system, as well as the Ruby package manager, RubyGems. You can check if you have these already installed like so:
 
 ```bash
-$ python --version
-Python 2.7.2
-$ pip --version
-pip 1.5.2
+$ ruby --version
+ruby 2.4.1
+$ gem --version
+2.6.12
 ```
 
-MkDocs supports Python 2.6, 2.7, 3.3, 3.4 and 3.5.
+Jekyll supports Ruby version 2.1 or above.
 
 ### Standard
 
-Install the `mkdocs` package and our theme using pip:
+Install the `jekyll` package using gem:
 
 ```bash
-pip install -r requirements.txt
+gem install jekyll
 ```
 
-You should now have the `mkdocs` command installed on your system. Run `mkdocs --version` to check that everything worked okay.
+You should now have the `jekyll` command installed on your system. Run `jekyll --version` to check that everything worked okay.
 
 ```bash
-$ mkdocs --version
-mkdocs, version 0.15.3
-```
-
-### Virtualenv
-
-If you prefer to develop the Screwdriver guide in an isolated Python environment, you can use [virtualenv](https://pypi.python.org/pypi/virtualenv).
-
-```
-$ virtualenv --version
-15.0.2
-```
-
-With `virtualenv`, you can simply run a Makefile target to configure a virtual environment with all the necessary dependencies.
-
-```
-$ make venv
+$ jekyll --version
+jekyll 3.5.0
 ```
 
 ## Viewing docs locally
-There's a single configuration file named `mkdocs.yml`, and a folder named `docs` that will contain our documentation source files.
+There's a single configuration file named `_config.yml`, and a folder named `docs` that will contain our documentation source files.
 
-MkDocs comes with a built-in webserver that lets you preview your documentation as you work on it. You can start the webserver locally either with MkDocs directly or with `virtualenv`.
+Jekyll comes with a built-in webserver that lets you preview your documentation as you work on it. You can start the webserver locally with Jekyll directly.
 
 ### Standard
 
-MkDocs comes with a built-in webserver that lets you preview your documentation as you work on it. We start the webserver by making sure we're in the same directory as the `mkdocs.yml` config file, and then running the `mkdocs serve` command:
+Jekyll comes with a built-in webserver that lets you preview your documentation as you work on it. We start the webserver by making sure we're in the same directory as the `docs` folder, and then running the `jekyll serve --source docs --destination _site` command:
 
 ```bash
-$ mkdocs serve
-Running at: http://127.0.0.1:8000/
-```
-
-### Virtualenv
-
-```
-# This will also run the "venv" Makefile target
-$ make local
+$ jekyll serve --source docs --destination _site
+Configuration file: docs/_config.yml
+            Source: docs
+       Destination: _site
+ Incremental build: disabled. Enable with --incremental
+      Generating...
+              Lunr: Creating search index...
+              Lunr: Index ready (lunr.js v0.7.2)
+                    done in 2.251 seconds.
+ Auto-regeneration: enabled for 'docs'
+    Server address: http://127.0.0.1:4000/
+  Server running... press ctrl-c to stop.
 ```
 
 ### Browse your local guide
 
-Once you successfully start the webserver, open up [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser. You'll be able to see the index page being displayed.
+Once you successfully start the webserver, open up [http://127.0.0.1:4000/](http://127.0.0.1:4000/) in your browser. You'll be able to see the index page being displayed.
 
 ## Adding docs
-Simply add a new markdown document to the folder hierarchy in `docs`, and add an entry to the tree in `mkdocs.yml`
+Simply add a new markdown document to the folder hierarchy in `docs`, and add an entry to the tree in `docs/_data/menu.yaml`
 
 ## Documentation Structure
 
