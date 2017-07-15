@@ -38,12 +38,6 @@ exclude:
   - screwdriver.yaml
   - deploy.sh
 
-plugins:
-  - jekyll-lunr-js-search
-
-lunr_search:
-  excludes: [ja/.*]
-
 site_name: Screwdriver Guide
 site_url: http://screwdriver.cd
 repo_url: https://github.com/screwdriver-cd/guide
@@ -55,6 +49,6 @@ extra_css:
   - css/navbar.css
   - css/yaml.css
 
-extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js]
+extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js, js/lunr.min.js, js/lunr-feed.js]
 
 google_analytics: ['UA-88158708-1', 'docs.screwdriver.cd']

@@ -70,39 +70,12 @@
 <script src="{{ site.github.url }}/themes/sd/js/bootstrap-3.0.3.min.js"></script>
 <script src="{{ site.github.url }}/themes/sd/js/highlight.pack.js"></script>
 <script>var base_url = '{{ site.github.url }}';</script>
+<script>var page_menu = '{{ page.menu }}';</script>
 <script src="{{ site.github.url }}/themes/sd/js/base.js"></script>
 {% for path in site.extra_javascript %}
 
 <script src="{{ site.github.url }}/{{ path }}"></script>
 {% endfor %}
-<script src="{{ site.github.url }}/js/search.min.js" type="text/javascript" charset="utf-8"></script>
-
-{% raw %}
-<script id="search-results-template" type="text/mustache">
-  {{#entries}}
-    <article>
-      <h3>
-        <a href="{{url}}">{{title}}</a>
-      </h3>
-      <p>
-        {{ content }}
-      </p>
-    </article>
-  {{/entries}}
-</script>
-{% endraw %}
-
-<script type="text/javascript">
-    $(function() {
-        $('#search-query').lunrSearch({
-            indexUrl  : '/js/index.json',           // url for the .json file containing search index data
-            results   : '#search-results',          // selector for containing search results element
-            template  : '#search-results-template', // selector for Mustache.js template
-            titleMsg  : '',
-            emptyMsg  : '<p>No results found</p>'     // shown message if search returns no results
-        });
-    });
-</script>
 
 <div class="modal" id="jekyll_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -117,9 +90,9 @@
                     your search terms below.
                 </p>
                 <form role="form">
-                    <input type="text" class="form-control" id="search-query" name="q" placeholder="Search..." autocomplete="off">
+                    <input type="search" class="form-control" id="search" placeholder="Search..." autocomplete="off">
                 </form>
-                <section id="search-results" style="display: none;"> </section>
+                <div id="results" class="all-posts results"></div>
             </div>
             <div class="modal-footer">
             </div>
