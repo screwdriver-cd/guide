@@ -1,3 +1,19 @@
+---
+layout: main
+title: Secrets
+category: User Guide
+menu: menu
+toc: 
+    - title: Build Secrets
+      url: "#build-secrets"
+      active: true
+    - title: Security
+      url: "#security"
+    - title: Configuring a job to expose secrets
+      url: "#configuring-a-job-to-expose-secrets"
+    - title: User Interface
+      url: "#user-interface"
+---
 # Build Secrets
 You've got secrets to share with your jobs, but these shouldn't be shared with everyone. Screwdriver provides a mechanism to insert secrets as environment variables. Since secrets are exposed as environment variables, they are easy to use inside builds.
 
@@ -41,7 +57,7 @@ When a secret is created via the UI, or API, enabling `allowInPR` will cause tha
 
 ## User Interface
 The easiest way to create a secret for your pipeline is via the Screwdriver UI.
-![Secrets UI](/assets/secrets.png)
+![Secrets UI](../../assets/secrets.png)
 
 ### Creating Secrets
 Simply enter the key and value in the inputs in the grey box, and click the add button. A checkbox is provided to allow you to enable `allowInPR`.

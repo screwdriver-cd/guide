@@ -1,3 +1,14 @@
+---
+layout: main
+title: Overall
+category: User Guide
+menu: menu
+toc: 
+    - title: Yaml Configuration
+      url: "#yaml-configuration"
+      active: true
+---
+
 # Yaml Configuration
 
 This is an interactive guide for exploring various important properties of the screwdriver.yaml configuration for projects.

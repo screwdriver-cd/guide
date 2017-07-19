@@ -1,3 +1,17 @@
+---
+layout: main
+title: Authentication and Authorization
+category: User Guide
+menu: menu
+toc: 
+    - title: Access Control
+      url: "#access-control"
+      active: true
+    - title: Authorization
+      url: "#authorization"
+    - title: Authentication
+      url: "#authentication"
+---
 # Access Control
 
 To simplify access, Screwdriver uses the same security model as the Pipeline's Git repository.

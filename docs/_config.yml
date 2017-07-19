@@ -1,0 +1,54 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Screwdriver Guide
+description: > # this means to ignore newlines until "baseurl:"
+  Screwdriver is a collection of services that facilitate the workflow for continuous delivery pipelines.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://docs.screwdriver.cd" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - HEALTH.md
+  - screwdriver.yaml
+  - deploy.sh
+
+site_name: Screwdriver Guide
+site_url: http://screwdriver.cd
+repo_url: https://github.com/screwdriver-cd/guide
+repo_name: GitHub
+site_description: All you need to know about Screwdriver and more
+copyright: © 2016 Yahoo! Inc. All rights reserved.
+extra_css:
+  - css/homepage.css
+  - css/navbar.css
+  - css/yaml.css
+
+extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js, js/lunr.min.js, js/lunr-feed.js]
+
+google_analytics: ['UA-88158708-1', 'docs.screwdriver.cd']

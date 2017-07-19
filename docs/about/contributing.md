@@ -1,3 +1,23 @@
+---
+layout: main
+title: Contributing
+category: About
+menu: menu
+toc: 
+    - title: Contributing
+      url: "#contributing"
+      active: true
+    - title: Issues
+      url: "#issues"
+    - title: Docs
+      url: "#docs"
+    - title: Submitting Patches
+      url: "#submitting-patches"
+    - title: Feature Requests
+      url: "#feature-requests"
+    - title: Where to Contribute
+      url: "#where-to-contribute"
+---
 # Contributing
 
 Thank you for considering contributing! There are many ways you can help.

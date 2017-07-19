@@ -1,3 +1,26 @@
+---
+layout: main
+title: FAQ
+category: User Guide
+menu: menu
+toc:
+    - title: Frequently Asked Questions
+      url: "#frequently-asked-questions"
+      active: true
+    - title: How do I create a pipeline?
+      url: "#how-do-i-create-a-pipeline"
+    - title: How do I start a pipeline manually?
+      url: "#how-do-i-start-a-pipeline-manually"
+    - title: How do I update a pipeline repo and branch?
+      url: "#how-do-i-update-a-pipeline-repo-and-branch"
+    - title: How do I disable/enable a job temporarily?
+      url: "#how-do-i-disable/enable-a-job-temporarily"
+    - title: How do I make sure my code is in sync with my pipeline?
+      url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
+    - title: How do I delete a pipeline permanently?
+      url: "#how-do-i-delete-a-pipeline-permanently"
+---
+
 # Frequently Asked Questions
 
 ## How do I create a pipeline?

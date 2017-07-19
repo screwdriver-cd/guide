@@ -1,3 +1,27 @@
+---
+layout: main
+title: Kubernetes
+category: Cluster Management
+menu: menu
+toc: 
+    - title: Setting Up a Screwdriver Cluster on AWS using Kubernetes
+      url: "#setting-up-a-screwdriver-cluster-on-aws-using-kubernetes"
+      active: true
+    - title: Screwdriver cluster
+      url: "#screwdriver-cluster"
+    - title: Prerequisites
+      url: "#prerequisites"
+    - title: Create your Kubernetes cluster
+      url: "#create-your-kubernetes-cluster"
+    - title: Setup Screwdriver secrets
+      url: "#setup-screwdriver-secrets"
+    - title: Deploy Screwdriver
+      url: "#deploy-screwdriver"
+    - title: View your pods
+      url: "#view-your-pods"
+    - title: Update your OAuth Application
+      url: "#update-your-oauth-application"
+---
 # Setting Up a Screwdriver Cluster on AWS using Kubernetes
 We'll go over how to set up a Screwdriver cluster on AWS using Kubernetes, Github, and a Postgres database. You can setup a Screwdriver cluster using [Kubernetes](http://kubernetes.io/docs/whatisk8s/).
 

@@ -1,9 +1,37 @@
-# Domain Model
+---
+layout: main
+title: Domain Model
+category: About
+menu: menu
+toc: 
+    - title: Domain Model
+      url: "#domain-model"
+      active: true
+    - title: Source Code
+      url: "#source-code"
+    - title: Step
+      url: "#step"
+    - title: Container
+      url: "#container"
+    - title: Job
+      url: "#job"
+    - title: Build
+      url: "#build"
+    - title: Event
+      url: "#event"
+    - title: Metadata
+      url: "#metadata"
+    - title: Workflow
+      url: "#workflow"
+    - title: Pipeline
+      url: "#pipeline"
+---
+## Domain Model
 
 _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
 
-![Definition](assets/definition-model.png)
-![Runtime](assets/runtime-model.png)
+![Definition](./assets/definition-model.png)
+![Runtime](./assets/runtime-model.png)
 
 ### Source Code
 
@@ -90,7 +118,7 @@ $ meta get example
 {"coverage":99.95}
 ```
 
-See the [metadata page](../../user-guide/configuration/metadata.md) for more information.
+See the [metadata page](../../user-guide/configuration/metadata) for more information.
 
 ### Workflow
 
