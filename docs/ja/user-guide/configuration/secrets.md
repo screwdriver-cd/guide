@@ -60,7 +60,7 @@ main:
 
 When a secret is created via the UI, or API, enabling `allowInPR` will cause that secret to be available to pull-request builds, if those secrets are also configured to be exposed in the `main` job.
 
-## ユーザーインターフェース
+## ユーザーインターフェイス
 
 パイプラインのシークレットを設定する一番簡単な方法はScrewdriverのUIを使うことです。
 ![Secrets UI](../../../../assets/secrets.png)
