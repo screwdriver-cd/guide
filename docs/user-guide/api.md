@@ -3,7 +3,7 @@ layout: main
 title: API
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: API
       url: "#api"
       active: true
@@ -50,13 +50,16 @@ Example request:
 
 For more information and examples, check out our [API documentation](https://api.screwdriver.cd/v4/documentation).
 
-## Authorization and Authentication
+## Authentication and Authorization
 
-For Authentication we're using [JSON Web Tokens]. They need to be passed via
-an `Authorization` header. To generate a JWT, visit the `/v4/auth/login` endpoint which will redirect you to the `/v4/auth/token` endpoint.
+For Authentication we're using [JSON Web Tokens] (JWTs) and Screwdriver API Tokens. JWTs need to be passed via
+an `Authorization` header.
+* To generate a JWT with OAuth, visit the `/v4/auth/login` endpoint, which will redirect you to the `/v4/auth/token` endpoint.
+* To generate a JWT with a Screwdriver API Token, make a `GET` request to the `/v4/auth/token` endpoint with your API token as the `api_token` query parameter.
 
-Authorization on the other hand is handled by OAuth. This occurs when
-you visit the `/v4/auth/login` endpoint. Screwdriver uses SCM user tokens
+Screwdriver API tokens can be managed from [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings).
+
+Authorization is handled by your SCM. Screwdriver uses SCM user tokens
 and identity to:
 
  - identify what repositories you have read, write, and admin access to
