@@ -60,12 +60,12 @@ main:
 
 When a secret is created via the UI, or API, enabling `allowInPR` will cause that secret to be available to pull-request builds, if those secrets are also configured to be exposed in the `main` job.
 
-## User Interface
+## ユーザーインターフェイス
 
-The easiest way to create a secret for your pipeline is via the Screwdriver UI.
-![Secrets UI](../../../assets/secrets.png)
+パイプラインのシークレットを設定する一番簡単な方法はScrewdriverのUIを使うことです。
+![Secrets UI](../../../../assets/secrets.png)
 
-### Creating Secrets
+### シークレットの作成
 
 Simply enter the key and value in the inputs in the grey box, and click the add button. A checkbox is provided to allow you to enable `allowInPR`.
 
