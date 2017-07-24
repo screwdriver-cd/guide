@@ -9,8 +9,8 @@ toc:
       active: true
     - title: Using the API
       url: "#using-the-api"
-    - title: Authorization and Authentication
-      url: "#authorization-and-authentication"
+    - title: Authentication and Authorization
+      url: "#authentication-and-authorization"
     - title: Badges
       url: "#badges"
     - title: Design
