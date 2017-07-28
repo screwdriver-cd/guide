@@ -103,6 +103,9 @@ To validate your template, run the `template-validate` script from the `screwdri
 
 By default, the file at `./sd-template.yaml` will be read. However, a user can specify a custom path using the env variable: `SD_TEMPLATE_PATH`.
 
+#### Tagging templates
+You can optionally put a tag on specific template version. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: name, version, and tag. The version needs to be an exact version.
+
 Example `screwdriver.yaml`:
 
 ```yaml
@@ -120,6 +123,7 @@ jobs:
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
+            - tag: ./node_modules/.bin/template-tag --name template_name --version 1.3.0 --tag stable
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
 ```
