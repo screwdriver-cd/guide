@@ -38,7 +38,7 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
     <span class="key">statuses</span>: <span class="value">[SUCCESS, FAILURE]</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
     <a href="#main-job"><span class="key">main</span>:</a>
-        <a href="#image"><span class="key">image</span>: <span class="value">node:{{NODE_VERSION}}</span></a>
+        <a href="#image"><span class="key">image</span>: <span class="value">node:&#123;&#123;NODE_VERSION&#125;&#125;</span></a>
         <a href="#matrix"><span class="key">matrix</span>:
     <span class="key">NODE_VERSION</span>: <span class="value">[4,5,6]</span></a>
         <a href="#steps"><span class="key">steps</span>:
