@@ -3,7 +3,7 @@ layout: main
 title: Contributing
 category: About
 menu: menu
-toc: 
+toc:
     - title: Contributing
       url: "#contributing"
       active: true
@@ -22,9 +22,9 @@ toc:
 
 Thank you for considering contributing! There are many ways you can help.
 
-## Issues
+## Bugs/Feature Requests
 
-File an issue if you think you've found a bug. Be sure to describe:
+File an issue if you think you've found a bug or would like to request a feature. Be sure to describe:
 
 1. How it can be reproduced
 2. What did you expect to happen?
@@ -33,11 +33,7 @@ File an issue if you think you've found a bug. Be sure to describe:
 
 You can file all issues with Screwdriver in the [screwdriver repo][api-issues-url]; please tag with appropriate Github labels whenever possible. We will update any issues we're working on with a daily summary. To see what we're currently working on, you can check out our [digital scrum board](https://github.com/screwdriver-cd/screwdriver/projects/4) in the Projects section of the [Screwdriver API repo][api-repo].
 
-## Docs
-
-Documentation, READMEs, and examples are extremely important. Please help us improve them; if you find a typo or notice a problem, feel free to send a fix or create an issue.
-
-## Submitting Patches
+## Submitting Pull Requests
 
 Patches for fixes, features, and improvements are accepted through pull requests.
 
@@ -48,22 +44,17 @@ Patches for fixes, features, and improvements are accepted through pull requests
 * Squash changes into a single commit per feature/fix. Ask if you're unsure how to discretize your work.
 * Whenever possible, tag your pull request with appropriate Github labels.
 
-Please ask before embarking on a large improvement so you're not disappointed if it does not align with the goals of the project or owner(s).
+_Please ask before embarking on a large improvement so you're not disappointed if it does not align with the goals of the project or owner(s)._
 
 ### Commit Message Format
 
 We use [semantic-release](https://www.npmjs.com/package/semantic-release), which requires commit messages to be in this specific format: `<type>(<scope>): <subject>`
 
-* Types:
-  * feat (feature)
-  * fix (bug fix)
-  * docs (documentation)
-  * style (formatting, missing semi colons, …)
-  * refactor
-  * test (when adding missing tests)
-  * chore (maintain)
-* Scope: anything that specifies the scope of the commit; can be blank, the issue number that your commit pertains to, or `*`
-* Subject: description of the commit
+| Keyword | Description |
+| ------- | ----------- |
+| Type | feat (feature), fix (bug fix), docs (documentation), style (formatting, missing semi colons, …), refactor, test (when adding missing tests), chore (maintain)  |
+| Scope | anything that specifies the scope of the commit; can be blank, the issue number that your commit pertains to, or `*` |
+| Subject | description of the commit |
 
 **Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE` somewhere in the commit title or message.
 
@@ -71,9 +62,7 @@ We use [semantic-release](https://www.npmjs.com/package/semantic-release), which
 * For a bug fix: `fix: Remove extra space`
 * For a breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
 
-## Feature Requests
 
-Make the case for a feature via an issue with a good title. The feature will then be discussed and either given a target inclusion milestone or closed.
 
 ## Where to Contribute
 
