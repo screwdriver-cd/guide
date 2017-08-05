@@ -7,14 +7,10 @@ toc:
     - title: Contributing
       url: "#contributing"
       active: true
-    - title: Issues
-      url: "#issues"
-    - title: Docs
-      url: "#docs"
-    - title: Submitting Patches
-      url: "#submitting-patches"
-    - title: Feature Requests
-      url: "#feature-requests"
+    - title: Bugs/Feature Requests
+      url: "#bugsfeature-requests"
+    - title: Submitting Pull Requests
+      url: "#submitting-pull-requests"
     - title: Where to Contribute
       url: "#where-to-contribute"
 ---
