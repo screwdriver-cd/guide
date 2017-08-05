@@ -1,10 +1,20 @@
 # Screwdriver Guide
 [![Build Status][status-image]][status-url] [![Open Issues][issues-image]][issues-url]
 
-## Installation of Jekyll
-In order to install Jekyll you'll need Ruby installed on your system, as well as the Ruby package manager, RubyGems.
-And you need to install bundle to install and run Jekyll.
-You can check if you have these already installed like so:
+> Documentation for the Screwdriver CD service
+
+Screwdriver is a self-contained, pluggable service to help you build, test, and continuously deliver software using the latest containerization technologies.
+
+## To start using Screwdriver
+
+For more information about Screwdriver, check out our [homepage](http://screwdriver.cd).
+
+## To start contributing to Screwdriver
+
+Have a look at our guidelines, as well as pointers on where to start making changes, in our [contributing guide](http://docs.screwdriver.cd/about/contributing).
+
+
+The guide is powered by Jekyll. In order to install Jekyll you'll need Ruby, the Ruby package manager (RubyGems), and bundle to install and run Jekyll. You can check if you have these already installed like so:
 
 ```bash
 $ ruby --version
@@ -71,28 +81,31 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
   - [x] What are the sections for
 - Cluster Management (for SD owners)
   - [x] Overall architecture
-  - [x] Running locally
   - [x] Configuring API
      - [x] Scm plugins
      - [x] Datastore plugins
   - [x] Configuring UI
   - [x] Configuring Store
      - [x] Logging plugins
+  - [x] Running locally
   - Examples
     - [x] Setting up Kubernetes
   - [ ] Debugging
 - User Guide
   - [x] Quickstart
-  - [x] Configuration
-    - [x] Overall YAML
-    - [x] Secrets
   - [x] API
   - [x] Authentication and Authorization
+  - [x] Configuration
+    - [x] Overall YAML
+    - [x] Metadata
+    - [x] Secrets
+  - [x] Templates
+  - [x] FAQ
 - About
   - [x] What is SD?
   - [x] Appendix
-    - [x] Execution engines
     - [x] Domain model
+    - [x] Execution engines
   - [x] Contributing
   - [x] Support
 
