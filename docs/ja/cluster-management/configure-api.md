@@ -252,35 +252,23 @@ OAuthアプリケーションのセットアップと、OAuth Client ID及びSec
 
 環境変数名 | 必須 | デフォルト値 | 説明
 --- | --- | --- | ---
-SCM_PLUGIN | いいえ | github | `github` または `bitbucket`
-SECRET_OAUTH_CLIENT_ID | はい |  | OAuth Client ID (アプリケーションキー)
-SECRET_OAUTH_CLIENT_SECRET | はい |  | OAuth Client Secret (アプリケーションsecret)
-WEBHOOK_GITHUB_SECRET | Githubでは必須 |  | webhooks署名用のパスワード(secret)
-SCM_GITHUB_GHE_HOST | Github Enterpriseでは必須 |  | Github Enterpriseの場合のGHEホスト
-SCM_PRIVATE_REPO_SUPPORT | いいえ | false | プライベートレポジトリの read/write権限
-SCM_USERNAME | いいえ | sd-buildbot | checkoutするユーザネーム
-SCM_EMAIL | いいえ | dev-null@screwdriver.cd | checkoutするユーザのEmailアドレス
+SCM_SETTINGS | はい | {} | JSON object with SCM settings
 
 ##### Github:
 
 ```yaml
 # config/local.yaml
-scms: {
-    "github": {
-        "plugin": "github",
-        "config": {
-            "oauthClientId": "YOUR-OAUTH-CLIENT-ID",
-            "oauthClientSecret": "YOUR-OAUTH-CLIENT-SECRET",
-            "secret": "YOUR-GITHUB-SECRET", # Secret to add to GitHub webhooks so that we can validate them
-            # You can also configure for use with GitHub enterprise
-            # "gheHost": "",
-            # You can configure to support private repos
-            # "privateRepo": true
-            "username": "sd-buildbot",
-            "email": "dev-null@screwdriver.cd"
-        }
-    }
-}
+scms:
+    github:
+        plugin: github
+        config:
+            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # OAuth Client ID (アプリケーションキー)
+            oauthClientSecret: AGAIN-SOMETHING-HERE-IS-USEFUL # OAuth Client Secret (アプリケーションsecret)
+            secret: SUPER-SECRET-SIGNING-THING # webhooks署名用のパスワード(secret)
+            gheHost: github.screwdriver.cd # [Optional] Github Enterpriseの場合のGHEホスト
+            username: sd-buildbot # [Optional] checkoutするユーザネーム
+            email: dev-null@screwdriver.cd # [Optional] checkoutするユーザのEmailアドレス
+            privateRepo: false # [Optional] プライベートレポジトリの read/write権限
 ```
 
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
@@ -289,15 +277,12 @@ scms: {
 
 ```yaml
 # config/local.yaml
-scms: {
-    "bitbucket": {
-        "plugin": "bitbucket",
-        "config": {
-            "oauthClientId": "YOUR-APP-KEY",
-            "oauthClientSecret": "YOUR-APP-SECRET"
-        }
-    }
-}
+scms:
+    bitbucket:
+        plugin: bitbucket
+        config:
+            oauthClientId: YOUR-APP-KEY
+            oauthClientSecret: YOUR-APP-SECRET
 ```
 
 ## Dockerコンテナの拡張
