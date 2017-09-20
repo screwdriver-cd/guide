@@ -57,10 +57,10 @@ auth:
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
     whitelist:
-        - batman
-        - robin
+        - github:batman
+        - github:robin
     admins:
-        - batman
+        - github:batman
 ```
 
 ### Bookend Plugins
@@ -162,7 +162,7 @@ datastore:
 
 ### Executorプラグイン
 
-現在は[kubernetes](https://github.com/screwdriver-cd/executor-k8s) と [docker](http://github.com/screwdriver-cd/executor-docker) executor をサポートしています。
+現在は[kubernetes](https://github.com/screwdriver-cd/executor-k8s) と [docker](http://github.com/screwdriver-cd/executor-docker) と [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm) と [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor をサポートしています。
 
 #### Kubernetes
 
@@ -181,12 +181,13 @@ K8S_JOBS_NAMESPACE | default | Kubernetesジョブ用ネームスペース
 executor:
     plugin: k8s
     k8s:
-        kubernetes:
-            # The host or IP of the kubernetes cluster
-            host: YOUR-KUBERNETES-HOST
-            token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
-            jobsNamespace: default
-        launchVersion: stable
+        options:
+            kubernetes:
+                # The host or IP of the kubernetes cluster
+                host: YOUR-KUBERNETES-HOST
+                token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
+                jobsNamespace: default
+            launchVersion: stable
 ```
 
 #### Docker
@@ -204,9 +205,10 @@ EXECUTOR_DOCKER_DOCKER | `{}` | [Dockerode の設定](https://www.npmjs.com/pack
 executor:
     plugin: docker
     docker:
-        docker:
-            socketPath: /var/lib/docker.sock
-        launchVersion: stable
+        options:
+            docker:
+                socketPath: /var/lib/docker.sock
+            launchVersion: stable
 ```
 
 ### Email通知
@@ -263,17 +265,22 @@ SCM_EMAIL | いいえ | dev-null@screwdriver.cd | checkoutするユーザのEmai
 
 ```yaml
 # config/local.yaml
-scm:
-    plugin: github
-    github:
-        oauthClientId: YOUR-OAUTH-CLIENT-ID
-        oauthClientSecret: YOUR-OAUTH-CLIENT-SECRET
-        # Secret to add to GitHub webhooks so that we can validate them
-        secret: SUPER-SECRET-SIGNING-THING
-        # You can also configure for use with GitHub enterprise
-        # gheHost: github.screwdriver.cd
-        # Whether to support private repo
-        # privateRepo: true
+scms: {
+    "github": {
+        "plugin": "github",
+        "config": {
+            "oauthClientId": "YOUR-OAUTH-CLIENT-ID",
+            "oauthClientSecret": "YOUR-OAUTH-CLIENT-SECRET",
+            "secret": "YOUR-GITHUB-SECRET", # Secret to add to GitHub webhooks so that we can validate them
+            # You can also configure for use with GitHub enterprise
+            # "gheHost": "",
+            # You can configure to support private repos
+            # "privateRepo": true
+            "username": "sd-buildbot",
+            "email": "dev-null@screwdriver.cd"
+        }
+    }
+}
 ```
 
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
@@ -282,11 +289,15 @@ scm:
 
 ```yaml
 # config/local.yaml
-scm:
-    plugin: bitbucket
-    bitbucket:
-        oauthClientId: YOUR-APP-KEY
-        oauthClientSecret: YOUR-APP-SECRET
+scms: {
+    "bitbucket": {
+        "plugin": "bitbucket",
+        "config": {
+            "oauthClientId": "YOUR-APP-KEY",
+            "oauthClientSecret": "YOUR-APP-SECRET"
+        }
+    }
+}
 ```
 
 ## Dockerコンテナの拡張

@@ -3,7 +3,7 @@ layout: main
 title: Configuring the API
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Managing the API
       url: "#managing-the-api"
       active: true
@@ -55,10 +55,10 @@ auth:
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
     whitelist:
-        - batman
-        - robin
+        - github:batman
+        - github:robin
     admins:
-        - batman
+        - github:batman
 ```
 
 ### Bookend Plugins
@@ -160,17 +160,17 @@ datastore:
 
 ### Executor Plugin
 
-We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s) and [docker](http://github.com/screwdriver-cd/executor-docker) executor
+We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), and [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
 
 #### Kubernetes
 Set these environment variables:
 
 | Environment name   | Default Value | Description                                |
 |:-------------------|:--------------|:-------------------------------------------|
-| EXECUTOR_PLUGIN    |               | Set to `k8s`                               |
-| LAUNCH_VERSION     |               | Launcher version to use                    |
-| K8S_HOST           |               | Kubernetes host                            |
-| K8S_TOKEN          |               | JWT for authenticating Kubernetes requests |
+| EXECUTOR_PLUGIN    | k8s           | Default executor (eg: `k8s`, `docker`, `k8s-vm`, `jenkins`) |
+| LAUNCH_VERSION     | stable        | Launcher version to use                    |
+| K8S_HOST           | kubernetes.default | Kubernetes host                       |
+| K8S_TOKEN          | Loaded from `/var/run/secrets/kubernetes.io/serviceaccount/token` by default | JWT for authenticating Kubernetes requests |
 | K8S_JOBS_NAMESPACE | default       | Jobs namespace for Kubernetes jobs URL     |
 
 ```yaml
@@ -178,20 +178,21 @@ Set these environment variables:
 executor:
     plugin: k8s
     k8s:
-        kubernetes:
-            # The host or IP of the kubernetes cluster
-            host: YOUR-KUBERNETES-HOST
-            token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
-            jobsNamespace: default
-        launchVersion: stable
+        options:
+            kubernetes:
+                # The host or IP of the kubernetes cluster
+                host: YOUR-KUBERNETES-HOST
+                token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
+                jobsNamespace: default
+            launchVersion: stable
 ```
 
 #### Docker
 Or set these environment variables:
 
-| Environment name       | Default Value | Description                                                                                      |
-|:-----------------------|:--------------|:-------------------------------------------------------------------------------------------------|
-| EXECUTOR_PLUGIN        | docker        | Set to `docker`                                                                                  |
+| Environment name       | Default Value | Description          |
+|:-----------------------|:--------------|:---------------------|
+| EXECUTOR_PLUGIN        | k8s           | Default executor. Set to `docker` |
 | LAUNCH_VERSION         | stable        | Launcher version to use                                                                          |
 | EXECUTOR_DOCKER_DOCKER | `{}`          | [Dockerode configuration](https://www.npmjs.com/package/dockerode#getting-started) (JSON object) |
 
@@ -200,9 +201,10 @@ Or set these environment variables:
 executor:
     plugin: docker
     docker:
-        docker:
-            socketPath: /var/lib/docker.sock
-        launchVersion: stable
+        options:
+            docker:
+                socketPath: /var/lib/docker.sock
+            launchVersion: stable
 ```
 
 ### Email Notifications
@@ -222,7 +224,9 @@ Configurable authentication settings have not yet been built, but can easily be 
 
 ### Source Control Plugin
 
-We currently support [Github](https://github.com/screwdriver-cd/scm-github) and [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)
+We currently support [Github and Github Enterprise](https://github.com/screwdriver-cd/scm-github), [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket), and [Gitlab](https://github.com/bdangit/scm-gitlab)
+
+_Note: Gitlab is a user-created plugin_
 
 #### Step 1: Set up your OAuth Application
 You will need to set up an OAuth Application and retrieve your OAuth Client ID and Secret.
@@ -242,30 +246,35 @@ Set these environment variables:
 
 | Environment name           | Required                  | Default Value | Description                                  |
 |:---------------------------|:--------------------------|:--------------|:---------------------------------------------|
-| SCM_PLUGIN                 | No                        | github        | `github` or `bitbucket`                      |
+| SCM_SETTINGS               | Yes                       |               | JSON object with SCM settings                |
 | SECRET_OAUTH_CLIENT_ID     | Yes                       |               | Your OAuth Client Id (Application key)       |
 | SECRET_OAUTH_CLIENT_SECRET | Yes                       |               | You OAuth Client secret (Application secret) |
 | WEBHOOK_GITHUB_SECRET      | Yes for Github            |               | Secret to sign for webhooks                  |
 | SCM_GITHUB_GHE_HOST        | Yes for Github Enterprise |               | GHE host for Github Enterprise               |
-| SCM_PRIVATE_REPO_SUPPORT   | No                        | false         | Ask Github users for 'repo' scope to allow read/write access to public and private repo |
-| SCM_USERNAME               | No                        | sd-buildbot   | Username for checkout                        |
-| SCM_EMAIL                  | No                        | dev-null@screwdriver.cd | Email of user for checkout         |
+| SCM_PRIVATE_REPO_SUPPORT   | Yes for Github            | false         | Ask Github users for 'repo' scope to allow read/write access to public and private repo |
+| SCM_USERNAME               | Yes for Github            | sd-buildbot   | Username for checkout                        |
+| SCM_EMAIL                  | Yes for Github            | dev-null@screwdriver.cd | Email of user for checkout         |
 
 
 ##### Github:
 ```yaml
 # config/local.yaml
-scm:
-    plugin: github
-    github:
-        oauthClientId: YOUR-OAUTH-CLIENT-ID
-        oauthClientSecret: YOUR-OAUTH-CLIENT-SECRET
-        # Secret to add to GitHub webhooks so that we can validate them
-        secret: SUPER-SECRET-SIGNING-THING
-        # You can also configure for use with GitHub enterprise
-        # gheHost: github.screwdriver.cd
-        # Whether to support private repo
-        # privateRepo: true
+scms: {
+    "github": {
+        "plugin": "github",
+        "config": {
+            "oauthClientId": "YOUR-OAUTH-CLIENT-ID",
+            "oauthClientSecret": "YOUR-OAUTH-CLIENT-SECRET",
+            "secret": "YOUR-GITHUB-SECRET", # Secret to add to GitHub webhooks so that we can validate them
+            # You can also configure for use with GitHub enterprise
+            # "gheHost": "",
+            # You can configure to support private repos
+            # "privateRepo": true
+            "username": "sd-buildbot",
+            "email": "dev-null@screwdriver.cd"
+        }
+    }
+}
 ```
 
 If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
@@ -273,11 +282,15 @@ If users want to use private repo, they also need to set up `SCM_USERNAME` and `
 ##### Bitbucket.org
 ```yaml
 # config/local.yaml
-scm:
-    plugin: bitbucket
-    bitbucket:
-        oauthClientId: YOUR-APP-KEY
-        oauthClientSecret: YOUR-APP-SECRET
+scms: {
+    "bitbucket": {
+        "plugin": "bitbucket",
+        "config": {
+            "oauthClientId": "YOUR-APP-KEY",
+            "oauthClientSecret": "YOUR-APP-SECRET"
+        }
+    }
+}
 ```
 
 ## Extending the Docker container
