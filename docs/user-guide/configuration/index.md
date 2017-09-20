@@ -3,7 +3,7 @@ layout: main
 title: Overall
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Yaml Configuration
       url: "#yaml-configuration"
       active: true
@@ -22,13 +22,7 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
 <pre class="example">
 <a href="#workflow"><span class="key">workflow</span>:
     - <span class="value">publish</span>
-    - <span class="key">parallel</span>:
-        - <span class="key">series</span>:
-            - <span class="value">deploy-east</span>
-            - <span class="value">validate-east</span>
-        - <span class="key">series</span>:
-            - <span class="value">deploy-west</span>
-            - <span class="value">validate-west</span></a>
+</a>
 <a href="#shared"><span class="key">shared</span>:</a>
     <a href="#environment"><span class="key">environment</span>:
     <span class="key">NODE_ENV</span>: <span class="value">test</span></a>
@@ -36,6 +30,8 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         <a href="#email"><span class="key">email</span>:
     <span class="key">addresses</span>: <span class="value">[test@email.com, test2@email.com]</span>
     <span class="key">statuses</span>: <span class="value">[SUCCESS, FAILURE]</span></a>
+    <a href="#annotations"><span class="key">annotations</span>:
+    <span class="key">beta.screwdriver.cd/executor</span>: <span class="value">docker</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
     <a href="#main-job"><span class="key">main</span>:</a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:&#123;&#123;NODE_VERSION&#125;&#125;</span></a>
@@ -61,7 +57,6 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         <div id="workflow" class="hidden">
             <h4>Workflow</h4>
             <p>Defines the order of jobs that are executed for the project. All jobs referenced by the workflow must be defined in the jobs section.</p>
-            <p>Jobs can execute in parallel, in series, or in any combination of the two, per this example. Special keywords <strong><em>parallel</em></strong> and <strong><em>series</em></strong> define the flow of the jobs. By default, the jobs in the workflow list are run in series after <em>main</em> job has completed successfully.</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
@@ -74,6 +69,10 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         <div id="settings" class="hidden">
             <h4>Settings</h4>
             <p>Configurable settings for any additional build plugins added to Screwdriver.cd.</p>
+        </div>
+        <div id="annotations" class="hidden">
+            <h4>Annotations</h4>
+            <p>Annotations an object containing key-value pairs; can be either pipeline or job-level specifications. In this case, the annotation `beta.screwdriver.cd/executor` is used to designate using Docker executor to run the pipeline.</p>
         </div>
         <div id="email" class="hidden">
             <h4>Email</h4>
@@ -89,7 +88,7 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         </div>
         <div id="image" class="hidden">
             <h4>Image</h4>
-            <p>This defines the docker image(s) used for the builds. This example shows a template replacement, where a variable is enclosed in curly braces, e.g. {{NODE_VERSION}}. This variable will be changed to the value(s) of the equivalent variable in the matrix setting, resulting in multiple builds running in parallel, each using one of those various images.</p>
+            <p>This defines the Docker image(s) used for the builds. This example shows a template replacement, where a variable is enclosed in curly braces, e.g. {{NODE_VERSION}}. This variable will be changed to the value(s) of the equivalent variable in the matrix setting, resulting in multiple builds running in parallel, each using one of those various images.</p>
         </div>
         <div id="matrix" class="hidden">
             <h4>Matrix</h4>
