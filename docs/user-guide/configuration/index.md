@@ -72,7 +72,7 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         </div>
         <div id="annotations" class="hidden">
             <h4>Annotations</h4>
-            <p>Annotations is an object containing key-value pairs; can be either pipeline or job-level specifications. In this case, the annotation `beta.screwdriver.cd/executor` is used to designate using Docker executor to run the pipeline.</p>
+            <p>Annotations are an object containing key-value pairs; can be either pipeline or job-level specifications. In this case, the annotation `beta.screwdriver.cd/executor` is used to designate using Docker executor to run the pipeline.</p>
         </div>
         <div id="email" class="hidden">
             <h4>Email</h4>

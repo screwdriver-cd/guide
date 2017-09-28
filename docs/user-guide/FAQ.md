@@ -7,6 +7,8 @@ toc:
     - title: Frequently Asked Questions
       url: "#frequently-asked-questions"
       active: true
+    - title: How do I skip a build?
+      url: "#how-do-i-skip-a-build"
     - title: How do I create a pipeline?
       url: "#how-do-i-create-a-pipeline"
     - title: How do I start a pipeline manually?
@@ -22,6 +24,14 @@ toc:
 ---
 
 # Frequently Asked Questions
+
+## How do I skip a build?
+
+You might want to skip a build if you're only changing documentation.
+
+ If you don't want Screwdriver to trigger a build when you're pushing to master, add `[ci skip]` or `[skip ci]` somewhere in the commit message. If you don't want Screwdriver to trigger a build when you merge a pull request, add `[ci skip]` or `[skip ci]` to the pull request title.
+
+_Note: Doesn't apply to pull request builds: a commit message containing `[skip ci]` or `[ci skip]` will still trigger a pre-commit job (a PR job will always run)._
 
 ## How do I create a pipeline?
 
