@@ -1,4 +1,5 @@
 workflow:
+    - publish
     - deploy
 
 shared:
@@ -9,6 +10,20 @@ jobs:
     steps:
       - bundle_install: bundle install
       - build: bundle exec jekyll build --source docs --destination _site
+
+  publish:
+      environment:
+          RELEASE_FILE: guide.tgz
+      secrets:
+          - GIT_KEY
+          - GITHUB_TOKEN
+      steps:
+        - setup-ci: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
+        - install: bundle install
+        - build: bundle exec jekyll build --source docs --destination _site
+        - package: tar -C _site -cvzf $RELEASE_FILE .
+        - tag: ./ci/git-tag.sh
+        - publish: ./ci/git-release.sh
 
   deploy:
       steps:
