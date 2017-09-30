@@ -13,17 +13,23 @@ jobs:
 
   publish:
       environment:
+          DOCKER_REPO: screwdrivercd/guide
           RELEASE_FILE: guide.tgz
       secrets:
+          - DOCKER_TRIGGER
           - GIT_KEY
           - GITHUB_TOKEN
       steps:
-        - setup-ci: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
+        - setup-ci: git clone https://github.com/screwdriver-cd/toolbox.git ci
         - install: bundle install
         - build: bundle exec jekyll build --source docs --destination _site
         - package: tar -C _site -cvzf $RELEASE_FILE .
         - tag: ./ci/git-tag.sh
         - publish: ./ci/git-release.sh
+        - docker: |
+            ./ci/git-latest.sh
+            export DOCKER_TAG=`cat VERSION`
+            ./ci/docker-trigger.sh
 
   deploy:
       steps:
