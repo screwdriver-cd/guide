@@ -8,8 +8,8 @@ shared:
 jobs:
   main:
     steps:
-      - bundle_install: bundle install
-      - build: bundle exec jekyll build --source docs --destination _site
+        - bundle_install: bundle install
+        - build: bundle exec jekyll build --source docs --destination _site
 
   publish:
       environment:
@@ -20,25 +20,29 @@ jobs:
           - GIT_KEY
           - GITHUB_TOKEN
       steps:
-        - setup-ci: |
-            git clone https://github.com/screwdriver-cd/toolbox.git ci
-            cp build/git-ssh.sh ci/git-ssh.sh
-        - install: bundle install
-        - build: bundle exec jekyll build --source docs --destination _site
-        - package: tar -C _site -cvzf $RELEASE_FILE .
-        - tag: ./ci/git-tag.sh
-        - publish: ./ci/git-release.sh
-        - docker: |
-            ./ci/git-latest.sh
-            export DOCKER_TAG=`cat VERSION`
-            ./ci/docker-trigger.sh
+          - setup-ci: |
+              git clone https://github.com/screwdriver-cd/toolbox.git ci
+              cp build/git-ssh.sh ci/git-ssh.sh
+          - install: bundle install
+          - build: bundle exec jekyll build --source docs --destination _site
+          - package: tar -C _site -cvzf $RELEASE_FILE .
+          - tag: ./ci/git-tag.sh
+          - publish: ./ci/git-release.sh
+          - docker: |
+              ./ci/git-latest.sh
+              export DOCKER_TAG=`cat VERSION`
+              ./ci/docker-trigger.sh
 
   deploy:
-      steps:
-          - setup-ci: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
-          - bundle_install: bundle install
-          - build: bundle exec jekyll build --source docs --destination _site
-          - deploy: ./deploy.sh
+      environment:
+          DOCKER_REPO: screwdrivercd/guide
+          K8S_CONTAINER: guide
+          K8S_IMAGE: screwdrivercd/guide
+          K8S_HOST: api.k8s.screwdriver.cd
+          K8S_DEPLOYMENT: sdguide
       secrets:
-          # Pushing tags to Git
-          - GIT_KEY
+          - K8S_TOKEN
+      steps:
+          - setup-ci: git clone https://github.com/screwdriver-cd/toolbox.git ci
+          - wait-docker: DOCKER_TAG=`git describe --abbrev=0 --tags` ./ci/docker-wait.sh
+          - deploy-k8s: K8S_TAG=`git describe --abbrev=0 --tags` ./ci/k8s-deploy.sh
