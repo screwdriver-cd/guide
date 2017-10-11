@@ -15,13 +15,12 @@ This is an interactive guide for exploring various important properties of the s
 
 You can access information about properties by hovering over the property name.
 
-_Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
-
 <div class="yaml-docs">
 
 <pre class="example">
 <a href="#workflow"><span class="key">workflow</span>:
     - <span class="value">publish</span>
+    - <span class="value">deploy-west</span>
 </a>
 <a href="#shared"><span class="key">shared</span>:</a>
     <a href="#environment"><span class="key">environment</span>:
@@ -31,12 +30,10 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
     <span class="key">addresses</span>: <span class="value">[test@email.com, test2@email.com]</span>
     <span class="key">statuses</span>: <span class="value">[SUCCESS, FAILURE]</span></a>
     <a href="#annotations"><span class="key">annotations</span>:
-    <span class="key">beta.screwdriver.cd/executor</span>: <span class="value">docker</span></a>
+    <span class="key">beta.screwdriver.cd/my-annotation</span>: <span class="value">my-data</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
     <a href="#main-job"><span class="key">main</span>:</a>
-        <a href="#image"><span class="key">image</span>: <span class="value">node:&#123;&#123;NODE_VERSION&#125;&#125;</span></a>
-        <a href="#matrix"><span class="key">matrix</span>:
-    <span class="key">NODE_VERSION</span>: <span class="value">[4,5,6]</span></a>
+        <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
         <a href="#steps"><span class="key">steps</span>:
     - <span class="key">init</span>: <span class="value">npm install</span>
     - <span class="key">test</span>: <span class="value">npm test</span></a>
@@ -72,7 +69,7 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         </div>
         <div id="annotations" class="hidden">
             <h4>Annotations</h4>
-            <p>Annotations are an object containing key-value pairs; can be either pipeline or job-level specifications. In this case, the annotation `beta.screwdriver.cd/executor` is used to designate using Docker executor to run the pipeline.</p>
+            <p>Annotations is an optional object containing key-value pairs. These can be either pipeline or job-level specifications. Annotation key-value pairs can be completely arbitrary, as in the example, or can modify the execution of the build. For example, the annotation `beta.screwdriver.cd/executor` is used to designate a non-default executor to run the pipeline. Check with your screwdriver cluster admin to find what annotations are supported to modify your build execution.</p>
         </div>
         <div id="email" class="hidden">
             <h4>Email</h4>
@@ -88,11 +85,7 @@ _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everyth
         </div>
         <div id="image" class="hidden">
             <h4>Image</h4>
-            <p>This defines the Docker image(s) used for the builds. This example shows a template replacement, where a variable is enclosed in curly braces, e.g. {{NODE_VERSION}}. This variable will be changed to the value(s) of the equivalent variable in the matrix setting, resulting in multiple builds running in parallel, each using one of those various images.</p>
-        </div>
-        <div id="matrix" class="hidden">
-            <h4>Matrix</h4>
-            <p>This causes the builds for the job to execute on multiple images in parallel, when used a templated image configuration.</p>
+            <p>This defines the Docker image used for the builds. This value should be the same as you would use for a "docker pull" command.</p>
         </div>
         <div id="steps" class="hidden">
             <h4>Steps</h4>
