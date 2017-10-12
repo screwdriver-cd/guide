@@ -44,5 +44,6 @@ jobs:
           - K8S_TOKEN
       steps:
           - setup-ci: git clone https://github.com/screwdriver-cd/toolbox.git ci
-          - wait-docker: DOCKER_TAG=`git describe --abbrev=0 --tags` ./ci/docker-wait.sh
-          - deploy-k8s: K8S_TAG=`git describe --abbrev=0 --tags` ./ci/k8s-deploy.sh
+          - get-tag: ./ci/git-latest.sh
+          - wait-docker: DOCKER_TAG=`cat VERSION` ./ci/docker-wait.sh
+          - deploy-k8s: K8S_TAG=`cat VERSION` ./ci/k8s-deploy.sh
