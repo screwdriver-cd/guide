@@ -4,24 +4,26 @@ title: Metadata
 category: User Guide
 menu: menu_ja
 toc:
-    - title: Metadata
-      url: "#metadata"
-    - title: What is Metadata?
-      url: "#what-is-metadata"
-    - title: Manipulating Metadata
-      url: "#manipulating-metadata"
+- title: Metadata
+  url: "#metadata"
+- title: What is Metadata?
+  url: "#what-is-metadata"
+- title: Manipulating Metadata
+  url: "#manipulating-metadata"
 ---
+
 # Metadata
 
-## What is Metadata?
+## Metadata とは？
 
-Metadata is a structured key/value storage of relevant information about a [build](../../about/appendix/domain#build). Metadata will be shared with subsequent builds in the same [workflow](../../about/appendix/domain#workflow). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../../about/appendix/domain#step).
+Metadata は[ビルド](../../about/appendix/domain#build)に関する情報を保持する key/value ストアです。Metadata は同じ [workflow](../../about/appendix/domain#workflow) 内の後続のビルドで共有されます。Metadata は [steps](https://github.com/screwdriver-cd/meta-cli) 内で組み込まれている [meta CLI](../../about/appendix/domain#step) を利用することで、全てのビルドで更新と取得が可能です。
 
-## Manipulating Metadata
+## Metadata の操作
 
-Screwdriver provides the shell command `meta get` to extract information from the meta store and `meta set` to save information to the meta store.
+Screwdriver は meta store から情報を取得するためのシェルコマンド `meta get` と、meta store に情報を保存するための シェルコマンド `meta set` を提供しています。
 
-Example:
+例:
+
 ```bash
 $ meta set example.coverage 99.95
 $ meta get example.coverage
@@ -30,7 +32,8 @@ $ meta get example
 {"coverage":99.95}
 ```
 
-Example:
+例:
+
 ```bash
 $ meta set foo[2].bar[1] baz
 $ meta get foo
