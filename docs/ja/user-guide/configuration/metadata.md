@@ -16,7 +16,7 @@ toc:
 
 ## Metadata とは？
 
-Metadata は[ビルド](../../about/appendix/domain#build)に関する情報を保持する key/value ストアです。Metadata は同じ [workflow](../../about/appendix/domain#workflow) 内の後続のビルドで共有されます。Metadata は [steps](https://github.com/screwdriver-cd/meta-cli) 内で組み込まれている [meta CLI](../../about/appendix/domain#step) を利用することで、全てのビルドで更新と取得が可能です。
+Metadata は[ビルド](../../about/appendix/domain#build)に関する情報を保持する key/value ストアです。Metadata は同じ [workflow](../../about/appendix/domain#workflow) 内の後続のビルドで共有されます。Metadata は [steps](../../about/appendix/domain#step) 内で組み込まれている [meta CLI](https://github.com/screwdriver-cd/meta-cli) を利用することで、全てのビルドで更新と取得が可能です。
 
 ## Metadata の操作
 
