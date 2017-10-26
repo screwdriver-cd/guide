@@ -7,7 +7,7 @@ toc:
 - title: 環境変数
   url: "#環境変数"
   active: 'true'
-- title: Build Specific
+- title: ビルド固有
   url: "#ビルド固有"
 - title: ディレクトリ
   url: "#ディレクトリ"
