@@ -31,18 +31,18 @@ Screwdriverはビルドの過程で利用できる環境変数をエクスポー
 
 Name | Value
 --- | ---
-SD*PIPELINE*ID | パイプラインのID
-SD*JOB*NAME | ジョブの名前 (例: main)
-SD*BUILD*ID | ビルド番号 (例: 1, 2, など)
-SD*PULL*REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
+SD_PIPELINE_ID | パイプラインのID
+SD_JOB_NAME | ジョブの名前 (例: main)
+SD_BUILD_ID | ビルド番号 (例: 1, 2, など)
+SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
 SD_TOKEN | ビルド用のJWTトークン
 
 ## ディレクトリ
 
 Name | Value
 --- | ---
-SD*SOURCE*DIR | チェックアウトされたコードのディレクトリ
-SD*ARTIFACTS*DIR | ビルド･生成されたファイルのディレクトリ
+SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
+SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ
 
 ## 環境変数
 
@@ -60,7 +60,7 @@ SCM_URL | チェックアウトされたSCMのURL
 
 Name | Value
 --- | ---
-SD*API*URL | Screwdriver APIのURLへのリンク
+SD_API_URL | Screwdriver APIのURLへのリンク
 
 ## 継続的インテグレーション
 
