@@ -1,66 +1,68 @@
 ---
 layout: main
-title: Environment Variables
+title: 環境変数
 category: User Guide
 menu: menu_ja
 toc:
-- title: Environment Variables
-  url: "#environment-variables"
+- title: 環境変数
+  url: "#環境変数"
   active: 'true'
-- title: Build Specific
-  url: "#build-specific"
-- title: Directories
-  url: "#directories"
-- title: Environment Variables
-  url: "#environment-variables_1"
+- title: ビルド固有
+  url: "#ビルド固有"
+- title: ディレクトリ
+  url: "#ディレクトリ"
+- title: 環境変数
+  url: "#環境変数_1"
 - title: ソースコード
   url: "#ソースコード"
 - title: URLs
   url: "#urls"
-- title: Continuous Integration
-  url: "#continuous-integration"
+- title: 継続的インテグレーション
+  url: "#継続的インテグレーション"
 ---
 
-# Environment Variables
+# 環境変数
 
-Screwdriver exports a set of environment variables that you can rely on during the course of a build.
+Screwdriverはビルドの過程で利用できる環境変数をエクスポートしています。
 
-## Build Specific
+*メモ: 1つのジョブに対して設定した環境変数は他のジョブでは参照できません。ジョブ間で値を渡すには、[metadata](./configuration/metadata)を利用してください。*
 
-Name | Value
---- | ---
-SD_PIPELINE_ID | The ID of your pipeline
-SD_JOB_NAME | Job name (e.g.: main)
-SD_BUILD_ID | Build number (e.g.: 1, 2, etc)
-SD_PULL_REQUEST | Pull Request number (blank if non-PR)
-SD_TOKEN | JWT token for the build
-
-## Directories
+## ビルド固有
 
 Name | Value
 --- | ---
-SD_SOURCE_DIR | Location of checked-out code
-SD_ARTIFACTS_DIR | Location of built/generated files
+SD_PIPELINE_ID | パイプラインのID
+SD_JOB_NAME | ジョブの名前 (例: main)
+SD_BUILD_ID | ビルド番号 (例: 1, 2, など)
+SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
+SD_TOKEN | ビルド用のJWTトークン
 
-## Environment Variables
+## ディレクトリ
 
 Name | Value
 --- | ---
-&lt;environment_variable&gt; | Environment variable specified under the "environment" section in your [screwdriver.yaml](configuration/)
+SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
+SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ
+
+## 環境変数
+
+Name | Value
+--- | ---
+<environment_variable> | [screwdriver.yaml](configuration/)の"environment"の項目で設定された環境変数
 
 ## ソースコード
 
 Name | Value
 --- | ---
-SCM_URL | SCM URL that was checked out
+SCM_URL | チェックアウトされたSCMのURL
 
 ## URLs
 
 Name | Value
 --- | ---
-SD_API_URL | Link to the Screwdriver API URL
+SD_API_URL | Screwdriver APIのURLへのリンク
 
-## Continuous Integration
+## 継続的インテグレーション
 
 Name | Value
 --- | ---
