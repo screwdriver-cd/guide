@@ -1,25 +1,27 @@
 ---
 layout: main
-title: Templates
+title: テンプレート
 category: User Guide
 menu: menu_ja
 toc:
-    - title: Templates
-      url: "#templates"
-    - title: Using a template
-      url: "#using-a-template"
-    - title: Creating a template
-      url: "#creating-a-template"
-    - title: Finding templates
-      url: "#finding-templates"
+- title: テンプレート
+  url: "#テンプレート"
+- title: テンプレートを利用する
+  url: "#テンプレートを利用する"
+- title: テンプレートを作成する
+  url: "#テンプレートを作成する"
+- title: テンプレートを検索する
+  url: "#テンプレートを検索する"
 ---
-# Templates
 
-Templates are snippets of predefined code that people can use to replace a job definition in a [screwdriver.yaml](./configuration). A template contains a series of predefined steps along with a selected Docker image.
+# テンプレート
 
-## Using a template
+テンプレートは、ユーザが[screwdriver.yaml](./configuration)でジョブを設定する代わりに使用できる定義済みのコードのスニペットです。
+テンプレートには、一連の定義済みのステップとDockerイメージが含まれます。
 
-To use a template, define a `screwdriver.yaml`:
+## テンプレートを利用する
+
+テンプレートを利用するためには、以下のように `screwdriver.yaml`を定義します。
 
 ```yaml
 jobs:
@@ -27,7 +29,7 @@ jobs:
         template: template_name@1.3.0
 ```
 
-Screwdriver takes the template configuration and plugs it in, so that the `screwdriver.yaml` becomes:
+Screwdriverはテンプレートの設定を読み込み、`screwdriver.yaml`は以下のようになります。
 
 ```yaml
 jobs:
@@ -43,10 +45,13 @@ jobs:
           - NPM_TOKEN
 ```
 
-### Wrap
-Wrapping is when you add commands to run before and/or after an existing step. To wrap a step from a template, add a `pre` or `post` in front of the step name.
+### ラップする
 
-Example:
+ラップとは定義済みのステップの前、もしくは後に実行するコマンドを追加することを指します。
+テンプレートで定義済みのステップをラップするには、`pre` もしくは `post` をステップ名の前に追加します。
+
+例:
+
 ```yaml
 jobs:
     main:
@@ -56,12 +61,15 @@ jobs:
             - postinstall: echo post-install
 ```
 
-This will run the command `echo pre-install` before the template's `install` step, and `echo post-install` after the template's `install` step.
+この例では、`echo pre-install` が テンプレートの
+ `install` ステップの前に、`echo post-install` が  `install`  ステップの後に実行されます。
 
-### Replace
-To replace a step from a template, add your command with the same template's step name.
+### 置換
 
-Example:
+テンプレートで定義済みのステップを置換するには、定義されているステップと同じ名前のステップを追加します。
+
+例:
+
 ```yaml
 jobs:
     main:
@@ -70,15 +78,15 @@ jobs:
             - install: echo skip installing
 ```
 
-This will run the command `echo skip installing` for the `install` step.
+この例では、`echo skip installing` が `install` ステップで実行されます。
 
-## Creating a template
+## テンプレートを作成する
 
-### Writing a template yaml
+### テンプレート yaml を書く
 
-To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a name, version, description, maintainer email, and a config with an image and steps.
+テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートの名前、バージョン、説明、管理者のメールアドレス、使用するイメージと実行するステップの設定が必要です。
 
-Example `sd-template.yaml`:
+`sd-template.yaml`の例:
 
 ```yaml
 name: template_name
@@ -97,13 +105,18 @@ config:
         - NPM_TOKEN
 ```
 
-### Writing a screwdriver.yaml for your template repo
+### テンプレートリポジトリ用の screwdriver.yaml を書く
 
-To validate your template, run the `template-validate` script from the `screwdriver-template-main` npm module in your `main` job to validate your template. This means the build image must have NodeJS and NPM properly installed to use it. To publish your template, run the `template-publish` script from the same module in a separate job.
+テンプレートをバリデートするために、`template-validate` という npm モジュールを  `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている
+ `template-publish` を別のジョブで実行します。
 
-By default, the file at `./sd-template.yaml` will be read. However, a user can specify a custom path using the env variable: `SD_TEMPLATE_PATH`.
+デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。
 
-Example `screwdriver.yaml`:
+#### テンプレートのタグ付け
+
+オプションとして、特定のバージョンのテンプレートにタグを付けることができます。タグ付けはテンプレートが作成されたパイプラインと同じパイプラインから行われる必要があります。タグ付けを行うスクリプトには、引数にname, version 及び tag が必要です。指定するバージョンは正確なバージョンでなければなりません。
+
+`screwdriver.yaml`の例:
 
 ```yaml
 shared:
@@ -120,14 +133,15 @@ jobs:
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
+            - tag: ./node_modules/.bin/template-tag --name template_name --version 1.3.0 --tag stable
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
 ```
 
-Create a Screwdriver pipeline with your template repo and start the build to validate and publish it.
+Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートのバリデートとパブリッシュを行うためにビルドを開始します。
 
-To update a Screwdriver template, make changes in your SCM repository and rerun the pipeline build.
+Screwdriverのテンプレートを更新するには、ご利用のSCMリポジトリに変更を加え、パイプラインのビルドを再度実行します。
 
-## Finding templates
+## テンプレートを検索する
 
-To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api) for more information.
+作成済みのテンプレートを確認するには、 `GET` リクエストを `/templates` のエンドポイントに対して行ってください。詳しくは [API documentation](./api) をご覧ください。
