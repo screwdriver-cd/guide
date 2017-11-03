@@ -54,6 +54,8 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | Name | Value |
 |------|-------|
 | SCM_URL | SCM URL that was checked out |
+| GIT_URL | SCM URL that was checked out with .git appended |
+| GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
 
 ## URLs
 
