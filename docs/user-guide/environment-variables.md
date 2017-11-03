@@ -3,7 +3,7 @@ layout: main
 title: Environment Variables
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Environment Variables
       url: "#environment-variables"
       active: true
@@ -22,7 +22,7 @@ toc:
 ---
 # Environment Variables
 
-Screwdriver exports a set of environment variables that you can rely on during the course of a build.
+Screwdriver exports a set of environment variables that you can rely on during build runtime.
 
 _Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./configuration/metadata)._
 
