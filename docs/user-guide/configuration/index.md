@@ -18,10 +18,6 @@ You can access information about properties by hovering over the property name.
 <div class="yaml-docs">
 
 <pre class="example">
-<a href="#workflow"><span class="key">workflow</span>:
-    - <span class="value">publish</span>
-    - <span class="value">deploy-west</span>
-</a>
 <a href="#shared"><span class="key">shared</span>:</a>
     <a href="#environment"><span class="key">environment</span>:
     <span class="key">NODE_ENV</span>: <span class="value">test</span></a>
@@ -32,28 +28,44 @@ You can access information about properties by hovering over the property name.
     <a href="#annotations"><span class="key">annotations</span>:
     <span class="key">beta.screwdriver.cd/my-annotation</span>: <span class="value">my-data</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
-    <a href="#main-job"><span class="key">main</span>:</a>
+      <span class="key">main</span>:
+        <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
         <a href="#steps"><span class="key">steps</span>:
     - <span class="key">init</span>: <span class="value">npm install</span>
     - <span class="key">test</span>: <span class="value">npm test</span></a>
     <a href="#jobs"><span class="key">publish</span>:
+    <span class="key">requires</span>: <span class="value">main</span>
     <span class="key">image</span>: <span class="value">node:6</span>
     <span class="key">steps</span>:
         - <span class="key">publish</span>: <span class="value">npm publish</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
+    <span class="key">requires</span>: <span class="value">publish</span>
     <span class="key">image</span>: <span class="value">node:6</span>
     <span class="key">environment</span>:
         <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
     <span class="key">steps</span>:
         - <span class="key">init</span>: <span class="value">npm install</span>
-        - <span class="key">publish</span>: <span class="value">npm deploy</span></a>
+        - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
+    <a href="#jobs"><span class="key">deploy-east</span>:
+    <span class="key">requires</span>: <span class="value">publish</span>
+    <span class="key">image</span>: <span class="value">node:6</span>
+    <span class="key">environment</span>:
+        <span class="key">DEPLOY_ENV</span>: <span class="value">east</span>
+    <span class="key">steps</span>:
+        - <span class="key">init</span>: <span class="value">npm install</span>
+        - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
+    <a href="#jobs"><span class="key">finished</span>:
+    <span class="key">requires</span>: <span class="value">[deploy-west, deploy-east]</span>
+    <span class="key">image</span>: <span class="value">node:6</span>
+    <span class="key">steps</span>:
+        - <span class="key">echo</span>: <span class="value">echo done</span></a>
     <a href="#jobs">...</a>
 </pre>
     <div class="yaml-side">
-        <div id="workflow" class="hidden">
-            <h4>Workflow</h4>
-            <p>Defines the order of jobs that are executed for the project. All jobs referenced by the workflow must be defined in the jobs section.</p>
+        <div id="requires" class="hidden">
+            <h4>Requires</h4>
+            <p>A single job name or array of jobs that will trigger the job to run. Jobs defined with "requires: ~pr" are started by pull-request events. Jobs defined with "requires: ~commit" are started by push events. Jobs defined with "requires: ~sd@123:main" are started by job "main" from pipeline "123". Jobs defined with "requires: [deploy-west, deploy-east] are started after "deploy-west" and "deploy-east" are both done running successfully. "Note: ~ jobs denote an OR functionality, jobs without a ~ denote join functionality.</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
@@ -78,10 +90,6 @@ You can access information about properties by hovering over the property name.
         <div id="jobs" class="hidden">
             <h4>Jobs</h4>
             <p>A series of jobs that define the behavior of your builds.</p>
-        </div>
-        <div id="main-job" class="hidden">
-            <h4>Main</h4>
-            <p>The only required job. This job is executed automatically whenever there is a code change.</p>
         </div>
         <div id="image" class="hidden">
             <h4>Image</h4>

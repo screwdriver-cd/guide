@@ -134,4 +134,4 @@ To update a Screwdriver template, make changes in your SCM repository and rerun 
 
 ## Finding templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api) for more information.
+To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api) for more information. There should also be a `/templates` endpoint in the UI.

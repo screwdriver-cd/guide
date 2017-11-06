@@ -3,7 +3,7 @@ layout: main
 title: Environment Variables
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Environment Variables
       url: "#environment-variables"
       active: true
@@ -22,7 +22,7 @@ toc:
 ---
 # Environment Variables
 
-Screwdriver exports a set of environment variables that you can rely on during the course of a build.
+Screwdriver exports a set of environment variables that you can rely on during build runtime.
 
 _Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./configuration/metadata)._
 
@@ -54,6 +54,8 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | Name | Value |
 |------|-------|
 | SCM_URL | SCM URL that was checked out |
+| GIT_URL | SCM URL that was checked out with .git appended |
+| GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
 
 ## URLs
 
