@@ -65,7 +65,7 @@ You can access information about properties by hovering over the property name.
     <div class="yaml-side">
         <div id="requires" class="hidden">
             <h4>Requires</h4>
-            <p>A single job name or array of jobs that will trigger the job to run. Defines the order in which the jobs in the pipeline are run. Jobs defined with "requires: ~pr" are started by pull-request events. Jobs defined with "requires: ~commit" are started by push events. Jobs defined with "requires: ~sd@123:main" are started by job "main" from pipeline "123". Jobs defined with "requires: [deploy-west, deploy-east] are started after "deploy-west" and "deploy-east" are both done running successfully. "Note: ~ jobs denote an OR functionality, jobs without a ~ denote join functionality.</p>
+            <p>A single job name or array of jobs that will trigger the job to run. Jobs defined with "requires: ~pr" are started by pull-request events. Jobs defined with "requires: ~commit" are started by push events. Jobs defined with "requires: ~sd@123:main" are started by job "main" from pipeline "123". Jobs defined with "requires: [deploy-west, deploy-east] are started after "deploy-west" and "deploy-east" are both done running successfully. "Note: ~ jobs denote an OR functionality, jobs without a ~ denote join functionality.</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
