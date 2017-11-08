@@ -229,7 +229,7 @@ Configurable authentication settings have not yet been built, but can easily be 
 #### Custom Notifications
 
 You can create custom notification packages by extending [notifications-base](https://github.com/screwdriver-cd/notifications-base).
-The format of the package name must be `screwdriver-notifiations-<your-notification>`.
+The format of the package name must be `screwdriver-notifications-<your-notification>`.
 
 The following is an example snippet of `local.yaml` configuration when you use email notification and your custom notification:
 
