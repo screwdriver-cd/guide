@@ -208,8 +208,10 @@ executor:
                 socketPath: /var/lib/docker.sock
             launchVersion: stable
 ```
+### Notifications Plugin
+We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email).
 
-### Email Notifications
+#### Email Notifications
 
 Configure the SMTP server and sender address that email notifications will be sent from.
 
@@ -222,7 +224,38 @@ notifications:
         from: example@email.com
 ```
 
-Configurable authentication settings have not yet been built, but can easily be added. We’re using the <a href="https://nodemailer.com/about/">nodemailer</a> package to power emails, so authentication features will be similar to any typical nodemailer setup. Contribute at: <a href="https://github.com/screwdriver-cd/notifications-email">https://github.com/screwdriver-cd/notifications-email</a>
+Configurable authentication settings have not yet been built, but can easily be added. We’re using the [nodemailer](https://nodemailer.com/about/) package to power emails, so authentication features will be similar to any typical nodemailer setup. Contribute at: [screwdriver-cd/notifications-email](https://github.com/screwdriver-cd/notifications-email)
+
+#### Custom Notifications
+
+You can create custom notification packages by extending [notifications-base](https://github.com/screwdriver-cd/notifications-base).
+The format of the package name must be `screwdriver-notifiations-<your-notification>`.
+
+The following is an example snippet of `local.yaml` configuration when you use email notification and your custom notification:
+
+```yaml
+# config/local.yaml
+notifications:
+    email:
+        host: smtp.yourhost.com
+        port: 25
+        from: example@email.com
+    your-notification:
+        foo: bar
+        abc: 123
+```
+
+If you want to use [scoped package](https://docs.npmjs.com/misc/scope), the configuration is as below:
+
+```yaml
+# config/local.yaml
+notifications:
+    your-notification:
+        config:
+            foo: bar
+            abc: 123
+        scopedPackage: '@scope/screwdriver-notifications-your-notification'
+```
 
 ### Source Control Plugin
 
