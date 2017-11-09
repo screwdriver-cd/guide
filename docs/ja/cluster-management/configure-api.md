@@ -67,7 +67,7 @@ auth:
 
 ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
 
-で開発したブックエンドを使用したい場合は[こちら](#docker%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%AE%E6%8B%A1%E5%BC%B5)をご覧ください。
+もしご自身で開発したブックエンドを使用したい場合は[こちら](#extending-the-docker-container)をご覧ください。
 
 キー | デフォルト | 説明
 --- | --- | ---
@@ -163,6 +163,7 @@ datastore:
 ### Executorプラグイン
 
 現在は[kubernetes](https://github.com/screwdriver-cd/executor-k8s) と [docker](http://github.com/screwdriver-cd/executor-docker) と [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm) と [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor をサポートしています。
+詳しくは {a4}custom-environment-variables{/a4} をご覧ください。
 
 #### Kubernetes
 
@@ -170,10 +171,13 @@ datastore:
 
 環境変数名 | デフォルト値 | 説明
 --- | --- | ---
-EXECUTOR_PLUGIN |  | `k8s`を設定します
-LAUNCH_VERSION |  | 使用するLauncherのバージョン
-K8S_HOST |  | Kubernetesのホスト
-K8S_TOKEN |  | Kubernetesのリクエストを認証するためのJWT
+EXECUTOR_PLUGIN | k8s | デフォルトのExecutor (例:
+`k8s`,
+ {code1}docker{/code1}, {code2}k8s-vm{/code2},  {code3}jenkins{/code3})
+LAUNCH_VERSION | stable | 使用するLauncherのバージョン
+EXECUTOR_K8S_ENABLED | true | Kubernetes executorを利用可能にするフラグ
+K8S_HOST | kubernetes.default | Kubernetesのホスト
+K8S_TOKEN | Loaded from `/var/run/secrets/kubernetes.io/serviceaccount/token` by default | Kubernetesのリクエストを認証するためのJWT
 K8S_JOBS_NAMESPACE | default | Kubernetesジョブ用ネームスペース
 
 ```yaml
@@ -183,7 +187,7 @@ executor:
     k8s:
         options:
             kubernetes:
-                # The host or IP of the kubernetes cluster
+                # kubernetes クラスタのホストかIP
                 host: YOUR-KUBERNETES-HOST
                 token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
                 jobsNamespace: default
@@ -198,6 +202,7 @@ executor:
 --- | --- | ---
 EXECUTOR_PLUGIN | docker | `docker`を指定します
 LAUNCH_VERSION | stable | 使用するLauncherのバージョン
+EXECUTOR_DOCKER_ENABLED | true | Docker executor を利用可能にするフラグ
 EXECUTOR_DOCKER_DOCKER | `{}` | [Dockerode の設定](https://www.npmjs.com/package/dockerode#getting-started) (JSONオブジェクト)
 
 ```yaml
@@ -211,7 +216,11 @@ executor:
             launchVersion: stable
 ```
 
-### Email通知
+### 通知プラグイン
+
+[Email通知](https://github.com/screwdriver-cd/notifications-email)をサポートしています。
+
+#### Email通知
 
 SMTPサーバとEmail通知を行う送信者のアドレスを設定します。
 
@@ -224,11 +233,43 @@ notifications:
         from: example@email.com
 ```
 
-認証の設定はまだ実装されていませんが、追加することは難しくないでしょう。我々は<a href="https://nodemailer.com/about/">nodemailer</a>パッケージを使用しているため、認証機能はよくあるnodemailerのセットアップと同様です。コントリビューションお待ちしています:<a href="https://github.com/screwdriver-cd/notifications-email">https://github.com/screwdriver-cd/notifications-email</a>
+認証の設定はまだ実装されていませんが、追加することは難しくないでしょう。私たちは [nodemailer](https://nodemailer.com/about/) パッケージを使用しているため、認証機能はよくある nodemailer のセットアップと同様です。コントリビューションお待ちしています: [screwdriver-cd/notifications-email](https://github.com/screwdriver-cd/notifications-email)
+
+#### カスタム通知
+
+[notifications-base](https://github.com/screwdriver-cd/notifications-base) を利用することで、カスタム通知パッケージを作成することができます。パッケージ名は `screwdriver-notifications-<your-notification>` の形である必要があります。
+
+下記はEmail通知とカスタム通知を同時に使う場合の `local.yaml` の設定例です:
+
+```yaml
+# config/local.yaml
+notifications:
+    email:
+        host: smtp.yourhost.com
+        port: 25
+        from: example@email.com
+    your-notification:
+        foo: bar
+        abc: 123
+```
+
+もし [scoped package](https://docs.npmjs.com/misc/scope) を使用したい場合は、設定は以下のようになります:
+
+```yaml
+# config/local.yaml
+notifications:
+    your-notification:
+        config:
+            foo: bar
+            abc: 123
+        scopedPackage: '@scope/screwdriver-notifications-your-notification'
+```
 
 ### ソース管理プラグイン
 
 現在は[Github](https://github.com/screwdriver-cd/scm-github) と [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)をサポートしています。
+
+*注意: Gitlab はユーザにより開発されたプラグインです。*
 
 #### ステップ1: OAuthアプリケーションをセットアップ
 
@@ -242,7 +283,7 @@ OAuthアプリケーションのセットアップと、OAuth Client ID及びSec
 
 ##### Bitbucket.org:
 
-1. Navigate to the Bitbucket OAuth applications: [https://bitbucket.org/account/user/{your-username}/api](https://bitbucket.org/account/user/%7Byour-username%7D/api)
+1. Bitbucket OAuth applications ページを開きます: [https://bitbucket.org/account/user/{your-username}/api](https://bitbucket.org/account/user/%7Byour-username%7D/api)
 2. `Add Consumer`をクリックします。
 3. APIが動作しているホストのIPアドレスを`URL` と `Callback URL` に入力します。
 
