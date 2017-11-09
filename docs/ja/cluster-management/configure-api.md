@@ -163,7 +163,7 @@ datastore:
 ### Executorプラグイン
 
 現在は[kubernetes](https://github.com/screwdriver-cd/executor-k8s) と [docker](http://github.com/screwdriver-cd/executor-docker) と [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm) と [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor をサポートしています。
-詳しくは {a4}custom-environment-variables{/a4} をご覧ください。
+詳しくは [custom-environment-variables](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) をご覧ください。
 
 #### Kubernetes
 
@@ -171,9 +171,7 @@ datastore:
 
 環境変数名 | デフォルト値 | 説明
 --- | --- | ---
-EXECUTOR_PLUGIN | k8s | デフォルトのExecutor (例:
-`k8s`,
- {code1}docker{/code1}, {code2}k8s-vm{/code2},  {code3}jenkins{/code3})
+EXECUTOR_PLUGIN | k8s | デフォルトのExecutor (例: `k8s`, `docker`, `k8s-vm`, `jenkins`)
 LAUNCH_VERSION | stable | 使用するLauncherのバージョン
 EXECUTOR_K8S_ENABLED | true | Kubernetes executorを利用可能にするフラグ
 K8S_HOST | kubernetes.default | Kubernetesのホスト
@@ -269,7 +267,7 @@ notifications:
 
 現在は[Github](https://github.com/screwdriver-cd/scm-github) と [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)をサポートしています。
 
-*注意: Gitlab はユーザにより開発されたプラグインです。*
+_注意: Gitlab はユーザにより開発されたプラグインです。_
 
 #### ステップ1: OAuthアプリケーションをセットアップ
 
