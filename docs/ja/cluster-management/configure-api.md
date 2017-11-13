@@ -265,7 +265,7 @@ notifications:
 
 ### ソース管理プラグイン
 
-現在は[Github](https://github.com/screwdriver-cd/scm-github) と [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)をサポートしています。
+現在は[GithubとGitHub Enterprise](https://github.com/screwdriver-cd/scm-github)、 [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)と[Gitlab](https://github.com/bdangit/scm-gitlab)をサポートしています。
 
 _注意: Gitlab はユーザにより開発されたプラグインです。_
 
