@@ -26,7 +26,9 @@ You can access information about properties by hovering over the property name.
     <span class="key">addresses</span>: <span class="value">[test@email.com, test2@email.com]</span>
     <span class="key">statuses</span>: <span class="value">[SUCCESS, FAILURE]</span></a>
     <a href="#annotations"><span class="key">annotations</span>:
-    <span class="key">beta.screwdriver.cd/my-annotation</span>: <span class="value">my-data</span></a>
+    <span class="key">beta.screwdriver.cd/my-cluster-annotation</span>: <span class="value">my-data</span></a>
+        <a href="#executor"><span class="key">beta.screwdriver.cd/executor</span>: <span class="value">k8s-vm</span></a>
+        <a href="#resource"><span class="key">beta.screwdriver.cd/resource</span>: <span class="value">HIGH</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
       <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
@@ -81,7 +83,15 @@ You can access information about properties by hovering over the property name.
         </div>
         <div id="annotations" class="hidden">
             <h4>Annotations</h4>
-            <p>Annotations is an optional object containing key-value pairs. These can be either pipeline or job-level specifications. Annotation key-value pairs can be completely arbitrary, as in the example, or can modify the execution of the build. For example, the annotation `beta.screwdriver.cd/executor` is used to designate a non-default executor to run the pipeline. Check with your screwdriver cluster admin to find what annotations are supported to modify your build execution.</p>
+            <p>Annotations is an optional object containing key-value pairs. These can be either pipeline or job-level specifications. Annotation key-value pairs can be completely arbitrary, as in the example, or can modify the execution of the build. Check with your screwdriver cluster admin to find what annotations are supported to modify your build execution.</p>
+        </div>
+        <div id="executor" class="hidden">
+            <h4>Executor annotation</h4>
+            <p>Used to designate a non-default executor to run the build. Some available executors are `jenkins`, `k8s-vm`</p>
+        </div>
+        <div id="resource" class="hidden">
+            <h4>Resource annotation</h4>
+            <p>CPU and RAM allocated for the VM if using `k8s-vm` executor. `LOW` is configured by default, and indicates 2CPU and 2GB memory. `HIGH` means 6CPU and 12GB memory.</p>
         </div>
         <div id="email" class="hidden">
             <h4>Email</h4>
