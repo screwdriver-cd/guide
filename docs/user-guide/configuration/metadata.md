@@ -23,7 +23,7 @@ Screwdriver provides the shell command `meta get` to extract information from th
 
 ### Same pipeline
 
-Screwdriver build can retrieve metadata set by itself or by the previous builds within the same pipeline.
+Screwdriver build can retrieve metadata set by itself or by previous builds within the same pipeline.
 
 Example: `build1` -> `build2` -> `build3`
 
@@ -48,7 +48,7 @@ $ meta get foo
 
 ### External pipeline
 
-Screwdriver build can also access metadata set by an external job which triggers it.
+Screwdriver build can also access metadata from an external triggering job by adding the `--external` flag followed by the triggering job.
 
 Example: `sd@123:publish` -> `build1`. Then inside `build1`:
 ```
@@ -56,4 +56,6 @@ $ meta get example --external sd@123:publish
 {"coverage":99.95}
 ```
 
-Notes: `meta set` is not allowed for external builds.
+Notes:
+- `meta set` is not allowed for external builds.
+- If the flag value is not the triggering job, then `meta get` will return `null`.
