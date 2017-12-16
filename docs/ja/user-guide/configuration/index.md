@@ -16,8 +16,6 @@ toc:
 各プロパティ名にマウスカーソルを乗せるとそれらの説明が表示されます。
 
 <div class="yaml-docs">
-</div>
-<div data-md-type="block_html">
 <pre class="example">
 <a href="#shared"><span class="key">shared</span>:</a>
     <a href="#environment"><span class="key">environment</span>:
@@ -27,7 +25,10 @@ toc:
     <span class="key">addresses</span>: <span class="value">[test@email.com, test2@email.com]</span>
     <span class="key">statuses</span>: <span class="value">[SUCCESS, FAILURE]</span></a>
     <a href="#annotations"><span class="key">annotations</span>:
-    <span class="key">beta.screwdriver.cd/my-annotation</span>: <span class="value">my-data</span></a>
+    <span class="key">beta.screwdriver.cd/my-cluster-annotation</span>: <span class="value">my-data</span></a>
+        <a href="#executor"><span class="key">beta.screwdriver.cd/executor</span>: <span class="value">k8s-vm</span></a>
+        <a href="#cpu"><span class="key">beta.screwdriver.cd/cpu</span>: <span class="value">HIGH</span></a>
+        <a href="#ram"><span class="key">beta.screwdriver.cd/ram</span>: <span class="value">LOW</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
       <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
@@ -63,8 +64,7 @@ toc:
         - <span class="key">echo</span>: <span class="value">echo done</span></a>
     <a href="#jobs">...</a>
 </pre>
-</div>
-<pre data-md-type="block_code" data-md-language=""><code><div class="yaml-side">
+<div class="yaml-side">
     <div id="requires" class="hidden">
         <h4>Requires</h4>
         <p>ジョブ実行のトリガーとなる1つまたは複数のジョブの配列を設定します。"requires: ~pr"が設定されたジョブはプルリクエストイベントにより実行されます。"requires: ~commit"が設定されたジョブはプッシュイベントにより実行されます。"requires: ~sd@123:main"が設定されたジョブはパイプライン"123"の"main"ジョブの完了により実行されます。"requires: [deploy-west, deploy-east]"が設定されたジョブは"deploy-west"と"deploy-east"の両方のジョブの成功後に実行されます。"注意: ~ のジョブはOR条件で、~ なしのジョブはジョインの働きをします。"</p>
@@ -96,26 +96,22 @@ toc:
     <div id="ram" class="hidden">
         <h4>RAM annotation</h4>
         <p>`k8s-vm` Executor を利用する場合にVMに割り当てられるRAMを設定します。`LOW`はデフォルトで設定され、2GBのメモリが割り当てられ、`HIGH`は12GBのメモリが割り当てられます。</p>
-        <div id="email" class="hidden">
-            <h4>Email</h4>
-            <p>通知を送信するEmailアドレスと、通知を送信するステータスを設定します。</p>
-        </div>
-        <div id="jobs" class="hidden">
-            <h4>Jobs</h4>
-            <p>ビルドの挙動を定義するジョブのリストです。</p>
-        </div>
-        <div id="image" class="hidden">
-            <h4>Image</h4>
-            <p>ビルドで利用されるDockerイメージを指定します。ここでの設定は"docker pull"コマンドを利用する場合と同じものです。</p>
-        </div>
-        <div id="matrix" class="hidden">
-            <h4>Matrix</h4>
-            <p>image設定にテンプレートが利用されている場合、そのジョブのビルドが複数のイメージを利用して並列に実行されます。</p>
-        </div>
-        <div id="steps" class="hidden">
-            <h4>Steps</h4>
-            <p>コマンドラインで入力するように、ビルドで実行されるコマンドのリストを定義します。同じジョブ内では、環境変数はステップ間で受け渡されます。ステップの定義は全てのジョブに必須です。Screwdriverのステップとして予約語になっているため、ステップ名を'sd-'で始めることはできません。Screwdriverは'/bin/sh'をステップ実行のために使用するため、異なるターミナルやシェルを使用すると予期せぬ振る舞いをするかもしれません。</p>
-        </div>
     </div>
-</code></pre>
-<div data-md-type="block_html"></div>
+    <div id="email" class="hidden">
+        <h4>Email</h4>
+        <p>通知を送信するEmailアドレスと、通知を送信するステータスを設定します。</p>
+    </div>
+    <div id="jobs" class="hidden">
+        <h4>Jobs</h4>
+        <p>ビルドの挙動を定義するジョブのリストです。</p>
+    </div>
+    <div id="image" class="hidden">
+        <h4>Image</h4>
+        <p>ビルドで利用されるDockerイメージを指定します。ここでの設定は"docker pull"コマンドを利用する場合と同じものです。</p>
+    </div>
+    <div id="steps" class="hidden">
+        <h4>Steps</h4>
+        <p>コマンドラインで入力するように、ビルドで実行されるコマンドのリストを定義します。同じジョブ内では、環境変数はステップ間で受け渡されます。ステップの定義は全てのジョブに必須です。Screwdriverのステップとして予約語になっているため、ステップ名を'sd-'で始めることはできません。Screwdriverは'/bin/sh'をステップ実行のために使用するため、異なるターミナルやシェルを使用すると予期せぬ振る舞いをするかもしれません。</p>
+    </div>
+  </div>
+</div>
