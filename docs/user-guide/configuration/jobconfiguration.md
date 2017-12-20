@@ -14,7 +14,7 @@ toc:
       url: "#shared"
 ---
 # Job configuration
-Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`.
+Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`. It also defines trigger requirement for the job using [`requires`](/user-guide/configuration/workflow)
 
 #### Example
 ```
