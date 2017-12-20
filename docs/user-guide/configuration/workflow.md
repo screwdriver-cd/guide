@@ -143,4 +143,4 @@ jobs:
 ```
 
 ## Detached Jobs and Pipelines
-It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. While it is currently possible to define these flows, there is currently no way to trigger these detached workflows outside of direct interactions with the screwdriver API.
+It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. While it is currently possible to define these flows, there is currently no way to trigger these detached workflows outside of direct interactions with the Screwdriver API.
