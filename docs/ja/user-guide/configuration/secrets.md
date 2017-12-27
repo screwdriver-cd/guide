@@ -9,29 +9,32 @@ toc:
   active: 'true'
 - title: セキュリティ
   url: "#セキュリティ"
-- title: Configuring a job to expose secrets
-  url: "#configuring-a-job-to-expose-secrets"
-- title: User Interface
-  url: "#user-interface"
+- title: Secretsをジョブで利用する設定
+  url: "#Secretsをジョブで利用する設定"
+- title: ユーザインタフェース
+  url: "#ユーザインタフェース"
 ---
 
 # Build Secrets
 
-他には共有されず、ジョブ内でのみ共有されるsecretsを使うことができます。 Screwdriverはsecretsを環境変数として書き込む機能を提供します。secretsは環境変数として提供されるので、ビルド内で簡単に扱うことができます。
+ジョブ内でのみ共有されるSecretsを使うことができます。 ScrewdriverはSecretsを環境変数として書き込む機能を提供します。Secretsは環境変数として提供されるので、ビルド内で簡単に扱うことができます。
 
 ## セキュリティ
 
-The Screwdriver team takes security very seriously and encrypts all traffic between its various services. User secrets are stored encrypted in our datastore, and their values are only released to those builds that are authorized by the user.
+Screwdriverチームは非常に真剣にセキュリティ問題に取り組んでおり、さまざまなサービス間の全てのトラフィックを暗号化しています。ユーザSecretsは暗号化されデータストアに保存され、Secretsの値はユーザに許可されたビルドのみで利用されます。
 
-We understand that you, the security-conscious pipeline admin, may not wish to put secrets into pull-request builds, as a malicious pull-requester could expose those secrets without your consent, but still need those secrets as part of the main build. Screwdriver provides an additional flag on secrets, `allowInPR` (default: false), that is required to be enabled for a secret to be exposed.
+セキュリティ意識の強いパイプライン管理者は、プルリクエストジョブでSecretsを利用することを望まないでしょう。
+悪意のあるプルリクエスト送信者が、管理者の同意なしにSecretsを利用可能にできるためです。
+しかし、mainジョブではSecretsが必要な場合があります。
+ScrewdriverはSecretsに`allowInPR` (デフォルト: false) というフラグを提供しています。これはプルリクエストジョブでSecretsを利用するために必要なフラグです。
 
-Secrets may only be added, modified, or removed by people that are listed as admins of the Git repository associated with a given pipeline. People with "push" privileges may also fetch a list of secrets, but not the secret values.
+SecretsはPipelineに紐付いているGitリポジトリの管理者による追加、変更または削除のみ可能です。”push"権限を持つユーザはSecretsのリストを取得できますが、Secretsの値を取得することはできません。
 
-## Configuring a job to expose secrets
+## Secretsをジョブで利用する設定
 
-A list of allowed secrets are added to your pipeline configuration. Secret keys may only contain A-Z and underscore characters ( _ ) and must start with a letter.
+利用を許可するSecretsのリストをパイプラインの設定に追加します。SecretsのキーにはA-Zと_のみ利用でき、文字で始まる必要があります。
 
-In the below example, an `NPM_TOKEN` secret is added to the `publish` job:
+以下の例では、`NPM_TOKEN`というSecretsを`publish`ジョブに追加しています:
 
 ```yaml
 publish:
@@ -42,13 +45,13 @@ publish:
         - NPM_TOKEN
 ```
 
-You may add secrets to any jobs you wish.
+任意のジョブにSecretsを追加することができます。
 
-### Secrets in pull-requests
+### プルリクエストでのSecrets
 
-For your own security, we don't recommend exposing secrets to pull-request builds. Pull-request jobs can be created with modified `screwdriver.yaml` files including changes to the secrets configuration.
+セキュリティの観点から、プルリクエストジョブでのSecretsの利用は推奨されません。プルリクエストジョブは`screwdriver.yaml`のSecretsの設定変更でも作成できるからです。
 
-Pull-requests operate essentially as copies of the `main` job. The `main` job can be set up to use a secret, and does not expose that secret to pull-requests by default.
+プルリクエストジョブは`main`ジョブと同じ内容が実行されます。`main`ジョブでSecretsを使うよう設定ができますが、デフォルトではSecretsは利用できません。
 
 ```yaml
 main:
@@ -58,21 +61,21 @@ main:
         - MY_SECRET
 ```
 
-When a secret is created via the UI, or API, enabling `allowInPR` will cause that secret to be available to pull-request builds, if those secrets are also configured to be exposed in the `main` job.
+UIまたはAPIでSecretsを作成した際、`allowInPR` を有効にし、`main` ジョブでSecretsを利用する設定をすることで、プルリクエストジョブでSecretsの利用が可能になります。
 
-## ユーザーインターフェイス
+## ユーザインタフェース
 
-パイプラインのシークレットを設定する一番簡単な方法はScrewdriverのUIを使うことです。
+パイプラインのSecretsを作成する一番簡単な方法はScrewdriverのUIを使うことです。
 ![Secrets UI](../../../../assets/secrets.png)
 
-### シークレットの作成
+### Secretsの作成
 
-Simply enter the key and value in the inputs in the grey box, and click the add button. A checkbox is provided to allow you to enable `allowInPR`.
+グレーのテキストボックスにキーと値を入力し、Addボタンをクリックします。`allowInPR`のチェックボックスにチェックを入れると、プルリクエストジョブ内でSecretsの利用が可能になります。
 
-### Updating Secrets
+### Secretsの更新
 
-A secret's original value is never delivered to the UI, but values of secrets may be updated in the UI by adding a new value in the text field next to the appropriate key name and clicking the update button.
+Secretsの値はUIから参照することはできませんが、更新は可能です。新しい値を更新したいキーの隣のテキストボックスに入力し、Updateボタンをクリックします。
 
-### Deleting secrets
+### Secretsの削除
 
-Individual secrets may be removed by clicking the Delete button.
+削除したいSecretsのDeleteボタンをクリックします。
