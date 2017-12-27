@@ -50,9 +50,9 @@ $ meta get foo
 
 ### 外部パイプライン
 
-Screwdriverのビルドは外部トリガージョブの Metadataにも `--external`フラグにトリガージョブを指定することでアクセスすることができます。
+Screwdriverのビルドは外部トリガー元のジョブの Metadataにも `--external`フラグにトリガー元のジョブを指定することでアクセスすることができます。
 
-例: `sd@123:publish` -> `build1` の時 `build1`:
+例: `sd@123:publish` -> `build1` の時 `build1`のビルド内で:
 
 ```
 $ meta get example --external sd@123:publish
@@ -62,4 +62,4 @@ $ meta get example --external sd@123:publish
 注意:
 
 - `meta set` は外部ビルドに対してはできません。
-- もしフラグの値がトリガージョブではなかった場合、`meta get`は`null`を返します。
+- もしフラグの値がトリガー元のジョブではなかった場合、`meta get`は`null`を返します。
