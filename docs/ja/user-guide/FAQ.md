@@ -23,7 +23,7 @@ toc:
   url: "#パイプラインを削除する"
 ---
 
-# Frequently Asked Questions
+# よくある質問と回答
 
 ## ビルドをスキップする方法は？
 
