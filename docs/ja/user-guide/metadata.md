@@ -61,5 +61,5 @@ $ meta get example --external sd@123:publish
 
 注意:
 
-- `meta set` は外部ビルドに対してはできません。
+- `meta set` は外部パイプラインのジョブに対してはできません。
 - もしフラグの値がトリガー元のジョブではなかった場合、 `meta get` は `null` を返します。
