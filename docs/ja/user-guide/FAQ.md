@@ -32,7 +32,7 @@ README等ちょっとしたドキュメント修正のみの時など、screwdri
 masterにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字列を追加してください。
 また、プルリクエストのマージ時にビルドをスキップさせたい場合は、プルリクエストのタイトル欄に `[ci skip]` または `[skip ci]`の文字列を追加してください。
 
-注意：プルリクエストビルドはスキップ出来ません。
+注意: プルリクエストビルドはスキップ出来ません。
 commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリクエスト時のビルドはスキップされません。（プルリクエストビルドは常に実行されます）
 
 ## パイプラインの作り方は？
@@ -62,7 +62,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 ## パイプラインがgitと正しく同期しているか確かめるには？
 
 もしgitで何か変更を加えてもパイプラインが同期されない場合は、「Options」タブの「Sync」欄にあるアイコンをクリックして同期してください。
-同期は「SCM webhook」、「Pull Rerequest」、「Pipeline」とそれぞれ別々に同期できます。
+同期は「SCM webhook」、「Pull Request」、「Pipeline」とそれぞれ別々に同期できます。
 
 ![Sync a pipeline](../../user-guide/assets/sync-pipeline.png)
 
