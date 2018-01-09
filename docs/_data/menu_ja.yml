@@ -28,10 +28,10 @@
       subcategories:
         - title: "全体"
           url: "/ja/user-guide/configuration/"
-        - title: "Metadata"
-          url: "/ja/user-guide/configuration/metadata"
         - title: "Secrets"
           url: "/ja/user-guide/configuration/secrets"
+    - title: "Metadata"
+      url: "/ja/user-guide/metadata"
     - title: "環境変数"
       url: "/ja/user-guide/environment-variables"
     - title: "テンプレート"
