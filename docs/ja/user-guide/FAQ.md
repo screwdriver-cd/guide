@@ -4,23 +4,23 @@ title: FAQ
 category: User Guide
 menu: menu_ja
 toc:
-- title: Frequently Asked Questions
+- title: よくある質問と回答
   url: "#よくある質問と回答"
   active: 'true'
 - title: ビルドをスキップする方法は？
-  url: "#ビルドをスキップする方法"
+  url: "#ビルドをスキップする方法は？"
 - title: パイプラインの作り方は？
-  url: "#パイプラインの作り方"
+  url: "#パイプラインの作り方は？"
 - title: ビルドを手動で開始するには？
-  url: "#ビルドを手動で開始する"
-- title: How do I update a pipeline repo and branch?
-  url: "#パイプラインのレポジトリやブランチを変更したい"
-- title: How do I disable/enable a job temporarily?
-  url: "#ジョブのdisable/enableを一時的に切り替える"
+  url: "#ビルドを手動で開始するには？"
+- title: パイプラインのリポジトリやブランチを変更したい場合は？
+  url: "#パイプラインのリポジトリやブランチを変更したい場合は？"
+- title: ジョブのdisable/enableを一時的に切り替えるには？
+  url: "#ジョブのdisable/enableを一時的に切り替えるには？"
 - title: パイプラインがgitと正しく同期しているか確かめるには？
-  url: "#パイプラインがgitと正しく同期しているか確かめる"
+  url: "#パイプラインがgitと正しく同期しているか確かめるには？"
 - title: パイプラインを削除するには？
-  url: "#パイプラインを削除する"
+  url: "#パイプラインを削除するには？"
 ---
 
 # よくある質問と回答
@@ -29,11 +29,11 @@ toc:
 
 README等ちょっとしたドキュメント修正のみの時など、screwdriverのビルドをスキップさせたい場合があると思います。
 
-masterにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字を追加してください。
-また、プルリクエストのマージ時にビルドをスキップさせたい場合は、プルリクエストのタイトル欄に `[ci skip]` または `[skip ci]`の文字を追加してください。
+masterにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字列を追加してください。
+また、プルリクエストのマージ時にビルドをスキップさせたい場合は、プルリクエストのタイトル欄に `[ci skip]` または `[skip ci]`の文字列を追加してください。
 
-*注）プルリクエストビルドはスキップ出来ません。
-commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリクエスト時のビルドはスキップされません。（プルリクエストビルドは常に実行されます）*
+注意：プルリクエストビルドはスキップ出来ません。
+commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリクエスト時のビルドはスキップされません。（プルリクエストビルドは常に実行されます）
 
 ## パイプラインの作り方は？
 
@@ -47,9 +47,9 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ![Start a pipeline](../../user-guide/assets/start-pipeline.png)
 
-## パイプラインのレポジトリやブランチを変更したい場合は？
+## パイプラインのリポジトリやブランチを変更したい場合は？
 
-パイプラインのレポジトリやブランチを変更したい場合は、「Options」タブをクリックして、Checkout URLの入力欄を更新し、「Update」ボタンをクリックしてください。
+パイプラインのリポジトリやブランチを変更したい場合は、「Options」タブをクリックして、Checkout URLの入力欄を更新し、「Update」ボタンをクリックしてください。
 
 ![Update a pipeline](../../user-guide/assets/update-pipeline.png)
 
