@@ -61,6 +61,7 @@ SCM_URL | チェックアウトされたSCMのURL
 Name | Value
 --- | ---
 SD_API_URL | Screwdriver APIのURLへのリンク
+SD_STORE_URL | Screwdriver StoreのURLへのリンク
 
 ## 継続的インテグレーション
 

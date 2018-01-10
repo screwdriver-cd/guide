@@ -62,6 +62,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | Name | Value |
 |------|-------|
 | SD_API_URL | Link to the Screwdriver API URL |
+| SD_STORE_URL | Link to the Screwdriver Store URL |
 
 ## Continuous Integration
 
