@@ -4,57 +4,70 @@ title: FAQ
 category: User Guide
 menu: menu_ja
 toc:
-    - title: Frequently Asked Questions
-      url: "#frequently-asked-questions"
-      active: true
-    - title: How do I create a pipeline?
-      url: "#how-do-i-create-a-pipeline"
-    - title: How do I start a pipeline manually?
-      url: "#how-do-i-start-a-pipeline-manually"
-    - title: How do I update a pipeline repo and branch?
-      url: "#how-do-i-update-a-pipeline-repo-and-branch"
-    - title: How do I disable/enable a job temporarily?
-      url: "#how-do-i-disable/enable-a-job-temporarily"
-    - title: How do I make sure my code is in sync with my pipeline?
-      url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
-    - title: How do I delete a pipeline permanently?
-      url: "#how-do-i-delete-a-pipeline-permanently"
+- title: よくある質問と回答
+  url: "#よくある質問と回答"
+  active: 'true'
+- title: ビルドをスキップする方法は？
+  url: "#ビルドをスキップする方法は？"
+- title: パイプラインの作り方は？
+  url: "#パイプラインの作り方は？"
+- title: ビルドを手動で開始するには？
+  url: "#ビルドを手動で開始するには？"
+- title: パイプラインのリポジトリやブランチを変更したい場合は？
+  url: "#パイプラインのリポジトリやブランチを変更したい場合は？"
+- title: ジョブのdisable/enableを一時的に切り替えるには？
+  url: "#ジョブのdisable/enableを一時的に切り替えるには？"
+- title: パイプラインがソースコードと正しく同期しているか確かめるには？
+  url: "#パイプラインがソースコードと正しく同期しているか確かめるには？"
+- title: パイプラインを削除するには？
+  url: "#パイプラインを削除するには？"
 ---
 
-# Frequently Asked Questions
+# よくある質問と回答
 
-## How do I create a pipeline?
+## ビルドをスキップする方法は？
 
-To create a pipeline, click the Create icon and paste a Git URL into the form. Followed by `#` and the branch name, if the branch is not `master`.
+README等ちょっとしたドキュメント修正のみの時など、screwdriverのビルドをスキップさせたい場合があると思います。
+
+masterにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字列を追加してください。
+また、プルリクエストのマージ時にビルドをスキップさせたい場合は、プルリクエストのタイトル欄に `[ci skip]` または `[skip ci]`の文字列を追加してください。
+
+注意: プルリクエストビルドはスキップ出来ません。
+commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリクエスト時のビルドはスキップされません。（プルリクエストビルドは常に実行されます）
+
+## パイプラインの作り方は？
+
+新しいパイプラインを作成するには、画面右上の作成アイコンをクリックし、gitリポジトリのURLをフォームに入力してください。master以外のブランチを指定する場合は、`#`の後にブランチ名を指定してください。
 
 ![Create a pipeline](../../user-guide/assets/create-pipeline.png)
 
-## How do I start a pipeline manually?
+## ビルドを手動で開始するには？
 
-To start a build manually, click the Start button on your pipeline page.
+ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックしてください。
 
 ![Start a pipeline](../../user-guide/assets/start-pipeline.png)
 
-## How do I update a pipeline repo and branch?
+## パイプラインのリポジトリやブランチを変更したい場合は？
 
-If you want to update your pipeline repo and branch, modify the checkout URL in the Options tab on your pipeline page and click Update.
+パイプラインのリポジトリやブランチを変更したい場合は、「Options」タブをクリックして、Checkout URLの入力欄を更新し、「Update」ボタンをクリックしてください。
 
 ![Update a pipeline](../../user-guide/assets/update-pipeline.png)
 
-## How do I disable/enable a job temporarily?
+## ジョブの disable/enable を一時的に切り替えるには？
 
-To temporarily disable/enable a job to quickly stop the line, toggle the switch to disable/enable for a particular job under the Options tab on your pipeline page.
+一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるトグルボタンをクリックして切り替えを行ってください。
 
 ![Disable a pipeline](../../user-guide/assets/disable-pipeline.png)
 
-## How do I make sure my code is in sync with my pipeline?
+## パイプラインがソースコードと正しく同期しているか確かめるには？
 
-If your pipeline looks out of sync after changes were made to it, to make sure it's in sync with your source code. On the Options tab in your pipeline page, click the Sync icon to update the out of sync elements. There are separate Sync icons for SCM webhooks, pull request builds, and pipeline jobs.
+もしソースコードで何か変更を加えてもパイプラインが同期されない場合は、「Options」タブの「Sync」欄にあるアイコンをクリックして同期してください。
+同期は「SCM webhook」、「Pull Request」、「Pipeline」とそれぞれ別々に同期できます。
 
 ![Sync a pipeline](../../user-guide/assets/sync-pipeline.png)
 
-## How do I delete a pipeline permanently?
+## パイプラインを削除するには？
 
-Individual pipelines may be removed by clicking the Delete icon on the Options tab in your pipeline page. This action is not undoable.
+パイプラインを削除するには、「Options」タブ内にある削除アイコンをクリックします。一度削除したパイプラインは戻すことは出来ませんのでご注意ください。
 
 ![Delete a pipeline](../../user-guide/assets/delete-pipeline.png)
