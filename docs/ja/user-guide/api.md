@@ -36,10 +36,10 @@ APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v
 Swaggerのドキュメントは例とお試しのための編集可能なパラメータを含んでいます。`/v4/documentation`にアクセスし、APIを呼び出すための`Try it out!`ボタンをお試しください。 
 
 Swaggerページ:
-![Swagger page](../../../../user-guide/assets/swagger-page.png)
+![Swagger page](../../user-guide/assets/swagger-page.png)
 
 レスポンス:
-![Swagger response](../../../../user-guide/assets/swagger-response.png)
+![Swagger response](../../user-guide/assets/swagger-response.png)
 
 ### RESTクライアント経由で実行する
 
