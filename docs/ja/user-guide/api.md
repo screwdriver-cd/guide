@@ -62,6 +62,9 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 一方、認可はOAuthによるものです。`/v4/auth/login`にアクセスしたときに行われます。ScrewdriverはSCMトークンで以下を識別します。
 
 - レポジトリへのread, write, adminアクセスを識別します。
+    - read権限でpipelineを見ることができます。
+    - write権限でjobの開始と停止ができます。
+    - admin権限でpipelineの作成、編集、削除ができます。
 - リポジトリの`screwdriver.yaml`の読み込み
 - リポジトリに対するオープン中のpull-requestのリストを取得
 - ビルドの成功・失敗情報でpull-requestを更新
@@ -79,6 +82,7 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 
 ```markdown
 [![Build Status][status-image]][status-url]
+
 [status-image]: https://cd.screwdriver.cd/pipelines/1/badge
 [status-url]: https://cd.screwdriver.cd/pipelines/1
 ```
