@@ -25,7 +25,9 @@ ScrewdriverのAPIとデータモデルは[Swagger](http://swagger.io/)を使っ�
 
 > 現在のAPIは**Version 4**で、全てのAPIは`/v4`で始まります。
 
-APIのドキュメントは以下で見ることができます [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation) ご自身のScrewdriverで見るためには、`/v4/documentation`にアクセスしてください。
+APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation)
+
+各自のScrewdriver.cdインスタンスでは、`/v4/documentation`にアクセスしてください。
 
 ## APIを使用する
 
@@ -34,10 +36,10 @@ APIのドキュメントは以下で見ることができます [api.screwdriver
 Swaggerのドキュメントは例とお試しのための編集可能なパラメータを含んでいます。`/v4/documentation`にアクセスし、APIを呼び出すための`Try it out!`ボタンをお試しください。 
 
 Swaggerページ:
-![Swagger page](./assets/swagger-page.png)
+![Swagger page](../../../../user-guide/assets/swagger-page.png)
 
 レスポンス:
-![Swagger response](./assets/swagger-response.png)
+![Swagger response](../../../../user-guide/assets/swagger-response.png)
 
 ### RESTクライアント経由で実行する
 
@@ -97,4 +99,7 @@ ScrewdriverのAPIは次の三原則を念頭に設計されました。
 
 ## Make Your Own
 
-あなた自身の Swaggerドキュメントを作成するには、以下のJSONリファレンスを確認して下さい<br>[https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)<br>ご自身のSwagger.jsonを見るためには、`/v4/swagger.json`にアクセスしてください。
+Swaggerドキュメントを作成したい場合は、次のJSONを参考にしてください:
+ [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)
+
+各自のScrewdriver.cdインスタンスでは、`/v4/swagger.json` にアクセスしてください。
