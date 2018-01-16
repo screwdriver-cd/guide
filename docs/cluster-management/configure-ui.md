@@ -27,9 +27,40 @@ Our images are tagged for their version (eg. `1.2.3`) as well as a floating `lat
 
 ## Configuration
 
-The User Interface only has one configuration option, the location of the API.  It is set via an environment variable `ECOSYSTEM_API`.
+The User Interface has a few configuration options, the location of the API, store, and path to avatar images.
+
+### API Configuration
+API hostname is set via an environment variable `ECOSYSTEM_API`.
 
 Example:
 ```bash
 $ docker run -d -p 8000:80 -e ECOSYSTEM_API=http://localhost:9000 screwdrivercd/ui:stable
+```
+
+### Store Configuration
+Log and file store hostname is set via an environment variable `ECOSYSTEM_STORE`.
+
+Example:
+```bash
+$ docker run -d -p 8000:80 -e ECOSYSTEM_STORE=http://localhost:9001 screwdrivercd/ui:stable
+```
+
+### Avatar Configuration
+We've added content security protection headers to the docker image for the UI, so images loaded from external sources, such as avatars, must be configured in these headers. This is set via an environment variable `AVATAR_HOSTNAME`.
+
+Example:
+```bash
+$ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com" screwdrivercd/ui:stable
+```
+
+Common examples for avatar hostnames are:
+* Github: `avatars*.githubusercontent.com`
+* Bitbucket: `bitbucket.org/account/*/avatar/*`
+* GHE: `exampleghe.com/avatars/u/*`
+
+Multiple hostnames can be added at once by separating them with a space.
+
+Example:
+```bash
+$ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bitbucket.org/account/*/avatar/*" screwdrivercd/ui:stable
 ```
