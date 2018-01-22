@@ -209,7 +209,7 @@ executor:
             launchVersion: stable
 ```
 ### Notifications Plugin
-We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email).
+We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email) and [Slack notifications](https://github.com/screwdriver-cd/notifications-slack).
 
 #### Email Notifications
 
@@ -225,6 +225,17 @@ notifications:
 ```
 
 Configurable authentication settings have not yet been built, but can easily be added. We’re using the [nodemailer](https://nodemailer.com/about/) package to power emails, so authentication features will be similar to any typical nodemailer setup. Contribute at: [screwdriver-cd/notifications-email](https://github.com/screwdriver-cd/notifications-email)
+
+#### Slack Notifications
+
+Create a `screwdriver-bot` user in your Slack instance. Generate a Slack token for the new user and set it in your Slack notifications settings.
+
+```yaml
+# config/local.yaml
+notifications:
+    slack:
+        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+```
 
 #### Custom Notifications
 
