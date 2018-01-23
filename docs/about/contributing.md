@@ -71,7 +71,7 @@ The **[screwdriver][api-repo]** repo is the core of screwdriver, providing the A
 
 
 * **[Build bookends][build-bookend-repo]** allow a user to create setup and teardown steps for builds.
-* The API can also send notifications to users. [notifications-base][notifications-base-repo] is the base class for defining the behavior between screwdriver and notifications plugins, like [email notifications][notifications-email-repo].
+* The API can also send notifications to users. [notifications-base][notifications-base-repo] is the base class for defining the behavior between screwdriver and notifications plugins, like [email notifications][notifications-email-repo] and [slack notifications][notifications-slack-repo].
 
 ### [Launcher][launcher-repo]
 
@@ -196,6 +196,7 @@ The organization [screwdriver-cd-test][screwdriver-cd-test-org] contains various
 [models-repo]: https://github.com/screwdriver-cd/models
 [notifications-base-repo]: https://github.com/screwdriver-cd/notifications-base
 [notifications-email-repo]: https://github.com/screwdriver-cd/notifications-email
+[notifications-slack-repo]: https://github.com/screwdriver-cd/notifications-slack
 [scm-base-repo]: https://github.com/screwdriver-cd/scm-base
 [scm-bitbucket-repo]: https://github.com/screwdriver-cd/scm-bitbucket
 [scm-github-repo]: https://github.com/screwdriver-cd/scm-github
