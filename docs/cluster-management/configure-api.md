@@ -228,7 +228,7 @@ Configurable authentication settings have not yet been built, but can easily be 
 
 #### Slack Notifications
 
-Create a `screwdriver-bot` user in your Slack instance. Generate a Slack token for the new user and set it in your Slack notifications settings.
+Create a `screwdriver-bot` [Slack bot user](https://api.slack.com/bot-users) in your Slack instance. Generate a Slack token for the bot and set the `token` field with it in your Slack notifications settings.
 
 ```yaml
 # config/local.yaml

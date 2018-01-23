@@ -13,6 +13,7 @@ toc:
 ---
 # Settings
 Configurable settings for any additional build plugins added to Screwdriver.cd.
+The settings can be set in `shared`, to apply to all jobs, or in an individual job. A job setting will completely override the `shared` setting.
 
 ## Email
 To enable emails to be sent as a result of build events, use the email setting.
@@ -31,10 +32,8 @@ jobs:
                 statuses: [SUCCESS, FAILURE]
 ```
 
-The settings email configuration can be set in `shared`, to apply to all jobs, or in an individual job. A job `email` configuration will completely override the `shared` setting.
-
 ## Slack
-To enable Slack notifications to be sent as a result of build events, invite the Slack user `screwdriver-bot` to your channel(s) and use the Slack setting in your Screwdriver yaml.
+To enable Slack notifications to be sent as a result of build events, invite the `screwdriver-bot` Slack bot to your channel(s) and use the Slack setting in your Screwdriver yaml.
 You can configure a list of one or more Slack channels to notify. You can also configure when to send a slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`. If you don't configure the build status, it'll default to sending notifications on `FAILURE` only.
 
 ### Examples
@@ -87,5 +86,3 @@ jobs:
 ### Example success notification
 
 ![Slack notification](../assets/slack-notification.png)
-
-The settings slack configuration can be set in `shared`, to apply to all jobs, or in an individual job. A job `slack` configuration will completely override the `shared` setting.
