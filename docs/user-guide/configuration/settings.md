@@ -13,7 +13,30 @@ toc:
 ---
 # Settings
 Configurable settings for any additional build plugins added to Screwdriver.cd.
-The settings can be set in `shared`, to apply to all jobs, or in an individual job. A job setting will completely override the `shared` setting.
+
+The settings can be set in `shared`, to apply to all jobs, or in an individual job. A job-level setting will completely override the `shared` setting.
+
+If you don't configure the build status, the notification will default to sending notifications on `FAILURE` only.
+
+```
+shared:
+    settings:
+        email: [test@email.com, test2@email.com]
+        slack: 'mychannel'
+
+jobs:
+    main:
+        template: example/mytemplate@stable
+```
+
+```
+jobs:
+    main:
+        template: example/mytemplate@stable
+        settings:
+            email: [test@email.com, test2@email.com]
+            slack: 'mychannel'
+```
 
 ## Email
 To enable emails to be sent as a result of build events, use the email setting.
@@ -21,11 +44,6 @@ You can configure a list of one or more email addresses to contact. You can also
 
 ### Example
 ```
-shared:
-    template: example/mytemplate@stable
-
-jobs:
-    main:
         settings:
             email:
                 addresses: [test@email.com, test2@email.com]
@@ -34,43 +52,13 @@ jobs:
 
 ## Slack
 To enable Slack notifications to be sent as a result of build events, invite the `screwdriver-bot` Slack bot to your channel(s) and use the Slack setting in your Screwdriver yaml.
-You can configure a list of one or more Slack channels to notify. You can also configure when to send a slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`. If you don't configure the build status, it'll default to sending notifications on `FAILURE` only.
+You can configure a list of one or more Slack channels to notify. You can also configure when to send a Slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`.
 
-### Examples
-
-This simple Slack setting will only send Slack notifications to `mychannel` on build failures:
-
-```
-shared:
-    template: example/mytemplate@stable
-
-jobs:
-    main:
-        settings:
-            slack: 'mychannel'
-```
-
-This Slack setting will send Slack notifications to `mychannel` and `my-other-channel` on build failures:
-
-```
-shared:
-    template: example/mytemplate@stable
-
-jobs:
-    main:
-        settings:
-            slack:
-                channels: ['mychannel', 'my-other-channel']
-```
+### Example
 
 This Slack setting will send Slack notifications to `mychannel` and `my-other-channel` on all build statuses:
 
 ```
-shared:
-    template: example/mytemplate@stable
-
-jobs:
-    main:
         settings:
             slack:
                 channels:
@@ -83,6 +71,7 @@ jobs:
                      - QUEUED
                      - RUNNING
 ```
-### Example success notification
+
+Success notification:
 
 ![Slack notification](../assets/slack-notification.png)
