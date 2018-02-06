@@ -71,7 +71,7 @@ jobs:
 ```
 
 ### Advanced Logic [_OR_]
-You can specify a job to to start when any of its `requires` jobs are successful [_OR_] by adding a tilde (~) prefix to the jobs it requires.
+You can specify a job to to start when any of its `requires` jobs are successful [_OR_] by adding a tilde (~) prefix to the jobs it requires. It will need to follow the format `~sd@pipelineID:jobName`.
 
 ### Example
 In the following example, the `last` job will trigger anytime either `first` _OR_ `second` complete successfully.
@@ -93,7 +93,7 @@ jobs:
         requires: [main]
         
     last:
-        requires: [~first, ~second]
+        requires: [~sd@123:first, ~sd@123:second]
 ```
 
 The _AND_ and _OR_ logic can be combined in a complex pipeline to allow cases where you want to start a job when `first` _AND_ `second` jobs are successful, _OR_ a `third` job is successful.
@@ -128,16 +128,16 @@ jobs:
 ```
 
 ## Remote Triggers
-To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`.
+To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`. Any `requires` jobs that have a tilde(~) will follow _OR_ logic.
 
 #### Example
-In the following example, this pipeline will start the `main` job after any pull-request, commit, _or_ successful completion of the `publish` job in pipeline 123.
+In the following example, this pipeline will start the `main` job after any pull-request, commit, _or_ successful completion of the `publish` job in pipeline 456.
 
 ```
 jobs:
     main:
         image: node:6
-        requires: [~pr, ~commit, ~sd@123:publish]
+        requires: [~pr, ~commit, ~sd@456:publish]
         steps:
             - echo: echo hi
 ```
