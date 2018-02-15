@@ -40,15 +40,15 @@ You can file all issues with Screwdriver in the [screwdriver repo](https://githu
 
 ## パッチの送信
 
-Patches for fixes, features, and improvements are accepted through pull requests.
+バグ修正、機能追加、改善のパッチはプルリクエストとして受け付けています。
 
-- Write good commit messages, in the present tense! (Add X, not Added X). Short title, blank line, bullet points if needed. Capitalize the first letter of the title or bullet item. No punctuation in the title.
-- Code must pass lint and style checks.
-- All external methods must be documented. Add README docs and/or user documentation in our [guide](https://github.com/screwdriver-cd/guide) when appropriate.
-- Include tests to improve coverage and prevent regressions.
-- Squash changes into a single commit per feature/fix. Ask if you're unsure how to discretize your work.
+- 良いコミットメッセージを現在形で(Added XではなくAdd Xのように)書いて下さい！タイトルは短くし、本文には必要なら空行や箇条書きを使って下さい。タイトルと箇条書きの先頭文字は大文字にしてください。タイトルに句読点は不要です。
+- コードはリンターとスタイルチェックにパスする必要があります。
+- すべての公開関数は文書化される必要があります。READMEやこの[ガイド](https://github.com/screwdriver-cd/guide)に説明を追加してください。
+- テストカバレッジを上げデグレードを防ぐためにテストコードを書いて下さい。
+- 機能追加/バグ修正ごとに変更をひとつのコミットにまとめてください。どのようにまとめればよいかわからないときはお問い合わせ下さい。
 
-Please ask before embarking on a large improvement so you're not disappointed if it does not align with the goals of the project or owner(s).
+大掛かりな改善に取り組むときは、それがプロジェクトの目標に沿うものか確認するために事前にお声掛け下さい。
 
 ### Commit Message Format
 
