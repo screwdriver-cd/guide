@@ -50,22 +50,22 @@ You can file all issues with Screwdriver in the [screwdriver repo](https://githu
 
 大掛かりな改善に取り組むときは、それがプロジェクトの目標に沿うものか確認するために事前にお声掛けください。
 
-### Commit Message Format
+### コミットメッセージ
 
-We use [semantic-release](https://www.npmjs.com/package/semantic-release), which requires commit messages to be in this specific format: `<type>(<scope>): <subject>`
+私たちは[semantic-release](https://www.npmjs.com/package/semantic-release)を利用しているので、コミットメッセージは`<type>(<scope>): <subject>`のようなフォーマットでなければいけません。
 
 - Types:
-    - feat (feature)
-    - fix (bug fix)
-    - docs (documentation)
-    - style (formatting, missing semi colons, …)
-    - refactor
-    - test (when adding missing tests)
-    - chore (maintain)
-- Scope: anything that specifies the scope of the commit. Can be blank or `*`
-- Subject: description of the commit. For **breaking changes** that require major version bump, add `BREAKING CHANGE` to the commit message.
+    - feat (機能)
+    - fix (バグ修正)
+    - docs (ドキュメント)
+    - style (コードフォーマットや誤字脱字など)
+    - refactor (リファクタリング)
+    - test (テスト追加)
+    - chore (雑多な作業)
+- Scope: コミットの範囲を特定するもの。空白や`*`でも構いません。
+- Subject: コミットの説明。メジャーバージョンと互換性がなくなる変更のときはコミットメッセージのどこかに`BREAKING CHANGE`と書いてください。
 
-**Examples commit messages:**
+**コミットメッセージの例:**
 
 - Bug fix: `fix: Remove extra space`
 - Breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
