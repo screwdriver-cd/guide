@@ -50,9 +50,9 @@ You can file all issues with Screwdriver in the [screwdriver repo](https://githu
 
 大掛かりな改善に取り組むときは、それがプロジェクトの目標に沿うものか確認するために事前にお声掛けください。
 
-### コミットメッセージ
+### コミットメッセージのフォーマット
 
-私たちは[semantic-release](https://www.npmjs.com/package/semantic-release)を利用しているので、コミットメッセージは`<type>(<scope>): <subject>`のようなフォーマットでなければいけません。
+私たちは[semantic-release](https://www.npmjs.com/package/semantic-release)を利用しているので、コミットメッセージは`<type>(<scope>): <subject>`のフォーマットでなければいけません。
 
 - Types:
     - feat (機能)
@@ -63,7 +63,7 @@ You can file all issues with Screwdriver in the [screwdriver repo](https://githu
     - test (テスト追加)
     - chore (雑多な作業)
 - Scope: コミットの範囲を特定するもの。空白や`*`でも構いません。
-- Subject: コミットの説明。メジャーバージョンと互換性がなくなる変更のときはコミットメッセージのどこかに`BREAKING CHANGE`と書いてください。
+- Subject: コミットの説明。メジャーバージョンの更新が必要となる互換性のない変更を行うときは、コミットメッセージのどこかに`BREAKING CHANGE`と書いてください。
 
 **コミットメッセージの例:**
 
