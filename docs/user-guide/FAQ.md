@@ -68,3 +68,10 @@ If your pipeline looks out of sync after changes were made to it, to make sure i
 Individual pipelines may be removed by clicking the Delete icon on the Options tab in your pipeline page. This action is not undoable.
 
 ![Delete a pipeline](./assets/delete-pipeline.png)
+
+## How do I fix "Build failed to start" error message?
+
+This is caused by a variety of reasons including cluster setup issue like hyperd down (if using executor vm) or a problem with your build image etc. Fixing this issue
+requires different approaches based on what layer it's failing.
+
+1.`/opt/sd/launch: not found` This issue affects Alpine based images because it uses musl instead of glibc. Workaround is to create the following symlink `mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2` when creating your Docker image.
