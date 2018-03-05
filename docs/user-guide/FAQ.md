@@ -21,6 +21,8 @@ toc:
       url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
     - title: How do I delete a pipeline permanently?
       url: "#how-do-i-delete-a-pipeline-permanently"
+    - title: How do I fix "Build failed to start" error message?
+      url: "#how-do-i-fix-build-failed-to-start-error-message"
 ---
 
 # Frequently Asked Questions
