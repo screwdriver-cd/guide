@@ -29,7 +29,7 @@ jobs:
 ```
 
 ## Image
-The `image` configuration refers to a docker image, e.g. an container from (hub.docker.com)[https://hub.docker.com]. You can specify an image from a custom registry by specifying the full url to that image.
+The `image` configuration refers to a docker image, e.g. an container from [hub.docker.com](https://hub.docker.com). You can specify an image from a custom registry by specifying the full url to that image.
 
 #### Example
 ```
