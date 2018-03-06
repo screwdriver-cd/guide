@@ -6,17 +6,17 @@ menu: menu_ja
 toc:
 - title: ジョブの設定
   url: "#ジョブの設定"
-- title: イメージ
-  url: "#イメージ"
-- title: ステップ
-  url: "#ステップ"
-- title: 共通設定
-  url: "#共通設定"
+- title: Image
+  url: "#image"
+- title: Steps
+  url: "#steps"
+- title: Shared
+  url: "#shared"
 ---
 
 # ジョブの設定
 
-ジョブは、全てのビルドでどのようなことを行うのかということの設定です。ジョブの設定は一つの`image`とリストの`steps`、または`template`を含んでいる必要があります。また、`requires`を使用することで、ジョブのトリガーを指定することもできます。パイプラインワークフローを作成するための`requires`の詳しい使用方法は[workflow](/user-guide/configuration/workflow)を参照してください。
+ジョブは、各ビルドでどのようなことを行うのかということの設定です。ジョブの設定は一つの`image`とリストの`steps`、または`template`を含んでいる必要があります。また、`requires`を使用することで、ジョブのトリガーを指定することもできます。パイプラインワークフローを作成するための`requires`の詳しい使用方法は[workflow](/user-guide/configuration/workflow)を参照してください。
 
 #### 例
 
@@ -31,10 +31,10 @@ jobs:
         template: example/mytemplate@stable
 ```
 
-## イメージ
+## Image
 
 `image`の設定はDockerのイメージ、例えば
- (hub.docker.com)[https://hub.docker.com] からコンテナを指定します。完全なURLを指定することで、カスタムレジストリからイメージを指定することも出来ます。
+ [hub.docker.com](https://hub.docker.com) からコンテナを指定します。完全なURLを指定することで、カスタムレジストリからイメージを指定することも出来ます。
 
 #### 例
 
@@ -46,7 +46,7 @@ jobs:
             - step1: echo hello
 ```
 
-## ステップ
+## Steps
 
 ステップはビルド中で実行したいコマンドのリストです。
 次のように設定できます：
@@ -63,7 +63,7 @@ jobs:
             - greet: echo Hello
 ```
 
-# 共通設定
+# Shared
 
 `shared`の設定は全てのジョブに適用される特殊なジョブの設定です。各ジョブの設定で項目を設定すると、`shared`で設定されている項目を上書きすることができます。
 
