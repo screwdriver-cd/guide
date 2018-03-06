@@ -34,7 +34,7 @@ jobs:
 ## Image
 
 `image`の設定はDockerのイメージ、例えば
- [hub.docker.com](https://hub.docker.com) からコンテナを指定します。完全なURLを指定することで、カスタムレジストリからイメージを指定することも出来ます。
+ [hub.docker.com](https://hub.docker.com) からコンテナを指定します。完全なURLを指定することで、カスタムレジストリからイメージを指定することもできます。
 
 #### 例
 
