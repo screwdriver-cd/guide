@@ -16,7 +16,7 @@ toc:
 
 # ジョブの設定
 
-ジョブは、各ビルドでどのようなことを行うのかということの設定です。ジョブの設定は一つの`image`とリストの`steps`、または`template`を含んでいる必要があります。また、`requires`を使用することで、ジョブのトリガーを指定することもできます。パイプラインワークフローを作成するための`requires`の詳しい使用方法は[workflow](/user-guide/configuration/workflow)を参照してください。
+ジョブには、各ビルドでどのようなことを行うのか設定できます。ジョブの設定は一つの`image`とリストの`steps`、または`template`を含んでいる必要があります。また、`requires`を使用することで、ジョブのトリガーを指定することもできます。パイプラインワークフローを作成するための`requires`の詳しい使用方法は[workflow](/user-guide/configuration/workflow)を参照してください。
 
 #### 例
 
