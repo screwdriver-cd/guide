@@ -14,8 +14,6 @@ toc:
       url: "#parallel-and-join"
     - title: Remote Triggers
       url: "#remote-triggers"
-    - title: Re-running a build
-      url: "#re-running-a-jobs-build"
     - title: Detached Jobs and Pipelines
       url: "#detached-jobs-and-pipelines"
 ---
@@ -144,11 +142,5 @@ jobs:
             - echo: echo hi
 ```
 
-## Re-running a job's build
-To re-run a job's build from a past event, do the following steps.
-
-1. Click on desired event from event list, which loads the detailed event graph.
-2. Click on the the job icon from the graph and click "Start pipeline from here"
-
 ## Detached Jobs and Pipelines
-It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as [Re-running a job's build](#re-running-a-jobs-build)
+It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as [Re-running a job's build](../FAQ#how-do-i-re-run-a-jobs-build)
