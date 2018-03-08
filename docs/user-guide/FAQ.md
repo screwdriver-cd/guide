@@ -23,6 +23,8 @@ toc:
       url: "#how-do-i-delete-a-pipeline-permanently"
     - title: How do I fix "Build failed to start" error message?
       url: "#how-do-i-fix-build-failed-to-start-error-message"
+    - title: How do I re-run a job's build?
+      url: "#how-do-i-re-run-a-jobs-build"
 ---
 
 # Frequently Asked Questions
@@ -77,3 +79,13 @@ This is caused by a variety of reasons including cluster setup issue like hyperd
 requires different approaches based on what layer it's failing.
 
 1.`/opt/sd/launch: not found` This issue affects Alpine based images because it uses musl instead of glibc. Workaround is to create the following symlink `mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2` when creating your Docker image.
+
+## How do I re-run a job's build?
+To re-run a job's build from a past event, do the following steps.
+
+1. User must be logged-in.
+1. Click on desired event from event list, which loads the detailed event graph.
+1. Click on the the job icon from the graph and click "Start pipeline from here".
+
+![Select Event and load event graph](../assets/re-run-select.png)
+![Start new build for job](../assets/re-run-start.png)
