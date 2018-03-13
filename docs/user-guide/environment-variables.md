@@ -24,7 +24,7 @@ toc:
 
 Screwdriver exports a set of environment variables that you can rely on during build runtime.
 
-_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./configuration/metadata)._
+_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./metadata)._
 
 ## Build Specific
 
