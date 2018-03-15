@@ -65,7 +65,7 @@ jobs:
 
     second:
         requires: [main]
-        
+
     last:
         requires: [first, second]
 ```
@@ -91,7 +91,7 @@ jobs:
 
     second:
         requires: [main]
-        
+
     last:
         requires: [~sd@123:first, ~sd@123:second]
 ```
@@ -107,7 +107,7 @@ In the following example, where `A` and `B` requires `main`. This will cause `A`
 ```
 shared:
     image: node:6
-    
+
 jobs:
       main:
             requires: [~pr, ~commit]
@@ -144,3 +144,33 @@ jobs:
 
 ## Detached Jobs and Pipelines
 It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as [Re-running a job's build](../FAQ#how-do-i-re-run-a-jobs-build)
+
+### Example
+In the following example `detached-main` job is detached.
+
+```
+shared:
+    image: node:8
+
+jobs:
+      detached-main:
+            steps:
+                - echo: echo detached hi
+      main:
+            requires: [~pr, ~commit]
+            steps:
+                - echo: echo hi
+```
+
+If you have only a single job, then to make it detached you must provide an empty `requires`
+
+```
+shared:
+    image: node:8
+
+jobs:
+      detached-main:
+            requires: []
+            steps:
+                - echo: echo detached hi
+```
