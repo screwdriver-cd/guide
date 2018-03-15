@@ -118,7 +118,7 @@ $ meta get example
 {"coverage":99.95}
 ```
 
-See the [metadata page](../../user-guide/configuration/metadata) for more information.
+See the [metadata page](../../user-guide/metadata) for more information.
 
 ### Workflow
 
