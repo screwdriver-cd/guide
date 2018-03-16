@@ -143,7 +143,7 @@ jobs:
 ```
 
 ## Detached Jobs and Pipelines
-It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as [Re-running a job's build](../FAQ#how-do-i-re-run-a-jobs-build)
+It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as doing a [rollback](../FAQ#how-do-i-rollback).
 
 ### Example
 In the following example `detached-main` job is detached.

@@ -80,12 +80,28 @@ requires different approaches based on what layer it's failing.
 
 1.`/opt/sd/launch: not found` This issue affects Alpine based images because it uses musl instead of glibc. Workaround is to create the following symlink `mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2` when creating your Docker image.
 
-## How do I re-run a job's build?
-To re-run a job's build from a past event, do the following steps.
+## How do I rollback?
 
-1. User must be logged-in.
-1. Click on desired event from event list, which loads the detailed event graph.
-1. Click on the the job icon from the graph and click "Start pipeline from here".
+You can use one of two patterns to rollback: either rerunning a build in your pipeline or running a detached pipeline.
 
-![Select Event and load event graph](../assets/re-run-select.png)
+### How do I rerun a job's build?
+
+To rerun a job's build from a past event, do the following steps.
+
+1. Log in.
+1. Click on the desired event from the event list, which loads the detailed event graph.
+1. Then, click the job bubble you'd like to rerun. In the pop up, select “Start pipeline from here” to rerun that job using that event context.
+![Load event graph](../assets/re-run-select.png)
 ![Start new build for job](../assets/re-run-start.png)
+
+### How do I run a detached pipeline?
+
+To rollback, do the following steps. You'll most likely want to `meta set` an image name or version in your last job (in this example, job D) and `meta get` that name or version in your rollback job (in this example, detached). The detached job will have access to the metadata set in job D.
+
+1. Log in.
+1. Click on the desired event from the event list, which loads the detailed event graph.
+![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
+1. Then, click the job bubble at the start of that detached pipeline. In the pop up, select “Start pipeline from here” to start the detached workflow with the desired event context.
+![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
+1. Click Yes to rerun the pipeline from that job.
+![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
