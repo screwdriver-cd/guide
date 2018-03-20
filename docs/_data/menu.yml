@@ -30,6 +30,8 @@
       url: "/user-guide/environment-variables"
     - title: "Templates"
       url: "/user-guide/templates"
+    - title: "Commands"
+      url: "/user-guide/commands"
     - title: "FAQ"
       url: "/user-guide/FAQ"
 - title: "Cluster Management"
