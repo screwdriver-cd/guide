@@ -23,8 +23,8 @@ toc:
       url: "#how-do-i-delete-a-pipeline-permanently"
     - title: How do I fix "Build failed to start" error message?
       url: "#how-do-i-fix-build-failed-to-start-error-message"
-    - title: How do I re-run a job's build?
-      url: "#how-do-i-re-run-a-jobs-build"
+    - title: How do I rollback?
+      url: "#how-do-i-rollback"
 ---
 
 # Frequently Asked Questions
