@@ -3,7 +3,7 @@ layout: main
 title: Quickstart
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Getting Started with Screwdriver
       url: "#getting-started-with-screwdriver"
       active: true
@@ -46,22 +46,7 @@ Now that we’ve setup our app, we can start developing. This app demonstrates h
 
 ### screwdriver.yaml
 
-The `screwdriver.yaml` is the only config file you need for using Screwdriver. In it, you will define all your steps needed to successfully develop, build and deploy your application.
-
-#### Workflow
-
-The `workflow` describes the order that the jobs execute. The "main" job, which is created by default, is always
-executed first, followed by jobs listed in this workflow block.
-
-Here, we have defined a job named "second_job", which
-will run after the "main" job.
-
-```yaml
----
-# Workflow list definition
-workflow:
-  - second_job
-```
+The `screwdriver.yaml` is the only config file you need for using Screwdriver. In it, you will define all your steps needed to successfully develop, build and deploy your application. See the User Guide -> Configuration section for more details.
 
 #### Shared
 The `shared` section is where you would define any attributes that all your jobs will inherit.
@@ -75,8 +60,11 @@ shared:
   image: buildpack-deps
 ```
 
-#### Jobs
-The `jobs` section is where all the tasks (or `steps`) that each job will execute is defined. All pipelines have "main" implicitly defined. The definitions in your screwdriver.yaml file will override the implied defaults.
+### Jobs
+The `jobs` section is where all the tasks (or `steps`) that each job will execute is defined.
+
+### Workflow
+The `requires` keyword denotes the order that jobs will run. Requires is a single job name or array of job names. Special keywords like `~pr` or `~commit` indicate that the job will run after a PR is merged or code is committed, respectively.
 
 ### Steps
 The `steps` section contains a list of commands to execute.
@@ -90,15 +78,16 @@ The "run_arbitrary_script" executes a script. This is an alternative to a Makefi
 
 ```yaml
 # Job definition block
-# "main" is a default job that all pipelines have
 jobs:
   main:
+    requires: [~pr, ~commit]
     # Steps definition block.
     steps:
       - export: export GREETING="Hello, world!"
       - hello: echo $GREETING
       - set-metadata: meta set example.coverage 99.95
   second_job:
+    requires: [main] # second_job will run after main job is done
     steps:
       - make_target: make greetings
       - get-metadata: meta get example

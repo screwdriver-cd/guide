@@ -33,6 +33,7 @@ Screwdriver takes the template configuration and plugs it in, so that the `screw
 jobs:
     main:
         image: node:6
+        requires: [~pr, ~commit]
         steps:
           - install: npm install
           - test: npm test
@@ -50,6 +51,7 @@ Example:
 ```yaml
 jobs:
     main:
+        requires: [~pr, ~commit]
         template: template_name@1.3.0
         steps:
             - preinstall: echo pre-install
@@ -65,6 +67,7 @@ Example:
 ```yaml
 jobs:
     main:
+        requires: [~pr, ~commit]
         template: template_name@1.3.0
         steps:
             - install: echo skip installing
@@ -112,14 +115,15 @@ Example `screwdriver.yaml`:
 shared:
     image: node:6
 jobs:
-    # the main job is run in pull requests as well
     main:
+        requires: [~pr, ~commit]
         steps:
             - install: npm install screwdriver-template-main
             - validate: ./node_modules/.bin/template-validate
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
     publish:
+        requires: [main]
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
