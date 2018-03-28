@@ -89,6 +89,7 @@ An executor is used to manage build containers for any given job. Several implem
 * **[executor-j5s](https://github.com/screwdriver-cd/executor-j5s)**: Jenkins implementation
 * **[executor-k8s][executor-k8s-repo]**: Kubernetes implementation
 * **[executor-k8s-vm][executor-k8s-vm-repo]**: Kubernetes VM implementation
+* **[executor-nomad][executor-nomad-repo]**: Nomad implementation
 
 The [executor router][executor-router-repo] is a generic executor plugin that routes builds to a specified executor.
 
@@ -182,6 +183,7 @@ The organization [screwdriver-cd-test][screwdriver-cd-test-org] contains various
 [executor-j5s-repo]: https://github.com/screwdriver-cd/executor-j5s
 [executor-k8s-repo]: https://github.com/screwdriver-cd/executor-k8s
 [executor-k8s-vm-repo]: https://github.com/screwdriver-cd/executor-k8s-vm
+[executor-nomad-repo]: https://github.com/lgfausak/executor-nomad
 [executor-router-repo]: https://github.com/screwdriver-cd/executor-router
 [gitversion-repo]: https://github.com/screwdriver-cd/gitversion
 [guide-repo]: https://github.com/screwdriver-cd/guide
