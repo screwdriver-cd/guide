@@ -161,7 +161,7 @@ datastore:
 
 ### Executor Plugin
 
-We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), and [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
+We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), [nomad](http://github.com/lgfausak/executor-nomad), and [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
 
 #### Kubernetes
 Set these environment variables:
@@ -209,6 +209,36 @@ executor:
                 socketPath: /var/lib/docker.sock
             launchVersion: stable
 ```
+#### Nomad
+Set these environment variables:
+
+| Environment name       | Default Value | Description                                 |
+|:-----------------------|:--------------|:--------------------------------------------|
+| EXECUTOR_PLUGIN        | nomad         | Nomad executor                              |
+| LAUNCH_VERSION         | latest        | Launcher version to use                     |
+| EXECUTOR_NOMAD_ENABLED | true          | Flag to enable Nomad executor               |
+| NOMAD_HOST             | nomad.default | Nomad host (e.g. http://192.168.30.30:4646) |
+| NOMAD_CPU              | 600           | Nomad cpu resource in Mhz                   |
+| NOMAD_MEMORY           | 4096          | Nomad memory resource in MB                 |
+| EXECUTOR_PREFIXX       | sd-build-     | Nomad job name prefix                       |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: nomad
+    nomad:
+        options:
+            nomad:
+                host: http://192.168.30.30:4646
+            resources:
+                cpu:
+                    high: 600
+                memory:
+                    high: 4096
+            launchVersion:  latest
+            prefix:  'sd-build-'
+```
+
 ### Notifications Plugin
 We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email) and [Slack notifications](https://github.com/screwdriver-cd/notifications-slack).
 

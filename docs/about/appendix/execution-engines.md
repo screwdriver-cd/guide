@@ -52,6 +52,7 @@ Why not Jenkins everywhere?  While Jenkins serves us well in other areas, it has
 - Amazon's ECS
 - Mesos
 - Docker Swarm
+- Nomad (Hashicorp)
 
 ### Initial analysis
 
