@@ -33,6 +33,7 @@ You can access information about properties by hovering over the property name.
 <a href="#jobs"><span class="key">jobs</span>:</a>
       <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
+        <a href="#sourcePaths"><span class="key">sourcePaths</span>: <span class="value">["src/app/", "screwdriver.yaml"]</span></a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
         <a href="#steps"><span class="key">steps</span>:
     - <span class="key">init</span>: <span class="value">npm install</span>
@@ -69,6 +70,10 @@ You can access information about properties by hovering over the property name.
         <div id="requires" class="hidden">
             <h4>Requires</h4>
             <p>A single job name or array of jobs that will trigger the job to run. Jobs defined with "requires: ~pr" are started by pull-request events. Jobs defined with "requires: ~commit" are started by push events. Jobs defined with "requires: ~sd@123:main" are started by job "main" from pipeline "123". Jobs defined with "requires: [deploy-west, deploy-east] are started after "deploy-west" and "deploy-east" are both done running successfully. "Note: ~ jobs denote an OR functionality, jobs without a ~ denote join functionality.</p>
+        </div>
+        <div id="sourcePaths" class="hidden">
+            <h4>Source Paths</h4>
+            <p>You can optionally specify source paths that will trigger a job upon modification. In this example, the "main" job will only run if changes are made to things under the "src/app/" directory or the "screwdriver.yaml" file.</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
