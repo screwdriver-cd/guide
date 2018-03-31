@@ -13,7 +13,7 @@ toc:
     - title: Shared Configuration
       url: "#shared"
 ---
-# Job configuration
+# Job Configuration
 Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`. It also defines trigger requirement for the job using `requires`. See [workflow](/user-guide/configuration/workflow) for detailed usage of `requires` to create pipeline workflow.
 
 #### Example
@@ -24,7 +24,7 @@ jobs:
         steps:
             - init: npm install
             - test: npm test
-    main2: 
+    main2:
         template: example/mytemplate@stable
 ```
 
