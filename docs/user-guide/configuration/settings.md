@@ -26,12 +26,14 @@ shared:
 
 jobs:
     main:
+        requires: [~pr, ~commit]
         template: example/mytemplate@stable
 ```
 
 ```
 jobs:
     main:
+        requires: [~pr, ~commit]
         template: example/mytemplate@stable
         settings:
             email: [test@email.com, test2@email.com]

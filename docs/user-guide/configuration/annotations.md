@@ -19,6 +19,7 @@ shared:
             image: node:8
 
 jobs:
+    requires: [~pr, ~commit]
     main: *bar                  # Referencing the annotation anchor to use that config for main job
                                 # This will cause the main job to use a node:8 image
 ```

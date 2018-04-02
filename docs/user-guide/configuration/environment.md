@@ -19,7 +19,9 @@ shared:
         MYVAR: hello        # This will set MYVAR=hello in all builds
 jobs:
     main:
+        requires: [~pr, ~commit]
         environment:
             FOO: baz        # This will set FOO=baz in the build
-    main2: {}               # This will set FOO=bar in the build
+    main2:                  # This will set FOO=bar in the build
+        requires: [main]
 ```

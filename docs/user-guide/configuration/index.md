@@ -73,7 +73,7 @@ You can access information about properties by hovering over the property name.
         </div>
         <div id="sourcePaths" class="hidden">
             <h4>Source Paths</h4>
-            <p>You can optionally specify source paths that will trigger a job upon modification. In this example, the "main" job will only run if changes are made to things under the "src/app/" directory or the "screwdriver.yaml" file. Due to limitations in Git APIs, this feature is only available for Github SCM.</p>
+            <p>You can optionally specify source paths that will trigger a job upon modification. In this example, the "main" job will only run if changes are made to things under the "src/app/" directory or the "screwdriver.yaml" file. This feature is only available for Github SCM.</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
