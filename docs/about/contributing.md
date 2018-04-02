@@ -77,7 +77,7 @@ The **[screwdriver][api-repo]** repo is the core of screwdriver, providing the A
 
 The **[launcher][launcher-repo]** performs step execution and housekeeping internal to build containers. This is written in Go and mounted into build containers as a binary.
 
-* **[sd-cmd][sd-cmd-repo]**: A Go-based CLI for sharing binaries which allows people a single interface for executing a versioned command (via remote binary, docker image, or habitat package) during a Screwdriver build
+* **[sd-cmd][sd-cmd-repo]**: A Go-based CLI for sharing binaries which provides a single interface for executing a versioned command (via remote binary, docker image, or habitat package) during a Screwdriver build
 * **[sd-step][sd-step-repo]**: A Shared Step allows people to use the same packages and commands in all build containers, regardless of build environment
 * **[meta-cli][meta-cli-repo]**: A Go-based CLI for reading/writing information from the metadata
 
