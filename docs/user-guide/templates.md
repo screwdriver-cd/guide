@@ -104,10 +104,14 @@ config:
 
 To validate your template, run the `template-validate` script from the `screwdriver-template-main` npm module in your `main` job to validate your template. This means the build image must have NodeJS and NPM properly installed to use it. To publish your template, run the `template-publish` script from the same module in a separate job.
 
+To remove your template, run the `template-remove` script. You will need to provide the template name as an argument.
+
 By default, the file at `./sd-template.yaml` will be read. However, a user can specify a custom path using the env variable: `SD_TEMPLATE_PATH`.
 
 #### Tagging templates
-You can optionally put a tag on specific template version. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: name, version, and tag. The version needs to be an exact version.
+You can optionally put a tag on specific template version by running the `template-tag` script from the `screwdriver-template-main` npm package. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: template name and tag. You can optionally specify a version; the version needs to be an exact version. If the version is omitted, the most recent version will be tagged.
+
+To remove a template tag, run the `template-remove-tag` script. You will need to provide the template name and tag as arguments.
 
 Example `screwdriver.yaml`:
 
@@ -127,9 +131,18 @@ jobs:
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
+            - autotag: ./node_modules/.bin/template-tag --name template_name --tag latest
             - tag: ./node_modules/.bin/template-tag --name template_name --version 1.3.0 --tag stable
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
+    remove:
+        steps:
+            - install: npm install screwdriver-template-main
+            - remove: ./node_modules/.bin/template-remove --name template_name
+    remove_tag:
+        steps:
+            - install: npm install screwdriver-template-main
+            - remove_tag: ./node_modules/.bin/template-remove-tag --name template_name --tag stable
 ```
 
 Create a Screwdriver pipeline with your template repo and start the build to validate and publish it.
