@@ -109,7 +109,7 @@ To remove your template, run the `template-remove` script. You will need to prov
 By default, the file at `./sd-template.yaml` will be read. However, a user can specify a custom path using the env variable: `SD_TEMPLATE_PATH`.
 
 #### Tagging templates
-You can optionally put a tag on specific template version by running the `template-tag` script from the `screwdriver-template-main` npm package. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: template name and tag. You can optionally specify a version; the version needs to be an exact version. If the version is omitted, the most recent version will be tagged.
+You can optionally tag a specific template version by running the `template-tag` script from the `screwdriver-template-main` npm package. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: template name and tag. You can optionally specify a version; the version needs to be an exact version. If the version is omitted, the most recent version will be tagged.
 
 To remove a template tag, run the `template-remove-tag` script. You will need to provide the template name and tag as arguments.
 
