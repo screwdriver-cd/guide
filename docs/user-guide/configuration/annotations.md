@@ -10,7 +10,7 @@ toc:
 # Annotations
 Annotations is a freeform key/value store, often used to configure build execution settings. Annotations may be used as a sandbox for [YAML anchors and aliases](http://blog.daemonl.com/2016/02/yaml.html).
 
-### Example
+#### Example
 ```
 shared:
     template: example/mytemplate@stable
@@ -19,6 +19,7 @@ shared:
             image: node:8
 
 jobs:
+    requires: [~pr, ~commit]
     main: *bar                  # Referencing the annotation anchor to use that config for main job
                                 # This will cause the main job to use a node:8 image
 ```

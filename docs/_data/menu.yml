@@ -24,6 +24,8 @@
           url: "/user-guide/configuration/annotations"
         - title: "Secrets"
           url: "/user-guide/configuration/secrets"
+        - title: "Source Paths"
+          url: "/user-guide/configuration/sourcePaths"
     - title: "Metadata"
       url: "/user-guide/metadata"
     - title: "Environment Variables"
@@ -58,8 +60,6 @@
       subcategories:
         - title: "Domain Model"
           url: "/about/appendix/domain"
-        - title: "Execution Engines"
-          url: "/about/appendix/execution-engines"
     - title: "Contributing"
       url: "/about/contributing"
     - title: "Support"

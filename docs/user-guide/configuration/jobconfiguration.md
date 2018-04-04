@@ -13,18 +13,20 @@ toc:
     - title: Shared Configuration
       url: "#shared"
 ---
-# Job configuration
+# Job Configuration
 Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`. It also defines trigger requirement for the job using `requires`. See [workflow](/user-guide/configuration/workflow) for detailed usage of `requires` to create pipeline workflow.
 
 #### Example
 ```
 jobs:
     main:
+        requires: [~pr, ~commit]
         image: node:6
         steps:
             - init: npm install
             - test: npm test
-    main2: 
+    main2:
+        requires: main
         template: example/mytemplate@stable
 ```
 
@@ -35,6 +37,7 @@ The `image` configuration refers to a docker image, e.g. an container from [hub.
 ```
 jobs:
     main:
+        requires: [~pr, ~commit]
         image: my-custom-registry.example.com/myorg/myimage:label
         steps:
             - step1: echo hello
@@ -48,6 +51,7 @@ Steps are the list of instructions you want to execute in your build. These shou
 ```
 jobs:
     main:
+        requires: [~pr, ~commit]
         image: node:8
         steps:
             - step_name: step_command --arg1 --arg2 foo
@@ -69,8 +73,10 @@ shared:
 
 jobs:
     main:
+        requires: [~pr, ~commit]
         image: node:6
     main2:
+        requires: [main]
         steps:
             - greet: echo hello
 ```
@@ -79,11 +85,13 @@ The above example would be equivalent to:
 ```
 jobs:
     main:
+        requires: [~pr, ~commit]
         image: node:6
         steps:
             - init: npm install
             - test: npm test
     main2:
+        requires: [main]
         image: node:8
         steps:
             - greet: echo hello
