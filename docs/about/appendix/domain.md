@@ -3,7 +3,7 @@ layout: main
 title: Domain Model
 category: About
 menu: menu
-toc: 
+toc:
     - title: Domain Model
       url: "#domain-model"
       active: true
@@ -30,8 +30,8 @@ toc:
 
 _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
 
-![Definition](./assets/definition-model.png)
-![Runtime](./assets/runtime-model.png)
+![Definition](../assets/definition-model.png)
+![Runtime](../assets/runtime-model.png)
 
 ### Source Code
 
