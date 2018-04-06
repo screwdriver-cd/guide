@@ -3,7 +3,7 @@ layout: main
 title: Running Locally
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Running Locally
       url: "#running-locally"
       active: true
@@ -18,19 +18,9 @@ You can run Screwdriver locally by using our Screwdriver-in-a-box tool.
 ## SD-in-a-Box
 This handy feature will bring up an entire Screwdriver instance (UI, API, and log store) locally for you to play with.
 
-### Requires:
- - Mac OSX 10.10+
- - [Docker for Mac][docker]
- - [Docker Compose 1.8.1+][docker-compose]
- - Python 2.6+
+1. Follow instructions in the [SD-in-a-box docs](https://github.com/screwdriver-cd/in-a-box#screwdriver-in-a-box).
 
-Run the below command in your terminal to bring up a Screwdriver cluster locally.
-
-```bash
-$ python <(curl https://raw.githubusercontent.com/screwdriver-cd/screwdriver/master/in-a-box.py)
-```
-
-You will be prompted to enter your Client ID and Client Secret. Afterwards, type `y` to launch Screwdriver!
+2. You will be prompted to enter your Client ID and Client Secret. Afterwards, type `y` to launch Screwdriver!
 
 ![SD-in-a-box](./assets/sd-in-a-box.png)
 
@@ -80,7 +70,7 @@ You can choose to replace a component with a local copy. This is incredibly help
 
 Modify the `docker-compose.yaml`, targeting the component you would like to replace. In the following snippet, we replace the API with a local source.
 
-```
+```yaml
 services:
   api:
     # this "build" stanza replaces the default "image" setting
@@ -138,7 +128,7 @@ The following is a snippet that highlights the change you would make in the `con
 
 The following snippet highlights the `docker-compose.yml` values that need to be modified to use your local UI instance along with the SD-in-a-box cluster.
 
-```
+```yaml
 version: '2'
 services:
   api:
@@ -168,7 +158,7 @@ In development mode, the Store hosts itself on port `80` by default. You may cha
 
 The following snippet highlights the `docker-compose.yml` values that need to be modified to use your local store instance along with the SD-in-a-box cluster.
 
-```
+```yaml
 version: '2'
 services:
   store:

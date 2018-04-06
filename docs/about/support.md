@@ -3,7 +3,7 @@ layout: main
 title: Support
 category: About
 menu: menu
-toc: 
+toc:
     - title: Support
       url: "#support"
       active: true
@@ -19,7 +19,7 @@ toc:
 ## GitHub
 Screwdriver is completely open source and can be found under the [screwdriver-cd organization](https://github.com/screwdriver-cd)
 on Github. We welcome any [issues](https://github.com/screwdriver-cd/screwdriver/issues) and [pull requests](https://github.com/screwdriver-cd/screwdriver/pulls)!
-For more information on our Github repositories and how to contribute, see the [Contributing](./contributing) page.
+For more information on our Github repositories and how to contribute, see the Contributing folder.
 
 ## Slack
 We use Slack for discussion and support. For any Screwdriver-related questions, join the `#general` channel on the
