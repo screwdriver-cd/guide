@@ -30,6 +30,7 @@ There's two different ways to set up your dev environment locally in order to ru
 
 ```bash
 $ git clone git@github.com:screwdriver-cd/screwdriver.git ./
+$ cd screwdriver/ # change directory into the newly cloned repository
 $ npm install
 # The API stores default configuration data in ./config/default.yaml.
 # You'll need to overwrite using your own config data in a local.yaml.
@@ -102,12 +103,13 @@ You'll need to set the `oauthClientId` and `oauthClientSecret`. Navigate to your
 Click Register Application and put the Client ID and Client Secret in the fields below.
 
 ```yaml
-github:
-    plugin: github
-    config:
-        oauthClientId: SOMEOAUTHCLIENTID
-        oauthClientSecret: SOMEOATHCLIENTSECRET
-        secret: RANDOMSECRETTHING
+scms:
+    github:
+        plugin: github
+        config:
+            oauthClientId: SOMEOAUTHCLIENTID
+            oauthClientSecret: SOMEOATHCLIENTSECRET
+            secret: RANDOMSECRETTHING
 ```
 
 #### ecosystem
