@@ -18,9 +18,7 @@ You can run Screwdriver locally by using our Screwdriver-in-a-box tool.
 ## SD-in-a-Box
 This handy feature will bring up an entire Screwdriver instance (UI, API, and log store) locally for you to play with.
 
-1. Follow instructions in the [SD-in-a-box docs](https://github.com/screwdriver-cd/in-a-box#screwdriver-in-a-box).
-
-2. You will be prompted to enter your Client ID and Client Secret. Afterwards, type `y` to launch Screwdriver!
+Follow instructions in the [SD-in-a-box docs](https://github.com/screwdriver-cd/in-a-box#screwdriver-in-a-box).
 
 ![SD-in-a-box](./assets/sd-in-a-box.png)
 
