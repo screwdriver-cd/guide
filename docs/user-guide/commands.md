@@ -70,7 +70,7 @@ description: |
 maintainer: foo@bar.com # Maintainer of the command
 format: binary # Format the command is in (binary)
 binary:
-    file: ./foobar.sh # Path to script or binary file
+    file: ./foobar.sh # Path to script or binary file from repository root
 ```
 
 ### Writing a screwdriver.yaml for your command repo
