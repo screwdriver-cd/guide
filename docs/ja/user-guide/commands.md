@@ -60,7 +60,7 @@ $ /opt/sd/commands/foo/bar/1.0.1/foobar.sh -baz sample
 
 ### コマンド yaml を書く
 
-コマンドを作成するために、`sd-command.yaml` 含んだリポジトリを作成します。yaml には、コマンドのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するフォーマット、バイナリファイルのパスの設定が必要です。
+コマンドを作成するために、`sd-command.yaml` を含んだリポジトリを作成します。yaml には、コマンドのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するフォーマット、バイナリファイルのパスの設定が必要です。
 
 `sd-command.yaml`の例:
 
@@ -78,7 +78,7 @@ binary:
 
 ### コマンドリポジトリ用の screwdriver.yaml を書く
 
-コマンドをバリデートするために、npm モジュールである [screwdriver-command-validator](https://github.com/screwdriver-cd/command-validator) の `command-validate` というスクリプトを実行します。つまり、ビルドに利用するイメージには、NodeJS と NPM がインストールされている必要があるということです。
+コマンドをバリデートするために、npm モジュールである [screwdriver-command-validator](https://github.com/screwdriver-cd/command-validator) の `command-validate` というスクリプトを実行します。つまり、ビルドに利用するイメージには、NodeJS と NPM がインストールされている必要があります。
 
 コマンドをパブリッシュするために、`sd-cmd publish` コマンドを別のジョブで実行します。`-f` でファイルを指定します。
 
