@@ -18,7 +18,7 @@ toc:
 
 # コマンド
 
-Screwdriver のコマンドは、ユーザが [screwdriver.yaml](./configuration) でステップを定義する代わりに利用できる実行可能なスクリプトやバイナリの[コマンド](https://en.wikipedia.org/wiki/Command_(computing))です。
+Screwdriver のコマンドは、ユーザが [screwdriver.yaml](./configuration) でステップを定義する代わりに利用できる実行可能なスクリプトやバイナリの[コマンド](https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF))です。
 
 ## コマンドを利用する
 
