@@ -4,7 +4,7 @@ title: FAQ
 category: User Guide
 menu: menu_ja
 toc:
-- title: よくある質問と回答
+- title: Frequently Asked Questions
   url: "#よくある質問と回答"
   active: 'true'
 - title: ビルドをスキップする方法は？
