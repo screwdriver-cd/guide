@@ -161,4 +161,4 @@ Screwdriverのテンプレートを更新するには、ご利用のSCMリポジ
 
 ## テンプレートを検索する
 
-すでに作成済みのテンプレートを確認するには、`/templates`に対して`GET`リクエストを行ってください。詳しくは[API documentation](./api)をご覧ください。UIにも`/templates`エンドポイントがあるべきです。
+すでに作成済みのテンプレートを確認するには、`/templates`に対して`GET`リクエストを行ってください。詳しくは[API documentation](./api)をご覧ください。
