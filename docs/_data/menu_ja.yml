@@ -19,7 +19,7 @@
         - title: "Environment"
           url: "/user-guide/configuration/environment"
         - title: "Settings"
-          url: "/user-guide/configuration/settings"
+          url: "/ja/user-guide/configuration/settings"
         - title: "Annotations"
           url: "/user-guide/configuration/annotations"
         - title: "Secrets"
