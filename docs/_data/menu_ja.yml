@@ -24,7 +24,7 @@
           url: "/user-guide/configuration/annotations"
         - title: "Secrets"
           url: "/ja/user-guide/configuration/secrets"
-        - title: "Source Paths"
+        - title: "ソースパス"
           url: "/ja/user-guide/configuration/sourcePaths"
     - title: "Metadata"
       url: "/ja/user-guide/metadata"
