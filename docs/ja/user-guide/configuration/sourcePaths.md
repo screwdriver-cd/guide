@@ -10,7 +10,7 @@ toc:
 
 # ソースパス
 
-ソースパス機能を使うことで、特定のソースコードが更新された場合にのみジョブをトリガーすることができます。ジョブ定義の中で `sourcePaths` を文字列または文字列の配列で設定することで利用できます。この機能は [monorepo](https://developer.atlassian.com/blog/2015/10/monorepos-in-git) のサブディレクトリに基づいたワークフローを実現するのに役立ちます。
+ソースパス機能を使うことで、特定のソースコードが更新された場合にのみジョブをトリガーすることができます。ジョブ定義の中で `sourcePaths` を文字列、または文字列の配列で設定することで利用できます。この機能は [monorepo](https://developer.atlassian.com/blog/2015/10/monorepos-in-git) のサブディレクトリに基づいたワークフローを実現するのに役立ちます。
 
 ## ソースパスの種類
 
@@ -48,10 +48,8 @@ jobs:
             - echo: echo hi
 ```
 
-この例では、`main` ジョブは `src/app/` 以下にあるファイル (`src/app/main.js`, 
- `src/app/package.json` など) の更新、または 
- `screwdriver.yaml` の更新でトリガーされます。
-しかし `main` ジョブは、`README.md`, `test/` または `src/other/` の更新では**トリガーされません**
+この例では、`main` ジョブは `src/app/` 以下にあるファイル (`src/app/main.js`, `src/app/package.json` など) の更新、または `screwdriver.yaml` の更新でトリガーされます。
+しかし `main` ジョブは、`README.md`, `test/` または `src/other/` の更新では**トリガーされません**。
 
 ### 警告
 
