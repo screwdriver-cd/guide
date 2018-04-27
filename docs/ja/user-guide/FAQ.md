@@ -81,7 +81,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 このエラーは（VMのexecutorを使用している場合は）hyperdのプロセスがダウンしているなどクラスタセットアップ時の問題や、ビルドを行うDocker imageの問題など、様々な理由で起こります。
 従ってどのレイヤーでエラーが起きているかによって修正する方法も変わってきます。
 
-1.`/opt/sd/launch: not found` 
+1. `/opt/sd/launch: not found` 
 このエラーが出る場合はAlpineベースのimageを利用していることが原因となります。glibcの代わりにmuslが使われているためです。回避策としてはDocker imageの作成時に下記のシンボリックリンクを作成します。
 `mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
 
