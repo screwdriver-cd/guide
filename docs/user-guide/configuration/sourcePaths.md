@@ -48,6 +48,10 @@ jobs:
 
 In this example, the job `main` will be triggered if there are any changes to files under `src/app/` or the `screwdriver.yaml` file (like on `src/app/main.js`, `src/app/package.json`, etc.). The `main` job will **not**, however, be triggered on changes to `README.md`, `test/`, or `src/other/`.
 
+### Matched source path
+
+Screwdriver will expose the matched souce path in an environment variable `SD_SOURCE_PATH`. This can be used to write scripts which depends on the source path that triggered the build.
+
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
 - `sourcePaths` will be ignored if you manually start a pipeline or restart a job.
