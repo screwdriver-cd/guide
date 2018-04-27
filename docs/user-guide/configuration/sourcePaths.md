@@ -50,8 +50,7 @@ In this example, the job `main` will be triggered if there are any changes to fi
 
 ### Matched source path
 
-Screwdriver will expose the matched souce path in an environment variable `SD_SOURCE_PATH`. This can be used to write scripts which depends on the source path that triggered the build.
-
+Screwdriver will expose the source path that triggered this build in an environment variable `SD_SOURCE_PATH`. This value will be the first path in `sourcePaths` which matches any of the modified files and can be used to write scripts which depends on the source path that triggered current build.
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
 - `sourcePaths` will be ignored if you manually start a pipeline or restart a job.
