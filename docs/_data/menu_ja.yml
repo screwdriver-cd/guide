@@ -25,7 +25,7 @@
         - title: "Secrets"
           url: "/ja/user-guide/configuration/secrets"
         - title: "Source Paths"
-          url: "/user-guide/configuration/sourcePaths"
+          url: "/ja/user-guide/configuration/sourcePaths"
     - title: "Metadata"
       url: "/ja/user-guide/metadata"
     - title: "環境変数"
