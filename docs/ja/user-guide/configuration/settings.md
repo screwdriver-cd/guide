@@ -63,7 +63,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 #### 例
 
-このSlack設定では、全てのビルドステータスに応じて `mychannel` と `my-other-channel` にSlack通知を送信します:
+この Slack 設定では、全てのビルドステータスに応じて `mychannel` と `my-other-channel` に Slack 通知を送信します:
 
 ```
         settings:
