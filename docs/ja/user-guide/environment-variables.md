@@ -59,7 +59,7 @@ Name | Value
 --- | ---
 SCM_URL | チェックアウトされた SCM の URL
 GIT_URL | チェックアウトされた SCM の URL に .git を追加した URL
-GIT_BRANCH | PRまたはブランチのリファレンス (例: `origin/refs/${PRREF}` または `origin/${BRANCH}`)
+GIT_BRANCH | プルリクエストまたはブランチのリファレンス (例: `origin/refs/${PRREF}` または `origin/${BRANCH}`)
 
 ## URLs
 
