@@ -36,36 +36,36 @@ You can file all issues with Screwdriver in the [screwdriver repo](https://githu
 
 ## ドキュメント
 
-ドキュメント、README、サンプルは非常に重要です。是非それらの改善にご協力お待ちしておりますので、タイポを見つけたり問題に気づきましたら、気軽に修正点を送っていただくかお声掛け下さい。
+ドキュメント、README、サンプルは非常に重要です。是非それらの改善にご協力お待ちしておりますので、タイポを見つけたり問題に気づきましたら、気軽に修正点を送っていただくかお声掛けください。
 
 ## パッチの送信
 
-Patches for fixes, features, and improvements are accepted through pull requests.
+バグ修正、機能追加、改善のパッチはプルリクエストとして受け付けています。
 
-- Write good commit messages, in the present tense! (Add X, not Added X). Short title, blank line, bullet points if needed. Capitalize the first letter of the title or bullet item. No punctuation in the title.
-- Code must pass lint and style checks.
-- All external methods must be documented. Add README docs and/or user documentation in our [guide](https://github.com/screwdriver-cd/guide) when appropriate.
-- Include tests to improve coverage and prevent regressions.
-- Squash changes into a single commit per feature/fix. Ask if you're unsure how to discretize your work.
+- 良いコミットメッセージを現在形で(Added XではなくAdd Xのように)書いてください！タイトルは短くし、本文には必要なら空行や箇条書きを使ってください。タイトルと箇条書きの先頭文字は大文字にしてください。タイトルに句読点は不要です。
+- コードはリンターとスタイルチェックをパスする必要があります。
+- すべての手順は文書化されている必要があります。READMEやこの[ガイド](https://github.com/screwdriver-cd/guide)に説明を追加してください。
+- コードカバレッジを上げバグの発生や再発を防ぐためにテストコードを含めてください。
+- 機能追加/バグ修正ごとに変更をひとつのコミットにまとめてください。どのようにまとめればよいかわからないときはお問い合わせください。
 
-Please ask before embarking on a large improvement so you're not disappointed if it does not align with the goals of the project or owner(s).
+大掛かりな改善に取り組むときは、それがプロジェクトの目標に沿うものか確認するために事前にお声掛けください。
 
-### Commit Message Format
+### コミットメッセージのフォーマット
 
-We use [semantic-release](https://www.npmjs.com/package/semantic-release), which requires commit messages to be in this specific format: `<type>(<scope>): <subject>`
+私たちは[semantic-release](https://www.npmjs.com/package/semantic-release)を利用しているので、コミットメッセージは`<type>(<scope>): <subject>`のフォーマットでなければいけません。
 
 - Types:
-    - feat (feature)
-    - fix (bug fix)
-    - docs (documentation)
-    - style (formatting, missing semi colons, …)
-    - refactor
-    - test (when adding missing tests)
-    - chore (maintain)
-- Scope: anything that specifies the scope of the commit. Can be blank or `*`
-- Subject: description of the commit. For **breaking changes** that require major version bump, add `BREAKING CHANGE` to the commit message.
+    - feat (機能)
+    - fix (バグ修正)
+    - docs (ドキュメント)
+    - style (コードフォーマットや誤字脱字など)
+    - refactor (リファクタリング)
+    - test (テスト追加)
+    - chore (雑多な作業)
+- Scope: コミットの範囲を特定するもの。空白や`*`でも構いません。
+- Subject: コミットの説明。メジャーバージョンの更新が必要となる互換性のない変更を行うときは、コミットメッセージのどこかに`BREAKING CHANGE`と書いてください。
 
-**Examples commit messages:**
+**コミットメッセージの例:**
 
 - Bug fix: `fix: Remove extra space`
 - Breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`

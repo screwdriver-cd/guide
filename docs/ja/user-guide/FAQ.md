@@ -4,28 +4,27 @@ title: FAQ
 category: User Guide
 menu: menu_ja
 toc:
-- title: Frequently Asked Questions
+- title: よくある質問と回答
   url: "#よくある質問と回答"
   active: 'true'
 - title: ビルドをスキップする方法は？
-  url: "#ビルドをスキップする方法"
+  url: "#ビルドをスキップする方法は？"
 - title: パイプラインの作り方は？
-  url: "#パイプラインの作り方"
+  url: "#パイプラインの作り方は？"
 - title: ビルドを手動で開始するには？
-  url: "#ビルドを手動で開始する"
-- title: パイプラインのリポジトリやブランチを変更するには？
-  url: "#パイプラインのレポジトリやブランチを変更したい"
-- title: ジョブの disable/enable を一時的に切り替えるには？
-  url: "#ジョブのdisable/enableを一時的に切り替える"
-- title: パイプラインがgitと正しく同期しているか確かめるには？
-  url: "#パイプラインがgitと正しく同期しているか確かめるには？"
+  url: "#ビルドを手動で開始するには？"
+- title: パイプラインのリポジトリやブランチを変更したい場合は？
+  url: "#パイプラインのリポジトリやブランチを変更したい場合は？"
+- title: ジョブのdisable/enableを一時的に切り替えるには？
+  url: "#ジョブのdisable/enableを一時的に切り替えるには？"
+- title: パイプラインがソースコードと正しく同期しているか確かめるには？
+  url: "#パイプラインがソースコードと正しく同期しているか確かめるには？"
 - title: パイプラインを削除するには？
-  url: "#パイプラインを削除する"
+  url: "#パイプラインを削除するには？"
 - title: "「Build failed to start」のエラーを修正するには？"
   url: "#「Build-failed-to-start」のエラーを修正するには？"
 - title: ビルドのロールバックを行うには？
   url: "#ビルドのロールバックを行うには？"
----
 
 # よくある質問と回答
 
@@ -53,20 +52,20 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ## パイプラインのリポジトリやブランチを変更したい場合は？
 
-パイプラインのレポジトリやブランチを変更したい場合は、「Options」タブをクリックして、Checkout URLの入力欄を更新し、「Update」ボタンをクリックしてください。
+パイプラインのリポジトリやブランチを変更したい場合は、「Options」タブをクリックして、Checkout URLの入力欄を更新し、「Update」ボタンをクリックしてください。
 
 ![Update a pipeline](../../user-guide/assets/update-pipeline.png)
 
 ## ジョブの disable/enable を一時的に切り替えるには？
 
-一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるtoggleボタンをクリックして切り替えを行ってください。
+一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるトグルボタンをクリックして切り替えを行ってください。
 
 ![Disable a pipeline](../../user-guide/assets/disable-pipeline.png)
 
-## パイプラインがgitと正しく同期しているか確かめるには？
+## パイプラインがソースコードと正しく同期しているか確かめるには？
 
-もしgitで何か変更を加えてもパイプラインが同期されない場合は、「Options」タブの「Sync」欄にあるアイコンをクリックして同期してください。
-同期は「SCM webhook」、「Pull Rerequest」、「Pipeline」とそれぞれ別々に同期できます。
+もしソースコードで何か変更を加えてもパイプラインが同期されない場合は、「Options」タブの「Sync」欄にあるアイコンをクリックして同期してください。
+同期は「SCM webhook」、「Pull Request」、「Pipeline」とそれぞれ別々に同期できます。
 
 ![Sync a pipeline](../../user-guide/assets/sync-pipeline.png)
 

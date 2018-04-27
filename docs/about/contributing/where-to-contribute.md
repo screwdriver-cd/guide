@@ -1,82 +1,30 @@
 ---
 layout: main
-title: Contributing
+title: Where to Contribute
 category: About
 menu: menu
 toc:
-    - title: Contributing
-      url: "#contributing"
-      active: true
-    - title: Bugs/Feature Requests
-      url: "#bugsfeature-requests"
-    - title: Submitting Pull Requests
-      url: "#submitting-pull-requests"
     - title: Where to Contribute
       url: "#where-to-contribute"
 ---
-# Contributing
-
-Thank you for considering contributing! There are many ways you can help.
-
-## Bugs/Feature Requests
-
-File an issue if you think you've found a bug or would like to request a feature. Be sure to describe:
-
-1. How it can be reproduced
-2. What did you expect to happen?
-3. What actually happened?
-4. Version, platform, etc. if relevant
-
-You can file all issues with Screwdriver in the [screwdriver repo][api-issues-url]; please tag with appropriate Github labels whenever possible. We will update any issues we're working on with a daily summary. To see what we're currently working on, you can check out our [digital scrum board](https://github.com/screwdriver-cd/screwdriver/projects/4) in the Projects section of the [Screwdriver API repo][api-repo].
-
-## Submitting Pull Requests
-
-Patches for fixes, features, and improvements are accepted through pull requests.
-
-* Write good commit messages in the present tense ("Add X", not "Added X") with a short title, blank line, and bullet points if needed. Capitalize the first letter of the title and any bullet items. No punctuation in the title.
-* Code must pass lint and style checks.
-* All external methods must be documented. Add README docs and/or user documentation in our [guide][guide-repo] when appropriate.
-* Include tests to improve coverage and prevent regressions.
-* Squash changes into a single commit per feature/fix. Ask if you're unsure how to discretize your work.
-* Whenever possible, tag your pull request with appropriate Github labels.
-
-_Please ask before embarking on a large improvement so you're not disappointed if it does not align with the goals of the project or owner(s)._
-
-### Commit Message Format
-
-We use [semantic-release](https://www.npmjs.com/package/semantic-release), which requires commit messages to be in this specific format: `<type>(<scope>): <subject>`
-
-| Keyword | Description |
-| ------- | ----------- |
-| Type | feat (feature), fix (bug fix), docs (documentation), style (formatting, missing semi colons, …), refactor, test (when adding missing tests), chore (maintain)  |
-| Scope | anything that specifies the scope of the commit; can be blank, the issue number that your commit pertains to, or `*` |
-| Subject | description of the commit |
-
-**Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE` somewhere in the commit title or message.
-
-**Examples commit titles:**
-* For a bug fix: `fix: Remove extra space`
-* For a breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
-
-
-
-## Where to Contribute
+# Where to Contribute
 
 Screwdriver has a modular architecture, and the various responsibilities are split up into separate repos.
 
-Check out the [architecture diagram](arch-diagram) to see the overall workflow of Continuous Delivery using Screwdriver. The next few sections will help lay out where different code repositories fit.
+Check out the [architecture diagram][arch-diagram] to see the overall workflow of Continuous Delivery using Screwdriver. The next few sections will help lay out where different code repositories fit.
 
 ### [Screwdriver API][api-repo]
 The **[screwdriver][api-repo]** repo is the core of screwdriver, providing the API endpoints for everything that screwdriver does. The API is based on the *[hapijs framework](http://hapijs.com/)* and is implemented in node as a series of plugins.
 
 
 * **[Build bookends][build-bookend-repo]** allow a user to create setup and teardown steps for builds.
-* The API can also send notifications to users. [notifications-base][notifications-base-repo] is the base class for defining the behavior between screwdriver and notifications plugins, like [email notifications][notifications-email-repo].
+* The API can also send notifications to users. [notifications-base][notifications-base-repo] is the base class for defining the behavior between screwdriver and notifications plugins, like [email notifications][notifications-email-repo] and [slack notifications][notifications-slack-repo].
 
 ### [Launcher][launcher-repo]
 
 The **[launcher][launcher-repo]** performs step execution and housekeeping internal to build containers. This is written in Go and mounted into build containers as a binary.
 
+* **[sd-cmd][sd-cmd-repo]**: A Go-based CLI for sharing binaries which provides a single interface for executing a versioned command (via remote binary, docker image, or habitat package) during a Screwdriver build
 * **[sd-step][sd-step-repo]**: A Shared Step allows people to use the same packages and commands in all build containers, regardless of build environment
 * **[meta-cli][meta-cli-repo]**: A Go-based CLI for reading/writing information from the metadata
 
@@ -89,6 +37,7 @@ An executor is used to manage build containers for any given job. Several implem
 * **[executor-j5s](https://github.com/screwdriver-cd/executor-j5s)**: Jenkins implementation
 * **[executor-k8s][executor-k8s-repo]**: Kubernetes implementation
 * **[executor-k8s-vm][executor-k8s-vm-repo]**: Kubernetes VM implementation
+* **[executor-nomad][executor-nomad-repo]**: Nomad implementation
 
 The [executor router][executor-router-repo] is a generic executor plugin that routes builds to a specified executor.
 
@@ -118,6 +67,7 @@ An SCM implementation is used as the interface between the API and an SCM. There
 * **[scm-base][scm-base-repo]**: Common interface
 * **[scm-bitbucket][scm-bitbucket-repo]**: Bitbucket implementation
 * **[scm-github][scm-github-repo]**: Github implementation
+* **[scm-gitlab][scm-gitlab-repo]**: Gitlab implementation
 
 ### Templates
 
@@ -156,22 +106,22 @@ We have some tools to help start out new repos for screwdriver:
 * **[generator-screwdriver](https://github.com/screwdriver-cd/generator-screwdriver)**: Yeoman generator that bootstraps new repos for screwdriver
 * **[eslint-config-screwdriver](https://github.com/screwdriver-cd/eslint-config-screwdriver)**: Our ESLint rules for node-based code. Included in each new repo as part of the bootstrap process
 
-If you create a new repo, please come back and edit this [page](contributing-docs) so that others can know where your repo fits in.
+If you create a new repo, please come back and edit [this page][contributing-docs] so that others can know where your repo fits in.
 
 ### Screwdriver.cd Tests and Examples
 
-The organization [screwdriver-cd-test][screwdriver-cd-test-org] contains various example repos/screwdriver.yamls and acceptance tests for Screwdriver.cd.
+The organization **[screwdriver-cd-test][screwdriver-cd-test-org]** contains various example repos/screwdriver.yamls and acceptance tests for Screwdriver.cd.
 
 [api-issues-image]: https://img.shields.io/github/issues/screwdriver-cd/screwdriver.svg
 [api-issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
 [api-repo]: https://github.com/screwdriver-cd/screwdriver
-[arch-diagram]: http://docs.screwdriver.cd/cluster-management/#overall-architecture
+[arch-diagram]: ../../cluster-management/#overall-architecture
 [artifact-bookend-repo]: https://github.com/screwdriver-cd/artifact-bookend
 [build-bookend-repo]: https://github.com/screwdriver-cd/build-bookend
 [circuit-fuses-repo]: https://github.com/screwdriver-cd/circuit-fuses
 [client-repo]: https://github.com/screwdriver-cd/client
 [config-parser-repo]: https://github.com/screwdriver-cd/config-parser
-[contributing-docs]: https://github.com/screwdriver-cd/guide/blob/master/docs/about/contributing.md
+[contributing-docs]: https://github.com/screwdriver-cd/guide/blob/master/docs/about/contributing/where-to-contribute.md
 [dataschema-repo]: https://github.com/screwdriver-cd/data-schema
 [datastore-base-repo]: https://github.com/screwdriver-cd/datastore-base
 [datastore-dynamodb-repo]: https://github.com/screwdriver-cd/datastore-dynamodb
@@ -182,6 +132,7 @@ The organization [screwdriver-cd-test][screwdriver-cd-test-org] contains various
 [executor-j5s-repo]: https://github.com/screwdriver-cd/executor-j5s
 [executor-k8s-repo]: https://github.com/screwdriver-cd/executor-k8s
 [executor-k8s-vm-repo]: https://github.com/screwdriver-cd/executor-k8s-vm
+[executor-nomad-repo]: https://github.com/lgfausak/executor-nomad
 [executor-router-repo]: https://github.com/screwdriver-cd/executor-router
 [gitversion-repo]: https://github.com/screwdriver-cd/gitversion
 [guide-repo]: https://github.com/screwdriver-cd/guide
@@ -196,10 +147,13 @@ The organization [screwdriver-cd-test][screwdriver-cd-test-org] contains various
 [models-repo]: https://github.com/screwdriver-cd/models
 [notifications-base-repo]: https://github.com/screwdriver-cd/notifications-base
 [notifications-email-repo]: https://github.com/screwdriver-cd/notifications-email
+[notifications-slack-repo]: https://github.com/screwdriver-cd/notifications-slack
 [scm-base-repo]: https://github.com/screwdriver-cd/scm-base
 [scm-bitbucket-repo]: https://github.com/screwdriver-cd/scm-bitbucket
 [scm-github-repo]: https://github.com/screwdriver-cd/scm-github
+[scm-gitlab-repo]: https://github.com/bdangit/scm-gitlab
 [screwdriver-cd-test-org]: https://github.com/screwdriver-cd-test
+[sd-cmd-repo]: https://github.com/screwdriver-cd/sd-cmd
 [sd-step-repo]: https://github.com/screwdriver-cd/sd-step
 [store-repo]: https://github.com/screwdriver-cd/store
 [template-main-repo]: https://github.com/screwdriver-cd/template-main

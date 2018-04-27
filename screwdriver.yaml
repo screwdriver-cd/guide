@@ -1,17 +1,15 @@
-workflow:
-    - publish
-    - deploy
-
 shared:
   image: ruby:2
 
 jobs:
   main:
+    requires: [~pr, ~commit]
     steps:
         - bundle_install: bundle install
         - build: bundle exec jekyll build --source docs --destination _site
 
   publish:
+      requires: [main]
       environment:
           DOCKER_REPO: screwdrivercd/guide
           RELEASE_FILE: guide.tgz
@@ -20,9 +18,7 @@ jobs:
           - GIT_KEY
           - GITHUB_TOKEN
       steps:
-          - setup-ci: |
-              git clone https://github.com/screwdriver-cd/toolbox.git ci
-              cp build/git-ssh.sh ci/git-ssh.sh
+          - setup-ci: git clone https://github.com/screwdriver-cd/toolbox.git ci
           - install: bundle install
           - build: bundle exec jekyll build --source docs --destination _site
           - package: tar -C _site -cvzf $RELEASE_FILE .
@@ -34,6 +30,7 @@ jobs:
               ./ci/docker-trigger.sh
 
   deploy:
+      requires: [publish]
       environment:
           DOCKER_REPO: screwdrivercd/guide
           K8S_CONTAINER: guide

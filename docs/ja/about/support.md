@@ -19,7 +19,7 @@ toc:
 
 ## GitHub
 
-Screwdriverは完全なオープンソースで、GitHubの[screwdriver-cd organization](https://github.com/screwdriver-cd)以下にあります。どんな[issues](https://github.com/screwdriver-cd/screwdriver/issues)でも[pull requests](https://github.com/screwdriver-cd/screwdriver/pulls)pull requestsでも歓迎します！
+Screwdriverは完全なオープンソースで、GitHubの[screwdriver-cd organization](https://github.com/screwdriver-cd)以下にあります。どんな[issues](https://github.com/screwdriver-cd/screwdriver/issues)でも[pull requests](https://github.com/screwdriver-cd/screwdriver/pulls)でも歓迎します！
 Githubのリポジトリやコントリビュート方法については [Contributing](./contributing)ページをご覧ください。
 
 ## Slack

@@ -3,7 +3,7 @@ layout: main
 title: Quickstart
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Getting Started with Screwdriver
       url: "#getting-started-with-screwdriver"
       active: true
@@ -46,22 +46,7 @@ Now that we’ve setup our app, we can start developing. This app demonstrates h
 
 ### screwdriver.yaml
 
-The `screwdriver.yaml` is the only config file you need for using Screwdriver. In it, you will define all your steps needed to successfully develop, build and deploy your application.
-
-#### Workflow
-
-The `workflow` describes the order that the jobs execute. The "main" job, which is created by default, is always
-executed first, followed by jobs listed in this workflow block.
-
-Here, we have defined a job named "second_job", which
-will run after the "main" job.
-
-```yaml
----
-# Workflow list definition
-workflow:
-  - second_job
-```
+The `screwdriver.yaml` is the only config file you need for using Screwdriver. In it, you will define all your steps needed to successfully develop, build and deploy your application. See the User Guide -> Configuration section for more details.
 
 #### Shared
 The `shared` section is where you would define any attributes that all your jobs will inherit.
@@ -75,30 +60,34 @@ shared:
   image: buildpack-deps
 ```
 
-#### Jobs
-The `jobs` section is where all the tasks (or `steps`) that each job will execute is defined. All pipelines have "main" implicitly defined. The definitions in your screwdriver.yaml file will override the implied defaults.
+### Jobs
+The `jobs` section is where all the tasks (or `steps`) that each job will execute is defined.
+
+### Workflow
+The `requires` keyword denotes the order that jobs will run. Requires is a single job name or array of job names. Special keywords like `~pr` or `~commit` indicate that the job will run after a PR is merged or code is committed, respectively.
 
 ### Steps
 The `steps` section contains a list of commands to execute.
 Each step takes the form "step_name: command_to_run". The "step_name" is a convenient label to reference it by. The
 "command_to_run" is the single command that is executed during this step. Step names cannot start with `sd-`, as those steps are reserved for Screwdriver steps. Environment variables will be passed between steps, within the same job. In essence, Screwdriver runs `/bin/sh` in your terminal then executes all the steps; in rare cases, different terminal/shell setups may have unexpected behavior.
 
-In our example, our "main" job executes a simple piece of inline bash code. The first step (`export`) exports an environment variable, `GREETING="Hello, world!"`. The second step (`hello`) echoes the environment variable from the first step. The third step uses [metadata](./configuration/metadata), a structured key/value storage of relevant information about a build, to set an arbitrary key in the "main" job and get it in the "second_job".
+In our example, our "main" job executes a simple piece of inline bash code. The first step (`export`) exports an environment variable, `GREETING="Hello, world!"`. The second step (`hello`) echoes the environment variable from the first step. The third step uses [metadata](./metadata), a structured key/value storage of relevant information about a build, to set an arbitrary key in the "main" job and get it in the "second_job".
 
 We also define another job called "second_job". In this job, we intend on running a different set of commands. The "make_target" step calls a Makefile target to perform some set of actions. This is incredibly useful when you need to perform a multi-line command.
 The "run_arbitrary_script" executes a script. This is an alternative to a Makefile target where you want to run a series of commands related to this step.
 
 ```yaml
 # Job definition block
-# "main" is a default job that all pipelines have
 jobs:
   main:
+    requires: [~pr, ~commit]
     # Steps definition block.
     steps:
       - export: export GREETING="Hello, world!"
       - hello: echo $GREETING
       - set-metadata: meta set example.coverage 99.95
   second_job:
+    requires: [main] # second_job will run after main job is done
     steps:
       - make_target: make greetings
       - get-metadata: meta get example

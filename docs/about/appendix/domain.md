@@ -3,7 +3,7 @@ layout: main
 title: Domain Model
 category: About
 menu: menu
-toc: 
+toc:
     - title: Domain Model
       url: "#domain-model"
       active: true
@@ -30,8 +30,8 @@ toc:
 
 _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
 
-![Definition](./assets/definition-model.png)
-![Runtime](./assets/runtime-model.png)
+![Definition](../appendix/assets/definition-model.png)
+![Runtime](../appendix/assets/runtime-model.png)
 
 ### Source Code
 
@@ -118,7 +118,7 @@ $ meta get example
 {"coverage":99.95}
 ```
 
-See the [metadata page](../../user-guide/configuration/metadata) for more information.
+See the [metadata page](../../user-guide/metadata) for more information.
 
 ### Workflow
 

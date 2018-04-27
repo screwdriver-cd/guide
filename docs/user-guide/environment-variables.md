@@ -24,7 +24,7 @@ toc:
 
 Screwdriver exports a set of environment variables that you can rely on during build runtime.
 
-_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./configuration/metadata)._
+_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./metadata)._
 
 ## Build Specific
 
@@ -35,6 +35,8 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_BUILD_ID | Build number (e.g.: 1, 2, etc) |
 | SD_PULL_REQUEST | Pull Request number (blank if non-PR) |
 | SD_TOKEN | JWT token for the build |
+| SD_TEMPLATE_NAME | Name of the template the job is using (blank if not using template) |
+| SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template)|
 
 ## Directories
 
@@ -62,6 +64,8 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | Name | Value |
 |------|-------|
 | SD_API_URL | Link to the Screwdriver API URL |
+| SD_STORE_URL | Link to the Screwdriver Store URL |
+
 
 ## Continuous Integration
 

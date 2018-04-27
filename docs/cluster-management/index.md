@@ -78,7 +78,7 @@ built/maintained by Screwdriver:
  - **Execution Engine**
 
     Pluggable build executor that supports executing commands inside of a
-    container (e.g. Jenkins, Kubernetes, and Docker).
+    container (e.g. Jenkins, Kubernetes, Nomad, and Docker).
 
  - **Datastore**
 

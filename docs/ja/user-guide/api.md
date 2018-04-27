@@ -11,6 +11,8 @@ toc:
   url: "#APIを使用する"
 - title: 認可と認証
   url: "#認可と認証"
+- title: バッジ
+  url: "#バッジ"
 - title: 設計思想
   url: "#設計思想"
 - title: Make Your Own
@@ -23,7 +25,9 @@ ScrewdriverのAPIとデータモデルは[Swagger](http://swagger.io/)を使っ�
 
 > 現在のAPIは**Version 4**で、全てのAPIは`/v4`で始まります。
 
-APIのドキュメントは以下で見ることができます [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation) ご自身のScrewdriverで見るためには、`/v4/documentation`にアクセスしてください。
+APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation)
+
+各自のScrewdriver.cdインスタンスでは、`/v4/documentation`にアクセスしてください。
 
 ## APIを使用する
 
@@ -31,15 +35,15 @@ APIのドキュメントは以下で見ることができます [api.screwdriver
 
 Swaggerのドキュメントは例とお試しのための編集可能なパラメータを含んでいます。`/v4/documentation`にアクセスし、APIを呼び出すための`Try it out!`ボタンをお試しください。 
 
-Swagger page:
-![Swagger page](../../../user-guide/assets/swagger-page.png)
+Swaggerページ:
+![Swagger page](../../user-guide/assets/swagger-page.png)
 
-Response:
-![Swagger response](../../../user-guide/assets/swagger-response.png)
+レスポンス:
+![Swagger response](../../user-guide/assets/swagger-response.png)
 
 ### RESTクライアント経由で実行する
 
-[Postman](https://www.getpostman.com/)のようなRESTクライアントをAPIリクエストに使用します。その際、認証トークンが必要です。認証トークンを取得するためには、`/v4/auth/login`からログインし、リダイレクト先の`/v4/auth/token`/v4/auth/tokenからトークンをコピーしてください。詳しくは[認可と認証](#%E8%AA%8D%E5%8F%AF%E3%81%A8%E8%AA%8D%E8%A8%BC)をご覧ください。
+[Postman](https://www.getpostman.com/)のようなRESTクライアントをAPIリクエストに使用します。その際、認証トークンが必要です。認証トークンを取得するためには、`/v4/auth/login`からログインし、リダイレクト先の`/v4/auth/token`からトークンをコピーしてください。詳しくは[認可と認証](#%E8%AA%8D%E5%8F%AF%E3%81%A8%E8%AA%8D%E8%A8%BC)をご覧ください。
 
 APIリクエストの際のヘッダは以下のようになります。
 
@@ -48,15 +52,14 @@ Content-Type: application/json
 Authorization: Bearer <YOUR_TOKEN_HERE>
 ```
 
-Example request:
-![Postman response](../../../user-guide/assets/postman.png)
+リクエストの例:
+![Postman response](../../user-guide/assets/postman.png)
 
 詳しい情報と例についてはAPIドキュメントをご覧ください。
 
 ## 認可と認証
 
-認証のために、[JSON Web Tokens (JWT)](http://jwt.io)を使用しています。JWTは
-`Authorization`ヘッダを必要とします。JWTを生成するために`/v4/auth/login` にアクセスし、`/v4/auth/token`へとリダイレクトされます。
+認証のために、[JSON Web Tokens (JWT)](http://jwt.io)を使用しています。JWTは`Authorization`ヘッダを必要とします。JWTを生成するために`/v4/auth/login` にアクセスし、`/v4/auth/token`へとリダイレクトされます。
 
 一方、認可はOAuthによるものです。`/v4/auth/login`にアクセスしたときに行われます。ScrewdriverはSCMトークンで以下を識別します。
 
@@ -65,11 +68,26 @@ Example request:
     - write権限でjobの開始と停止ができます。
     - admin権限でpipelineの作成、編集、削除ができます。
 - リポジトリの`screwdriver.yaml`の読み込み
-- ビルドの成功・失敗情報でpull-requestを更新
+- リポジトリに対するオープン中のpull-requestのリストを取得
 - ビルドの成功・失敗情報でpull-requestを更新
 - Screwdriverが変更の通知を受け取れるよう、リポジトリに対しwebhookを追加・削除
 
 より詳しい情報については[GitHub OAuth](https://developer.github.com/v3/oauth/)のドキュメントをご覧ください。
+
+## バッジ
+
+`<your_UI_URL>/pipelines/<your_pipelineId>/badge`のURLを利用して、特定のパイプラインに対する現在のビルドステータスを表す画像を取得できます。
+
+[![Build Status](https://cd.screwdriver.cd/pipelines/1/badge)](https://cd.screwdriver.cd/pipelines/1)
+
+例えば、このMarkdown形式で書かれたコードを利用することで上のようなバッジを表示できます。`status-image` URLはバッジの画像で、`status-url` はパイプラインへのリンクです。
+
+```markdown
+[![Build Status][status-image]][status-url]
+
+[status-image]: https://cd.screwdriver.cd/pipelines/1/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/1
+```
 
 ## 設計思想
 
@@ -81,4 +99,7 @@ ScrewdriverのAPIは次の三原則を念頭に設計されました。
 
 ## Make Your Own
 
-あなた自身の Swaggerドキュメントを作成するには、以下のJSONリファレンスを確認して下さい [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)ご自身のSwagger.jsonを見るためには、`/v4/swagger.json`にアクセスしてください。
+Swaggerドキュメントを作成したい場合は、次のJSONを参考にしてください:
+ [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)
+
+各自のScrewdriver.cdインスタンスでは、`/v4/swagger.json` にアクセスしてください。

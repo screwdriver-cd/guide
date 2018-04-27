@@ -36,6 +36,7 @@ Configure how users can and who can access the API.
 
 | Key                    | Required | Description                                                                                                               |
 |:-----------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------|
+| JWT_ENVIRONMENT | No      | Environment to generate the JWT for. Ex: `prod`, `beta`. If you want the JWT to not contain `environment`, don't set this environment variable (do not set it to `''`). |
 | SECRET_JWT_PRIVATE_KEY | Yes      | A private key uses for signing jwt tokens. Generate one by running `$ openssl genrsa -out jwt.pem 2048`                   |
 | SECRET_JWT_PUBLIC_KEY  | Yes      | The public key used for verifying the signature. Generate one by running `$ openssl rsa -in jwt.pem -pubout -out jwt.pub` |
 | SECRET_COOKIE_PASSWORD | Yes      | A password used for encrypting session data. **Needs to be minimum 32 characters**                                        |
@@ -160,7 +161,7 @@ datastore:
 
 ### Executor Plugin
 
-We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), and [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
+We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), [nomad](http://github.com/lgfausak/executor-nomad), and [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
 
 #### Kubernetes
 Set these environment variables:
@@ -208,8 +209,38 @@ executor:
                 socketPath: /var/lib/docker.sock
             launchVersion: stable
 ```
+#### Nomad
+Set these environment variables:
+
+| Environment name       | Default Value | Description                                 |
+|:-----------------------|:--------------|:--------------------------------------------|
+| EXECUTOR_PLUGIN        | nomad         | Nomad executor                              |
+| LAUNCH_VERSION         | latest        | Launcher version to use                     |
+| EXECUTOR_NOMAD_ENABLED | true          | Flag to enable Nomad executor               |
+| NOMAD_HOST             | nomad.default | Nomad host (e.g. http://192.168.30.30:4646) |
+| NOMAD_CPU              | 600           | Nomad cpu resource in Mhz                   |
+| NOMAD_MEMORY           | 4096          | Nomad memory resource in MB                 |
+| EXECUTOR_PREFIXX       | sd-build-     | Nomad job name prefix                       |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: nomad
+    nomad:
+        options:
+            nomad:
+                host: http://192.168.30.30:4646
+            resources:
+                cpu:
+                    high: 600
+                memory:
+                    high: 4096
+            launchVersion:  latest
+            prefix:  'sd-build-'
+```
+
 ### Notifications Plugin
-We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email).
+We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email) and [Slack notifications](https://github.com/screwdriver-cd/notifications-slack).
 
 #### Email Notifications
 
@@ -225,6 +256,17 @@ notifications:
 ```
 
 Configurable authentication settings have not yet been built, but can easily be added. We’re using the [nodemailer](https://nodemailer.com/about/) package to power emails, so authentication features will be similar to any typical nodemailer setup. Contribute at: [screwdriver-cd/notifications-email](https://github.com/screwdriver-cd/notifications-email)
+
+#### Slack Notifications
+
+Create a `screwdriver-bot` [Slack bot user](https://api.slack.com/bot-users) in your Slack instance. Generate a Slack token for the bot and set the `token` field with it in your Slack notifications settings.
+
+```yaml
+# config/local.yaml
+notifications:
+    slack:
+        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+```
 
 #### Custom Notifications
 
