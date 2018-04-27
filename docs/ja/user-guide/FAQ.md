@@ -88,22 +88,22 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 ## ビルドのロールバックを行うには？
 
 ビルドのロールバックを行うには下記の２パターンの方法があります。
-・パイプラインの過去の成功時のビルドを再実行する
-・ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を作成して実行
+- パイプラインの過去の成功時のビルドを再実行する
+- ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を作成して実行
 
 ### 過去の成功時のビルドを再実行するには？
 
 過去のイベントから再ビルドを行う手順は下記の通りとなります。
 
-1. ログインする
+1. ログインする。
 2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。
 3. 再ビルドを行いたいジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](../../assets/re-run-select.png)![Start new build for job](../../assets/re-run-start.png)
 
 ### ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
 
-通常のパイプラインから独立したジョブ（detachedジョブ）を作成してロールバックを行う手順は下記の通りとなります。通常のパイプラインの最後のジョブ（下記の例ではジョブD）に`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetach）で`meta get` コマンドを使用して設定されたメタ情報を取得します。
+通常のパイプラインから独立したジョブ（detachedジョブ）を作成してロールバックを行う手順は下記の通りとなります。通常のパイプラインの最後のジョブ（下記の例ではジョブD）で`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetached）で`meta get` コマンドを使用して設定されたメタ情報を取得します。detachedジョブはジョブDで設定されたメタ情報にアクセスします。
 
-1. ログインする
+1. ログインする。
 2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
 3. スタートさせたいdetachedジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
-4. 「Yes」をクリックしてビルドを開始します。 ![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
+4. 「Yes」をクリックしてジョブを開始します。 ![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
