@@ -64,7 +64,7 @@ Example `sd-command.yaml`:
 ```yaml
 namespace: foo # Namespace for the command
 name: bar # Command name
-version: 1.0 # Major and Minor version number (patch is automatic)
+version: '1.0' # Major and Minor version number (patch is automatic), must be a string
 description: |
   Lorem ipsum dolor sit amet.
 maintainer: foo@bar.com # Maintainer of the command
