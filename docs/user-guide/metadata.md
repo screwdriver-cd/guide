@@ -46,6 +46,9 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
+Notes:
+- If `foo` is not set and you try to `meta get foo`, it will return `null` by default.
+
 ### External pipeline
 
 Screwdriver build can also access metadata from an external triggering job by adding the `--external` flag followed by the triggering job.
@@ -58,4 +61,4 @@ $ meta get example --external sd@123:publish
 
 Notes:
 - `meta set` is not allowed for external builds.
-- If the flag value is not the triggering job, then `meta get` will return `null`.
+- If the `--external` flag did not trigger the build, then meta will not be set.
