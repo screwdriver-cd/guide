@@ -44,6 +44,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 |------|-------|
 | SD_SOURCE_DIR | Location of checked-out code |
 | SD_ARTIFACTS_DIR | Location of built/generated files |
+| SD_SOURCE_PATH | Location of source path which triggered current build. See [Source Paths](./configuration/sourcePaths). |
 
 ## Environment Variables
 
