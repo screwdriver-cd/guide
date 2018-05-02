@@ -19,6 +19,10 @@ Continuous Delivery pipelines.
 
 ![Workflow](assets/workflow.png)
 
+## Architecture with executor-queue and k8s
+
+![Architecture](assets/arch-k8s.png)
+
 ## Workflow
 
 1. **Commit new code**
