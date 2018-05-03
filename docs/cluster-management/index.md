@@ -19,10 +19,6 @@ Continuous Delivery pipelines.
 
 ![Workflow](assets/workflow.png)
 
-## Architecture with executor-queue and k8s
-
-![Architecture](assets/arch-k8s.png)
-
 ## Workflow
 
 1. **Commit new code**
@@ -88,3 +84,7 @@ built/maintained by Screwdriver:
 
     Pluggable storage for keeping information about pipelines
     (e.g. Postgres, MySQL, and Sqlite).
+
+## Architecture with executor-queue and k8s
+
+![Architecture](assets/arch-k8s.png)
