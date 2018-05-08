@@ -29,5 +29,5 @@ Some Annotations are used to modify the properties of the build environment. The
 | Annotation | Values | Description |
 |------------|--------|-------------|
 | beta.screwdriver.cd/executor | Ask your cluster admin | This will determine what compute system is used to run the build. For example, set the build to run in a VM, a kubernetes pod, a docker container, or a Jenkins agent. |
-| beta.screwdriver.cd/cpu | `LOW` / `HIGH` | When using a `k8s-vm` executor, this will allow the user to choose between 2 CPU resources (`LOW`) and 6 CPU resources (`HIGH`). Default is `LOW`. | 
-| beta.screwdriver.cd/ram | `LOW` / `HIGH` | When using a `k8s-vm` executor, this will allow the user to choose between 2 GB RAM (`LOW`) and 12 GB RAM (`HIGH`). Default is `LOW`. |
+| beta.screwdriver.cd/cpu | `MICRO` / `LOW` / `HIGH` | When using a `k8s-vm` executor, this will allow the user to choose between 0.5 (`MICRO`), 2 (`LOW`) and 6 (`HIGH`) CPU resources. Default is `LOW`. |
+| beta.screwdriver.cd/ram | `LOW` / `HIGH` | When using a `k8s-vm` executor, this will allow the user to choose between 1 GB (`MICRO`), 2 GB (`LOW`) and 12 GB (`HIGH`) RAM. Default is `LOW`. |
