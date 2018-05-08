@@ -4,7 +4,7 @@ title: Environment
 category: User Guide
 menu: menu
 toc:
-- title: Environment
+- title: 環境変数
   url: "#環境変数"
 ---
 
