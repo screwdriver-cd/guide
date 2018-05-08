@@ -21,6 +21,10 @@ toc:
       url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
     - title: How do I delete a pipeline permanently?
       url: "#how-do-i-delete-a-pipeline-permanently"
+    - title: How do I fix "Build failed to start" error message?
+      url: "#how-do-i-fix-build-failed-to-start-error-message"
+    - title: How do I rollback?
+      url: "#how-do-i-rollback"
 ---
 
 # Frequently Asked Questions
@@ -68,3 +72,36 @@ If your pipeline looks out of sync after changes were made to it, to make sure i
 Individual pipelines may be removed by clicking the Delete icon on the Options tab in your pipeline page. This action is not undoable.
 
 ![Delete a pipeline](./assets/delete-pipeline.png)
+
+## How do I fix "Build failed to start" error message?
+
+This is caused by a variety of reasons including cluster setup issue like hyperd down (if using executor vm) or a problem with your build image etc. Fixing this issue
+requires different approaches based on what layer it's failing.
+
+1.`/opt/sd/launch: not found` This issue affects Alpine based images because it uses musl instead of glibc. Workaround is to create the following symlink `mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2` when creating your Docker image.
+
+## How do I rollback?
+
+You can use one of two patterns to rollback: either rerunning a build in your pipeline or running a detached pipeline.
+
+### How do I rerun a job's build?
+
+To rerun a job's build from a past event, do the following steps.
+
+1. Log in.
+1. Click on the desired event from the event list, which loads the detailed event graph.
+1. Then, click the job bubble you'd like to rerun. In the pop up, select “Start pipeline from here” to rerun that job using that event context.
+![Load event graph](../assets/re-run-select.png)
+![Start new build for job](../assets/re-run-start.png)
+
+### How do I run a detached pipeline?
+
+To rollback, do the following steps. You'll most likely want to `meta set` an image name or version in your last job (in this example, job D) and `meta get` that name or version in your rollback job (in this example, detached). The detached job will have access to the metadata set in job D.
+
+1. Log in.
+1. Click on the desired event from the event list, which loads the detailed event graph.
+![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
+1. Then, click the job bubble at the start of that detached pipeline. In the pop up, select “Start pipeline from here” to start the detached workflow with the desired event context.
+![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
+1. Click Yes to rerun the pipeline from that job.
+![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)

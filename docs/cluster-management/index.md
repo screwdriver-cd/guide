@@ -78,9 +78,13 @@ built/maintained by Screwdriver:
  - **Execution Engine**
 
     Pluggable build executor that supports executing commands inside of a
-    container (e.g. Jenkins, Kubernetes, and Docker).
+    container (e.g. Jenkins, Kubernetes, Nomad, and Docker).
 
  - **Datastore**
 
     Pluggable storage for keeping information about pipelines
     (e.g. Postgres, MySQL, and Sqlite).
+
+## Architecture with executor-queue and k8s
+
+![Architecture](assets/arch-k8s.png)

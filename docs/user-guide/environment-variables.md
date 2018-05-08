@@ -24,24 +24,31 @@ toc:
 
 Screwdriver exports a set of environment variables that you can rely on during build runtime.
 
-_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./configuration/metadata)._
+_Note: Environment variables set in one job cannot be accessed in another job. To pass variables between jobs, use [metadata](./metadata)._
 
 ## Build Specific
 
 | Name | Value |
 |------|-------|
-| SD_PIPELINE_ID | The ID of your pipeline |
+| SD_PIPELINE_ID | The ID of the pipeline |
+| SD_EVENT_ID | The ID of the event |
+| SD_PIPELINE_NAME | The name of the pipeline (e.g.: d2lam/myPipeline) |
 | SD_JOB_NAME | Job name (e.g.: main) |
 | SD_BUILD_ID | Build number (e.g.: 1, 2, etc) |
 | SD_PULL_REQUEST | Pull Request number (blank if non-PR) |
 | SD_TOKEN | JWT token for the build |
+| SD_TEMPLATE_NAME | Name of the template the job is using (blank if not using template) |
+| SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template)|
 
 ## Directories
 
 | Name | Value |
 |------|-------|
-| SD_SOURCE_DIR | Location of checked-out code |
+| SD_ROOT_DIR | Location of workspace (e.g.: `/sd/workspace`) |
+| SD_SOURCE_DIR | Location of checked-out code (e.g.: `sd/workspace/src/github.com/d2lam/myPipeline`) |
 | SD_ARTIFACTS_DIR | Location of built/generated files |
+| SD_META_PATH | Location of [metadata](./metadata) |
+| SD_SOURCE_PATH | Location of source path which triggered current build. See [Source Paths](./configuration/sourcePaths). |
 
 ## Environment Variables
 
@@ -56,12 +63,16 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SCM_URL | SCM URL that was checked out |
 | GIT_URL | SCM URL that was checked out with .git appended |
 | GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
+| SD_BUILD_SHA | The Git commit SHA |
 
 ## URLs
 
 | Name | Value |
 |------|-------|
 | SD_API_URL | Link to the Screwdriver API URL |
+| SD_BUILD_URL | Link to the Screwdriver build URL |
+| SD_STORE_URL | Link to the Screwdriver Store URL |
+
 
 ## Continuous Integration
 

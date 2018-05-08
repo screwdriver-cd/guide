@@ -12,14 +12,14 @@ is_homepage: true
 </div>
 
 <div class="row">
+    <div class="col-xs-6 col-md-4 ug">
+        <h2>User Guide</h2>
+        <p>If you'd like to use Screwdriver to run a build, visit our <a href="http://docs.screwdriver.cd/user-guide/quickstart">User Guide</a>.</p>
+    </div>
     <div class="col-xs-6 col-md-4 cm">
         <h2>Cluster Management</h2>
         <p>To find more information about managing your own Screwdriver cluster,
         visit the <a href="http://docs.screwdriver.cd/cluster-management">Cluster Management</a> section.</p>
-    </div>
-    <div class="col-xs-6 col-md-4 ug">
-        <h2>User Guide</h2>
-        <p>If you'd like to use Screwdriver to run a build, visit our <a href="http://docs.screwdriver.cd/user-guide/quickstart">User Guide</a>.</p>
     </div>
     <div class="col-xs-6 col-md-4 about">
         <h2>About</h2>
