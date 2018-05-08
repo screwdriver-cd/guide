@@ -55,7 +55,7 @@ $ cd quickstart-generic/
 
 `shared`セクションは、すべてのジョブに継承される属性を定義する場所です。
 
-今回の例では、全てのジョブは同じ"buildpack-deps"というDockerコンテナで実行されます。`image`は"reponame"の形で通常定義されます。または、"repo_name:tag_label"の形で定義することができ、"tag_label"にはimageのバージョンが入ります。詳しくは[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-from-docker-hub)をご覧ください。
+今回の例では、全てのジョブは同じ"buildpack-deps"というDockerコンテナで実行されます。通常、`image`は"reponame"の形式で定義されます。または、"repo_name:tag_label"の形で定義することができ、"tag_label"にはimageのバージョンが入ります。詳しくは[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-from-docker-hub)をご覧ください。
 
 ```yaml
 # Shared definition block
@@ -70,7 +70,7 @@ shared:
 
 ### Workflow
 
-`requires`キーワードはジョブが実行される順序を示します。`requires`には単一のジョブ名もしくは配列で複数のジョブ名を指定します。`~pr`や`~commit`といった特別なキーワードを指定した場合にはそれぞれPRがマージされた時、メインブランチに変更がコミットされた時にジョブが実行されます。
+`requires`キーワードはジョブが実行される順序を示します。`requires`には単一のジョブ名もしくは配列で複数のジョブ名を指定します。`~pr`や`~commit`といった特別なキーワードを指定した場合にはそれぞれPRが作成もしくは更新された時、メインブランチに変更がコミットされた時にジョブが実行されます。
 
 ### Steps
 
