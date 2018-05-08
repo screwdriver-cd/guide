@@ -73,7 +73,7 @@ toc:
         </div>
         <div id="sourcePaths" class="hidden">
             <h4>Source Paths</h4>
-            <p>オプションで、変更時にジョブを起動するソースパスを指定できます。この例では、 "main"ジョブは "src/app/"ディレクトリ以下または "screwdriver.yaml"ファイルに変更が加えられた場合にのみ実行されます。この機能はGithub SCMでのみ使用できます。</p>
+            <p>オプションとして、ジョブ実行のトリガーとなるソースパスを指定することができます。この例では、"main"ジョブは"src/app/"ディレクトリ以下または"screwdriver.yaml"ファイルに変更が加えられた場合にのみ実行されます。この機能はGithub SCMでのみ使用できます。</p>
         </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
