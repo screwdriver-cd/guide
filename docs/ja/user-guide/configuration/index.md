@@ -71,6 +71,10 @@ toc:
             <h4>Requires</h4>
             <p>ジョブ実行のトリガーとなる1つまたは複数のジョブの配列を設定します。"requires: ~pr"が設定されたジョブはプルリクエストイベントにより実行されます。"requires: ~commit"が設定されたジョブはプッシュイベントにより実行されます。"requires: ~sd@123:main"が設定されたジョブはパイプライン"123"の"main"ジョブの完了により実行されます。"requires: [deploy-west, deploy-east]"が設定されたジョブは"deploy-west"と"deploy-east"の両方のジョブの成功後に実行されます。"注意: ~ のジョブはOR条件で、~ なしのジョブはジョインの働きをします。"</p>
         </div>
+        <div id="sourcePaths" class="hidden">
+            <h4>Source Paths</h4>
+            <p>オプションで、変更時にジョブを起動するソースパスを指定できます。この例では、 "main"ジョブは "src/app/"ディレクトリ以下または "screwdriver.yaml"ファイルに変更が加えられた場合にのみ実行されます。この機能はGithub SCMでのみ使用できます。</p>
+        </div>
         <div id="shared" class="hidden">
             <h4>Shared</h4>
             <p>全てのジョブの適用されるグローバル設定を定義します。Sharedの設定は各ジョブにマージされますが、それぞれのジョブで更に設定が行われている場合はその設定により上書きされます。</p>
@@ -110,10 +114,6 @@ toc:
         <div id="image" class="hidden">
             <h4>Image</h4>
             <p>ビルドで利用されるDockerイメージを指定します。ここでの設定は"docker pull"コマンドを利用する場合と同じものです。</p>
-        </div>
-        <div id="matrix" class="hidden">
-            <h4>Matrix</h4>
-            <p>image設定にテンプレートが利用されている場合、そのジョブのビルドが複数のイメージを利用して並列に実行されます。</p>
         </div>
         <div id="steps" class="hidden">
             <h4>Steps</h4>
