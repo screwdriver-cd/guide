@@ -1,6 +1,6 @@
 ---
 layout: main
-title: Environment
+title: 環境変数
 category: User Guide
 menu: menu
 toc:
