@@ -55,7 +55,7 @@ $ cd quickstart-generic/
 
 `shared`セクションは、すべてのジョブに継承される属性を定義する場所です。
 
-今回の例では、全てのジョブは同じ"buildpack-deps"というDockerコンテナで実行されます。`image`は"repo*name"の形で通常定義されます。または、"repo*name:tag*_name:tag*label"_label"の形で定義することができ、"tag_label"にはimageのバージョンが入ります。詳しくは[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-from-docker-hub)をご覧ください。
+今回の例では、全てのジョブは同じ"buildpack-deps"というDockerコンテナで実行されます。`image`は"reponame"の形で通常定義されます。または、"repo_name:tag_label"の形で定義することができ、"tag_label"にはimageのバージョンが入ります。詳しくは[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-from-docker-hub)をご覧ください。
 
 ```yaml
 # Shared definition block
@@ -75,13 +75,13 @@ shared:
 ### Steps
 
 `steps`セクションは、実行されるコマンドのリストが定義される場所です
-。それぞれのステップは"step*name: command*to*run"の形で定義します。"step*name"は自身を参照するわかりやすいラベルです。
-"command*to*run"はこのステップで実行される1つのコマンドです。ステップの名前は頭に`sd-`がつくものは設定できません。これは、Screwdriverのステップとして予約語になっているからです。同じジョブであれば、環境変数はステップ間で受け渡しすることができます。基本的に、Screwdriverはターミナルで`/bin/sh`を実行します。稀に、異なるターミナルやシェルを使用する場合、予期せぬ振る舞いをする可能性があります。
+。それぞれのステップは"step_name: command_to_run"の形で定義します。"step_name"は自身を参照するわかりやすいラベルです。
+"command_to_run"はこのステップで実行される1つのコマンドです。ステップの名前は頭に`sd-`がつくものは設定できません。これは、Screwdriverのステップとして予約語になっているからです。同じジョブであれば、環境変数はステップ間で受け渡しすることができます。基本的に、Screwdriverはターミナルで`/bin/sh`を実行します。稀に、異なるターミナルやシェルを使用する場合、予期せぬ振る舞いをする可能性があります。
 
-例えば、 "main" ジョブは簡単な1行のシェルコマンドを実行する例を示します。最初のステップ(`export`)は環境変数 `GREETING="Hello, world!"`をセットしています。2番目のステップ(`hello`)では、1ステップ目でセットした環境変数を出力しています。
+例えば、 "main" ジョブは簡単な1行のシェルコマンドを実行する例を示します。最初のステップ(`export`)は環境変数 `GREETING="Hello, world!"`をセットしています。2番目のステップ(`hello`)では、1ステップ目でセットした環境変数を出力しています。3番目のステップでは[metadata](./metadata)(ビルドに関連する情報を格納するキーバリュー型のデータストア)に任意のキーで値を設定しています。ここで設定した値は"second_job"の中で取得しています。
 
-また、 "second*job" という別のジョブを定義します。このジョブでは別のコマンドセットを実行するつもりです。 "make*target"_target" ステップではMakefileターゲットを呼び、いくつかの処理を実行させます。これは複数行のコマンドを実行する必要がある場合に非常に便利です。
-"run*arbitrary*script"  ステップではスクリプトを実行します。これは続きのステップであり、Makefileターゲットを呼ぶ以外の方法で複数のコマンドを実行できる代替案です。
+また、 "second_job" という別のジョブを定義しています。このジョブでは別のコマンドセットを実行します。 "make_target" ステップではMakefileターゲットを呼び、いくつかの処理を実行させます。これは複数行のコマンドを実行する必要がある場合に非常に便利です。
+"run_arbitrary_script"  ステップではスクリプトを実行します。これはMakefileターゲットを呼ぶ以外の方法で複数のコマンドを実行できる代替案です。
 
 ```yaml
 # Job definition block
@@ -115,7 +115,7 @@ Screwdriverを利用するには、Githubを利用してScrewdriverにログイ�
 
 3. *あなたのリポジトリへのアクセス権をScrewdriverに与えてよいか確認されます。適切に選択し、Authorizeボタンをクリックします。*
 
-4. ビルド対象リポジトリのリンクを入力します。SSHかHTTPSリンクの後に`#<YOUR_BRANCH_NAME>`を付加します(例：`git@github.com:screwdriver-cd/guide.git#test`)。`BRANCH_NAME`が指定されない場合、デフォルトとして`master`ブランチが指定されます。 "Use this repository" をクリックし、 ”Create Pipeline" をクリックします。
+4. ビルド対象リポジトリのリンクを入力します。SSHかHTTPSリンクの後に`#<YOUR_BRANCH_NAME>`を付加します(例：`git@github.com:screwdriver-cd/guide.git#test`)。`BRANCH_NAME`が指定されていない場合、デフォルトとして`master`ブランチが指定されます。 "Use this repository" をクリックし、 ”Create Pipeline" をクリックします。
 
 ### はじめてのビルドを開始
 
