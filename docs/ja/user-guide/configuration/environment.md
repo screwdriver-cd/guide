@@ -5,10 +5,10 @@ category: User Guide
 menu: menu
 toc:
 - title: Environment
-  url: "#Environment"
+  url: "#環境変数"
 ---
 
-# Environment
+# 環境変数
 
 ビルドで利用する環境変数のキーと値の組み合わせです。sharedとジョブの両方で同じキーの環境変数を設定した場合、ジョブで設定されている値が利用されます。
 
