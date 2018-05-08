@@ -2,7 +2,7 @@
 layout: main
 title: 環境変数
 category: User Guide
-menu: menu
+menu: menu_ja
 toc:
 - title: 環境変数
   url: "#環境変数"
