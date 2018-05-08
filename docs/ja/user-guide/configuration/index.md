@@ -77,7 +77,7 @@ toc:
         </div>
         <div id="environment" class="hidden">
             <h4>Environment</h4>
-            <p>ビルドに必要な環境変数のキーと値の組み合わせです。ジョブに設定できる全ての設定はSharedにも設定できますが、ジョブの設定により上書きされます。</p>
+            <p>ビルドに必要な環境変数のキーと値の組み合わせです。ジョブに設定できる全ての設定はSharedにも設定できますが、個別のジョブの設定により上書きされます。</p>
         </div>
         <div id="settings" class="hidden">
             <h4>Settings</h4>
@@ -85,7 +85,7 @@ toc:
         </div>
         <div id="annotations" class="hidden">
             <h4>Annotations</h4>
-            <p>アノテーションはキーバリューのペアです。パイプラインまたはジョブ単位で設定することができます。アノテーションのキーバリューは任意に設定することができ、例えば、ビルドの実行方法を変更することができます。Screwdriverのクラスタ管理者にビルドの実行方法を変更するために、どのようなアノテーションがサポートされているか確認してください。</p>
+            <p>アノテーションはキーと値の組み合わせです。パイプラインまたはジョブ単位で設定することができます。アノテーションのキーと値は任意に設定することができ、例えば、ビルドの実行方法を変更することができます。Screwdriverのクラスタ管理者にビルドの実行方法を変更するために、どのようなアノテーションがサポートされているか確認してください。</p>
         </div>
         <div id="executor" class="hidden">
             <h4>Executor annotation</h4>
@@ -98,6 +98,7 @@ toc:
         <div id="ram" class="hidden">
             <h4>RAM annotation</h4>
             <p>`k8s-vm` Executor を利用する場合にVMに割り当てられるRAMを設定します。`LOW`はデフォルトで設定され、2GBのメモリが割り当てられ、`HIGH`は12GBのメモリが割り当てられます。</p>
+        </div>
         <div id="email" class="hidden">
             <h4>Email</h4>
             <p>通知を送信するEmailアドレスと、通知を送信するステータスを設定します。</p>
@@ -106,13 +107,9 @@ toc:
             <h4>Jobs</h4>
             <p>ビルドの挙動を定義するジョブのリストです。</p>
         </div>
-        <div id="main-job" class="hidden">
-            <h4>Main</h4>
-            <p>唯一の必須ジョブです。このジョブはコードに変更が行われた際に自動的に実行されます。</p>
-        </div>
         <div id="image" class="hidden">
             <h4>Image</h4>
-            <p>ビルドで利用されるDockerイメージを指定します。この例ではテンプレートを使用しており、{{NODE_VERSION}}のように波括弧で囲まれた変数が展開されます。 この変数はmatrixで指定されている値に変更され、それら複数のイメージを利用したビルドが並列に実行されます。</p>
+            <p>ビルドで利用されるDockerイメージを指定します。ここでの設定は"docker pull"コマンドを利用する場合と同じものです。</p>
         </div>
         <div id="matrix" class="hidden">
             <h4>Matrix</h4>
