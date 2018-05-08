@@ -16,6 +16,8 @@ toc:
 各プロパティ名にマウスカーソルを乗せるとそれらの説明が表示されます。
 
 <div class="yaml-docs">
+</div>
+
 <pre class="example">
 <a href="#shared"><span class="key">shared</span>:</a>
     <a href="#environment"><span class="key">environment</span>:
@@ -32,6 +34,7 @@ toc:
 <a href="#jobs"><span class="key">jobs</span>:</a>
       <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
+        <a href="#sourcePaths"><span class="key">sourcePaths</span>: <span class="value">["src/app/", "screwdriver.yaml"]</span></a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
         <a href="#steps"><span class="key">steps</span>:
     - <span class="key">init</span>: <span class="value">npm install</span>
@@ -64,6 +67,8 @@ toc:
         - <span class="key">echo</span>: <span class="value">echo done</span></a>
     <a href="#jobs">...</a>
 </pre>
+
+```
 <div class="yaml-side">
     <div id="requires" class="hidden">
         <h4>Requires</h4>
@@ -75,7 +80,7 @@ toc:
     </div>
     <div id="environment" class="hidden">
         <h4>Environment</h4>
-        <p>ビルドに必要な環境変数のキーと値の組み合わせです。ジョブに設定できる全ての設定はSharedにも設定できますが、個別のジョブの設定により上書きされます。</p>
+        <p>ビルドに必要な環境変数のキーと値の組み合わせです。ジョブに設定できる全ての設定はSharedにも設定できますが、ジョブの設定により上書きされます。</p>
     </div>
     <div id="settings" class="hidden">
         <h4>Settings</h4>
@@ -83,7 +88,7 @@ toc:
     </div>
     <div id="annotations" class="hidden">
         <h4>Annotations</h4>
-        <p>アノテーションはキーと値の組み合わせです。パイプラインまたはジョブ単位で設定することができます。アノテーションのキーと値は任意に設定することができ、例えば、ビルドの実行方法を変更することができます。Screwdriverのクラスタ管理者にビルドの実行方法を変更するために、どのようなアノテーションがサポートされているか確認してください。</p>
+        <p>アノテーションはキーバリューのペアです。パイプラインまたはジョブ単位で設定することができます。アノテーションのキーバリューは任意に設定することができ、例えば、ビルドの実行方法を変更することができます。Screwdriverのクラスタ管理者にビルドの実行方法を変更するために、どのようなアノテーションがサポートされているか確認してください。</p>
     </div>
     <div id="executor" class="hidden">
         <h4>Executor annotation</h4>
@@ -96,7 +101,6 @@ toc:
     <div id="ram" class="hidden">
         <h4>RAM annotation</h4>
         <p>`k8s-vm` Executor を利用する場合にVMに割り当てられるRAMを設定します。`LOW`はデフォルトで設定され、2GBのメモリが割り当てられ、`HIGH`は12GBのメモリが割り当てられます。</p>
-    </div>
     <div id="email" class="hidden">
         <h4>Email</h4>
         <p>通知を送信するEmailアドレスと、通知を送信するステータスを設定します。</p>
@@ -105,13 +109,24 @@ toc:
         <h4>Jobs</h4>
         <p>ビルドの挙動を定義するジョブのリストです。</p>
     </div>
+    <div id="main-job" class="hidden">
+        <h4>Main</h4>
+        <p>唯一の必須ジョブです。このジョブはコードに変更が行われた際に自動的に実行されます。</p>
+    </div>
     <div id="image" class="hidden">
         <h4>Image</h4>
-        <p>ビルドで利用されるDockerイメージを指定します。ここでの設定は"docker pull"コマンドを利用する場合と同じものです。</p>
+        <p>ビルドで利用されるDockerイメージを指定します。この例ではテンプレートを使用しており、{{NODE_VERSION}}のように波括弧で囲まれた変数が展開されます。 この変数はmatrixで指定されている値に変更され、それら複数のイメージを利用したビルドが並列に実行されます。</p>
+    </div>
+    <div id="matrix" class="hidden">
+        <h4>Matrix</h4>
+        <p>image設定にテンプレートが利用されている場合、そのジョブのビルドが複数のイメージを利用して並列に実行されます。</p>
     </div>
     <div id="steps" class="hidden">
         <h4>Steps</h4>
         <p>コマンドラインで入力するように、ビルドで実行されるコマンドのリストを定義します。同じジョブ内では、環境変数はステップ間で受け渡されます。ステップの定義は全てのジョブに必須です。Screwdriverのステップとして予約語になっているため、ステップ名を'sd-'で始めることはできません。Screwdriverは'/bin/sh'をステップ実行のために使用するため、異なるターミナルやシェルを使用すると予期せぬ振る舞いをするかもしれません。</p>
     </div>
-  </div>
 </div>
+```
+
+
+
