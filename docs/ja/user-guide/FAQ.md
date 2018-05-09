@@ -21,6 +21,10 @@ toc:
   url: "#パイプラインがソースコードと正しく同期しているか確かめるには？"
 - title: パイプラインを削除するには？
   url: "#パイプラインを削除するには？"
+- title: "「Build failed to start」のエラーを修正するには？"
+  url: "#「Build-failed-to-start」のエラーを修正するには？"
+- title: ビルドのロールバックを行うには？
+  url: "#ビルドのロールバックを行うには？"
 ---
 
 # よくある質問と回答
@@ -71,3 +75,35 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 パイプラインを削除するには、「Options」タブ内にある削除アイコンをクリックします。一度削除したパイプラインは戻すことは出来ませんのでご注意ください。
 
 ![Delete a pipeline](../../user-guide/assets/delete-pipeline.png)
+
+## 「Build failed to start」のエラーを修正するには？
+
+このエラーは（VMのexecutorを使用している場合は）hyperdのプロセスがダウンしているなどクラスタセットアップ時の問題や、ビルドを行うDocker imageの問題など、様々な理由で起こります。
+従ってどのレイヤーでエラーが起きているかによって修正する方法も変わってきます。
+
+1. `/opt/sd/launch: not found` 
+このエラーが出る場合はAlpineベースのimageを利用していることが原因となります。glibcの代わりにmuslが使われているためです。回避策としてはDocker imageの作成時に下記のシンボリックリンクを作成します。
+`mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+
+## ビルドのロールバックを行うには？
+
+ビルドのロールバックを行うには下記の２パターンの方法があります。
+- パイプラインの過去の成功時のビルドを再実行する
+- ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を作成して実行
+
+### 過去の成功時のビルドを再実行するには？
+
+過去のイベントから再ビルドを行う手順は下記の通りとなります。
+
+1. ログインする。
+2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。
+3. 再ビルドを行いたいジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](../../assets/re-run-select.png)![Start new build for job](../../assets/re-run-start.png)
+
+### ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
+
+通常のパイプラインから独立したジョブ（detachedジョブ）を作成してロールバックを行う手順は下記の通りとなります。通常のパイプラインの最後のジョブ（下記の例ではジョブD）で`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetached）で`meta get` コマンドを使用して設定されたメタ情報を取得します。detachedジョブはジョブDで設定されたメタ情報にアクセスできます。
+
+1. ログインする。
+2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
+3. スタートさせたいdetachedジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
+4. 「Yes」をクリックしてジョブを開始します。 ![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)

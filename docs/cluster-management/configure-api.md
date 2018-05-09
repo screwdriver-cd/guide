@@ -161,19 +161,30 @@ datastore:
 
 ### Executor Plugin
 
-We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), [nomad](http://github.com/lgfausak/executor-nomad), and [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
+We currently support [kubernetes](https://github.com/screwdriver-cd/executor-k8s),  [docker](http://github.com/screwdriver-cd/executor-docker), [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm), [nomad](http://github.com/lgfausak/executor-nomad), [Jenkins](https://github.com/screwdriver-cd/executor-jenkins), and [queue](https://github.com/screwdriver-cd/executor-queue) executors. See the [custom-environment-variables file](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) for more details.
 
-#### Kubernetes
-Set these environment variables:
+#### Kubernetes (k8s)
+If you use this executor, builds will run in pods in Kubernetes.
 
 | Environment name   | Default Value | Description                                |
 |:-------------------|:--------------|:-------------------------------------------|
-| EXECUTOR_PLUGIN    | k8s           | Default executor (eg: `k8s`, `docker`, `k8s-vm`, `jenkins`) |
+| EXECUTOR_PLUGIN    | k8s           | Default executor (eg: `k8s`, `docker`, `k8s-vm`, `nomad`, `jenkins`, or `queue`) |
 | LAUNCH_VERSION     | stable        | Launcher version to use                    |
+| EXECUTOR_PREFIX    |               | Prefix to append to pod names              |
 | EXECUTOR_K8S_ENABLED | true        | Flag to enable Kubernetes executor         |
 | K8S_HOST           | kubernetes.default | Kubernetes host                       |
 | K8S_TOKEN          | Loaded from `/var/run/secrets/kubernetes.io/serviceaccount/token` by default | JWT for authenticating Kubernetes requests |
 | K8S_JOBS_NAMESPACE | default       | Jobs namespace for Kubernetes jobs URL     |
+| K8S_CPU_MICRO      | 0.5           | Number of CPU cores for micro              |
+| K8S_CPU_LOW        | 2             | Number of CPU cores for low                |
+| K8S_CPU_HIGH       | 6             | Number of CPU cores for high               |
+| K8S_MEMORY_MICRO   | 1             | Memory in GB for micro                     |
+| K8S_MEMORY_LOW     | 2             | Memory in GB for low                       |
+| K8S_MEMORY_HIGH    | 12            | Memory in GB for high                      |
+| K8S_BUILD_TIMEOUT  | 90            | Default build timeout for all builds in this cluster (in minutes) |
+| K8S_MAX_BUILD_TIMEOUT | 120        | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
+| K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
+| K8S_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
 
 ```yaml
 # config/local.yaml
@@ -182,22 +193,96 @@ executor:
     k8s:
         options:
             kubernetes:
-                # The host or IP of the kubernetes cluster
                 host: YOUR-KUBERNETES-HOST
                 token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
                 jobsNamespace: default
             launchVersion: stable
 ```
 
-#### Docker
-Or set these environment variables:
+#### VMs in Kubernetes (k8s-vm)
+If you use the `k8s-vm` executor, builds will run in VMs in pods in Kubernetes.
+
+| Environment name   | Default Value | Description                                |
+|:-------------------|:--------------|:-------------------------------------------|
+| EXECUTOR_PLUGIN    | k8s           | Default executor (set to `k8s-vm`) |
+| LAUNCH_VERSION     | stable        | Launcher version to use                    |
+| EXECUTOR_PREFIX    |               | Prefix to append to pod names              |
+| EXECUTOR_K8SVM_ENABLED | true      | Flag to enable Kubernetes VM executor      |
+| K8S_HOST           | kubernetes.default | Kubernetes host                       |
+| K8S_TOKEN          | Loaded from `/var/run/secrets/kubernetes.io/serviceaccount/token` by default | JWT for authenticating Kubernetes requests |
+| K8S_JOBS_NAMESPACE | default       | Jobs namespace for Kubernetes jobs URL     |
+| K8S_BASE_IMAGE     |               | Kubernetes VM base image                   |
+| K8S_CPU_MICRO      | 1             | Number of CPU cores for micro              |
+| K8S_CPU_LOW        | 2             | Number of CPU cores for low                |
+| K8S_CPU_HIGH       | 6             | Number of CPU cores for high               |
+| K8S_MEMORY_MICRO   | 1             | Memory in GB for micro                     |
+| K8S_MEMORY_LOW     | 2             | Memory in GB for low                       |
+| K8S_MEMORY_HIGH    | 12            | Memory in GB for high                      |
+| K8S_VM_BUILD_TIMEOUT  | 90         | Default build timeout for all builds in this cluster (in minutes) |
+| K8S_VM_MAX_BUILD_TIMEOUT | 120     | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
+| K8S_VM_NODE_SELECTORS | `{}`       | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
+| K8S_VM_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: k8s-vm
+    k8s-vm:
+        options:
+            kubernetes:
+                host: YOUR-KUBERNETES-HOST
+                token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
+            launchVersion: stable
+```
+
+#### Jenkins (jenkins)
+If you use the `jenkins` executor, builds will run using Jenkins.
+
+| Environment name       | Default Value | Description          |
+|:-----------------------|:--------------|:---------------------|
+| EXECUTOR_PLUGIN        | k8s           | Default executor. Set to `jenkins` |
+| LAUNCH_VERSION         | stable        | Launcher version to use            |
+| EXECUTOR_JENKINS_ENABLED | true        | Flag to enable Jenkins executor    |
+| EXECUTOR_JENKINS_HOST  |               | Jenkins host |
+| EXECUTOR_JENKINS_PORT  | 8080          | Jenkins port   |
+| EXECUTOR_JENKINS_USERNAME | screwdriver | Jenkins username |
+| EXECUTOR_JENKINS_PASSWORD |            | Jenkins password/token used for authenticating Jenkins requests |
+| EXECUTOR_JENKINS_NODE_LABEL | screwdriver | Node labels of Jenkins slaves |
+| EXECUTOR_JENKINS_DOCKER_COMPOSE_COMMAND | docker-compose | Path to the docker-compose command |
+| EXECUTOR_JENKINS_DOCKER_PREFIX | `''`  | Prefix to the container |
+| EXECUTOR_JENKINS_LAUNCH_VERSION | stable | Launcher container tag to use |
+| EXECUTOR_JENKINS_DOCKER_MEMORY | 4g    | Memory limit (docker run `--memory` option) |
+| EXECUTOR_JENKINS_DOCKER_MEMORY_LIMIT | 6g | Memory limit include swap (docker run `--memory-swap` option)
+|
+| EXECUTOR_JENKINS_BUILD_SCRIPT | `''`   | The command to start a build with |
+| EXECUTOR_JENKINS_CLEANUP_SCRIPT | `''` | The command to clean up the build system with |
+| EXECUTOR_JENKINS_CLEANUP_TIME_LIMIT | 20 | Time to destroy the job (in seconds) |
+| EXECUTOR_JENKINS_CLEANUP_WATCH_INTERVAL | 2 | Intercal to detect the stopped job (in seconds)
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: jenkins
+    jenkins:
+        options:
+            jenkins:
+                host: jenkins.default
+                port: 8080
+                username: screwdriver
+                password: YOUR-PASSWORD
+            launchVersion: stable
+```
+
+#### Docker (docker)
+Use the `docker` executor to run in Docker. [sd-in-a-box](./running-locally) also runs using Docker.
 
 | Environment name       | Default Value | Description          |
 |:-----------------------|:--------------|:---------------------|
 | EXECUTOR_PLUGIN        | k8s           | Default executor. Set to `docker` |
-| LAUNCH_VERSION         | stable        | Launcher version to use                                                                          |
+| LAUNCH_VERSION         | stable        | Launcher version to use           |
 | EXECUTOR_DOCKER_ENABLED | true         | Flag to enable Docker executor    |
 | EXECUTOR_DOCKER_DOCKER | `{}`          | [Dockerode configuration](https://www.npmjs.com/package/dockerode#getting-started) (JSON object) |
+| EXECUTOR_PREFIX    |               | Prefix to append to pod names              |
 
 ```yaml
 # config/local.yaml
@@ -209,7 +294,35 @@ executor:
                 socketPath: /var/lib/docker.sock
             launchVersion: stable
 ```
-#### Nomad
+
+#### Queue (queue)
+Using the `queue` executor will allow builds to be queued using a Redis instance containing Resque.
+
+| Environment name       | Default Value | Description          |
+|:-----------------------|:--------------|:---------------------|
+| EXECUTOR_PLUGIN        | k8s           | Default executor. Set to `queue` |
+| QUEUE_REDIS_HOST       | 127.0.0.1     | Redis host                       |
+| QUEUE_REDIS_PORT       | 9999          | Redis port                       |
+| QUEUE_REDIS_PASSWORD   | "THIS-IS-A-PASSWORD" | Redis password            |
+| QUEUE_REDIS_TLS_ENABLED | false        | TLS enabled flag                 |
+| QUEUE_REDIS_DATABASE   | 0             | Redis database                   |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: queue
+    queue:
+        options:
+            redisConnection:
+              host: "127.0.0.1"
+              port: 9999
+              options:
+                  password: "THIS-IS-A-PASSWORD"
+                  tls: false
+              database: 0
+```
+
+#### Nomad (nomad)
 Set these environment variables:
 
 | Environment name       | Default Value | Description                                 |
@@ -220,7 +333,7 @@ Set these environment variables:
 | NOMAD_HOST             | nomad.default | Nomad host (e.g. http://192.168.30.30:4646) |
 | NOMAD_CPU              | 600           | Nomad cpu resource in Mhz                   |
 | NOMAD_MEMORY           | 4096          | Nomad memory resource in MB                 |
-| EXECUTOR_PREFIXX       | sd-build-     | Nomad job name prefix                       |
+| EXECUTOR_PREFIX        | sd-build-     | Nomad job name prefix                       |
 
 ```yaml
 # config/local.yaml

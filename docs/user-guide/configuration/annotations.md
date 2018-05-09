@@ -22,6 +22,9 @@ jobs:
     requires: [~pr, ~commit]
     main: *bar                  # Referencing the annotation anchor to use that config for main job
                                 # This will cause the main job to use a node:8 image
+    annotations:
+        beta.screwdriver.cd/cpu: HIGH                      # Use HIGH for CPU
+        screwdriver.cd/buildPeriodically: H H(4-7) * * *   # Run the job every day sometime between 4am and 7am UTC.
 ```
 
 ## Supported Annotations
@@ -33,3 +36,4 @@ Some Annotations are used to modify the properties of the build environment. The
 | beta.screwdriver.cd/cpu | `LOW` / `HIGH` | When using a `k8s-vm` executor, this will allow the user to choose between 2 CPU resources (`LOW`) and 6 CPU resources (`HIGH`). Default is `LOW`. |
 | beta.screwdriver.cd/ram | `LOW` / `HIGH` | When using a `k8s-vm` executor, this will allow the user to choose between 2 GB RAM (`LOW`) and 12 GB RAM (`HIGH`). Default is `LOW`. |
 | beta.screwdriver.cd/timeout | Number of minutes | This will allow the user to choose the number of minutes a build should timeout after. Default is `90` minutes. |
+| screwdriver.cd/buildPeriodically | a CRON expression with an 'H' in the minutes field, e.g. `H 0 * * *` <br><br>**Note:** The first interval is always set to "H" (maximum frequency as once per hour) to avoid large spikes for shared resources. You can test out your cron expression at https://crontab.guru/ | This will trigger your job periodically according to the cron expression. |

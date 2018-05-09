@@ -23,19 +23,21 @@ toc:
 
 # 環境変数
 
-Screwdriverはビルドの過程で利用できる環境変数をエクスポートしています。
+Screwdriver はビルドの過程で利用できる環境変数をエクスポートしています。
 
-*メモ: 1つのジョブに対して設定した環境変数は他のジョブでは参照できません。ジョブ間で値を渡すには、[metadata](./configuration/metadata)を利用してください。*
+*注意: 1つのジョブに対して設定した環境変数は他のジョブでは参照できません。ジョブ間で値を渡すには、[metadata](./metadata) を利用してください。*
 
 ## ビルド固有
 
 Name | Value
 --- | ---
-SD_PIPELINE_ID | パイプラインのID
+SD_PIPELINE_ID | パイプラインの ID
 SD_JOB_NAME | ジョブの名前 (例: main)
 SD_BUILD_ID | ビルド番号 (例: 1, 2, など)
 SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
-SD_TOKEN | ビルド用のJWTトークン
+SD_TOKEN | ビルド用の JWT トークン
+SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空)
+SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空)
 
 ## ディレクトリ
 
@@ -48,20 +50,22 @@ SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ
 
 Name | Value
 --- | ---
-<environment_variable> | [screwdriver.yaml](configuration/)の"environment"の項目で設定された環境変数
+<environment_variable> | [screwdriver.yaml](configuration/) の "environment" の項目で設定された環境変数
 
 ## ソースコード
 
 Name | Value
 --- | ---
-SCM_URL | チェックアウトされたSCMのURL
+SCM_URL | チェックアウトされた SCM の URL
+GIT_URL | チェックアウトされた SCM の URL に .git を追加した URL
+GIT_BRANCH | プルリクエストまたはブランチのリファレンス (例: `origin/refs/${PRREF}` または `origin/${BRANCH}`)
 
 ## URLs
 
 Name | Value
 --- | ---
-SD_API_URL | Screwdriver APIのURLへのリンク
-SD_STORE_URL | Screwdriver StoreのURLへのリンク
+SD_API_URL | Screwdriver API の URL へのリンク
+SD_STORE_URL | Screwdriver Store の URL へのリンク
 
 ## 継続的インテグレーション
 

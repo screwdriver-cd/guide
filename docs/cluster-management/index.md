@@ -84,3 +84,7 @@ built/maintained by Screwdriver:
 
     Pluggable storage for keeping information about pipelines
     (e.g. Postgres, MySQL, and Sqlite).
+
+## Architecture with executor-queue and k8s
+
+![Architecture](assets/arch-k8s.png)
