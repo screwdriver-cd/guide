@@ -75,6 +75,17 @@ jobs:
 
 This will run the command `echo skip installing` for the `install` step.
 
+You can also replace the image defined in the template. Some of the steps in the template could assume commands or environment invariants that your image may not have, so use this replacement judiciously.
+
+Example:
+```yaml
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: my_org/my_image:latest
+        template: template_name@1.3.0
+```
+
 ## Creating a template
 
 ### Writing a template yaml
