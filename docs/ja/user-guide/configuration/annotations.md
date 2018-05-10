@@ -37,8 +37,8 @@ jobs:
 アノテーション | 値 | 説明
 --- | --- | ---
 beta.screwdriver.cd/executor | クラスタ管理者にご確認ください | ビルドの実行に利用するシステムを指定します。VMやkubernetesポッド、dockerコンテナ、Jenkinsエージェントなどでビルドを実行するように設定できます。
-beta.screwdriver.cd/cpu | `MICRO` / `LOW` / `HIGH` | `k8s` executorを利用する場合、ユーザーは 0.5 (`MICRO`)、2 (`LOW`)、6 (`HIGH`) CPUの中から選択可能です。{br4} 
- {code5}k8s-vm{/code5} executorを利用する場合は、1 (`MICRO`)、2 (`LOW`)、6 (`HIGH`) CPU の中から選択可能です。{br9}   いずれの場合もデフォルト値は`LOW`となります。
+beta.screwdriver.cd/cpu | `MICRO` / `LOW` / `HIGH` | `k8s` executorを利用する場合、ユーザーは 0.5 (`MICRO`)、2 (`LOW`)、6 (`HIGH`) CPUの中から選択可能です。 
+ {br4}{code5}k8s-vm{/code5} executorを利用する場合は、1 (`MICRO`)、2 (`LOW`)、6 (`HIGH`) CPU の中から選択可能です。 {br9}いずれの場合もデフォルト値は`LOW`となります。
 beta.screwdriver.cd/ram | `MICRO` / `LOW` / `HIGH` | `k8s` executorを利用する場合、ユーザーは 1 GB (`MICRO`)、 2 GB (`LOW`)、12 GB (`HIGH`) RAMの中から選択可能です。{br4} 
   {code5}k8s-vm{/code5} executorを利用する場合は、1 GB (`MICRO`)、2 GB (`LOW`)、12 GB (`HIGH`) RAMの中から選択可能です。{br9}   いずれの場合もデフォルト値は`LOW`となります。
 beta.screwdriver.cd/timeout | 時間(分) | ビルドがタイムアウトとなる時間(分)を指定できます。デフォルト値は`90` 分です。
