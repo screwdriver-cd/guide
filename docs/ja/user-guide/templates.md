@@ -35,6 +35,7 @@ Screwdriverはテンプレートの設定を読み込み、`screwdriver.yaml`は
 jobs:
     main:
         image: node:6
+        requires: [~pr, ~commit]
         steps:
           - install: npm install
           - test: npm test
@@ -55,6 +56,7 @@ jobs:
 ```yaml
 jobs:
     main:
+        requires: [~pr, ~commit]
         template: template_name@1.3.0
         steps:
             - preinstall: echo pre-install
@@ -62,7 +64,7 @@ jobs:
 ```
 
 この例では、`echo pre-install` が テンプレートの
- `install` ステップの前に、`echo post-install` が  `install`  ステップの後に実行されます。
+`install` ステップの前に、`echo post-install` が  `install`  ステップの後に実行されます。
 
 ### 置換
 
@@ -73,6 +75,7 @@ jobs:
 ```yaml
 jobs:
     main:
+        requires: [~pr, ~commit]
         template: template_name@1.3.0
         steps:
             - install: echo skip installing
@@ -108,13 +111,17 @@ config:
 ### テンプレートリポジトリ用の screwdriver.yaml を書く
 
 テンプレートをバリデートするために、`template-validate` という npm モジュールを  `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている
- `template-publish` を別のジョブで実行します。
+`template-publish` を別のジョブで実行します。
+
+テンプレートを削除するには、`template-remove` スクリプトを実行します。引数にはテンプレート名を渡す必要があります。
 
 デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。
 
 #### テンプレートのタグ付け
 
-オプションとして、特定のバージョンのテンプレートにタグを付けることができます。タグ付けはテンプレートが作成されたパイプラインと同じパイプラインから行われる必要があります。タグ付けを行うスクリプトには、引数にname, version および tag が必要です。指定するバージョンは正確なバージョンでなければなりません。
+`screwdriver-template-main` という npm パッケージに含まれる `template-tag` スクリプトを実行することで、テンプレートの特定のバージョンに対してタグを指定することが可能です。この処理はタグ付けをしたいテンプレートを作成したパイプラインからのみ実行可能です。スクリプトの引数にはテンプレート名とタグを渡す必要があります。引数で特定のバージョンを指定してタグを付けることも可能です。その場合バージョンは正確なものである必要があります。バージョンを引数から省略した場合は最新のバージョンに対してタグ付けされます。
+
+タグを削除するには `template-remove-tag` を実行します。引数としてテンプレート名とタグを渡す必要があります。
 
 `screwdriver.yaml`の例:
 
@@ -122,20 +129,30 @@ config:
 shared:
     image: node:6
 jobs:
-    # the main job is run in pull requests as well
     main:
+        requires: [~pr, ~commit]
         steps:
             - install: npm install screwdriver-template-main
             - validate: ./node_modules/.bin/template-validate
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
     publish:
+        requires: [main]
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
+            - autotag: ./node_modules/.bin/template-tag --name template_name --tag latest
             - tag: ./node_modules/.bin/template-tag --name template_name --version 1.3.0 --tag stable
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
+    remove:
+        steps:
+            - install: npm install screwdriver-template-main
+            - remove: ./node_modules/.bin/template-remove --name template_name
+    remove_tag:
+        steps:
+            - install: npm install screwdriver-template-main
+            - remove_tag: ./node_modules/.bin/template-remove-tag --name template_name --tag stable
 ```
 
 Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートのバリデートとパブリッシュを行うためにビルドを開始します。
@@ -144,4 +161,4 @@ Screwdriverのテンプレートを更新するには、ご利用のSCMリポジ
 
 ## テンプレートを検索する
 
-作成済みのテンプレートを確認するには、 `GET` リクエストを `/templates` のエンドポイントに対して行ってください。詳しくは [API documentation](./api) をご覧ください。
+すでに作成済みのテンプレートを確認するには、`/templates`に対して`GET`リクエストを行ってください。詳しくは[API documentation](./api)をご覧ください。
