@@ -82,6 +82,21 @@ bookends:
         - my-custom-bookend
 ```
 
+#### Coverage bookends
+
+We currently support [SonarQube](https://github.com/screwdriver-cd/coverage-sonar) for coverage bookends.
+
+##### Sonar
+
+In order to use Sonar in your cluster, set up a Sonar server (see example at [our sonar pipeline](https://github.com/screwdriver-cd/sonar-pipeline)). Then configure the following environment variables:
+
+| Key             | Required | Description           |
+|:----------------|:---------|:----------------------|
+| COVERAGE_PLUGIN | Yes      | Should be `sonar`     |
+| URI             | Yes      | Screwdriver API url   |
+| COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
+| COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
+
 ### Serving
 
 Configure the how the service is listening for traffic.
