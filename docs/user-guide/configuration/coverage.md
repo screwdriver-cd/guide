@@ -11,12 +11,15 @@ toc:
 ---
 # Coverage
 
-Builds can upload coverage data after they are run.
-We currently support [SonarQube](https://github.com/screwdriver-cd/coverage-sonar) for coverage bookends.
+After they're done running, builds can display test coverage percentage in the build UI and upload coverage data.
 
-Check with your Screwdriver cluster admin to find what coverage plugins are supported to modify your build execution with.
+![Coverage in build detail page](../assets/coverage.png)
+
+We currently support [SonarQube](https://github.com/screwdriver-cd/coverage-sonar) for coverage bookends. Check with your Screwdriver cluster admin to find what coverage plugins are supported to modify your build execution with.
 
 ## SonarQube
+
+You can configure Sonar properties in your `sonar-project.properties` file or in your screwdriver.yaml as an environment variable. The property `sonar.sources` is always required, and should be set to your source path.
 
 ### sonar-project.properties
 
@@ -51,7 +54,7 @@ jobs:
 ### Notes
 
 - If you define the same property in both the `sonar-project.properties` file and `$SD_SONAR_OPTS`, `$SD_SONAR_OPTS` will override the properties file.
-- Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`.
+- Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`; you must set `sonar.sources` yourself.
 - `sonar.projectVersion` will be set to your `$SD_BUILD_SHA`.
 
 ### Related links
