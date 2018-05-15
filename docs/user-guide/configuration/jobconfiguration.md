@@ -45,7 +45,7 @@ jobs:
 
 ## Steps
 Steps are the list of instructions you want to execute in your build. These should be defined as:
-`step_name: step_command`. Steps will be executed in the order they are defined.
+`step_name: step_command`. Steps will be executed in the order they are defined. Current working directory and environment variables are passed between steps.
 
 #### Example
 ```
@@ -55,7 +55,12 @@ jobs:
         image: node:8
         steps:
             - step_name: step_command --arg1 --arg2 foo
-            - greet: echo Hello
+            - set_env: export FOO=bar
+            - get_env: echo $FOO           # this will echo bar
+            - cd: |
+                pwd                        # prints '/sd/workspace/src/github.com/tkyi/mytest'
+                cd ..
+            - pwd: pwd                     # prints '/sd/workspace/src/github.com/tkyi'
 ```
 
 
