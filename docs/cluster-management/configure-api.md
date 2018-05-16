@@ -43,7 +43,7 @@ Configure how users can and who can access the API.
 | SECRET_PASSWORD        | Yes      | A password used for encrypting stored secrets. **Needs to be minimum 32 characters**                                      |
 | IS_HTTPS               | No       | A flag to set if the server is running over https. Used as a flag for the OAuth flow (default to `false`)                 |
 | SECRET_WHITELIST       | No       | Whitelist of users able to authenticate against the system. If empty, it allows everyone. (JSON Array format)             |
-| SECRET_ADMINS          | No       | Whitelist of users able to authenticate against the system. If empty, it allows everyone. (JSON Array format)             |
+| SECRET_ADMINS          | No       | List of admins with elevated access to the cluster. If empty, it allows everyone. (JSON Array format)             |
 
 ```yaml
 # config/local.yaml
