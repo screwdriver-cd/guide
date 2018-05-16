@@ -1,11 +1,11 @@
 ---
 layout: main
-title: Pull Requests
+title: Contributing
 category: About
 menu: menu
 toc:
-    - title: Pull Requests
-      url: "#pull-requests"
+    - title: Contributing
+      url: "#contributing"
       active: true
     - title: What to Work On
       url: "#what-to-work-on"
@@ -14,18 +14,18 @@ toc:
     - title: Submitting Pull Requests
       url: "#submitting-pull-requests"
 ---
-# Pull Requests
+# Contributing
 
 Thank you for considering contributing! There are many ways you can help.
 
 ## What to Work On
 
-All issues with Screwdriver can be found in the [screwdriver repo][api-issues-url]. To see what we're currently working on, you can check out our [digital scrum board](https://github.com/screwdriver-cd/screwdriver/projects/4) in the Projects section of the [Screwdriver API repo][api-repo].
+All issues with Screwdriver can be found in the [screwdriver repo][api-issues-url]. To see what we're currently working on, you can check out our [digital scrum board](https://github.com/screwdriver-cd/screwdriver/projects/4) in the Projects section of the [Screwdriver API repo][api-repo]. If you're not sure what repositories you need to change, consult our [Where to Contribute doc](./where-to-contribute). For pointers on developing, checkout the [Getting Started Developing docs](./getting-started-developing).
 
 ## General Guidelines for Contributing
 
 Please try to:
-* update issues you're working on with a daily summary
+* update [issues](./issues) you're working on with a daily summary
 * open a Slack channel with the issue number and feature in the channel title (e.g. `#911-subdirectory-support`) and discuss work in there
 * submit a [design doc](https://github.com/screwdriver-cd/screwdriver/tree/master/design) if applicable
 

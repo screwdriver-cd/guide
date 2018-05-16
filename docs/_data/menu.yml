@@ -54,6 +54,8 @@
       subcategories:
         - title: "Kubernetes"
           url: "/cluster-management/kubernetes"
+    - title: "FAQ"
+      url: "/cluster-management/FAQ"
 - title: "About"
   subcategories:
     - title: "What is Screwdriver?"
@@ -70,7 +72,7 @@
           url: "/about/contributing/where-to-contribute"
         - title: "Getting Started Developing"
           url: "/about/contributing/getting-started-developing"
-        - title: "Pull Requests"
-          url: "/about/contributing/pull-requests"
+        - title: "Overview"
+          url: "/about/contributing/index"
     - title: "Support"
       url: "/about/support"
