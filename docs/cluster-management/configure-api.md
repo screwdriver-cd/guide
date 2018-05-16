@@ -97,6 +97,8 @@ In order to use Sonar in your cluster, set up a Sonar server (see example at [ou
 | COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
 | COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
 
+You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details.
+
 ### Serving
 
 Configure the how the service is listening for traffic.
