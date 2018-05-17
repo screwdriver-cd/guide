@@ -56,7 +56,16 @@ You can configure a list of one or more email addresses to contact. You can also
 To enable Slack notifications to be sent as a result of build events, invite the `screwdriver-bot` Slack bot to your channel(s) and use the Slack setting in your Screwdriver yaml.
 You can configure a list of one or more Slack channels to notify. You can also configure when to send a Slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`.
 
-#### Example
+#### Example: Multiple Rooms
+
+The value of the `slack` setting can be an array of multiple channels.
+
+```
+        settings:
+            slack: [mychannel, my-other-channel]
+```
+
+#### Example: Notify on build statuses
 
 This Slack setting will send Slack notifications to `mychannel` and `my-other-channel` on all build statuses:
 
