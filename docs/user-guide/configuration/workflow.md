@@ -14,6 +14,8 @@ toc:
       url: "#parallel-and-join"
     - title: Remote Triggers
       url: "#remote-triggers"
+    - title: Blocked By
+      url: "#blocked-by"
     - title: Detached Jobs and Pipelines
       url: "#detached-jobs-and-pipelines"
 ---
@@ -152,9 +154,42 @@ In the following example, this pipeline will start the `main` job after any pull
 jobs:
     main:
         image: node:6
-        requires: [~pr, ~commit, ~sd@456:publish]
+        requires:
+            - ~pr
+            - ~commit
+            - ~sd@456:publish
         steps:
             - echo: echo hi
+```
+
+## Blocked By
+To have your job blocked by another job, you can use `blockedBy`. It has the same format as `requires`, except it does not accept values like `~commit` or `~pr`.
+Note:
+- To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
+- This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
+
+#### Example
+In the following example, `job2` is blocked by `job1` and `sd@456:publish`. If `job1` is running, `job2` will be re-enqueue.
+
+```
+shared:
+    image: node:6
+jobs:
+    job1:
+        steps:
+            - echo: echo hello
+        requires:
+            - ~commit
+            - ~pr
+    job2:
+        steps:
+            - echo: echo bye
+        requires:
+            - ~commit
+            - ~pr
+        blockedBy:
+            - job1
+            - ~sd@456:publish
 ```
 
 ## Detached Jobs and Pipelines
