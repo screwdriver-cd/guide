@@ -173,14 +173,14 @@ shared:
     image: node:6
 jobs:
     job1:
+        requires: [~commit, ~pr]
         steps:
             - echo: echo hello
-        requires: [~commit, ~pr]
     job2:
-        steps:
-            - echo: echo bye
         requires: [~commit, ~pr]
         blockedBy: [job1, ~sd@456:publish]
+        steps:
+            - echo: echo bye
 ```
 
 ## Detached Jobs and Pipelines
