@@ -103,7 +103,7 @@ The _AND_ and _OR_ logic can be combined in a complex pipeline to allow cases wh
 
 ```
     last:
-        requires: [first, second , ~sd@123:third]
+        requires: [first, second, ~sd@123:third]
 ```
 
 If job names are prefixed with tildes in a `requires` line, then the job will start when any of the prefixed jobs is successful _OR_ when all of the unprefixed jobs are successful. For instance, in this contrived example:
@@ -154,10 +154,7 @@ In the following example, this pipeline will start the `main` job after any pull
 jobs:
     main:
         image: node:6
-        requires:
-            - ~pr
-            - ~commit
-            - ~sd@456:publish
+        requires: [~pr, ~commit, ~sd@456:publish]
         steps:
             - echo: echo hi
 ```
@@ -178,18 +175,12 @@ jobs:
     job1:
         steps:
             - echo: echo hello
-        requires:
-            - ~commit
-            - ~pr
+        requires: [~commit, ~pr]
     job2:
         steps:
             - echo: echo bye
-        requires:
-            - ~commit
-            - ~pr
-        blockedBy:
-            - job1
-            - ~sd@456:publish
+        requires: [~commit, ~pr]
+        blockedBy: [job1, ~sd@456:publish]
 ```
 
 ## Detached Jobs and Pipelines
