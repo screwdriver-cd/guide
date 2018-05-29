@@ -166,7 +166,7 @@ Note:
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
 
 #### Example
-In the following example, `job2` is blocked by `job1` and `sd@456:publish`. If `job1` is running, `job2` will be re-enqueue.
+In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue.
 
 ```
 shared:
