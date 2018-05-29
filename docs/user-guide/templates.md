@@ -90,7 +90,7 @@ jobs:
 
 ### Writing a template yaml
 
-To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a name, version, description, maintainer email, and a config with an image and steps.
+To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a name, version, description, maintainer email, and a config with an image and steps. An optional images directive can be defined to list supported images with a descriptive label.
 
 Example `sd-template.yaml`:
 
@@ -101,6 +101,9 @@ description: template for testing
 maintainer: foo@bar.com
 config:
     image: node:6
+    images:
+        stable-image: node:6
+        latest-image: node:7
     steps:
         - install: npm install
         - test: npm test
