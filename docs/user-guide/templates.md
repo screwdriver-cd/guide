@@ -99,11 +99,11 @@ name: template_name
 version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
+images:
+    stable-image: node:6
+    latest-image: node:7
 config:
     image: node:6
-    images:
-        stable-image: node:6
-        latest-image: node:7
     steps:
         - install: npm install
         - test: npm test
