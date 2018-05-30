@@ -162,6 +162,7 @@ jobs:
 ## Blocked By
 To have your job blocked by another job, you can use `blockedBy`. It has the same format as `requires`, except it does not accept values like `~commit` or `~pr`.
 Note:
+- Since everything is using OR syntax, you need a tilde (`~`) before each of your job names. We do not support AND logic for blockedBy.
 - To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
 
@@ -178,7 +179,7 @@ jobs:
             - echo: echo hello
     job2:
         requires: [~commit, ~pr]
-        blockedBy: [job1, ~sd@456:publish]
+        blockedBy: [~job1, ~sd@456:publish]
         steps:
             - echo: echo bye
 ```
@@ -203,7 +204,7 @@ jobs:
                 - echo: echo hi
 ```
 
-If you have only a single job, then to make it detached you must provide an empty `requires`
+If you have only a single job, then to make it detached you must provide an empty `requires`.
 
 ```
 shared:
