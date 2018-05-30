@@ -161,6 +161,7 @@ jobs:
 
 ## Blocked By
 To have your job blocked by another job, you can use `blockedBy`. It has the same format as `requires`, except it does not accept values like `~commit` or `~pr`.
+
 Note:
 - Since everything is using OR syntax, you need a tilde (`~`) before each of your job names. We do not support AND logic for blockedBy.
 - To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
