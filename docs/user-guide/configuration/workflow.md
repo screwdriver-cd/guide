@@ -14,6 +14,8 @@ toc:
       url: "#parallel-and-join"
     - title: Remote Triggers
       url: "#remote-triggers"
+    - title: Blocked By
+      url: "#blocked-by"
     - title: Detached Jobs and Pipelines
       url: "#detached-jobs-and-pipelines"
 ---
@@ -101,7 +103,7 @@ The _AND_ and _OR_ logic can be combined in a complex pipeline to allow cases wh
 
 ```
     last:
-        requires: [first, second , ~sd@123:third]
+        requires: [first, second, ~sd@123:third]
 ```
 
 If job names are prefixed with tildes in a `requires` line, then the job will start when any of the prefixed jobs is successful _OR_ when all of the unprefixed jobs are successful. For instance, in this contrived example:
@@ -157,6 +159,32 @@ jobs:
             - echo: echo hi
 ```
 
+## Blocked By
+To have your job blocked by another job, you can use `blockedBy`. It has the same format as `requires`, except it does not accept values like `~commit` or `~pr`.
+
+Note:
+- Since everything is using OR syntax, you need a tilde (`~`) before each of your job names. We do not support AND logic for blockedBy.
+- To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
+- This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
+
+#### Example
+In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue.
+
+```
+shared:
+    image: node:6
+jobs:
+    job1:
+        requires: [~commit, ~pr]
+        steps:
+            - echo: echo hello
+    job2:
+        requires: [~commit, ~pr]
+        blockedBy: [~job1, ~sd@456:publish]
+        steps:
+            - echo: echo bye
+```
+
 ## Detached Jobs and Pipelines
 It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as doing a [rollback](../FAQ#how-do-i-rollback).
 
@@ -177,7 +205,7 @@ jobs:
                 - echo: echo hi
 ```
 
-If you have only a single job, then to make it detached you must provide an empty `requires`
+If you have only a single job, then to make it detached you must provide an empty `requires`.
 
 ```
 shared:
