@@ -57,7 +57,7 @@ Publishing and running commands must be done from a Screwdriver pipeline.
 
 ### Writing a command yaml
 
-To create a command, create a repo with a `sd-command.yaml` file. The file should contain a namespace, name, version, description, maintainer email, format, and a binary config with a path to file.
+To create a command, create a repo with a `sd-command.yaml` file. The file should contain a namespace, name, version, description, maintainer email, format, and a config that depends on a format.
 
 Example `sd-command.yaml`:
 
@@ -68,9 +68,18 @@ version: '1.0' # Major and Minor version number (patch is automatic), must be a 
 description: |
   Lorem ipsum dolor sit amet.
 maintainer: foo@bar.com # Maintainer of the command
-format: binary # Format the command is in (binary)
+format: binary # Format the command is in (binary, habitat)
+# Case: binary
 binary:
     file: ./foobar.sh # Path to script or binary file from repository root
+# Case: habitat
+habitat:
+    package: core/node8 # Package of the Habitat command
+    mode: remote # Mode of the Habitat command is in (remote, local)
+    # If local
+    # mode: local
+    # file: ./foobar.hart # Path to the .hart file from repository root
+    command: node # Executable of the Habitat command
 ```
 
 ### Writing a screwdriver.yaml for your command repo
