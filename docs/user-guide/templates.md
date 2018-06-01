@@ -24,7 +24,7 @@ To use a template, define a `screwdriver.yaml`:
 ```yaml
 jobs:
     main:
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
 ```
 
 Screwdriver takes the template configuration and plugs it in, so that the `screwdriver.yaml` becomes:
@@ -52,7 +52,7 @@ Example:
 jobs:
     main:
         requires: [~pr, ~commit]
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
         steps:
             - preinstall: echo pre-install
             - postinstall: echo post-install
@@ -68,7 +68,7 @@ Example:
 jobs:
     main:
         requires: [~pr, ~commit]
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
         steps:
             - install: echo skip installing
 ```
@@ -83,18 +83,19 @@ jobs:
     main:
         requires: [~pr, ~commit]
         image: my_org/my_image:latest
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
 ```
 
 ## Creating a template
 
 ### Writing a template yaml
 
-To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a name, version, description, maintainer email, and a config with an image and steps. An optional images directive can be defined to list supported images with a descriptive label.
+To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a namespace, name, version, description, maintainer email, and a config with an image and steps. If no namespace is specified, a 'default' namespace will be applied. An optional images directive can be defined to list supported images with a descriptive label.
 
 Example `sd-template.yaml`:
 
 ```yaml
+namespace: myNamespace
 name: template_name
 version: '1.3'
 description: template for testing
@@ -145,18 +146,18 @@ jobs:
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
-            - autotag: ./node_modules/.bin/template-tag --name template_name --tag latest
-            - tag: ./node_modules/.bin/template-tag --name template_name --version 1.3.0 --tag stable
+            - autotag: ./node_modules/.bin/template-tag --name myNamespace/template_name --tag latest
+            - tag: ./node_modules/.bin/template-tag --name myNamespace/template_name --version 1.3.0 --tag stable
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
     remove:
         steps:
             - install: npm install screwdriver-template-main
-            - remove: ./node_modules/.bin/template-remove --name template_name
+            - remove: ./node_modules/.bin/template-remove --name myNamespace/template_name
     remove_tag:
         steps:
             - install: npm install screwdriver-template-main
-            - remove_tag: ./node_modules/.bin/template-remove-tag --name template_name --tag stable
+            - remove_tag: ./node_modules/.bin/template-remove-tag --name myNamespace/template_name --tag stable
 ```
 
 Create a Screwdriver pipeline with your template repo and start the build to validate and publish it.
@@ -165,4 +166,4 @@ To update a Screwdriver template, make changes in your SCM repository and rerun 
 
 ## Finding templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api) for more information. There should also be a `/templates` endpoint in the UI.
+To figure out which templates already exist, you can make a `GET` call to the `/templates` endpoint. See the [API documentation](./api) for more information. There is also a `/templates` endpoint in the UI.
