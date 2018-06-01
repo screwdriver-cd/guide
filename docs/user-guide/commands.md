@@ -61,6 +61,7 @@ To create a command, create a repo with a `sd-command.yaml` file. The file shoul
 
 Example `sd-command.yaml`:
 
+Binary example:
 ```yaml
 namespace: foo # Namespace for the command
 name: bar # Command name
@@ -69,16 +70,38 @@ description: |
   Lorem ipsum dolor sit amet.
 maintainer: foo@bar.com # Maintainer of the command
 format: binary # Format the command is in (binary, habitat)
-# Case: binary
 binary:
     file: ./foobar.sh # Path to script or binary file from repository root
-# Case: habitat
+```
+
+Remote Habitat example:
+```yaml
+namespace: foo # Namespace for the command
+name: bar # Command name
+version: '1.0' # Major and Minor version number (patch is automatic), must be a string
+description: |
+  Lorem ipsum dolor sit amet.
+maintainer: foo@bar.com # Maintainer of the command
+format: habitat
 habitat:
     package: core/node8 # Package of the Habitat command
-    mode: remote # Mode of the Habitat command is in (remote, local)
-    # If local
-    # mode: local
-    # file: ./foobar.hart # Path to the .hart file from repository root
+    mode: remote # Mode the Habitat command (remote, local)
+    command: node # Executable of the Habitat command
+```
+
+Local Habitat example:
+```yaml
+namespace: foo # Namespace for the command
+name: bar # Command name
+version: '1.0' # Major and Minor version number (patch is automatic), must be a string
+description: |
+  Lorem ipsum dolor sit amet.
+maintainer: foo@bar.com # Maintainer of the command
+format: habitat # Format the command is in (binary, habitat)
+habitat:
+    package: core/node8 # Package of the Habitat command
+    mode: local # Mode of the Habitat command (remote, local)
+    file: ./foobar.hart # Path to the .hart file from repository root
     command: node # Executable of the Habitat command
 ```
 
