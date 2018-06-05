@@ -53,7 +53,7 @@ jobs:
 
 ## 論理式を用いたワークフロー定義 (Advanced Logic)
 
-### 論理式を用いたワークフロー定義 [*AND*] (Advanced Logic [*AND*])
+### AND 条件 (Advanced Logic [*AND*])
 
 `requires` に含まれるジョブが全て成功した場合に開始するジョブを定義することができます。これはしばしば結合 (join) やファン・イン (fan-in) とも呼ばれます。
 
@@ -81,7 +81,7 @@ jobs:
         requires: [first, second]
 ```
 
-### 論理式を用いたワークフロー定義 [*OR*] (Advanced Logic [*OR*])
+### OR 条件 (Advanced Logic [*OR*])
 
 チルダ (~) をジョブ名の前に付けることで、 `requires` に含まれるジョブのいずれかが成功した場合に開始するジョブを定義することができます。`~sd@pipelineID:jobName` のようなフォーマットである必要があります。
 
@@ -109,7 +109,7 @@ jobs:
         requires: [~sd@123:first, ~sd@123:second]
 ```
 
-### 論理式を用いたワークフロー定義 [*AND, OR の併用*] (Advanced Logic [*Combined*])
+### AND 条件と OR 条件の併用 (Advanced Logic [*Combined*])
 
 以下の例のような複数のパイプラインをまたいだケースを実現するために、*AND* と *OR* のロジックを併用することができます。
 この例では、`first` ジョブ *と* `second` ジョブが成功した、*または* `third` ジョブが成功した場合にジョブが実行されます。
