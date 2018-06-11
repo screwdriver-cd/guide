@@ -10,8 +10,6 @@ toc:
   url: "#ワークフローの順序を定義する"
 - title: 論理式を用いたワークフロー定義 (Advanced Logic)
   url: "#論理式を用いたワークフロー定義"
-- title: ブランチ指定によるトリガー
-  url: "#ブランチ指定によるトリガー"
 - title: 並列実行と結合 (Parallel and Join)
   url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
@@ -129,31 +127,6 @@ jobs:
 ```
 
 これは `A OR C OR E OR (B AND D AND F)` という論理式と等価になります。このような複雑な `requires` は実際のワークフローではコードスメルとみなされるでしょう。
-
-## ブランチ指定によるトリガー
-特定のブランチがコミットされたことをトリガーにジョブを走らせることができます。フォーマットは `~commit:branchName` です。また、正規表現を `~commit:` 以下に指定できます(e.g. `~commit:/^feature-.*$/`)。
-
-### Example
-以下の例では、stagingブランチにコミットが行われた場合、`staging-commit` と `all-commit` ジョブがトリガーされます。また、このパイプラインのブランチ自体にコミットが行われた場合 `main` と `all-commit` ジョブがトリガーされます。
-
-```
-shared:
-    image: node:8
-
-jobs:
-    main:
-        requires: [~commit]
-        steps:
-            - echo: echo commit
-    staging-commit:
-        requires: [~commit:stating]
-        steps:
-            - echo: echo staging
-    all-commit:
-        requires: [~commit:/^.*$/]
-        steps:
-            - echo: echo all
-```
 
 ## 並列実行と結合 (Parallel and Join)
 
