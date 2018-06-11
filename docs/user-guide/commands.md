@@ -107,24 +107,29 @@ habitat:
 
 ### Writing a screwdriver.yaml for your command repo
 
-To validate your command, run the `command-validate` script from the [screwdriver-command-validator](https://github.com/screwdriver-cd/command-validator) npm module. This means the build image must have NodeJS and NPM properly installed to use it.
+To validate your command, run the `sd-cmd validate` command. `-f` stands for file (default `sd-command.yaml`).
 
-To publish your command, run the `sd-cmd publish` command in a separate job. `-f` stands for file.
+To publish your command, run the `sd-cmd publish` command in a separate job. `-f` stands for file (default `sd-command.yaml`). `-t` stands for tag (default `latest`).
+
+To tag your command, run the `sd-cmd promote` command with the format: `sd-cmd promote <namespace>/<name> <version> <tag>`
 
 Example `screwdriver.yaml`:
 ```yaml
 shared:
-    image: node:6
+    image: node:8
 jobs:
     main:
         requires: [~pr, ~commit]
         steps:
-            - install: npm install screwdriver-command-validator
-            - validate: ./node_modules/.bin/command-validate -f sd-command.yaml
+            - validate: sd-cmd validate -f sd-command.yaml
     publish:
         requires: [main]
         steps:
-            - publish: sd-cmd publish -f sd-command.yaml
+            - publish: sd-cmd publish -f sd-command.yaml -t latest
+    promote:
+        requires: [publish]
+        steps:
+            - publish: sd-cmd promote foo/bar 1.0.1 -t stable
 ```
 
 ## Finding commands
