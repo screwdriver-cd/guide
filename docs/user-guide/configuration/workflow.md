@@ -10,6 +10,8 @@ toc:
       url: "#defining-workflow-order"
     - title: Advanced Workflow Logic
       url: "#advanced-logic"
+    - title: SCM Branch-specific jobs
+      url: "#scm-branch-specific-jobs"
     - title: Parallel and Join
       url: "#parallel-and-join"
     - title: Remote Triggers
@@ -114,6 +116,31 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 ```
 
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
+
+## SCM Branch-specific jobs
+To trigger jobs in your pipeline after specific branch is committed, you can use SCM Branch-specific jobs. The format is `~commit:branchName`. Also you can use regex filter after `~commit:` (e.g. `~commit:/^feature-.*$/`).  
+
+### Example
+In the following example, when staging branch is committed, `staging-commit` and `all-commit` are triggered. Also, when this pipeline's branch is committed, `main` and `all-commit` are triggered.
+
+```
+shared:
+    image: node:8
+
+jobs:
+    main:
+        requires: [~commit]
+        steps:
+            - echo: echo commit
+    staging-commit:
+        requires: [~commit:stating]
+        steps:
+            - echo: echo staging
+    all-commit:
+        requires: [~commit:/^.*$/]
+        steps:
+            - echo: echo all
+```
 
 ## Parallel and Join
 You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
