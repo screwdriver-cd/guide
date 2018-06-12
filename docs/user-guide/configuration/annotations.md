@@ -16,12 +16,12 @@ shared:
     template: example/mytemplate@stable
     annotations:
         foo: &bar               # Making an anchor for this configuration
+            requires: [~pr, ~commit]
             image: node:8
 
 jobs:
-    main: *bar                  # Referencing the annotation anchor to use that config for main job
-                                # This will cause the main job to use a node:8 image
-        requires: [~pr, ~commit]
+    main:
+        <<: *bar            # Referencing the annotation anchor to use that config for main job
         annotations:
             beta.screwdriver.cd/cpu: HIGH                      # Use HIGH for CPU
             screwdriver.cd/buildPeriodically: H H(4-7) * * *   # Run the job every day sometime between 4am and 7am UTC.
