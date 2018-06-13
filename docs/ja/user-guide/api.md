@@ -60,7 +60,7 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 ## 認証と認可
 
 認証のために、[JSON Web Tokens (JWT)](http://jwt.io) を使用しています。JWTは`Authorization`ヘッダを必要とします。
-* JWTを生成するには、`/v4/auth/login` にアクセスし、`/v4/auth/token`へとリダイレクトされます。
+* Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
 * ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。
 
 ScrewdriverのAPIトークンは [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings) にて管理できます。
