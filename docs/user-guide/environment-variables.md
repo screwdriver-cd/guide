@@ -49,6 +49,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 These environment variables may or may not be available depending on what plugins are installed.
 
 #### Coverage (Sonar)
+
 | Name | Value |
 |------|-------|
 | SD_SONAR_AUTH_URL | Screwdriver API authentication URL that will return a Sonar access token |
