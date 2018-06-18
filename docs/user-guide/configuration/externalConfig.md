@@ -6,15 +6,21 @@ menu: menu
 toc:
     - title: External Config
       url: "#external-config"
+    - title: Configure external config in parent pipeline
+      url: "#configure-external-config-in-parent-pipeline"
+    - title: Parent and Child Relationship
+      url: "#parent-and-child-relationship"
+    - title: User Interface
+      url: "#user-interface"
 
 ---
 # External Config
-External config allows a single parent pipeline to create and manage a list of child pipelines with job configuration from parent's `screwdriver.yaml` and source code from itself.
+External config allows a single parent pipeline to create and manage the build configuration of other "child" pipelines with a single `screwdriver.yaml`. The source code for each child pipeline will be taken from each child repository.
 
-This feature will benefit users who owning multiple pipelines with same building patterns to manage all pipelines easily.
+This feature allows easier management of multiple repositories with the same workflow.
 
 ## Configure external config in parent pipeline
-In your parent repository's `screwdriver.yaml`, you can define child pipelines with syntax `childPipelines`. We will create child pipelines with the specified scmUrls for you. Please make sure you have **admin** access towards child repositories otherwise we won't create the child pipeline.
+In your parent repository's `screwdriver.yaml`, you can define child pipelines with the keyword `childPipelines`. Screwdriver will create or delete child pipelines on your behalf based on the listed `scmUrls`. Please make sure you have **admin** access in each child repository in order to manage child pipelines through this feature.
 
 ```yaml
 childPipelines:
@@ -31,10 +37,10 @@ jobs:
 ```
 
 ## Parent and Child Relationship
-| Pipeline        | Permissions           |
+| Pipeline      | Permissions   |
 | ------------- |:-------------:|
-| Parent     | Everything on itself and add/remove/update/start child pipelines |
-| Child      | Everything on itself except delete itself and update checkout url; override/reset secrets inherited from parent | 
+| Parent     | All actions on its own pipeline plus create/delete/update/start child pipelines |
+| Child      | All actions on its own pipeline except delete/update itself; also, secrets are inherited from the parent pipeline by default but can be overwritten |
 
 ## User Interface
 Parent pipeline UI:
