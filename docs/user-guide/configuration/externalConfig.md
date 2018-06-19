@@ -37,6 +37,7 @@ jobs:
 ```
 
 ## Parent and Child Relationship
+
 | Pipeline      | Permissions   |
 | ------------- |:-------------:|
 | Parent     | All actions on its own pipeline plus create/delete/update/start child pipelines |
