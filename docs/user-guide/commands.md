@@ -129,7 +129,7 @@ jobs:
     promote:
         requires: [publish]
         steps:
-            - publish: sd-cmd promote foo/bar 1.0.1 -t stable
+            - promote: sd-cmd promote foo/bar 1.0.1 stable
 ```
 
 ## Finding commands
