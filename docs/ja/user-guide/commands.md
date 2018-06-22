@@ -113,11 +113,11 @@ habitat:
 
 ### コマンドリポジトリ用の screwdriver.yaml を書く
 
-To validate your command, run the `sd-cmd validate` command. `-f` stands for file (default `sd-command.yaml`).
+コマンドのバリデーションを行うには、`sd-cmd validate` を実行します。`-f` オプションで、対象のyamlファイルを指定します (デフォルトでは `sd-command.yaml`となっています)。
 
-To publish your command, run the `sd-cmd publish` command in a separate job. `-f` stands for file (default `sd-command.yaml`). `-t` stands for tag (default `latest`).
+コマンドをパブリッシュするために、 `sd-cmd publish` を別のジョブで実行します。 `-f` で、パブリッシュするファイルを指定します (デフォルトでは `sd-command.yaml`となっています)。 `-t` でパブリッシュしたコマンドにつけるタグを指定します (デフォルトでは `latest`となっています)。
 
-To tag your command, run the `sd-cmd promote` command with the format: `sd-cmd promote <namespace>/<name> <version> <tag>`
+コマンドにタグをつけるために, `sd-cmd promote` を次のフォーマットに沿って実行します。  `sd-cmd promote <namespace>/<name> <version> <tag>`
 
 `screwdriver.yaml`の例:
 
