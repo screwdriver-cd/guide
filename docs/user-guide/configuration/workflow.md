@@ -10,8 +10,8 @@ toc:
       url: "#defining-workflow-order"
     - title: Advanced Workflow Logic
       url: "#advanced-logic"
-    - title: SCM Branch-specific jobs
-      url: "#scm-branch-specific-jobs"
+    - title: Branch filtering
+      url: "#branch-filtering"
     - title: Parallel and Join
       url: "#parallel-and-join"
     - title: Remote Triggers
@@ -117,8 +117,8 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
 
-## SCM Branch-specific jobs
-To trigger jobs in your pipeline after specific branch is committed, you can use SCM Branch-specific jobs. The format is `~commit:branchName`. Also you can use regex filter after `~commit:` (e.g. `~commit:/^feature-.*$/`).  
+## Branch filtering
+To trigger jobs in your pipeline after a specific branch is committed, you can use Branch filtering jobs. The format is `~commit:branchName`. Also you can use regex filter after `~commit:` (e.g. `~commit:/^feature-.*$/`).  
 
 ### Example
 In the following example, when staging branch is committed, `staging-commit` and `all-commit` are triggered. Also, when this pipeline's branch is committed, `main` and `all-commit` are triggered.
@@ -133,7 +133,7 @@ jobs:
         steps:
             - echo: echo commit
     staging-commit:
-        requires: [~commit:stating]
+        requires: [~commit:staging]
         steps:
             - echo: echo staging
     all-commit:
