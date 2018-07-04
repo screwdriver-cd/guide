@@ -32,17 +32,17 @@ In the following example, the job, `main`, will start after any SCM pull-request
 
 ```
 jobs:
-      main:
-            image: node:6
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
+    main:
+        image: node:6
+        requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
 
-      second:
-            image: node:6
-            requires: [main]
-            steps:
-                - echo: echo bye
+    second:
+        image: node:6
+        requires: [main]
+        steps:
+            - echo: echo bye
 ```
 
 To specify a job to run when a pull request is opened, use `requires: [~pr]`. For jobs that should start after code is pushed, use `requires: [~commit]`.
@@ -118,7 +118,7 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
 
 ## Branch filtering
-To trigger jobs in your pipeline after a specific branch is committed, you can use Branch filtering jobs. The format is `~commit:branchName`. Also you can use regex filter after `~commit:` (e.g. `~commit:/^feature-.*$/`).  
+To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering jobs. The format is `~commit:branchName`. Also you can use regex filter after `~commit:` (e.g. `~commit:/^feature-.*$/`).  
 
 ### Example
 In the following example, when staging branch is committed, `staging-commit` and `all-commit` are triggered. Also, when this pipeline's branch is committed, `main` and `all-commit` are triggered.
@@ -153,22 +153,22 @@ shared:
     image: node:6
 
 jobs:
-      main:
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
-      A:
-            requires: [main]
-            steps:
-                - echo: echo in parallel
-      B:
-            requires: [main]
-            steps:
-                - echo: echo in parallel
-      C:
-            requires: [A, B]
-            steps:
-                - echo: echo join after A and B
+    main:
+        requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
+    A:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    B:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    C:
+        requires: [A, B]
+        steps:
+            - echo: echo join after A and B
 ```
 
 ## Remote Triggers
@@ -223,13 +223,13 @@ shared:
     image: node:8
 
 jobs:
-      detached-main:
-            steps:
-                - echo: echo detached hi
-      main:
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
+    detached-main:
+        steps:
+            - echo: echo detached hi
+    main:
+        requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
 ```
 
 If you have only a single job, then to make it detached you must provide an empty `requires`.
@@ -239,8 +239,8 @@ shared:
     image: node:8
 
 jobs:
-      detached-main:
-            requires: []
-            steps:
-                - echo: echo detached hi
+    detached-main:
+        requires: []
+        steps:
+            - echo: echo detached hi
 ```
