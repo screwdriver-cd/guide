@@ -28,6 +28,8 @@
           url: "/user-guide/configuration/settings"
         - title: "Source Paths"
           url: "/user-guide/configuration/sourcePaths"
+        - title: "External Config"
+          url: "/user-guide/configuration/externalConfig"
     - title: "Metadata"
       url: "/user-guide/metadata"
     - title: "Environment Variables"
