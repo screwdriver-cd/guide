@@ -57,11 +57,15 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 
 詳しい情報と例についてはAPIドキュメントをご覧ください。
 
-## 認可と認証
+## 認証と認可
 
-認証のために、[JSON Web Tokens (JWT)](http://jwt.io)を使用しています。JWTは`Authorization`ヘッダを必要とします。JWTを生成するために`/v4/auth/login` にアクセスし、`/v4/auth/token`へとリダイレクトされます。
+認証のために、[JSON Web Tokens (JWT)](http://jwt.io) を使用しています。JWTは`Authorization`ヘッダを必要とします。
+* Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
+* ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。
 
-一方、認可はOAuthによるものです。`/v4/auth/login`にアクセスしたときに行われます。ScrewdriverはSCMトークンで以下を識別します。
+ScrewdriverのAPIトークンは [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings) にて管理できます。
+
+認可はSCMにより行われます。ScrewdriverはSCMトークンで以下を識別します。
 
 - レポジトリへのread, write, adminアクセスを識別します。
     - read権限でpipelineを見ることができます。

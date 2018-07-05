@@ -89,7 +89,7 @@ You can access information about properties by hovering over the property name.
         </div>
         <div id="annotations" class="hidden">
             <h4>Annotations</h4>
-            <p>Annotations is an optional object containing key-value pairs. These can be either pipeline or job-level specifications. Annotation key-value pairs can be completely arbitrary, as in the example, or can modify the execution of the build. Check with your screwdriver cluster admin to find what annotations are supported to modify your build execution.</p>
+            <p>Annotations is an optional object containing key-value pairs. These can be either pipeline or job-level specifications. Annotation key-value pairs can be completely arbitrary, as in the example, or can modify the execution of the build. Check with your Screwdriver cluster admin to find what annotations are supported to modify your build execution with.</p>
         </div>
         <div id="executor" class="hidden">
             <h4>Executor annotation</h4>

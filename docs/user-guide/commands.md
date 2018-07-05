@@ -57,10 +57,11 @@ Publishing and running commands must be done from a Screwdriver pipeline.
 
 ### Writing a command yaml
 
-To create a command, create a repo with a `sd-command.yaml` file. The file should contain a namespace, name, version, description, maintainer email, format, and a binary config with a path to file.
+To create a command, create a repo with a `sd-command.yaml` file. The file should contain a namespace, name, version, description, maintainer email, format, and a config that depends on a format.
 
 Example `sd-command.yaml`:
 
+Binary example:
 ```yaml
 namespace: foo # Namespace for the command
 name: bar # Command name
@@ -68,31 +69,67 @@ version: '1.0' # Major and Minor version number (patch is automatic), must be a 
 description: |
   Lorem ipsum dolor sit amet.
 maintainer: foo@bar.com # Maintainer of the command
-format: binary # Format the command is in (binary)
+format: binary # Format the command is in (binary, habitat)
 binary:
     file: ./foobar.sh # Path to script or binary file from repository root
 ```
 
+Remote Habitat example:
+```yaml
+namespace: foo # Namespace for the command
+name: bar # Command name
+version: '1.0' # Major and Minor version number (patch is automatic), must be a string
+description: |
+  Lorem ipsum dolor sit amet.
+maintainer: foo@bar.com # Maintainer of the command
+format: habitat
+habitat:
+    package: core/node8 # Package of the Habitat command
+    mode: remote # Mode the Habitat command (remote, local)
+    command: node # Executable of the Habitat command
+```
+
+Local Habitat example:
+```yaml
+namespace: foo # Namespace for the command
+name: bar # Command name
+version: '1.0' # Major and Minor version number (patch is automatic), must be a string
+description: |
+  Lorem ipsum dolor sit amet.
+maintainer: foo@bar.com # Maintainer of the command
+format: habitat # Format the command is in (binary, habitat)
+habitat:
+    package: core/node8 # Package of the Habitat command
+    mode: local # Mode of the Habitat command (remote, local)
+    file: ./foobar.hart # Path to the .hart file from repository root
+    command: node # Executable of the Habitat command
+```
+
 ### Writing a screwdriver.yaml for your command repo
 
-To validate your command, run the `command-validate` script from the [screwdriver-command-validator](https://github.com/screwdriver-cd/command-validator) npm module. This means the build image must have NodeJS and NPM properly installed to use it.
+To validate your command, run the `sd-cmd validate` command. `-f` stands for file (default `sd-command.yaml`).
 
-To publish your command, run the `sd-cmd publish` command in a separate job. `-f` stands for file.
+To publish your command, run the `sd-cmd publish` command in a separate job. `-f` stands for file (default `sd-command.yaml`). `-t` stands for tag (default `latest`).
+
+To tag your command, run the `sd-cmd promote` command with the format: `sd-cmd promote <namespace>/<name> <version> <tag>`
 
 Example `screwdriver.yaml`:
 ```yaml
 shared:
-    image: node:6
+    image: node:8
 jobs:
     main:
         requires: [~pr, ~commit]
         steps:
-            - install: npm install screwdriver-command-validator
-            - validate: ./node_modules/.bin/command-validate -f sd-command.yaml
+            - validate: sd-cmd validate -f sd-command.yaml
     publish:
         requires: [main]
         steps:
-            - publish: sd-cmd publish -f sd-command.yaml
+            - publish: sd-cmd publish -f sd-command.yaml -t latest
+    promote:
+        requires: [publish]
+        steps:
+            - promote: sd-cmd promote foo/bar 1.0.1 stable
 ```
 
 ## Finding commands

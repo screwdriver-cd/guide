@@ -43,7 +43,7 @@ Configure how users can and who can access the API.
 | SECRET_PASSWORD        | Yes      | A password used for encrypting stored secrets. **Needs to be minimum 32 characters**                                      |
 | IS_HTTPS               | No       | A flag to set if the server is running over https. Used as a flag for the OAuth flow (default to `false`)                 |
 | SECRET_WHITELIST       | No       | Whitelist of users able to authenticate against the system. If empty, it allows everyone. (JSON Array format)             |
-| SECRET_ADMINS          | No       | Whitelist of users able to authenticate against the system. If empty, it allows everyone. (JSON Array format)             |
+| SECRET_ADMINS          | No       | List of admins with elevated access to the cluster. If empty, it allows everyone. (JSON Array format)             |
 
 ```yaml
 # config/local.yaml
@@ -81,6 +81,23 @@ bookends:
         - scm
         - my-custom-bookend
 ```
+
+#### Coverage bookends
+
+We currently support [SonarQube](https://github.com/screwdriver-cd/coverage-sonar) for coverage bookends.
+
+##### Sonar
+
+In order to use Sonar in your cluster, set up a Sonar server (see example at [our sonar pipeline](https://github.com/screwdriver-cd/sonar-pipeline)). Then configure the following environment variables:
+
+| Key             | Required | Description           |
+|:----------------|:---------|:----------------------|
+| COVERAGE_PLUGIN | Yes      | Should be `sonar`     |
+| URI             | Yes      | Screwdriver API url   |
+| COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
+| COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
+
+You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details.
 
 ### Serving
 

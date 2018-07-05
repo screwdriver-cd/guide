@@ -18,7 +18,10 @@ The **[screwdriver][api-repo]** repo is the core of screwdriver, providing the A
 
 
 * **[Build bookends][build-bookend-repo]** allow a user to create setup and teardown steps for builds.
-* The API can also send notifications to users. [notifications-base][notifications-base-repo] is the base class for defining the behavior between screwdriver and notifications plugins, like [email notifications][notifications-email-repo] and [slack notifications][notifications-slack-repo].
+
+* The API can also send notifications to users. [notifications-base][notifications-base-repo] is the base class for defining the behavior between Screwdriver and notifications plugins, like [email notifications][notifications-email-repo] and [slack notifications][notifications-slack-repo].
+
+* The API can also uploading code coverage reports and/or test results. [coverage-bookend][coverage-bookend-repo] defines the relationship between Screwdriver and coverage bookends. [coverage-base][coverage-base-repo] is the base class for defining the behavior between Screwdriver coverage bookend plugins, like [coverage-sonar][coverage-sonar-repo].
 
 ### [Launcher][launcher-repo]
 
@@ -122,6 +125,9 @@ The organization **[screwdriver-cd-test][screwdriver-cd-test-org]** contains var
 [client-repo]: https://github.com/screwdriver-cd/client
 [config-parser-repo]: https://github.com/screwdriver-cd/config-parser
 [contributing-docs]: https://github.com/screwdriver-cd/guide/blob/master/docs/about/contributing/where-to-contribute.md
+[coverage-base-repo]: https://github.com/screwdriver-cd/coverage-base
+[coverage-bookend-repo]: https://github.com/screwdriver-cd/coverage-bookend
+[coverage-sonar-repo]: https://github.com/screwdriver-cd/coverage-sonar
 [dataschema-repo]: https://github.com/screwdriver-cd/data-schema
 [datastore-base-repo]: https://github.com/screwdriver-cd/datastore-base
 [datastore-dynamodb-repo]: https://github.com/screwdriver-cd/datastore-dynamodb
