@@ -47,7 +47,7 @@ To specify a job to run when a pull request is opened, use `requires: [~pr]`. Fo
 
 ## Advanced Logic
 ### Advanced Logic [_AND_]
-You can specify a job to to start when all of its `requires` jobs are successful [_AND_]. This is also often called a join or fan-in.
+You can specify a job to start when all of its `requires` jobs are successful [_AND_]. This is also often called a join or fan-in.
 
 ### Example
 In the following example, the `last` job will only trigger when `first` _AND_ `second` complete successfully in the same triggering event.
