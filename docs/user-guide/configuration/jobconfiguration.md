@@ -47,7 +47,7 @@ jobs:
 Steps are the list of instructions you want to execute in your build. These should be defined as:
 `step_name: step_command`. Steps will be executed in the order they are defined. Current working directory and environment variables are passed between steps.
 
-You can also specify teardown steps, which will be run regardless of whether the build succeeds or fails. These steps need to be at the end of the job and have the format "teardown-.\*"
+You can also specify teardown steps, which will be run regardless of whether the build succeeds or fails. These steps need to be at the end of the job and start with "teardown-"
 
 #### Example
 ```
