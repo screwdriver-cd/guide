@@ -220,31 +220,14 @@ jobs:
 It is possible to define workflows that do not have any external trigger. These workflows are "detached" from the normal flow of the pipeline. Some example use cases of this would be to define a rollback flow for your pipeline that could be manually triggered. Invoking a detached pipeline involves the same steps as doing a [rollback](../FAQ#how-do-i-rollback).
 
 ### Example
-In the following example `detached-main` job is detached.
+In the following example `detached` job is detached.
 
 ```
 shared:
     image: node:8
 
 jobs:
-    detached-main:
+    detached:
         steps:
-            - echo: echo detached hi
-    main:
-        requires: [~pr, ~commit]
-        steps:
-            - echo: echo hi
-```
-
-If you have only a single job, then to make it detached you must provide an empty `requires`.
-
-```
-shared:
-    image: node:8
-
-jobs:
-    detached-main:
-        requires: []
-        steps:
-            - echo: echo detached hi
+            - echo: echo im-a-detached-job
 ```
