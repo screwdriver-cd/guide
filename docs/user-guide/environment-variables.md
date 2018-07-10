@@ -64,6 +64,7 @@ These environment variables may or may not be available depending on what plugin
 | SD_ROOT_DIR | Location of workspace (e.g.: `/sd/workspace`) |
 | SD_SOURCE_DIR | Location of checked-out code (e.g.: `sd/workspace/src/github.com/d2lam/myPipeline`) |
 | SD_SOURCE_PATH | Location of source path which triggered current build. See [Source Paths](./configuration/sourcePaths). |
+| SD_CONFIG_DIR | Location of parent pipeline's repository (only set for [child pipelines](./configuration/external-config)) (e.g.: `sd/workspace/config`) |
 
 ## Environment Variables
 
