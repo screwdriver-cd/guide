@@ -24,7 +24,7 @@ Screwdriver APIs and the data models around them are documented via [Swagger]. T
 
 > **Version 4** is the current API, all links should be prefixed with `/v4`.
 
-Our API documentation can be found at [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation). To see yours, go to `/v4/documentation`.
+Our API documentation can be found at [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation). To see yours, go to `<API URL>/v4/documentation`.
 
 ## Using the API
 ### With Swagger
@@ -35,6 +35,11 @@ Swagger page:
 
 Response:
 ![Swagger response](./assets/swagger-response.png)
+
+For more detailed documentation, click on the `Model` link.
+
+Swagger model:
+![Swagger model](./assets/swagger-model.png)
 
 ### With a REST Client
 Use a REST client like [Postman] to make requests against the API. You will need an authorization token. To get an authorization token, login using `/v4/auth/login` and copy the token value when redirected to `/v4/auth/token`. See the [Authorization and Authentication](#authorization-and-authentication) section for more information.
@@ -48,6 +53,32 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 Example request:
 ![Postman response](./assets/postman.png)
 
+### With User or Pipeline API tokens
+
+For easy scripting with our API, we recommend using API tokens.
+
+#### Using Tokens to Authenticate
+To authenticate with your newly created token, make a GET request to `https://${API_URL}/v4/auth/token?api_token=${YOUR_TOKEN_VALUE}`. This returns a JSON object with a token field. The value of this field will be a JSON Web Token, which you can use in an Authorization header to make further requests to the Screwdriver API. This JWT will be valid for 12 hours, after which you must re-authenticate.
+
+#### Example: Starting a Pipeline
+Here’s a short example written in Python showing how you can use an API token to start a pipeline. This script will directly call the Screwdriver API.
+
+```python
+# Authenticate with token
+auth_request = get('https://api.screwdriver.cd/v4/auth/token?api_token=%s' % environ['SD_KEY'])
+jwt = auth_request.json()['token']
+
+# Set headers
+headers = { 'Authorization': 'Bearer %s' % jwt }
+
+# Get the jobs in the pipeline
+jobs_request = get('https://api.screwdriver.cd/v4/pipelines/%s/jobs' % pipeline_id, headers=headers)
+jobId = jobs_request.json()[0]['id']
+
+# Start the first job
+start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, data=dict(jobId=jobId))
+```
+
 For more information and examples, check out our [API documentation](https://api.screwdriver.cd/v4/documentation).
 
 ## Authentication and Authorization
@@ -57,7 +88,7 @@ an `Authorization` header.
 * To generate a JWT with OAuth, visit the `/v4/auth/login` endpoint, which will redirect you to the `/v4/auth/token` endpoint.
 * To generate a JWT with a Screwdriver API Token, make a `GET` request to the `/v4/auth/token` endpoint with your API token as the `api_token` query parameter.
 
-Screwdriver API tokens can be managed from [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings).
+Screwdriver user API tokens can be managed from [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings). Pipeline API tokens can be managed from your Screwdriver pipeline's Secrets tab.
 
 Authorization is handled by your SCM. Screwdriver uses SCM user tokens
 and identity to:
