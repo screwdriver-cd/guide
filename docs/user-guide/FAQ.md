@@ -25,6 +25,12 @@ toc:
       url: "#how-do-i-fix-build-failed-to-start-error-message"
     - title: How do I rollback?
       url: "#how-do-i-rollback"
+    - title: How do I rerun a build?
+      url: "#how-do-i-rerun-a-build"
+    - title: How do I run a detached pipeline?
+      url: "#how-do-i-run-a-detached-pipeline"
+    - title: How do I mark a build as UNSTABLE?
+      url: "#how-do-i-mark-a-build-as-unstable"
 ---
 
 # Frequently Asked Questions
@@ -85,7 +91,7 @@ requires different approaches based on what layer it's failing.
 
 You can use one of two patterns to rollback: either rerunning a build in your pipeline or running a detached pipeline.
 
-### How do I rerun a job's build?
+### How do I rerun a build?
 
 To rerun a job's build from a past event, do the following steps.
 
@@ -106,3 +112,7 @@ To rollback, do the following steps. You'll most likely want to `meta set` an im
 ![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
 1. Click Yes to rerun the pipeline from that job.
 ![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
+
+## How do I mark a build as UNSTABLE?
+
+You can update a build with an `UNSTABLE` status by calling the [API](./api) in a build. You can [clone our example unstable build repository here](https://github.com/screwdriver-cd-test/unstable-build-example).
