@@ -57,7 +57,7 @@ Publishing and running commands must be done from a Screwdriver pipeline.
 
 ### Writing a command yaml
 
-To create a command, create a repo with a `sd-command.yaml` file. The file should contain a namespace, name, version, description, maintainer email, format, and a config that depends on a format.
+To create a command, create a repo with a `sd-command.yaml` file. The file should contain a namespace, name, version, description, maintainer email, format, and a config that depends on a format. Optionally, you can also set the usage field, which is used for documentation purposes in the UI. If not set, usage will default to `sd-cmd exec <namespace>/<name>@<version>`.
 
 Example `sd-command.yaml`:
 
@@ -68,6 +68,14 @@ name: bar # Command name
 version: '1.0' # Major and Minor version number (patch is automatic), must be a string
 description: |
   Lorem ipsum dolor sit amet.
+usage: |
+  sd-cmd exec foo/bar@<VERSION> <OPTION> <TARGET>
+  Options:
+          --config              config file
+          --debug               debug mode (default "false")
+          --host                super host
+          --log-level           set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+  Target:                       path to file
 maintainer: foo@bar.com # Maintainer of the command
 format: binary # Format the command is in (binary, habitat)
 binary:
@@ -134,7 +142,7 @@ jobs:
 
 ## Finding commands
 
-To figure out which commands already exist, you can make a `GET` call to the `/commands` endpoint. See the [API documentation](./api) for more information.
+To figure out which commands already exist, you can make a `GET` call to the `/commands` endpoint. See the [API documentation](./api) for more information. You can also see commands in the UI at `<YOUR_UI_URL>/commands`.
 
 ## More links
 - [Design specifications](https://github.com/screwdriver-cd/screwdriver/blob/master/design/commands.md)*
