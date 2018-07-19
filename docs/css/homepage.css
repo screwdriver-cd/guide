@@ -61,6 +61,15 @@ body.homepage div.container img {
     font-size: 16px;
 }
 
+.demo {
+  width: 100%;
+  text-align: center;
+}
+
+.demo video {
+  height: 400px;
+  margin-top: 20px;
+
 /*@media (min-width: 768px) {
     .homepage .row p {
         width: 70%;
