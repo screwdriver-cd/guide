@@ -44,6 +44,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_TEMPLATE_NAMESPACE | Namespace of the template the job is using (e.g.: d2lam; blank if not using template) |
 | SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template)|
 | SD_TOKEN | JWT token for the build |
+| SD_ZIP_ARTIFACTS | (true/false) **Default:** false.<br><br>Uploads artifacts as a single ZIP file and unzips them on the store end using AWS Lambda.<br><br>Reduces upload time when your build has a lot of artifacts but there's an upper limit to the size and number of files in the zip file you upload, since the compute resources on Lambda are limited per build. If the upload fails, it's likely that you have more artifacts or that the zip is larger than Lambda can handle. |
 
 ## Plugins
 These environment variables may or may not be available depending on what plugins are installed.
