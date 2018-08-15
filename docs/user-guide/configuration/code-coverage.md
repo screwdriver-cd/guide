@@ -28,7 +28,7 @@ To use SonarQube, add a `sonar-project.properties` file in the root of your sour
 Example `sonar-project.properties` file from our [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript):
 ```
 sonar.sources=lib
-sonar.javascript.lcov.reportPath=artifacts/coverage/lcov.info
+sonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info
 ```
 
 The `reportPath` property depends on the language used. Check the [SonarQube documentation](https://docs.sonarqube.org/display/PLUG) to figure out the right syntax.
@@ -41,14 +41,15 @@ Example `screwdriver.yaml`:
 
 ```yaml
 shared:
-    environment:
-        SD_SONAR_OPTS: '-Dsonar.sources=lib -Dsonar.sourceEncoding=UTF-8'
+  environment:
+    SD_SONAR_OPTS: '-Dsonar.sources=lib -Dsonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info'
 jobs:
-    main:
-        requires: [~pr, ~commit]
-        image: node:8
-        steps:
-            - echo: echo hi
+  main:
+    requires: [~pr, ~commit]
+    image: node:8
+    steps:
+      - install: npm install
+      - test: npm test
 ```
 
 ### Notes
