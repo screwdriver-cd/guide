@@ -119,7 +119,7 @@ To validate your command, run the `sd-cmd validate` command. `-f` stands for fil
 
 To publish your command, run the `sd-cmd publish` command in a separate job. `-f` stands for file (default `sd-command.yaml`). `-t` stands for tag (default `latest`).
 
-To tag your command, run the `sd-cmd promote` command with the format: `sd-cmd promote <namespace>/<name> <version> <tag>`
+To tag your command, run the `sd-cmd promote` command with the format: `sd-cmd promote <namespace>/<name> <version> <tag>`. You can set exact version or tag (e.g. 1.0.1, latest) at `<version>`
 
 Example `screwdriver.yaml`:
 ```yaml
@@ -137,7 +137,7 @@ jobs:
     promote:
         requires: [publish]
         steps:
-            - promote: sd-cmd promote foo/bar 1.0.1 stable
+            - promote: sd-cmd promote foo/bar latest stable
 ```
 
 ## Finding commands
