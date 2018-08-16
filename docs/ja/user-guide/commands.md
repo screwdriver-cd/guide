@@ -60,7 +60,7 @@ $ /opt/sd/commands/foo/bar/1.0.1/foobar.sh -baz sample
 
 ### コマンド yaml を書く
 
-コマンドを作成するために、`sd-command.yaml` を含んだリポジトリを作成します。yaml には、コマンドのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するフォーマットとそのフォーマットに応じた設定が必要です。
+コマンドを作成するために、`sd-command.yaml` を含んだリポジトリを作成します。yaml には、コマンドのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するフォーマットとそのフォーマットに応じた設定が必要です。またオプションとして、利用方法を設定できます。こちらを設定することで、UIから利用方法を参照できるようになります。利用方法を設定しなかった場合はデフォルトとして、sd-cmd exec `<namespace>/<name>@<version>`　が表示されます。　
 
 `sd-command.yaml`の例:
 
@@ -72,6 +72,14 @@ name: bar # コマンドの名前
 version: '1.0' # メジャーバージョンとマイナーバージョン (パッチバージョンは自動付与)
 description: |
   Lorem ipsum dolor sit amet.
+usage: |
+  sd-cmd exec foo/bar@  
+  Options:
+          --config              コンフィグファイル
+          --debug               デバッグモード (デフォルト "false")
+          --host                スーパーホスト
+          --log-level           ログレベル ("debug"|"info"|"warn"|"error"|"fatal") (デフォルト "info")
+  Target:                       ファイルパス
 maintainer: foo@bar.com # コマンドの管理者
 format: binary # コマンドのフォーマット (binary または habitat)
 binary:
@@ -118,6 +126,7 @@ habitat:
 コマンドをパブリッシュするために、 `sd-cmd publish` を別のジョブで実行します。 `-f` で、パブリッシュするyamlファイルを指定します (デフォルトでは `sd-command.yaml`となっています)。 `-t` でパブリッシュしたコマンドにつけるタグを指定します (デフォルトでは `latest`となっています)。
 
 コマンドにタグをつけるために, `sd-cmd promote` を次のフォーマットに沿って実行します。  `sd-cmd promote <namespace>/<name> <version> <tag>`
+`<version>`には厳密なバージョンもしくはタグを指定できます(e.g. 1.0.1, latest)。
 
 `screwdriver.yaml`の例:
 
@@ -142,7 +151,7 @@ jobs:
 ## コマンドを検索する
 
 既に存在しているコマンドを見つけるには、`GET` メソッドで 
- `/commands` エンドポイントにアクセスしてください。詳しくは [API documentation](./api) をご覧ください。
+ `/commands` エンドポイントにアクセスしてください。詳しくは [API documentation](./api) をご覧ください。またこちらのパス`<YOUR_UI_URL>/commands`にアクセスすることでcommand ページを確認できます。
 
 ## 更に詳しく
 
