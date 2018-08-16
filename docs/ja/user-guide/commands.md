@@ -73,7 +73,7 @@ version: '1.0' # メジャーバージョンとマイナーバージョン (パ�
 description: |
   Lorem ipsum dolor sit amet.
 usage: |
-  sd-cmd exec foo/bar@  
+  sd-cmd exec foo/bar@<VERSION> <OPTION> <TARGET>
   Options:
           --config              コンフィグファイル
           --debug               デバッグモード (デフォルト "false")
@@ -151,7 +151,7 @@ jobs:
 ## コマンドを検索する
 
 既に存在しているコマンドを見つけるには、`GET` メソッドで 
- `/commands` エンドポイントにアクセスしてください。詳しくは [API documentation](./api) をご覧ください。またこちらのパス`<YOUR_UI_URL>/commands`にアクセスすることでcommand ページを確認できます。
+ `/commands` エンドポイントにアクセスしてください。詳しくは [API documentation](./api) をご覧ください。またこちらのパス`<YOUR_UI_URL>/commands`にアクセスすることでコマンドを確認できます。
 
 ## 更に詳しく
 
