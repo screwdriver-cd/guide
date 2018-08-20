@@ -380,6 +380,8 @@ Configure the SMTP server and sender address that email notifications will be se
 # config/local.yaml
 notifications:
     email:
+        username: your-username # optional SMTP username
+        password: your-password # optional SMTP password
         host: smtp.yourhost.com
         port: 25
         from: example@email.com
