@@ -30,6 +30,7 @@ To denote workflow order, use the `requires` keyword under a job with the job na
 #### Example
 In the following example, the job, `main`, will start after any SCM pull-request, _or_ commit event. The job, `second`, will run after `main` is successful.
 
+Please note that a job started by a pull-request will not trigger its downstream jobs. For example, if `main` starts and succeeds as a result of a pull-request being opened, `second` will not start afterwards.
 ```
 jobs:
     main:
