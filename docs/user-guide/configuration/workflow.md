@@ -119,7 +119,7 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
 
 ## Branch filtering
-To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering jobs. The format is `~commit:branchName` or `~pr:baranchName`. Also you can use regex filter after `~commit:` or `~pr:` (e.g. `~commit:/^feature-.*$/`).  
+To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering jobs. The format is `~commit:branchName` or `~pr:branchName`. Also you can use regex filter after `~commit:` or `~pr:` (e.g. `~commit:/^feature-.*$/`).  
 
 ### Example
 In the following example, when staging branch is committed, `staging-commit` and `all-commit` are triggered. Also, when this pipeline's branch is committed, `main` and `all-commit` are triggered. When a pull request is opened in staging branch, `staging-pr` is triggered.
