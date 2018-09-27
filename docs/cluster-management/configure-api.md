@@ -195,9 +195,11 @@ If you use this executor, builds will run in pods in Kubernetes.
 | K8S_CPU_MICRO      | 0.5           | Number of CPU cores for micro              |
 | K8S_CPU_LOW        | 2             | Number of CPU cores for low                |
 | K8S_CPU_HIGH       | 6             | Number of CPU cores for high               |
+| K8S_CPU_TURBO      | 12            | Number of CPU cores for turbo              |
 | K8S_MEMORY_MICRO   | 1             | Memory in GB for micro                     |
 | K8S_MEMORY_LOW     | 2             | Memory in GB for low                       |
 | K8S_MEMORY_HIGH    | 12            | Memory in GB for high                      |
+| K8S_MEMORY_TURBO   | 16            | Memory in GB for turbo                     |
 | K8S_BUILD_TIMEOUT  | 90            | Default build timeout for all builds in this cluster (in minutes) |
 | K8S_MAX_BUILD_TIMEOUT | 120        | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
 | K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
@@ -232,9 +234,11 @@ If you use the `k8s-vm` executor, builds will run in VMs in pods in Kubernetes.
 | K8S_CPU_MICRO      | 1             | Number of CPU cores for micro              |
 | K8S_CPU_LOW        | 2             | Number of CPU cores for low                |
 | K8S_CPU_HIGH       | 6             | Number of CPU cores for high               |
+| K8S_CPU_TURBO      | 12            | Number of CPU cores for turbo              |
 | K8S_MEMORY_MICRO   | 1             | Memory in GB for micro                     |
 | K8S_MEMORY_LOW     | 2             | Memory in GB for low                       |
 | K8S_MEMORY_HIGH    | 12            | Memory in GB for high                      |
+| K8S_MEMORY_TURBO   | 16            | Memory in GB for turbo                     |
 | K8S_VM_BUILD_TIMEOUT  | 90         | Default build timeout for all builds in this cluster (in minutes) |
 | K8S_VM_MAX_BUILD_TIMEOUT | 120     | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
 | K8S_VM_NODE_SELECTORS | `{}`       | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
