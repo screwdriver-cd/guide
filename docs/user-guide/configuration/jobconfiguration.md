@@ -49,12 +49,16 @@ Steps are the list of instructions you want to execute in your build. These shou
 
 You can also specify teardown steps, which will be run regardless of whether the build succeeds or fails. These steps need to be at the end of the job and start with "teardown-"
 
+By default, instructions in steps are executed using the Bourne shell (`/bin/sh`). If you prefer your build to use a different shell, you may specify `USER_SHELL_BIN` in a step's environment. For instance, to use capabilities that Bash provides but the Bourne shell does not, specify `USER_SHELL_BIN: bash` in a job's environment.
+
 #### Example
 ```
 jobs:
     main:
         requires: [~pr, ~commit]
         image: node:8
+        environmment:
+            USER_SHELL_BIN: bash
         steps:
             - step_name: step_command --arg1 --arg2 foo
             - set_env: export FOO=bar
@@ -63,6 +67,7 @@ jobs:
                 pwd                        # prints '/sd/workspace/src/github.com/tkyi/mytest'
                 cd ..
             - pwd: pwd                     # prints '/sd/workspace/src/github.com/tkyi'
+            - bash-only: echo ${FOO%r}     # this will echo ba
             - fail: commanddoesnotexist
             - teardown-mystep1: echo goodbye
             - teardown-mystep2: echo world

@@ -31,6 +31,8 @@ toc:
       url: "#how-do-i-run-a-detached-pipeline"
     - title: How do I mark a build as UNSTABLE?
       url: "#how-do-i-mark-a-build-as-unstable"
+    - title: What shell does Screwdriver use?
+      url: "#what-shell-does-screwdriver-use"
 ---
 
 # Frequently Asked Questions
@@ -116,3 +118,7 @@ To rollback, do the following steps. You'll most likely want to `meta set` an im
 ## How do I mark a build as UNSTABLE?
 
 You can update a build with an `UNSTABLE` status by calling the [API](./api) in a build. You can [clone our example unstable build repository here](https://github.com/screwdriver-cd-test/unstable-build-example).
+
+## What shell does Screwdriver use?
+
+By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You can specify a different shell (such as Bash) with the `USER_SHELL_BIN` [environment variable](./environment-variables).
