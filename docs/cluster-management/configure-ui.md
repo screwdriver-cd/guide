@@ -64,3 +64,13 @@ Example:
 ```bash
 $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bitbucket.org/account/*/avatar/*" screwdrivercd/ui:stable
 ```
+
+### Custom Documentation Link
+Documentation link can be customized via an environment variable `SDDOC_URL`.
+
+Default: https://docs.screwdriver.cd
+
+Example:
+```bash
+$ docker run -d -p 8000:80 -e SDDOC_URL=https://mydocs.mysite.me screwdrivercd/ui:stable
+```
