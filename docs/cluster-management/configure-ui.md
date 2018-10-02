@@ -14,6 +14,8 @@ toc:
 ---
 # Managing the User Interface
 
+The User Interface has configuration options for the API, Data Store, Avatars, and Custom Documentation.
+
 ## Packages
 
 Like the other services, the User Interface is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/ui/) with port 80 exposed.
