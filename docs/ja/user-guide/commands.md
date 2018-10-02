@@ -83,7 +83,7 @@ usage: |
 maintainer: foo@bar.com # コマンドの管理者
 format: binary # コマンドのフォーマット (binary または habitat)
 binary:
-    file: ./foobar.sh # スクリプトやバイナリファイルのリポジトリルートからのパス
+    file: ./foobar.sh # スクリプトやバイナリファイルの sd-command.yaml ファイルからの相対パス
 ```
 
 Remote Habitat の例:
@@ -115,7 +115,7 @@ format: habitat
 habitat:
     package: core/node8 # コマンドで利用する Habitat のパッケージ
     mode: local # Habitat コマンドのモード (remote または local)
-    file: ./foobar.hart # .hart ファイルのリポジトリルートからのパス
+    file: ./foobar.hart # .hart ファイルの sd-command.yaml ファイルからの相対パス
     command: node # 実行可能なコマンド
 ```
 
