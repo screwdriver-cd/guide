@@ -14,6 +14,8 @@ toc:
 ---
 # Managing the User Interface
 
+The User Interface has configuration options for the API, Data Store, Avatars, and Custom Documentation.
+
 ## Packages
 
 Like the other services, the User Interface is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/ui/) with port 80 exposed.
@@ -63,4 +65,14 @@ Multiple hostnames can be added at once by separating them with a space.
 Example:
 ```bash
 $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bitbucket.org/account/*/avatar/*" screwdrivercd/ui:stable
+```
+
+### Custom Documentation Link
+Documentation link can be customized via an environment variable `SDDOC_URL`.
+
+Default: https://docs.screwdriver.cd
+
+Example:
+```bash
+$ docker run -d -p 8000:80 -e SDDOC_URL=https://mydocs.mysite.me screwdrivercd/ui:stable
 ```
