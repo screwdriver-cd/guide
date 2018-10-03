@@ -79,7 +79,7 @@ usage: |
 maintainer: foo@bar.com # Maintainer of the command
 format: binary # Format the command is in (binary, habitat)
 binary:
-    file: ./foobar.sh # Path to script or binary file from sd-command.yaml file or absolute path to it.
+    file: ./foobar.sh # Relative path to script or binary file from sd-command.yaml file or absolute path to it.
 ```
 
 Remote Habitat example:
@@ -109,7 +109,7 @@ format: habitat # Format the command is in (binary, habitat)
 habitat:
     package: core/node8 # Package of the Habitat command
     mode: local # Mode of the Habitat command (remote, local)
-    file: ./foobar.hart # Path to the .hart file from sd-command.yaml file or absolute path to it.
+    file: ./foobar.hart # Relative path to the .hart file from sd-command.yaml file or absolute path to it.
     command: node # Executable of the Habitat command
 ```
 
