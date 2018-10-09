@@ -34,7 +34,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 
 | Name | Description |
 |------|-------|
-| SD_BUILD_ID | [Build](../about/appendix/domain#build) number (e.g.: `1`, `2`, etc) |
+| SD_BUILD_ID | The ID of the [build](../about/appendix/domain#build) |
 | SD_EVENT_ID | The ID of the [event](../about/appendix/domain#event) |
 | SD_JOB_ID | The ID of the [job](../about/appendix/domain#job) |
 | SD_JOB_NAME | Job name (e.g.: `main`) |
