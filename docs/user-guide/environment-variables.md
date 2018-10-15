@@ -9,12 +9,16 @@ toc:
       active: true
     - title: Build Specific
       url: "#build-specific"
+    - title: <span class="menu-indent">General</span>
+      url: "#general"
+    - title: <span class="menu-indent">User configurable</span>
+      url: "#user-configurable"
     - title: Plugins
       url: "#plugins"
     - title: Directories
       url: "#directories"
     - title: Environment Variables
-      url: "#environment-variables_1"
+      url: "#environment-variables-1"
     - title: Source Code
       url: "#source-code"
     - title: URLs
@@ -30,7 +34,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 
 ## Build Specific
 
-#### General
+### General
 
 | Name | Description |
 |------|-------|
@@ -47,7 +51,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template) |
 | SD_TOKEN | JWT token for the build |
 
-#### User-configurable
+### User configurable
 
 | Name | Default Value | Description |
 |------|---------------|-------------|

@@ -16,7 +16,7 @@ toc:
     - title: How do I update a pipeline repo and branch?
       url: "#how-do-i-update-a-pipeline-repo-and-branch"
     - title: How do I disable/enable a job temporarily?
-      url: "#how-do-i-disable/enable-a-job-temporarily"
+      url: "#how-do-i-disableenable-a-job-temporarily"
     - title: How do I make sure my code is in sync with my pipeline?
       url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
     - title: How do I delete a pipeline permanently?
@@ -31,6 +31,8 @@ toc:
       url: "#how-do-i-run-a-detached-pipeline"
     - title: How do I mark a build as UNSTABLE?
       url: "#how-do-i-mark-a-build-as-unstable"
+    - title: How do I speed up time to upload artifacts?
+      url: "#how-do-i-speed-up-time-to-upload-artifacts"
 ---
 
 # Frequently Asked Questions
@@ -116,3 +118,6 @@ To rollback, do the following steps. You'll most likely want to `meta set` an im
 ## How do I mark a build as UNSTABLE?
 
 You can update a build with an `UNSTABLE` status by calling the [API](./api) in a build. You can [clone our example unstable build repository here](https://github.com/screwdriver-cd-test/unstable-build-example).
+
+## How do I speed up time to upload artifacts?
+You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.

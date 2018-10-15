@@ -3,15 +3,8 @@ html {
 }
 
 body {
-    padding-top: 70px;
     position: relative;
     min-height: 100%;
-}
-
-@media (min-width: 768px) {
-    body {
-        padding-top: 110px;
-    }
 }
 
 body>.container {
@@ -20,7 +13,6 @@ body>.container {
 
 ul.nav li.main {
     font-weight: 600;
-    margin-top: 40px;
 }
 
 div.col-md-3 {
@@ -29,7 +21,6 @@ div.col-md-3 {
 
 div.col-md-9 {
     padding-bottom: 100px;
-    margin-top: 40px;
 }
 
 div.source-links {
@@ -147,7 +138,22 @@ footer .container > div:last-child {
  */
 .navbar {
     background: #05121C;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
+
+.container .content h1::before,
+.container .content h2::before,
+.container .content h3::before {
+  display: block; 
+  content: " "; 
+  margin-top: -150px; 
+  height: 150px; 
+  visibility: hidden; 
+  pointer-events: none;
+}
+
 .navbar-brand {
     background: transparent url('/themes/sd/svg/Screwdriver_Logo_FullWhite.svg') no-repeat;
     background-size: contain;
@@ -195,7 +201,7 @@ footer .container > div:last-child {
 
 .bs-sidebar.well {
     padding: 0;
-    max-height: 90%;
+    max-height: calc(100% - 175px);
     overflow-y: auto;
     background-color: transparent;
     border-width: 0;
@@ -270,8 +276,6 @@ footer .container > div:last-child {
     }
     .bs-sidebar.affix {
         position: fixed;
-        /* Undo the static from mobile first approach */
-        top: 130px;
     }
     .bs-sidebar.affix-bottom {
         position: absolute;
@@ -385,4 +389,8 @@ h6:hover .headerlink {
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+.menu-indent {
+  margin-left: 10px;
 }
