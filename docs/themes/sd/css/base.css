@@ -143,14 +143,9 @@ footer .container > div:last-child {
     top: 0;
 }
 
-.container .content {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
-
 .container .content h1::before,
-.container .content h2::before {
+.container .content h2::before,
+.container .content h3::before {
   display: block; 
   content: " "; 
   margin-top: -150px; 
@@ -206,7 +201,7 @@ footer .container > div:last-child {
 
 .bs-sidebar.well {
     padding: 0;
-    max-height: 90%;
+    max-height: calc(100% - 175px);
     overflow-y: auto;
     background-color: transparent;
     border-width: 0;
@@ -394,4 +389,8 @@ h6:hover .headerlink {
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+.menu-indent {
+  margin-left: 10px;
 }
