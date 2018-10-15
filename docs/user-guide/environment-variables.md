@@ -9,12 +9,16 @@ toc:
       active: true
     - title: Build Specific
       url: "#build-specific"
+    - title: <span class="menu-indent">General</span>
+      url: "#general"
+    - title: <span class="menu-indent">User configurable</span>
+      url: "#user-configurable"
     - title: Plugins
       url: "#plugins"
     - title: Directories
       url: "#directories"
     - title: Environment Variables
-      url: "#environment-variables_1"
+      url: "#environment-variables-1"
     - title: Source Code
       url: "#source-code"
     - title: URLs
@@ -30,15 +34,15 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 
 ## Build Specific
 
-#### General
+### General
 
 | Name | Description |
 |------|-------|
-| SD_BUILD_ID | Build number (e.g.: `1`, `2`, etc) |
-| SD_EVENT_ID | The ID of the event |
-| SD_JOB_ID | The ID of the job |
+| SD_BUILD_ID | The ID of the [build](../about/appendix/domain#build) |
+| SD_EVENT_ID | The ID of the [event](../about/appendix/domain#event) |
+| SD_JOB_ID | The ID of the [job](../about/appendix/domain#job) |
 | SD_JOB_NAME | Job name (e.g.: `main`) |
-| SD_PIPELINE_ID | The ID of the pipeline |
+| SD_PIPELINE_ID | The ID of the [pipeline](../about/appendix/domain#pipeline) |
 | SD_PIPELINE_NAME | The name of the pipeline (e.g.: `d2lam/myPipeline`) |
 | SD_PULL_REQUEST | Pull Request number (e.g.: `1`; blank if non-PR) |
 | SD_TEMPLATE_FULLNAME | Full template name the job is using (e.g.: `d2lam/myTemplate`; blank if not using template) |
@@ -47,7 +51,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template) |
 | SD_TOKEN | JWT token for the build |
 
-#### User-configurable
+### User configurable
 
 | Name | Default Value | Description |
 |------|---------------|-------------|

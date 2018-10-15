@@ -16,7 +16,7 @@ toc:
     - title: How do I update a pipeline repo and branch?
       url: "#how-do-i-update-a-pipeline-repo-and-branch"
     - title: How do I disable/enable a job temporarily?
-      url: "#how-do-i-disable/enable-a-job-temporarily"
+      url: "#how-do-i-disableenable-a-job-temporarily"
     - title: How do I make sure my code is in sync with my pipeline?
       url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
     - title: How do I delete a pipeline permanently?
@@ -33,6 +33,9 @@ toc:
       url: "#how-do-i-mark-a-build-as-unstable"
     - title: What shell does Screwdriver use?
       url: "#what-shell-does-screwdriver-use"
+    - title: How do I speed up time to upload artifacts?
+      url: "#how-do-i-speed-up-time-to-upload-artifacts"
+
 ---
 
 # Frequently Asked Questions
@@ -122,3 +125,6 @@ You can update a build with an `UNSTABLE` status by calling the [API](./api) in 
 ## What shell does Screwdriver use?
 
 By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You can specify a different shell (such as Bash) with the `USER_SHELL_BIN` [environment variable](./environment-variables).
+
+## How do I speed up time to upload artifacts?
+You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.
