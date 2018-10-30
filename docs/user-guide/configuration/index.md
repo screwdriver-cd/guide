@@ -28,8 +28,8 @@ You can access information about properties by hovering over the property name.
     <a href="#annotations"><span class="key">annotations</span>:
     <span class="key">beta.screwdriver.cd/my-cluster-annotation</span>: <span class="value">my-data</span></a>
         <a href="#executor"><span class="key">beta.screwdriver.cd/executor</span>: <span class="value">k8s-vm</span></a>
-        <a href="#cpu"><span class="key">beta.screwdriver.cd/cpu</span>: <span class="value">HIGH</span></a>
-        <a href="#ram"><span class="key">beta.screwdriver.cd/ram</span>: <span class="value">LOW</span></a>
+        <a href="#cpu"><span class="key">screwdriver.cd/cpu</span>: <span class="value">HIGH</span></a>
+        <a href="#ram"><span class="key">screwdriver.cd/ram</span>: <span class="value">LOW</span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
       <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
