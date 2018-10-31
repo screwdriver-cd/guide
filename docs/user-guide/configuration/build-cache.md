@@ -29,26 +29,39 @@ cache:
    pipeline:
        - ~/.gradle
    job:
-       test-job: [/tmp/test]
+       usejobcache: [/tmp/test]
 
 jobs:
-    usenpmcache:
+    setnpmcache:
         image: node:6
         steps:
             - install: npm install
         requires: [~commit, ~pr]
+    usenpmcache:
+        image: node:6
+        steps:
+            - ls: ls
+            - install: npm install
+        requires: [setnpmcache]
     usegradlecache:
         image: java:7
         steps:
             - ls: ls ~/
             - install: git clone https://github.com/gradle-guides/gradle-site-plugin.git && cd gradle-site-plugin && ./gradlew build
         requires: [~commit, ~pr]
+    usejobcache:
+        image: node:6
+        steps:
+            - ls-tmp: ls /tmp
+            - echo: echo hi > /tmp/testblah
+        requires: [~commit, ~pr]
 ```
 
-In the above example, we cache the `node_modules` folder under the event scope so that subsequent builds within the same event can save time on `npm install`. Similarly, the pipeline-scoped `.gradle` cache can be access under all other builds in the pipeline to save time on `gradle install`.
+In the above example, we cache the `node_modules` folder under the event scope in the `setnpmcache` build so that the downstream `usenpmcache` build within the same event can save time on `npm install`. Similarly, the pipeline-scoped `.gradle` cache can be access under all other builds in the pipeline to save time on `gradle install`. The `usejobcache` cache is available for use by the same `usejobcache` builds in subsequent events in the pipeline.
 
 
 ## Notes
 
 - To run the backend store service, please ensure it has enough available memory.
 - For cache cleanup, we use AWS S3 [Lifecycle Management](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html). If your store service is not configured to use S3, you might need to add a cleanup mechanism.
+- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` annotation to `HIGH` to provide more memory to the build.
