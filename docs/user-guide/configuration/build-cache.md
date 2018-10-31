@@ -22,7 +22,7 @@ Top-level setting that contains file paths from your build that you would like t
 
 ## Example
 
-```
+```yaml
 cache:
    event:
        - $SD_SOURCE_DIR/node_modules
