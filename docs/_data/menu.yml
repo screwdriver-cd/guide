@@ -30,6 +30,8 @@
           url: "/user-guide/configuration/sourcePaths"
         - title: "External Config"
           url: "/user-guide/configuration/externalConfig"
+        - title: "Build Cache"
+          url: "/user-guide/configuration/build-cache"
     - title: "Metadata"
       url: "/user-guide/metadata"
     - title: "Environment Variables"
