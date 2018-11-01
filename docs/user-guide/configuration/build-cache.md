@@ -24,10 +24,8 @@ Top-level setting that contains file paths from your build that you would like t
 
 ```yaml
 cache:
-   event:
-       - $SD_SOURCE_DIR/node_modules
-   pipeline:
-       - ~/.gradle
+   pipeline: [~/.gradle]
+   event: [$SD_SOURCE_DIR/node_modules]
    job:
        usejobcache: [/tmp/test]
 
@@ -53,15 +51,12 @@ jobs:
         image: node:6
         steps:
             - ls-tmp: ls /tmp
-            - echo: echo hi > /tmp/testblah
+            - echo: echo hi > /tmp/test
         requires: [~commit, ~pr]
 ```
 
-In the above example, we cache the `node_modules` folder under the event scope in the `setnpmcache` build so that the downstream `usenpmcache` build within the same event can save time on `npm install`. Similarly, the pipeline-scoped `.gradle` cache can be access under all other builds in the pipeline to save time on `gradle install`. The `usejobcache` cache is available for use by the same `usejobcache` builds in subsequent events in the pipeline.
+In the above example, the pipeline-scoped `.gradle` cache can be accessed under all builds in the pipeline to save time on `gradle install`. For event-scoped cache, we cache the `node_modules` folder under the event scope in the `setnpmcache` build so that the downstream `usenpmcache` build can save time on `npm install`. For job-scoped cache, we cache `/tmp/test` file so that it is available for any subsequent builds of the same job.
 
 
 ## Notes
-
-- To run the backend store service, please ensure it has enough available memory.
-- For cache cleanup, we use AWS S3 [Lifecycle Management](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html). If your store service is not configured to use S3, you might need to add a cleanup mechanism.
 - If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` annotation to `HIGH` to provide more memory to the build.
