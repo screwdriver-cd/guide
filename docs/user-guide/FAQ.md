@@ -35,6 +35,8 @@ toc:
       url: "#what-shell-does-screwdriver-use"
     - title: How do I speed up time to upload artifacts?
       url: "#how-do-i-speed-up-time-to-upload-artifacts"
+    - title: How do I disable shallow cloning?
+      url: "#how-do-i-disable-shallow-cloning"
 
 ---
 
@@ -128,3 +130,10 @@ By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You c
 
 ## How do I speed up time to upload artifacts?
 You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.
+
+## How do I disable shallow cloning?
+You can set the environment variable [`GIT_SHALLOW_CLONE`](./environment-variables#user-configurable) to `false` in order to disable shallow cloning.
+
+By default Screwdriver will shallow clone source repositories to a depth of 50. Screwdriver will also enable the `--no-single-branch` flag by default.
+
+If shallow cloning is left enabled and you wish to push back to your git repository, your image must contain a git version of 1.9 or later. Alternatively, you may use the version of git bundled with Screwdriver by invoking `sd-step exec core/git "GIT COMMAND"`.
