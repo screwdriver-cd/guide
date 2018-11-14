@@ -62,13 +62,21 @@ body.homepage div.container img {
 }
 
 .demo {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
 }
 
 .demo video {
-  height: 400px;
-  margin-top: 20px;
+    height: 400px;
+    margin-top: 20px;
+}
+
+/* without affecting existing styles, even though noticing something weird */
+.ug, .cm, .about {
+    position: relative;
+    z-index: 1;
+}
+
 
 /*@media (min-width: 768px) {
     .homepage .row p {
