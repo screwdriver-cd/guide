@@ -119,10 +119,10 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
 
 ## Branch filtering
-To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering jobs. The format is `~commit:branchName` or `~pr:branchName`. Also you can use regex filter after `~commit:` or `~pr:` (e.g. `~commit:/^feature-.*$/`).  
+To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering. The format is `~commit:branchName` or `~pr:branchName`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`). Note: Flags are not supported.
 
 ### Example
-In the following example, when staging branch is committed, `staging-commit` and `all-commit` are triggered. Also, when this pipeline's branch is committed, `main` and `all-commit` are triggered. When a pull request is opened in staging branch, `staging-pr` is triggered.
+In the following example, when branch `staging` is committed, `staging-commit` and `all-commit` are triggered. Also, when branch `master` is committed, `main` and `all-commit` are triggered. When a pull request is opened in branch `staging`, `staging-pr` is triggered.
 
 ```
 shared:
@@ -138,7 +138,9 @@ jobs:
         steps:
             - echo: echo staging
     all-commit:
-        requires: [~commit:/^.*$/]
+        requires: [~commit:/./]
+        # /./ matches any branch name and is used here for illustration only
+        # Don't use that regexp in any actual workflow.
         steps:
             - echo: echo all
     staging-pr:
