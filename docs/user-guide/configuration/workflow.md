@@ -30,7 +30,8 @@ To denote workflow order, use the `requires` keyword under a job with the job na
 #### Example
 In the following example, the job, `main`, will start after any SCM pull-request, _or_ commit event. The job, `second`, will run after `main` is successful.
 
-Please note that a job started by a pull-request will not trigger its downstream jobs. For example, if `main` starts and succeeds as a result of a pull-request being opened, `second` will not start afterwards.
+>Please note that a job started by a pull-request will not trigger its downstream jobs. For example, if `main` starts and succeeds as a result of a pull-request being opened, `second` will not start afterwards.
+
 ```
 jobs:
     main:
@@ -46,7 +47,7 @@ jobs:
             - echo: echo bye
 ```
 
-To specify a job to run when a pull request is opened, use `requires: [~pr]`. For jobs that should start after code is pushed, use `requires: [~commit]`.
+To specify a job to run when a pull request is opened or updated, use `requires: [~pr]`. For jobs that should start after code is merged or pushed to the main branch, use `requires: [~commit]`.
 
 ## Advanced Logic
 ### Advanced Logic [_AND_]
