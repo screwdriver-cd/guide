@@ -64,7 +64,9 @@ shared:
 The `jobs` section is where all the tasks (or `steps`) that each job will execute is defined.
 
 ### Workflow
-The `requires` keyword denotes the order that jobs will run. Requires is a single job name or array of job names. Special keywords like `~pr` or `~commit` indicate that the job will run after a PR is merged or code is committed, respectively.
+The `requires` keyword denotes the order that jobs will run. Requires is a single job name or array of job names. Special keywords like `~pr` or `~commit` indicate that the job will run after certain Git events occur:
+- `requires: ~pr` job runs when a pull request is opened; reruns when a commit/push event is made to that same pull request
+- `requires: ~commit` job runs when a PR is merged or a commit/push is made directly to the defined SD branch; also runs when the Start button is clicked in the UI
 
 ### Steps
 The `steps` section contains a list of commands to execute.
