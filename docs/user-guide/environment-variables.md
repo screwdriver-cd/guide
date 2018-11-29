@@ -78,7 +78,7 @@ These environment variables may or may not be available depending on what plugin
 | SD_ROOT_DIR | Location of workspace (e.g.: `/sd/workspace`) |
 | SD_SOURCE_DIR | Location of checked-out code (e.g.: `sd/workspace/src/github.com/d2lam/myPipeline`) |
 | SD_SOURCE_PATH | Location of source path which triggered current build. See [Source Paths](./configuration/sourcePaths). |
-| SD_CONFIG_DIR | Location of parent pipeline's repository (only set for [child pipelines](./configuration/external-config)) (e.g.: `sd/workspace/config`) |
+| SD_CONFIG_DIR | Location of parent pipeline's repository (only set for [child pipelines](./configuration/externalConfig)) (e.g.: `sd/workspace/config`) |
 
 ## Environment Variables
 
@@ -92,7 +92,7 @@ These environment variables may or may not be available depending on what plugin
 |------|-------|
 | SCM_URL | SCM URL that was checked out (e.g.: `https://github.com/d2lam/myPipeline`) |
 | GIT_URL | SCM URL that was checked out with .git appended (e.g.: `https://github.com/d2lam/myPipeline.git`) |
-| CONFIG_URL | SCM URL of the parent pipeline repository (only set for [child pipelines](./configuration/external-config)) |
+| CONFIG_URL | SCM URL of the parent pipeline repository (only set for [child pipelines](./configuration/externalConfig)) |
 | GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
 | SD_BUILD_SHA | The Git commit SHA (e.g.: `b5a94cdabf23b21303a0e6d5be5e96bd6300847a`) |
 
