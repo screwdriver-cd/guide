@@ -57,7 +57,7 @@ jobs:
     main:
         requires: [~pr, ~commit]
         image: node:8
-        environmment:
+        environment:
             USER_SHELL_BIN: bash
         steps:
             - step_name: step_command --arg1 --arg2 foo
