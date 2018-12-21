@@ -63,7 +63,7 @@ UIまたはAPIでSecretsを作成した際、`allowInPR` を有効にし、`main
 ## ユーザインタフェース
 
 パイプラインのSecretsを作成する一番簡単な方法はScrewdriverのUIを使うことです。
-![Secrets UI](../../../../assets/secrets.png)
+![Secrets UI](../../../assets/secrets.png)
 
 ### Secretsの作成
 

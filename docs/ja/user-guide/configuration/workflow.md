@@ -10,6 +10,8 @@ toc:
   url: "#ワークフローの順序を定義する"
 - title: 論理式を用いたワークフロー定義 (Advanced Logic)
   url: "#論理式を用いたワークフロー定義"
+  - title: ブランチフィルター
+    url: "#ブランチフィルター"
 - title: 並列実行と結合 (Parallel and Join)
   url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
@@ -34,22 +36,24 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 
 以下の例では、`main` ジョブは SCM のプルリクエスト、*または*コミットイベントをトリガーに開始されます。`second` ジョブは `main` ジョブが成功した後に開始されます。
 
+>プルリクエストによって開始されたジョブは、後続のジョブをトリガーしないことに注意してください。たとえば、プルリクエストが開かれた結果として `main`が開始し成功した場合、` second`はその後に開始しません。
+
 ```
 jobs:
-      main:
-            image: node:6
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
+    main:
+        image: node:6
+        requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
 
-      second:
-            image: node:6
-            requires: [main]
-            steps:
-                - echo: echo bye
+    second:
+        image: node:6
+        requires: [main]
+        steps:
+            - echo: echo bye
 ```
 
-プルリクエストがオープンされた時にジョブを実行したい場合は、 `requires: [~pr]` を使用してください。コードがプッシュされた後にジョブを実行したい場合は `requires: [~commit]` を使用してください。
+プルリクエストがオープンもしくは更新された時にジョブを実行したい場合は、 `requires: [~pr]` を使用してください。コードがマージされたりパイプラインを作成しているブランチに直接プッシュされた後にジョブを実行したい場合は `requires: [~commit]` を使用してください。
 
 ## 論理式を用いたワークフロー定義 (Advanced Logic)
 
@@ -128,6 +132,37 @@ jobs:
 
 これは `A OR C OR E OR (B AND D AND F)` という論理式と等価になります。このような複雑な `requires` は実際のワークフローではコードスメルとみなされるでしょう。
 
+## ブランチフィルター
+特定のブランチに対してコミットされた後にパイプラインでジョブをトリガーするには、ブランチフィルターを使用します。書式は `~commit：branchName`または`~pr：branchName`です。ブランチは([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~commit：/^feature-/`）。注：フラグはサポートしていません。
+
+### 例
+
+以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`と `all-commit`がトリガーされます。また、`master`ブランチに対してコミットされると、` main`と `all-commit`がトリガーされます。プルリクエストが`staging`ブランチでオープンされると、` staging-pr`がトリガーされます。
+```
+shared:
+    image: node:8
+
+jobs:
+    main:
+        requires: [~commit]
+        steps:
+            - echo: echo commit
+    staging-commit:
+        requires: [~commit:staging]
+        steps:
+            - echo: echo staging
+    all-commit:
+        requires: [~commit:/./]
+        # /./ matches any branch name and is used here for illustration only
+        # Don't use that regexp in any actual workflow.
+        steps:
+            - echo: echo all
+    staging-pr:
+        requires: [~pr:staging]
+        steps:
+            - echo: echo staging pr
+```
+
 ## 並列実行と結合 (Parallel and Join)
 
 1つの require から2つ以上のジョブを並列に実行することができます。並列に実行したジョブを1つのジョブに結合するには、複数のジョブを `requires` に設定します。
@@ -142,22 +177,22 @@ shared:
     image: node:6
 
 jobs:
-      main:
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
-      A:
-            requires: [main]
-            steps:
-                - echo: echo in parallel
-      B:
-            requires: [main]
-            steps:
-                - echo: echo in parallel
-      C:
-            requires: [A, B]
-            steps:
-                - echo: echo join after A and B
+    main:
+        requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
+    A:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    B:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    C:
+        requires: [A, B]
+        steps:
+            - echo: echo join after A and B
 ```
 
 ## 他のパイプラインからのトリガー

@@ -59,9 +59,20 @@ Email 通知を有効にしてビルドの結果を送信するには、Email �
 
 ## Slack
 
-Slack 通知を有効にしてビルドの結果を送信するには、`screwdriver-bot` をチャンネルに招待し、Slack の settings を利用します。 送信先には1つ以上の Slack チャンネルを設定できます。 また、Slack 通知を送信するタイミングも設定できます。例えば、ビルドステータスが `SUCCESS` または `FAILURE` になった場合、などです。
+Slack 通知を有効にしてビルドの結果を送信するには、`screwdriver-bot` をチャンネルに招待し、Slack の settings を利用します。パブリックチャンネルとプライベートチャンネルの両方をサポートしています。送信先には1つ以上の Slack チャンネルを設定できます。
 
-#### 例
+また、Slack通知を送信するタイミングも設定できます。例えば、ビルドステータスが `SUCCESS` または `FAILURE` になった場合などです。`statuses`を設定しない場合はビルドが失敗した場合のみ通知します。ステータスの全リストは[data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96)を参照してください。
+
+#### 例: 複数Roomの設定
+
+`slack`の設定値には配列形式で複数のチャンネルを指定することができます。
+
+```
+        settings:
+            slack: [mychannel, my-other-channel]
+```
+
+#### 例: ビルドステータスの通知
 
 この Slack 設定では、全てのビルドステータスに応じて `mychannel` と `my-other-channel` に Slack 通知を送信します:
 
