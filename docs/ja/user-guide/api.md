@@ -27,7 +27,7 @@ ScrewdriverのAPIとデータモデルは[Swagger](http://swagger.io/)を使っ�
 
 APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation)
 
-各自のScrewdriver.cdインスタンスでは、`/v4/documentation`にアクセスしてください。
+各自のScrewdriver.cdインスタンスでは、`<API URL>/v4/documentation`にアクセスしてください。
 
 ## APIを使用する
 
@@ -40,6 +40,11 @@ Swaggerページ:
 
 レスポンス:
 ![Swagger response](../../user-guide/assets/swagger-response.png)
+
+より詳細なドキュメントは、`Model`のリンクをクリックしてください。
+
+Swaggerモデル:
+![Swagger model](../../user-guide/assets/swagger-model.png)
 
 ### RESTクライアント経由で実行する
 
@@ -55,6 +60,33 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 リクエストの例:
 ![Postman response](../../user-guide/assets/postman.png)
 
+### ユーザまたはパイプラインAPIトークンを利用して実行する
+
+APIを利用した簡単なスクリプトのためには、APIトークンを利用することを推奨します。
+
+#### トークンを使用して認証する
+
+新しく作成したトークンで認証するには、`https://${API_URL}/v4/auth/token?api_token=${YOUR_TOKEN_VALUE}`へGETリクエストを送ります。するとtokenのフィールドを持ったJSONオブジェクトが返ってきます。tokenフィールドの値がJSON Web Tokenになっていて、ScrewdriverのAPIへリクエストを送る際にこのJSON Web TokenをAuthorizationヘッダーに付けて使用します。このJWTは12時間の有効期限があるので、期限が切れた後には再度認証を行う必要があります。
+
+#### 例：パイプラインをスタートさせる
+
+以下に、パイプランをスタートさせるためにAPIトークンを使用するやり方をPythonで記述した例があります。この例では直接APIを呼び出しています。
+```python
+# トークンを使用して認証
+auth_request = get('https://api.screwdriver.cd/v4/auth/token?api_token=%s' % environ['SD_KEY'])
+jwt = auth_request.json()['token']
+
+# ヘッダーをセット
+headers = { 'Authorization': 'Bearer %s' % jwt }
+
+# パイプラインのジョブを取得
+jobs_request = get('https://api.screwdriver.cd/v4/pipelines/%s/jobs' % pipeline_id, headers=headers)
+jobId = jobs_request.json()[0]['id']
+
+# 最初のジョブを開始する
+start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, data=dict(jobId=jobId))
+```
+
 詳しい情報と例についてはAPIドキュメントをご覧ください。
 
 ## 認証と認可
@@ -63,7 +95,7 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 * Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
 * ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。
 
-ScrewdriverのAPIトークンは [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings) にて管理できます。
+ScrewdriverのユーザAPIトークンは [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings) にて管理できます。パイプラインAPIトークンは、ScrewdriverのパイプラインのSecretsタブから管理できます。
 
 認可はSCMにより行われます。ScrewdriverはSCMトークンで以下を識別します。
 

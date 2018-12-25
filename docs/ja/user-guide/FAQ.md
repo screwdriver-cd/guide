@@ -25,6 +25,18 @@ toc:
   url: "#「Build-failed-to-start」のエラーを修正するには？"
 - title: ビルドのロールバックを行うには？
   url: "#ビルドのロールバックを行うには？"
+- title: 過去の成功時のビルドを再実行するには？
+  url: "#過去の成功時のビルドを再実行するには？"
+- title: ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
+  url: "#ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？"
+- title: ビルドをUNSTABLEの状態にするには？
+  url: "#ビルドをUNSTABLEの状態にするには？"
+- title: Screwdriverが使用しているシェルは？
+  url: "#Screwdriverが使用しているシェルは？"
+- title: Artifactsをアップロードする時間を短縮するには？
+  url: "#Artifactsをアップロードする時間を短縮するには？"
+- title: shallow cloningを無効にするには？
+  url: "#shallow-cloningを無効にするには？"
 ---
 
 # よくある質問と回答
@@ -107,3 +119,23 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
 3. スタートさせたいdetachedジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
 4. 「Yes」をクリックしてジョブを開始します。 ![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
+
+### ビルドをUNSTABLEの状態にするには？
+
+ビルド中に[API](./api)を呼び出すことで、ビルドのステータスを`UNSTABLE`にすることができます。[UNSTABLEビルドのサンプルリポジトリ](https://github.com/screwdriver-cd-test/unstable-build-example)を参照してください。
+
+### Screwdriverが使用しているシェルは？
+
+ステップに記述した処理はデフォルトでBourne shell (`/bin/sh`)で実行されます。他のシェル（bashなど）で実行したい場合は`USER_SHELL_BIN`[環境変数](./environment-variables#ユーザ設定)で指定することができます。
+
+### Artifactsをアップロードする時間を短縮するには？
+
+管理者が予め使用できるように設定していれば、[`SD_ZIP_ARTIFACTS`](./environment-variables#ユーザ設定)の環境変数を`true`にすることで、Artifactsをアップロードする前にzip化します。
+
+### shallow cloningを無効にするには？
+
+shallow cloningを無効にするには、[`GIT_SHALLOW_CLONE`](./environment-variables#ユーザ設定)の環境変数を`false`にセットします。
+
+デフォルトではScrewdriverはdepth 50でソースリポジトリをshallow cloneします。また、`--no-single-branch`のフラグもデフォルトで有効にしています。
+
+shallow cloningを有効のままにしてgitリポジトリへpushを行うのであれば、使用するイメージに含まれるgitのバージョンが1.9かそれ以上である必要があります。あるいは、`sd-step exec core / git" GIT COMMAND "`を呼び出して、Screwdriverにバンドルされているバージョンのgitを使用することもできます。
