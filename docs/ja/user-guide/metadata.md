@@ -48,6 +48,10 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
+注意:
+
+- `foo`がセットされていない場合に`meta get foo`を実行した場合、デフォルトで`null`を返します。
+
 ### 外部パイプライン
 
 Screwdriverのビルドは外部トリガー元のジョブのMetadataにも `--external` フラグにトリガー元のジョブを指定することでアクセスすることができます。
@@ -62,4 +66,4 @@ $ meta get example --external sd@123:publish
 注意:
 
 - `meta set` は外部パイプラインのジョブに対してはできません。
-- もしフラグの値がトリガー元のジョブではなかった場合、 `meta get` は `null` を返します。
+- もし `--external` フラグの値がトリガー元のジョブではなかった場合、meta はセットされません。
