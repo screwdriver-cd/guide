@@ -37,7 +37,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 
 ### 全般
 
-Name | Description
+環境変数名 | 説明
 --- | ---
 SD_BUILD_ID | [ビルド](../about/appendix/domain#ビルド)番号 (例: 1, 2, など)
 SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID 
@@ -54,7 +54,7 @@ SD_TOKEN | ビルド用の JWT トークン
 
 ### ユーザ設定
 
-| name | Default Value | Description |
+| 環境変数名 | デフォルト値 | 説明 |
 |------|---------------|-------------|
 | SD_ZIP_ARTIFACTS | false | **オプション:** (`true`/`false`) <br><br>artifacts を単一の zip ファイルにしてアップロードします。<br><br>**ユースケース:** Amazon S3 を store に使用していて、AWS Lambda を使用して zip ファイルを store 上で unzip 出来る場合で、ビルドで大量の artifacts が生成される場合にアップロード時間を短縮できます。ただし、Lambda の計算資源はビルドごとに限られているため zip ファイルの内部に含めるファイルの数やサイズには上限があります。アップロードに失敗する場合、Lambda が扱える量を超えているのが原因かもしれません。<br><br>**注意:** このオプションが利用可能かどうかは、クラスタ管理者に問い合わせてください。 |
 | USER_SHELL_BIN | sh | ビルド内で実行されるシェルを指定します。`/bin/bash`のように、絶対パスでの指定もできます。
@@ -66,19 +66,19 @@ SD_TOKEN | ビルド用の JWT トークン
 
 ### カバレッジ(Sonar)
 
-| Name | Description |
+| 環境変数名 | 説明 |
 |------|-------|
 | SD_SONAR_AUTH_URL | Sonar のアクセストークンを返す Screwdriver API の認証 URL |
 | SD_SONAR_HOST | Sonar のホストの URL |
 
 ## ディレクトリ
 
-Name | Description
+環境変数名 | 説明
 --- | ---
 SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
 SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ
 SD_META_PATH | [メタデータ](./metadata)ファイルのパス
-SD_ROOT_DIR | ワークスペースのディレクトリ (e.g.: `/sd/workspace`)
+SD_ROOT_DIR | ワークスペースのディレクトリ (例: `/sd/workspace`)
 SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ (例: `sd/workspace/src/github.com/d2lam/myPipeline`)
 SD_SOURCE_PATH | ビルドをトリガーしたソースのパス。参考: [Source Paths](./configuration/sourcePaths).
 SD_CONFIG_DIR | 親パイプラインのリポジトリのディレクトリ([子パイプライン](./configuration/externalConfig)でのみ設定されます) (例: `sd/workspace/config`) |
@@ -86,13 +86,13 @@ SD_CONFIG_DIR | 親パイプラインのリポジトリのディレクトリ([�
 
 ## 環境変数
 
-Name | Description
+環境変数名 | 説明
 --- | ---
 <environment_variable> | [screwdriver.yaml](configuration/) の "environment" の項目で設定された環境変数
 
 ## ソースコード
 
-Name | Description
+環境変数名 | 説明
 --- | ---
 SCM_URL | チェックアウトされた SCM の URL
 GIT_URL | チェックアウトされた SCM の URL に .git を追加した URL
@@ -102,7 +102,7 @@ SD_BUILD_SHA | Git の commit SHA (例: `b5a94cdabf23b21303a0e6d5be5e96bd6300847
 
 ## URLs
 
-Name | Description
+環境変数名 | 説明
 --- | ---
 SD_API_URL | Screwdriver API の URL へのリンク
 SD_BUILD_URL | Screwdriver のビルドページへのリンク
@@ -110,7 +110,7 @@ SD_STORE_URL | Screwdriver Store の URL へのリンク
 
 ## 継続的インテグレーション
 
-Name | Description
+環境変数名 | 説明
 --- | ---
 SCREWDRIVER | `true`
 CI | `true`
