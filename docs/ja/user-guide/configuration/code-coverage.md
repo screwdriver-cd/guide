@@ -11,7 +11,7 @@ toc:
 ---
 # コードカバレッジ
 
-ビルドの実行が完了した後、コードカバレッジのパーセンテージをUI上で表示し、コードカバレッジのデータをアップロードします。
+ビルド完了後、コードカバレッジ率がUI上に表示されるようになり、コードカバレッジデータがアップロードされます。
 
 ![Coverage in build detail page](../../../user-guide/assets/coverage.png)
 
@@ -54,8 +54,8 @@ jobs:
 
 ### 注意
 
-- `sonar-project.properties` と `$SD_SONAR_OPTS` で同じプロパティを設定していた場合、`$SD_SONAR_OPTS` がプロパティファイルを上書きします。
-- Screwdriver は次のプロパティを自動で設定します。(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`) `sonar.sources` は自分で設定する必要があります。
+- `sonar-project.properties` と `$SD_SONAR_OPTS` で同じプロパティを設定していた場合、`$SD_SONAR_OPTS` の設定が優先されます。
+- Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`)を自動で設定します。`sonar.sources` は自分で設定する必要があります。
 - `sonar.projectVersion` には、`$SD_BUILD_SHA` が設定されます。
 
 ### 関連リンク
