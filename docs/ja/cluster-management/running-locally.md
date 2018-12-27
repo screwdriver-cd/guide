@@ -15,28 +15,18 @@ toc:
 
 # ローカルで実行
 
-Screwdriver-in-a-boxツールを使用することで、Screwdriverをローカルで実行することができます。
+Screwdriver-in-a-box ツールを使用することで、Screwdriver をローカルで実行することができます。
 
 ## SD-in-a-Box
 
-このツールによりScrewdriverのすべてのインスタンス（UI、API、ログストア）がローカルで起動し、試すことができます。
+このツールにより Screwdriver のすべてのインスタンス（UI、API、ログストア）がローカルで起動し、試すことができます。
 
-### 必要なもの
-
-- Mac OSX 10.10+
-- [Docker for Mac](https://www.docker.com/products/docker)
-- [Docker Compose 1.8.1+](https://www.docker.com/products/docker-compose)
-- Python 2.6+
-
-次のコマンドを端末で実行するとScrewdriverクラスタがローカルに起動します。
-
-```bash
-$ python <(curl https://raw.githubusercontent.com/screwdriver-cd/screwdriver/master/in-a-box.py)
-```
-
-Client IDとClient Secretを聞かれますので入力します。その後`y`と入力すればScrewdriverが起動します！
+[SD-in-a-box のドキュメント](https://github.com/screwdriver-cd/in-a-box#screwdriver-in-a-box)に従って実行してください。
 
 ![SD-in-a-box](../../cluster-management/assets/sd-in-a-box.png)
+
+[docker]: https://www.docker.com/products/docker
+[docker-compose]: https://www.docker.com/products/docker-compose
 
 ## SD-in-a-Boxの設定
 
@@ -81,7 +71,7 @@ $ docker-compose -p screwdriver up
 
 変更したいコンポーネントに合わせて`docker-compose.yaml`を修正します。 例えば、以下のローカルのソース修正で、APIを変更することができます。
 
-```
+```yaml
 services:
   api:
     # this "build" stanza replaces the default "image" setting
@@ -97,7 +87,7 @@ services:
 修正を反映させるために、docker-composeをリビルドする必要があります。
 
 ```bash
-$ docker-compose build
+$ docker-compose build --no-cache
 ```
 
 ローカルクラスタを再起動することで、行った修正が適用されます。
@@ -127,32 +117,61 @@ $ docker-compose -p screwdriver up
 
 UIのローカル開発インスタンスを使うように設定することが可能です。
 
-デフォルトでUIはポートを`4200`に、APIはポートを`8080`に設定されています。UIの`config/environment.js`をローカルのScrewdriverのクラスタ、特にAPIを指すように変更する必要があるかもしれません。この変更は、`return ENV;`文の丁度一行前の値を変更することで可能です。
+開発モードでは、デフォルトでは UI は自身の `4200` のポートで起動し、API　はローカルの `8080` で起動するようになっています。
+開発モードで、デフォルトで UI はポートを`4200`に、API はポートを`8080`に設定されています。UI の `config/environment.js` をローカルの Screwdriver のクラスタ、特に API を指すように変更する必要があるかもしれません。これは、`docker-compose.yml` の services -> api -> environment -> `URI` と `ECOSYSTEM_STORE` の値に一致するように`SDAPI_HOSTNAME` と `SDSTORE_HOSTNAME` の値を変更することでできます。
 
 以下のスニペットは`config/environment.js`で変更すべき部分のハイライトです。
 
 ```js
- . . .
- ENV.APP.SDAPI_HOSTNAME = 'http://11.22.33.44:8080';  // 8080 is the default. You can also change this
- return ENV;
+ ...
+ APP: {
+       // インスタンス作成時にここでフラグやオプションを渡すことも出来ます。
+       SDAPI_HOSTNAME: 'http://172.142.26.99:9001',
+       SDAPI_NAMESPACE: 'v4',
+       SDSTORE_HOSTNAME: 'http://172.142.26.99:9002',
+       ...
+      },
 ```
 
-以下のスニペットは`docker-compose.yml`で変更すべき部分のハイライトです。ローカルのUIインスタンスを使用するために、SD-in-a-boxクラスタに合わせる必要があります。
+以下のスニペットは`docker-compose.yml`で変更すべき部分のハイライトです。ローカルのUIインスタンスを使用するために、SD-in-a-boxクラスタに合わせる必要があります。`service` 以下にある `ui` を削除する必要もあります。
 
-```
+```yaml
 version: '2'
 services:
-  api:
+    api:
+        image: screwdrivercd/screwdriver:stable
+        ports:
+            - 9001:80
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:rw
+            - ./data/:/tmp/sd-data/:rw
+        environment:
+            PORT: 80
+            URI: http://172.142.26.99:9001 # API
+            ECOSYSTEM_UI: http://localhost:4200 # need to change to this value here
+            ECOSYSTEM_STORE: http://172.142.26.99:9002 # Store
     . . .
-    ports:
-      - 8080:80    # UI default port for API is 8080. This can be changed according to the value you set in config/environment.js
-    environment:
-      URI: http://11.22.33.44:8080             # Tells the launcher where to communicate build updates to the API.
-      ECOSYSTEM_UI: http://11.22.33.44:4200    # Tells the API where the UI is hosted. Related to OAuth mismatching-hostname issues
-    . . .
+    store:
+        image: screwdrivercd/store:stable
+        ports:
+            - 9002:80
+        environment:
+            ECOSYSTEM_UI: http://localhost:4200
+            URI: http://172.142.26.99:9002
 ```
 
-`URI`の値にIPアドレスを設定している場合、`localhost`を`ECOSYSTEM_UI`の値に設定することはできません。ログイン後に有効でないトークンを受け取ってしまいます。
+`URI` の値にIPアドレスを設定している場合、`localhost`を`ECOSYSTEM_UI`の値に設定することはできません。ログイン後に有効でないトークンを受け取ってしまいます。
+
+このように変更したら、UI を http://localhost:4200 で実行するために、UI の [README.md](https://github.com/screwdriver-cd/ui/#screwdriver-ui) にある通りに実行します。
+
+新しい変更を加えたら、SD-in-a-box を再実行します。
+```bash
+$ docker-compose -p screwdriver up
+$ docker-compose build --no-cache
+$ docker-compose -p screwdriver up
+```
+
+_注意: Chrome を使用するとログインに問題が発生します。別のブラウザを使用してください。_
 
 #### APIの設定
 
@@ -168,7 +187,7 @@ APIのローカル開発インスタンスを使うように設定すること�
 
 以下のスニペットは`docker-compose.yml`で変更すべき部分のハイライトです。ローカルのストアインスタンスを使用するためにSD-in-a-boxクラスタに合わせる必要があります。
 
-```
+```yaml
 version: '2'
 services:
   store:

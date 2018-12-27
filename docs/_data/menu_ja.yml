@@ -57,7 +57,7 @@
         - title: "Kubernetes"
           url: "/ja/cluster-management/kubernetes"
     - title: "FAQ"
-      url: "/cluster-management/FAQ"
+      url: "/ja/cluster-management/FAQ"
 - title: "概要"
   subcategories:
     - title: "Screwdriverとは"
