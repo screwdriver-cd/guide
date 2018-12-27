@@ -79,9 +79,9 @@ SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
 SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ
 SD_META_PATH | [メタデータ](./metadata)ファイルのパス
 SD_ROOT_DIR | ワークスペースのディレクトリ (例: `/sd/workspace`)
-SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ (例: `sd/workspace/src/github.com/d2lam/myPipeline`)
+SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ (例: `/sd/workspace/src/github.com/d2lam/myPipeline`)
 SD_SOURCE_PATH | ビルドをトリガーしたソースのパス。参考: [Source Paths](./configuration/sourcePaths).
-SD_CONFIG_DIR | 親パイプラインのリポジトリのディレクトリ([子パイプライン](./configuration/externalConfig)でのみ設定されます) (例: `sd/workspace/config`) |
+SD_CONFIG_DIR | 親パイプラインのリポジトリのディレクトリ([子パイプライン](./configuration/externalConfig)でのみ設定されます) (例: `/sd/workspace/config`) |
 
 
 ## 環境変数
