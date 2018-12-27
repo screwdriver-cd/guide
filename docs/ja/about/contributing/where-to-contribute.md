@@ -11,16 +11,16 @@ toc:
 
 Screwdriver はモジュールアーキテクチャを採用しているので、様々な機能がリポジトリに分割されています。
 
-Screwdriver を使用した継続的デリバリーのワークフロー全体を理解するために、 [architecture diagram][arch-diagram] を確認してください。次からの項が、どこにどんなコードがあるのかを特定するのに役立つでしょう。
+Screwdriver を使用した継続的デリバリーのワークフロー全体を理解するために、 [architecture diagram][arch-diagram] を確認してください。次節以降の説明が、どこにどんなコードがあるのかを特定するのに役立つでしょう。
 
 ### [Screwdriver API][api-repo]
-**[screwdriver][api-repo]** リポジトリは screwdriver の核となる API エンドポイントを提供しているリポジトリです。API は *[hapijs framework](http://hapijs.com/)* をベースにしていて、数々のプラグインとして実装されています。
+**[screwdriver][api-repo]** リポジトリは screwdriver の核となる API エンドポイントを提供しているリポジトリです。API は *[hapijs framework](http://hapijs.com/)* をベースにしており、数々のプラグインとして実装されています。
 
 * **[Build bookends][build-bookend-repo]** で、ユーザはビルドの setup や teardown のステップを作成できます。
 
-* API はユーザに通知も送れます。[notifications-base][notifications-base-repo] が [email notifications][notifications-email-repo] and [slack notifications][notifications-slack-repo] のような Screwdriver と通知プラグインの間の挙動を定義するためのベースとなるクラスです。
+* API はユーザに通知も送れます。[notifications-base][notifications-base-repo] は Screwdriver と [email notifications][notifications-email-repo] や [slack notifications][notifications-slack-repo] といった通知プラグインの間のやりとりを定義するためのベースとなるクラスです。
 
-* API はコードカバレッジのレポートやテスト結果をアップロードすることもできます。[coverage-bookend][coverage-bookend-repo] で Screwdriver と coverage bookends の間の関係が定義されています。[coverage-base][coverage-base-repo] は、[coverage-sonar][coverage-sonar-repo] のような Screwdriver と coverage bookend プラグインの間の挙動を定義するためのベースとなるクラスです。
+* API はコードカバレッジのレポートやテスト結果をアップロードすることもできます。[coverage-bookend][coverage-bookend-repo] で Screwdriver と coverage bookends の間の関係が定義されています。[coverage-base][coverage-base-repo] は、Screwdriver と [coverage-sonar][coverage-sonar-repo] といった coverage bookend プラグインの間のやりとりを定義するためのベースとなるクラスです。
 
 ### [Launcher][launcher-repo]
 
@@ -32,7 +32,7 @@ Screwdriver を使用した継続的デリバリーのワークフロー全体�
 
 ### Executors
 
-Executor は、与えられたジョブでビルドコンテナを管理するのに使用されます。いくつかの executor が実装されていて、共通のインターフェースに従うように設計されています。Executor の実装は node で書かれています。
+Executor は、全ての所与のジョブについてビルドコンテナを管理するのに使用されます。いくつかの executor が実装されていて、共通のインターフェースに従うように設計されています。Executor の実装は node で書かれています。
 
 * **[executor-base][executor-base-repo]**: 共通のインターフェース
 * **[executor-docker][executor-docker-repo]**: Docker の実装
@@ -47,8 +47,8 @@ Executor は、与えられたジョブでビルドコンテナを管理する�
 
 オブジェクトモデルにより、データストア(データベース)へ保存されるデータの定義がされています。これは2つの部分からなります。
 
-* **[data-schema][dataschema-repo]**: *[Joi](https://www.npmjs.com/package/joi)* で定義された schema
-* **[models][models-repo]**: data schema 周りのビジネスロジックを定義
+* **[data-schema][dataschema-repo]**: *[Joi](https://www.npmjs.com/package/joi)* で定義されたスキーマ
+* **[models][models-repo]**: データスキーマ周りのビジネスロジックを定義
 
 ### Datastores
 
