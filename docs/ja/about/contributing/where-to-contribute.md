@@ -32,7 +32,7 @@ Screwdriver を使用した継続的デリバリーのワークフロー全体�
 
 ### Executors
 
-Executor は、全ての所与のジョブについてビルドコンテナを管理するのに使用されます。いくつかの executor が実装されていて、共通のインターフェースに従うように設計されています。Executor の実装は node で書かれています。
+Executor は、全ての与えられたジョブについてビルドコンテナを管理するのに使用されます。いくつかの executor が実装されていて、共通のインターフェースに従うように設計されています。Executor の実装は node で書かれています。
 
 * **[executor-base][executor-base-repo]**: 共通のインターフェース
 * **[executor-docker][executor-docker-repo]**: Docker の実装
@@ -52,7 +52,7 @@ Executor は、全ての所与のジョブについてビルドコンテナを�
 
 ### Datastores
 
-API と データストレージの間のインターフェースとして実装されています。node で書かれたいくつかの実装があります。
+API と データストレージの間のインターフェースとして実装されています。nodejs で書かれたいくつかの実装があります。
 
 * **[datastore-base][datastore-base-repo]**: datastore の実装のためのインターフェースを定義するベースクラス
 * **[datastore-sequelize][datastore-sequelize-repo]**: MySQL, PostgreSQL, SQLite3, MS SQL の実装
@@ -60,7 +60,7 @@ API と データストレージの間のインターフェースとして実装
 
 ### Artifacts
 
-[Artifact Store][store-repo] (上記のデータストアと混同しないよう注意) はログの出力や、shared step、テンプレート、テストカバレッジやその他ビルド中に生成された artifacts を保存するために使用されます。[log service][log-service-repo] は Launcher からログを読み取り、 store へアップロードする Go のツールです。[artifact-bookend][artifact-bookend-repo] はartifact を store へアップロードするのに使用されます。
+[Artifact Store][store-repo] (上記のデータストアと混同しないよう注意) はログの出力や、shared step、テンプレート、テストカバレッジやその他ビルド中に生成された artifacts を保存するために使用されます。[log service][log-service-repo] は Launcher からログを読み取り、 store へアップロードする Go のツールです。[artifact-bookend][artifact-bookend-repo] は artifacts を store へアップロードするのに使用されます。
 
 ### Source Code Management
 
