@@ -51,6 +51,7 @@ TODO：ターゲットとなるユースケースと典型的なエンタープ�
 - Amazon ECS
 - Mesos
 - Docker Swarm
+- Nomad (Hashicorp)
 
 ### 当初の分析
 
@@ -60,6 +61,6 @@ TODO：ターゲットとなるユースケースと典型的なエンタープ�
 - MesosはYahoo内部で利用されています。利用し始めるのは難しく、フレームワークの調査により多くの時間が必要です。
 - Docker Swarmも候補ですが、他の選択肢よりも成熟していません。今後の成長に注目です。
 
-Capabilities analysis requires learning the underlying systems to a certain degree.  The evaluation process includes an end to end integration to understand integration points as well as the strength and weaknesses of the system.  Kubernetes was chosen for the first end to end integration.
+性能分析では、基盤となるシステムをある程度学習する必要があります。評価プロセスには、統合ポイントとシステムの長所と短所を理解するためのエンドツーエンドの統合が含まれます。 Kubernetesは、最初のエンドツーエンドの統合に選ばれました。
 
-TODO: add results of evaluations
+TODO: 評価の結果を追加する。
