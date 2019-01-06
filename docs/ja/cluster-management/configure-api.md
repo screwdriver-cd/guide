@@ -38,7 +38,7 @@ Screwdriverは最初から[多くのデフォルト設定](https://github.com/sc
 
 キー | 必須 | 説明
 --- | --- | ---
-JWT_ENVIRONMENT | いいえ | JWT を生成する環境です。例えば `prod` や `beta` などを指定します。JWT に環境を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)
+JWT_ENVIRONMENT | いいえ | JWT を生成する環境です。例えば `prod` や `beta` などを指定します。JWT に環境変数を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)
 SECRET_JWT_PRIVATE_KEY | はい | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。`$ openssl genrsa -out jwt.pem 2048`
 SECRET_JWT_PUBLIC_KEY | はい | 署名を検証するための公開鍵です。次のコマンドにより生成できます。`$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
 SECRET_COOKIE_PASSWORD | はい | セッションデータを暗号化するためのパスワードです。**32文字以上である必要があります。**
@@ -355,7 +355,7 @@ executor:
 
 | 環境変数名       | デフォルト値 | 説明                                 |
 |:-----------------------|:--------------|:--------------------------------------------|
-| EXECUTOR_PLUGIN        | nomad         | Nomad executor                              |
+| EXECUTOR_PLUGIN        | k8s         | デフォルトの executor (`nomad` を設定してください)  |
 | LAUNCH_VERSION         | latest        | 使用する Launcher のバージョン                     |
 | EXECUTOR_NOMAD_ENABLED | true          | Nomad executor を利用可能にするフラグ              |
 | NOMAD_HOST             | nomad.default | Nomad のホスト (例: http://192.168.30.30:4646) |
