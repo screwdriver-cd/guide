@@ -26,7 +26,7 @@ toc:
 ```yaml
 jobs:
     main:
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
 ```
 
 Screwdriverはテンプレートの設定を読み込み、`screwdriver.yaml`は以下のようになります。
@@ -57,7 +57,7 @@ jobs:
 jobs:
     main:
         requires: [~pr, ~commit]
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
         steps:
             - preinstall: echo pre-install
             - postinstall: echo post-install
@@ -76,26 +76,42 @@ jobs:
 jobs:
     main:
         requires: [~pr, ~commit]
-        template: template_name@1.3.0
+        template: myNamespace/template_name@1.3.0
         steps:
             - install: echo skip installing
 ```
 
 この例では、`echo skip installing` が `install` ステップで実行されます。
 
+テンプレートで定義済みのイメージを置換することも出来ます。テンプレートの中には、置換された後のイメージが持っていないコマンドや環境変数を前提としているものもあるので、イメージの置換は慎重に行ってください。
+
+例:
+
+```yaml
+jobs:
+    main:
+        equires: [~pr, ~commit]
+        image: my_org/my_image:latest
+        template: myNamespace/template_name@1.3.0
+```
+
 ## テンプレートを作成する
 
 ### テンプレート yaml を書く
 
-テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートの名前、バージョン、説明、管理者のメールアドレス、使用するイメージと実行するステップの設定が必要です。
+テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するイメージと実行するステップの設定が必要です。ネームスペースが指定されていない場合、`default` のネームスペースが適用されます。オプションとして、サポートされてるイメージをラベル付きのリストで定義することもできます。
 
 `sd-template.yaml`の例:
 
 ```yaml
+namespace: myNamespace
 name: template_name
 version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
+images:
+    stable-image: node:6
+    latest-image: node:7
 config:
     image: node:6
     steps:
@@ -141,18 +157,18 @@ jobs:
         steps:
             - install: npm install screwdriver-template-main
             - publish: ./node_modules/.bin/template-publish
-            - autotag: ./node_modules/.bin/template-tag --name template_name --tag latest
-            - tag: ./node_modules/.bin/template-tag --name template_name --version 1.3.0 --tag stable
+            - autotag: ./node_modules/.bin/template-tag --name myNamespace/template_name --tag latest
+            - tag: ./node_modules/.bin/template-tag --name myNamespace/template_name --version 1.3.0 --tag stable
         environment:
             SD_TEMPLATE_PATH: ./path/to/template.yaml
     remove:
         steps:
             - install: npm install screwdriver-template-main
-            - remove: ./node_modules/.bin/template-remove --name template_name
+            - remove: ./node_modules/.bin/template-remove --name myNamespace/template_name
     remove_tag:
         steps:
             - install: npm install screwdriver-template-main
-            - remove_tag: ./node_modules/.bin/template-remove-tag --name template_name --tag stable
+            - remove_tag: ./node_modules/.bin/template-remove-tag --name myNamespace/template_name --tag stable
 ```
 
 Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートのバリデートとパブリッシュを行うためにビルドを開始します。
