@@ -69,7 +69,7 @@ toc:
     <div class="yaml-side">
         <div id="requires" class="hidden">
             <h4>Requires</h4>
-            <p>ジョブ実行のトリガーとなる1つまたは複数のジョブの配列を設定します。"requires: ~pr"が設定されたジョブはプルリクエストイベントにより実行されます。"requires: ~commit"が設定されたジョブはプッシュイベントにより実行されます。"requires: ~sd@123:main"が設定されたジョブはパイプライン"123"の"main"ジョブの完了により実行されます。"requires: [deploy-west, deploy-east]"が設定されたジョブは"deploy-west"と"deploy-east"の両方のジョブの成功後に実行されます。"注意: ~ のジョブはOR条件で、~ なしのジョブはジョインの働きをします。"</p>
+            <p>ジョブ実行のトリガーとなる1つまたは複数のジョブの配列を設定します。"requires: ~pr"が設定されたジョブはプルリクエストがオープン、リオープン、更新された時に実行されます。"requires: ~commit"が設定されたジョブはPRがマージされた時や、パイプラインを作成しているブランチに直接commit/pushされた時、またはUIのStartボタンがクリックされた時に実行されます。"requires: ~sd@123:main"が設定されたジョブはパイプライン"123"の"main"ジョブの完了により実行されます。"requires: [deploy-west, deploy-east]"が設定されたジョブは"deploy-west"と"deploy-east"の両方のジョブの成功後に実行されます。"注意: ~ のジョブはOR条件で、~ なしのジョブはジョインの働きをします。"</p>
         </div>
         <div id="sourcePaths" class="hidden">
             <h4>Source Paths</h4>
@@ -121,4 +121,3 @@ toc:
         </div>
     </div>
 </div>
-

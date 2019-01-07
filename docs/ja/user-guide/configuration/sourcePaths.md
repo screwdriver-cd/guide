@@ -51,6 +51,10 @@ jobs:
 この例では、`main` ジョブは `src/app/` 以下にあるファイル (`src/app/main.js`, `src/app/package.json` など) の更新、または `screwdriver.yaml` の更新でトリガーされます。
 しかし `main` ジョブは、`README.md`, `test/` または `src/other/` の更新では**トリガーされません**。
 
+### マッチしたソースパス
+
+Screwdriverはビルドをトリガーしたソースパスを環境変数`SD_SOURCE_PATH`にセットします。この値は変更されたファイルのいずれかとマッチする`sourcePaths`の最初のパスになり、そのビルドをトリガしたソースパスに依存するスクリプトを書く場合に使用できます。
+
 ### 警告
 
 - この機能は現在 [Github SCM](https://github.com/screwdriver-cd/scm-github) のみでご利用いただけます。
