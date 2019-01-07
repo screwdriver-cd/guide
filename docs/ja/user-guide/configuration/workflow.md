@@ -153,8 +153,8 @@ jobs:
             - echo: echo staging
     all-commit:
         requires: [~commit:/./]
-        # /./ matches any branch name and is used here for illustration only
-        # Don't use that regexp in any actual workflow.
+        # /./は任意のブランチ名にマッチします
+        # ここでは説明のために使用していますが、実際のワークフローでは使用しないでください
         steps:
             - echo: echo all
     staging-pr:

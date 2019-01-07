@@ -69,12 +69,12 @@ jobs:
         steps:
             - step_name: step_command --arg1 --arg2 foo
             - set_env: export FOO=bar
-            - get_env: echo $FOO           # this will echo bar
+            - get_env: echo $FOO           # barが表示されます
             - cd: |
-                pwd                        # prints '/sd/workspace/src/github.com/tkyi/mytest'
+                pwd                        # '/sd/workspace/src/github.com/tkyi/mytest'が表示されます
                 cd ..
-            - pwd: pwd                     # prints '/sd/workspace/src/github.com/tkyi'
-            - bash-only: echo ${FOO%r}     # this will echo ba
+            - pwd: pwd                     # '/sd/workspace/src/github.com/tkyi'が表示されます
+            - bash-only: echo ${FOO%r}     # baが表示されます
             - fail: commanddoesnotexist
             - teardown-mystep1: echo goodbye
             - teardown-mystep2: echo world

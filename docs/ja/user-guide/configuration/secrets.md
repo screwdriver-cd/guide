@@ -38,7 +38,7 @@ publish:
     steps:
         - publish-npm: npm publish
     secrets:
-        # Publishing to NPM
+        # NPMへのパブリッシュで利用
         - NPM_TOKEN
 ```
 
