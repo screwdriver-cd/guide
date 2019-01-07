@@ -62,3 +62,21 @@ $ meta get example --external sd@123:publish
 Notes:
 - `meta set` is not allowed for external builds.
 - If the `--external` flag did not trigger the build, then meta will not be set.
+
+### Pull Request Comments
+You can write comments to pull requests in Git with metadata information. The contents of the comments should be written to the meta summary object from your pipeline's PR build.
+
+To write out metadata to a pull request, you just need to set the `meta.summary` meta object with desired information. This data will show up as a comment in Git by the pipeline administrator.
+
+For example, to add a coverage description:
+```
+meta set meta.summary.coverage "Coverage increased by 15%"
+```
+
+You can also write things in markdown syntax by setting `meta.summary.markdown`:
+```
+meta set meta.summary.markdown "this markdown comment is **bold** and *italic*"
+```
+These settings will result in a Git comment that looks like:
+
+![PR comment](./assets/pr-comment.png)
