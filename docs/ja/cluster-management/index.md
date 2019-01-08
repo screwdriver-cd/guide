@@ -61,6 +61,9 @@ Screwdriverには5つの主要コンポーネントがあり、最初の3つはS
 - **Launcher**
     ソースコードの取得や環境のセットアップ、各ジョブで定義されたコマンドの実行を行う自己完結のツール
 - **実行エンジン**
-    コンテナの中でコマンドを実行するための挿し替え可能なビルド実行エンジン(Jenkins, KubernetesやDockerなど)
+    コンテナの中でコマンドを実行するための挿し替え可能なビルド実行エンジン(Jenkins, Kubernetes, Nomad や Dockerなど)
 - **データストア**
     パイプラインについての情報を保存する挿し替え可能なストレージ(Postgres, MySQLやSqliteなど)
+
+## executor-queue と k8s のアーキテクチャ
+![Architecture](../../cluster-management/assets/arch-k8s.png)
