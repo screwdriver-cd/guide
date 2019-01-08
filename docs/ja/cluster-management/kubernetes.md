@@ -25,11 +25,11 @@ toc:
 
 # Kubernetesを利用してAWS上にScrewdriverのクラスタを構築
 
-We'll go over how to set up a Screwdriver cluster on AWS using Kubernetes, Github, and a Postgres database. You can setup a Screwdriver cluster using [Kubernetes](http://kubernetes.io/docs/whatisk8s/).
+Kubernetes, Github, Postgres データベースを利用して AWS 上に Screwdriver クラスタをセットアップする方法について説明します。[Kubernetes](http://kubernetes.io/docs/whatisk8s/) を利用して Screwdriver クラスタをセットアップできます。
 
 ## Screwdriverクラスタ
 
-A Screwdriver cluster consists of a Kubernetes cluster running the Screwdriver API. The Screwdriver API modifies Screwdriver tables in AWS RDS.
+Screwdriver クラスタは、Screwdrive API が実行されている Kubernetes クラスタによって構成されています。Screwdriver API は AWS RDS の Screwdriver のテーブルを変更します。
 
 ![Cluster setup architecture](../../cluster-management/assets/cluster-setup-architecture.png)
 
@@ -41,22 +41,22 @@ A Screwdriver cluster consists of a Kubernetes cluster running the Screwdriver A
 
 ## Kubernetesクラスタの作成
 
-Follow instructions at [Running Kubernetes on AWS EC2](http://kubernetes.io/docs/getting-started-guides/aws/).
+[Running Kubernetes on AWS EC2](http://kubernetes.io/docs/getting-started-guides/aws/) の通りにします。
 
 ## Setup Screwdriver secrets
 
-After creating your Kubernetes cluster, you'll need to populate it with some secrets that will give you access to your database and Github.
-A [Secret](http://kubernetes.io/docs/user-guide/secrets/) is an object that contains a small amount of sensitive data such as a password, token, or key.
+Kubernetes クラスタの作成が完了したら、データベースと Github へアクセスできるようにするためいくつか secrets を追加する必要があります。
+[Secret](http://kubernetes.io/docs/user-guide/secrets/) はパスワード、トークン、キーなどの少量の機密データを含むオブジェクトです。
 
-Here's a list of secrets we will need:
+必要な secrets の一覧は以下です。
 
 Secret Key | 説明
 --- | ---
-SECRET_JWT_PRIVATE_KEY | A private key used for signing JWT tokens
-SECRET_JWT_PUBLIC_KEY | A public key used for signing JWT tokens
-DATASTORE_SEQUELIZE_DATABASE | SQL database name
-DATASTORE_SEQUELIZE_USERNAME | SQL database username
-DATASTORE_SEQUELIZE_PASSWORD | SQL database password
+SECRET_JWT_PRIVATE_KEY | JWT トークンの署名に使用する秘密鍵
+SECRET_JWT_PUBLIC_KEY | JWT トークンの署名に使用する公開鍵
+DATASTORE_SEQUELIZE_DATABASE | SQL のデータベース名
+DATASTORE_SEQUELIZE_USERNAME | SQL のデータベースユーザ
+DATASTORE_SEQUELIZE_PASSWORD | SQL のデータベースパスワード
 SECRET_OAUTH_CLIENT_ID | Githubの[OAuth](https://developer.github.com/v3/oauth)で使用するClient ID
 SECRET_OAUTH_CLIENT_SECRET | GithubのOAuthで使用するClient Secret
 WEBHOOK_GITHUB_SECRET | GitHub webhookに設定して正当性を検証するためのパスワード
@@ -85,14 +85,14 @@ K8S_TOKEN | 用意したKubernetesの<default_token_name></default_token_name>
 
 ### Create a datastore
 
-To get your SQL datastore secrets, set up a datastore with [AWS RDS](https://us-west-2.console.aws.amazon.com/rds).
+SQL データストアの secrets を取得するためにデータストアを [AWS RDS](https://us-west-2.console.aws.amazon.com/rds) でセットアップします。
 
-1. Navigate to [AWS RDS](https://us-west-2.console.aws.amazon.com/rds). Click on Launch a DB Instance.![AWS RDS page](../../cluster-management/assets/launch-db.png)
-2. Select the `PostgreSQL` tab. Click Select.![Select engine](../../cluster-management/assets/select-db-engine.png)
-3. Choose an environment (Production or Dev/Test) and click Next Step.![Select environment](../../cluster-management/assets/select-db-env.png)
-4. Fill out the DB Instance Identifier (`DATASTORE_SEQUELIZE_DATABASE`), Master Username (`DATASTORE_SEQUELIZE_USERNAME`), Master Password (`DATASTORE_SEQUELIZE_PASSWORD`), and Confirm Password. Click Next Step.![Configure details](../../cluster-management/assets/db-details.png)
-5. Add a Database Name. Make sure the VPC Security Group chosen gives inbound access to all IPs. Click Launch DB Instance.![Configure settings](../../cluster-management/assets/db-settings.png)
-6. Click View Your DB Instances. Click on the small triangle next to the Engine column on your DB instance row to open up the details. Your endpoint will be your Database host name.![Host name](../../cluster-management/assets/db-hostname.png)
+1. [AWS RDS](https://us-west-2.console.aws.amazon.com/rds) へいき、Launch a DB Instance をクリックします。![AWS RDS page](../../cluster-management/assets/launch-db.png)
+2. `PostgreSQL` タブを選びクリックします。![Select engine](../../cluster-management/assets/select-db-engine.png)
+3. 環境 (Production or Dev/Test) を選択し、Next Step をクリックします。![Select environment](../../cluster-management/assets/select-db-env.png)
+4. DB Instance Identifier (`DATASTORE_SEQUELIZE_DATABASE`), Master Username (`DATASTORE_SEQUELIZE_USERNAME`), Master Password (`DATASTORE_SEQUELIZE_PASSWORD`) を埋め、パスワードを確認します。Next Step をクリックします。![Configure details](../../cluster-management/assets/db-details.png)
+5. データベース名を追加します。選択したVPCセキュリティグループがすべてのIPへのインバウンドアクセスを許可していることを確認してください。Launch DB Instance をクリックします。![Configure settings](../../cluster-management/assets/db-settings.png)
+6. View Your DB Instances をクリックします。詳細を開くには、DBインスタンス行の Engine 列の横にある小さな三角形をクリックします。エンドポイントはデータベースのホスト名になります。![Host name](../../cluster-management/assets/db-hostname.png)
 
 ### 秘密情報のBase64エンコード
 
@@ -142,7 +142,7 @@ Screwdriver向けに他の環境変数もカスタマイズできます。全て
 
 ## Screwdriverのデプロイ
 
-You can check out the `api.yaml` in the [Screwdriver config examples repo](https://github.com/screwdriver-cd-test/config-examples) for example service and deployment definitions to run the Screwdriver API.
+Screwdriver API を実行するための service と deployment の定義の例は、[Screwdriver config examples repo](https://github.com/screwdriver-cd-test/config-examples) の `api.yaml` を参考にできます。
 
 ### Serviceの作成
 
@@ -159,10 +159,10 @@ $ kubectl create -f service.yaml
 
 ### Kubernetesトークン名の取得
 
-Kubernetes actually sets up your Kubernetes token by default. You will need this for your `deployment.yaml`.
-You can use `kubectl` to see your [Kubernetes secrets](http://kubernetes.io/docs/user-guide/secrets/walkthrough/).
+Kubernetes はデフォルトで Kubernetes トークンを設定しています。これが `deployment.yaml` に必要です。
+`kubectl` を利用して [Kubernetes secrets](http://kubernetes.io/docs/user-guide/secrets/walkthrough/) を見ることが出来ます。
 
-Get the `<DEFAULT_TOKEN_NAME>`, by running:
+以下を実行することで `<DEFAULT_TOKEN_NAME>` を取得できます。
 
 ```bash
 $ kubectl get secrets
@@ -170,7 +170,7 @@ NAME                      TYPE                                  DATA      AGE
 default-token-abc55       kubernetes.io/service-account-token   3         50d
 ```
 
-The `<DEFAULT_TOKEN_NAME>` will be listed under `Name` when the `Type` is `kubernetes.io/service-account-token`.
+`<DEFAULT_TOKEN_NAME>` は `Name` の欄にあり、`Type` は `kubernetes.io/service-account-token` です。
 
 ### URIの取得
 
@@ -184,13 +184,13 @@ $ kubectl describe services sdapi
 
 ### Deploymentの作成
 
-A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `deployment.yaml`.
+Deployment によって常に指定した数の pod の “replicas” が実行されます。多すぎる場合には数を減らし、少なすぎる場合には追加でスタートされます。`deployment.yaml` を作成するには [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) のページに従ってください。
 
-It should look like the Deployment in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/kubernetes/api.yaml).
+[api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/services/api.yaml) のようになるでしょう。
 
 ### デプロイ
 
-For a fresh deployment, run the `kubectl create` command on your `deployment.yaml` file:
+新たにデプロイする時は、`kubectl create` コマンドを `deployment.yaml` に実行します。
 
 ```bash
 $ kubectl create -f deployment.yaml
@@ -214,7 +214,7 @@ $ kubectl logs <POD-NAME>
 
 ## OAuth Applicationの更新
 
-You will need to navigate back to your original OAuth Application that you used for your OAuth Client ID and Secret to update the URLs.
+URLを更新するには、OAuthクライアントIDとシークレットに使用した元のOAuthアプリケーションに戻る必要があります
 
 1. [OAuth applications](https://github.com/settings/developers)ページを開きます。
 2. 作成したアプリケーションをクリックし、OAuth Client IDとSecretを取得します。

@@ -38,6 +38,7 @@ Screwdriverは最初から[多くのデフォルト設定](https://github.com/sc
 
 キー | 必須 | 説明
 --- | --- | ---
+JWT_ENVIRONMENT | いいえ | JWT を生成する環境です。例えば `prod` や `beta` などを指定します。JWT に環境変数を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)
 SECRET_JWT_PRIVATE_KEY | はい | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。`$ openssl genrsa -out jwt.pem 2048`
 SECRET_JWT_PUBLIC_KEY | はい | 署名を検証するための公開鍵です。次のコマンドにより生成できます。`$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
 SECRET_COOKIE_PASSWORD | はい | セッションデータを暗号化するためのパスワードです。**32文字以上である必要があります。**
@@ -81,6 +82,23 @@ bookends:
         - scm
         - my-custom-bookend
 ```
+
+#### カバレッジ bookend
+
+現在のところ、[SonarQube](https://github.com/screwdriver-cd/coverage-sonar) をカバレッジ bookend としてサポートしています。
+
+##### Sonar
+
+クラスタ内で Sonar を使用するには、Sonar サーバをセットアップする必要があります([sonar パイプライン](https://github.com/screwdriver-cd/sonar-pipeline)に例があります)。その後、次の環境変数を設定します。
+
+| キー | 必須 | 説明 |
+|:----------------|:---------|:----------------------|
+| COVERAGE_PLUGIN | はい | `sonar` としてください |
+| URI | はい | Screwdriver の API の URI |
+| COVERAGE_SONAR_HOST | はい | Sonar の host の URL |
+| COVERAGE_SONAR_ADMIN_TOKEN | はい | Sonar の admin token |
+
+更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。
 
 ### 配信
 
@@ -162,21 +180,35 @@ datastore:
 
 ### Executorプラグイン
 
-現在は[kubernetes](https://github.com/screwdriver-cd/executor-k8s) と [docker](http://github.com/screwdriver-cd/executor-docker) と [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm) と [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) executor をサポートしています。
+現在は[kubernetes](https://github.com/screwdriver-cd/executor-k8s) と [docker](http://github.com/screwdriver-cd/executor-docker) と [VMs in Kubernetes](https://github.com/screwdriver-cd/executor-k8s-vm) と [nomad](http://github.com/lgfausak/executor-nomad) と [Jenkins](https://github.com/screwdriver-cd/executor-jenkins) と [queue](https://github.com/screwdriver-cd/executor-queue) executor をサポートしています。
 詳しくは [custom-environment-variables](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml) をご覧ください。
 
-#### Kubernetes
+#### Kubernetes (k8s)
 
 下記の環境変数を設定します。
 
 環境変数名 | デフォルト値 | 説明
 --- | --- | ---
-EXECUTOR_PLUGIN | k8s | デフォルトのExecutor (例: `k8s`, `docker`, `k8s-vm`, `jenkins`)
-LAUNCH_VERSION | stable | 使用するLauncherのバージョン
-EXECUTOR_K8S_ENABLED | true | Kubernetes executorを利用可能にするフラグ
-K8S_HOST | kubernetes.default | Kubernetesのホスト
-K8S_TOKEN | Loaded from `/var/run/secrets/kubernetes.io/serviceaccount/token` by default | Kubernetesのリクエストを認証するためのJWT
-K8S_JOBS_NAMESPACE | default | Kubernetesジョブ用ネームスペース
+EXECUTOR_PLUGIN | k8s | デフォルトの Executor (例: `k8s`, `docker`, `k8s-vm`, `nomad`, `jenkins` or `queue`)
+LAUNCH_VERSION | stable | 使用する Launcher のバージョン
+EXECUTOR_PREFIX | なし | Pod 名につけられる prefix
+EXECUTOR_K8S_ENABLED | true | Kubernetes executor を利用可能にするフラグ
+K8S_HOST | kubernetes.default | Kubernetes のホスト
+K8S_TOKEN | デフォルトでは `/var/run/secrets/kubernetes.io/serviceaccount/token` から読まれます | Kubernetes のリクエストを認証するためのJWT
+K8S_JOBS_NAMESPACE | default | Kubernetes ジョブ用ネームスペース
+K8S_CPU_MICRO | 0.5 | micro 時の CPU のコア数
+K8S_CPU_LOW | 2 | low 時の CPU のコア数
+K8S_CPU_HIGH | 6 | high 時の CPU のコア数
+K8S_CPU_TURBO | 12 | turbo 時の CPU のコア数
+K8S_MEMORY_MICRO | 1 | micro 時のメモリ数(GB)
+K8S_MEMORY_LOW | 2 | low 時のメモリ数(GB)
+K8S_MEMORY_HIGH | 12 | high 時のメモリ数(GB)
+K8S_MEMORY_TURBO | 16 | turbo 時のメモリ数(GB)
+K8S_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルトのタイムアウト時間(分)
+K8S_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分)
+K8S_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node
+K8S_PREFERRED_NODE_SELECTORS | `{}`|  pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+
 
 ```yaml
 # config/local.yaml
@@ -192,16 +224,93 @@ executor:
             launchVersion: stable
 ```
 
-#### Docker
+#### VMs in Kubernetes (k8s-vm)
 
-下記の環境変数を設定します。
+`k8s-vm` executor を使用している場合には、ビルドは Kubernetes 上の Pod 内の VM で実行されます。
+
+| 環境変数名 | デフォルト値 | 説明 |
+|:-------------------|:--------------|:-------------------------------------------|
+| EXECUTOR_PLUGIN | k8s | デフォルトの executor (`k8s-vm` を設定してください) |
+| LAUNCH_VERSION | stable | 使用する Launcher のバージョン |
+| EXECUTOR_PREFIX | なし | Pod 名につけられる prefix |
+| EXECUTOR_K8SVM_ENABLED | true | Kubernetes VM executor を利用可能にするフラグ |
+| K8S_HOST | kubernetes.default | Kubernetes のホスト |
+| K8S_TOKEN | デフォルトでは `/var/run/secrets/kubernetes.io/serviceaccount/token` から読まれます | Kubernetes のリクエストを認証するためのJWT |
+| K8S_JOBS_NAMESPACE | default | Kubernetes ジョブ用ネームスペース |
+| K8S_BASE_IMAGE | なし | Kubernetes VM のベースイメージ |
+| K8S_CPU_MICRO | 1 | micro 時の CPU のコア数 |
+| K8S_CPU_LOW | 2 | low 時の CPU のコア数 |
+| K8S_CPU_HIGH | 6 | high 時の CPU のコア数 |
+| K8S_CPU_TURBO | 12 | turbo 時の CPU のコア数 |
+| K8S_MEMORY_MICRO | 1 | micro 時のメモリ数(GB) |
+| K8S_MEMORY_LOW | 2 | low 時のメモリ数(GB) |
+| K8S_MEMORY_HIGH | 12 | high 時のメモリ数(GB) |
+| K8S_MEMORY_TURBO | 16 | turbo 時のメモリ数(GB) |
+| K8S_VM_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルトのタイムアウト時間(分) |
+| K8S_VM_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分) |
+| K8S_VM_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
+| K8S_VM_PREFERRED_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: k8s-vm
+    k8s-vm:
+        options:
+            kubernetes:
+                host: YOUR-KUBERNETES-HOST
+                token: JWT-FOR-AUTHENTICATING-KUBERNETES-REQUEST
+            launchVersion: stable
+```
+
+#### Jenkins (jenkins)
+`jenkins` executor を使用している場合、ビルドは Jenkins を使用して実行されます。
+
+| 環境変数名       | デフォルト値 | 説明          |
+|:-----------------------|:--------------|:---------------------|
+| EXECUTOR_PLUGIN        | k8s           | デフォルトの executor (`jenkins` を設定してください) |
+| LAUNCH_VERSION         | stable        | 使用する Launcher のバージョン            |
+| EXECUTOR_JENKINS_ENABLED | true        | Jenkins executor を利用可能にするフラグ    |
+| EXECUTOR_JENKINS_HOST  |               | Jenkins のホスト |
+| EXECUTOR_JENKINS_PORT  | 8080          | Jenkins のポート   |
+| EXECUTOR_JENKINS_USERNAME | screwdriver | Jenkins の username |
+| EXECUTOR_JENKINS_PASSWORD |            | Jenkins へのリクエストを認証するのに使用する password/token |
+| EXECUTOR_JENKINS_NODE_LABEL | screwdriver | Jenkisn slave の Node label |
+| EXECUTOR_JENKINS_DOCKER_COMPOSE_COMMAND | docker-compose | docker-compose コマンドのパス |
+| EXECUTOR_JENKINS_DOCKER_PREFIX | `''`  | コンテナにつけられる prefix |
+| EXECUTOR_JENKINS_LAUNCH_VERSION | stable | 使用する Launcher container のタグ |
+| EXECUTOR_JENKINS_DOCKER_MEMORY | 4g    | メモリの制限 (docker run の `--memory` オプション) |
+| EXECUTOR_JENKINS_DOCKER_MEMORY_LIMIT | 6g | swap を含めたメモリの制限 (docker run の `--memory-swap` オプション) |
+| EXECUTOR_JENKINS_BUILD_SCRIPT | `''`   | ビルドを開始するコマンド |
+| EXECUTOR_JENKINS_CLEANUP_SCRIPT | `''` | ビルドシステムをクリーンアップするコマンド |
+| EXECUTOR_JENKINS_CLEANUP_TIME_LIMIT | 20 | ジョブを削除する時間(秒) |
+| EXECUTOR_JENKINS_CLEANUP_WATCH_INTERVAL | 2 | ジョブが停止しているかチェックするインターバル（秒）
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: jenkins
+    jenkins:
+        options:
+            jenkins:
+                host: jenkins.default
+                port: 8080
+                username: screwdriver
+                password: YOUR-PASSWORD
+            launchVersion: stable
+```
+
+#### Docker (docker)
+
+Docker で実行するには `docker` executor を使用します。[sd-in-a-box](./running-locally) も Docker を使用して実行します。
 
 環境変数名 | デフォルト値 | 説明
 --- | --- | ---
-EXECUTOR_PLUGIN | docker | `docker`を指定します
-LAUNCH_VERSION | stable | 使用するLauncherのバージョン
+EXECUTOR_PLUGIN | k8s | `docker` を指定します
+LAUNCH_VERSION | stable | 使用する Launcher のバージョン
 EXECUTOR_DOCKER_ENABLED | true | Docker executor を利用可能にするフラグ
 EXECUTOR_DOCKER_DOCKER | `{}` | [Dockerode の設定](https://www.npmjs.com/package/dockerode#getting-started) (JSONオブジェクト)
+EXECUTOR_PREFIX | なし | Pod 名につけられる prefix 
 
 ```yaml
 # config/local.yaml
@@ -214,11 +323,68 @@ executor:
             launchVersion: stable
 ```
 
+#### Queue (queue)
+`queue` executor を使用すると、Resque のある Redis インスタンスを使用してビルドをキューすることができます。
+
+| 環境変数名       | デフォルト値 | 説明          |
+|:-----------------------|:--------------|:---------------------|
+| EXECUTOR_PLUGIN        | k8s           | デフォルトの executor (`queue` を設定します) |
+| QUEUE_REDIS_HOST       | 127.0.0.1     | Redis のホスト                       |
+| QUEUE_REDIS_PORT       | 9999          | Redis のポート                       |
+| QUEUE_REDIS_PASSWORD   | "THIS-IS-A-PASSWORD" | Redis のパスワード            |
+| QUEUE_REDIS_TLS_ENABLED | false        | TLS を有効にするフラグ                 |
+| QUEUE_REDIS_DATABASE   | 0             | Redis のデータベース                   |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: queue
+    queue:
+        options:
+            redisConnection:
+              host: "127.0.0.1"
+              port: 9999
+              options:
+                  password: "THIS-IS-A-PASSWORD"
+                  tls: false
+              database: 0
+```
+
+#### Nomad (nomad)
+以下の環境変数を設定します。
+
+| 環境変数名       | デフォルト値 | 説明                                 |
+|:-----------------------|:--------------|:--------------------------------------------|
+| EXECUTOR_PLUGIN        | k8s         | デフォルトの executor (`nomad` を設定してください)  |
+| LAUNCH_VERSION         | latest        | 使用する Launcher のバージョン                     |
+| EXECUTOR_NOMAD_ENABLED | true          | Nomad executor を利用可能にするフラグ              |
+| NOMAD_HOST             | nomad.default | Nomad のホスト (例: http://192.168.30.30:4646) |
+| NOMAD_CPU              | 600           | Nomad の cpu リソース(Mhz)                   |
+| NOMAD_MEMORY           | 4096          | Nomad のメモリリソース(MB)                 |
+| EXECUTOR_PREFIX        | sd-build-     | Nomad のジョブ名につけられる prefix                       |
+
+```yaml
+# config/local.yaml
+executor:
+    plugin: nomad
+    nomad:
+        options:
+            nomad:
+                host: http://192.168.30.30:4646
+            resources:
+                cpu:
+                    high: 600
+                memory:
+                    high: 4096
+            launchVersion:  latest
+            prefix:  'sd-build-'
+```
+
 ### 通知プラグイン
 
-[Email通知](https://github.com/screwdriver-cd/notifications-email)をサポートしています。
+現在、[Email 通知](https://github.com/screwdriver-cd/notifications-email)と [Slack 通知](https://github.com/screwdriver-cd/notifications-slack)をサポートしています。
 
-#### Email通知
+#### Email 通知
 
 SMTPサーバとEmail通知を行う送信者のアドレスを設定します。
 
@@ -226,12 +392,25 @@ SMTPサーバとEmail通知を行う送信者のアドレスを設定します�
 # config/local.yaml
 notifications:
     email:
+        username: your-username # オプション SMTP username
+        password: your-password # オプション SMTP password
         host: smtp.yourhost.com
         port: 25
         from: example@email.com
 ```
 
 認証の設定はまだ実装されていませんが、追加することは難しくないでしょう。私たちは [nodemailer](https://nodemailer.com/about/) パッケージを使用しているため、認証機能はよくある nodemailer のセットアップと同様です。コントリビューションお待ちしています: [screwdriver-cd/notifications-email](https://github.com/screwdriver-cd/notifications-email)
+
+#### Slack 通知
+
+Slack インスタンスに `screwdriver-bot` の [Slack bot user](https://api.slack.com/bot-users) を作成してください。 bot のための Slack トークンを生成して、それを Slack 通知の設定欄の `token` に設定してください。
+
+```yaml
+# config/local.yaml
+notifications:
+    slack:
+        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+```
 
 #### カスタム通知
 
