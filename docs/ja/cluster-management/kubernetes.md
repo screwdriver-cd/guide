@@ -186,7 +186,7 @@ $ kubectl describe services sdapi
 
 Deployment によって常に指定した数の pod の “replicas” が実行されます。多すぎる場合には数を減らし、少なすぎる場合には追加でスタートされます。`deployment.yaml` を作成するには [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) のページに従ってください。
 
-[api.yaml] のようになるでしょう。
+[api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/services/api.yaml) のようになるでしょう。
 
 ### デプロイ
 
