@@ -27,7 +27,7 @@ To use SonarQube, add a `sonar-project.properties` file in the root of your sour
 
 Example `sonar-project.properties` file from our [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript):
 ```
-sonar.sources=lib
+sonar.sources=index.js
 sonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info
 ```
 
