@@ -9,8 +9,8 @@ toc:
   active: 'true'
 - title: APIを使用する
   url: "#APIを使用する"
-- title: 認可と認証
-  url: "#認可と認証"
+- title: 認証と認可
+  url: "#認証と認可"
 - title: バッジ
   url: "#バッジ"
 - title: 設計思想
@@ -48,7 +48,7 @@ Swaggerモデル:
 
 ### RESTクライアント経由で実行する
 
-[Postman](https://www.getpostman.com/)のようなRESTクライアントをAPIリクエストに使用します。その際、認証トークンが必要です。認証トークンを取得するためには、`/v4/auth/login`からログインし、リダイレクト先の`/v4/auth/token`からトークンをコピーしてください。詳しくは[認可と認証](#%E8%AA%8D%E5%8F%AF%E3%81%A8%E8%AA%8D%E8%A8%BC)をご覧ください。
+[Postman](https://www.getpostman.com/)のようなRESTクライアントをAPIリクエストに使用します。その際、認証トークンが必要です。認証トークンを取得するためには、`/v4/auth/login`からログインし、リダイレクト先の`/v4/auth/token`からトークンをコピーしてください。詳しくは[認証と認可](#認証と認可)をご覧ください。
 
 APIリクエストの際のヘッダは以下のようになります。
 
