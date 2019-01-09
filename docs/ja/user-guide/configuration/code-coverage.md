@@ -27,7 +27,7 @@ SonarQube を使用するために、`sonar-project.properties` ファイルを�
 
 以下は [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript) の `sonar-project.properties` の例です:
 ```
-sonar.sources=lib
+sonar.sources=index.js
 sonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info
 ```
 
