@@ -64,18 +64,25 @@ Notes:
 - If the `--external` flag did not trigger the build, then meta will not be set.
 
 ### Pull Request Comments
-You can write comments to pull requests in Git with metadata information. The contents of the comments should be written to the meta summary object from your pipeline's PR build.
+You can write comments to pull requests in Git from a Screwdriver build through using metadata. The contents of the comments should be written to the meta summary object from your pipeline's PR build.
 
-To write out metadata to a pull request, you just need to set the `meta.summary` meta object with desired information. This data will show up as a comment in Git by the pipeline administrator.
+To write out metadata to a pull request, you just need to set `meta.summary` with desired information. This data will show up as a comment in Git by a headless Git user.
 
-For example, to add a coverage description:
+For example, to add a coverage description, your screwdriver.yaml should look something like below:
+
 ```
-meta set meta.summary.coverage "Coverage increased by 15%"
+jobs:
+  main:
+    steps:
+      - comment: meta set meta.summary.coverage "Coverage increased by 15%"
 ```
 
-You can also write things in markdown syntax by setting `meta.summary.markdown`:
+You can also write things in markdown syntax as shown in the following example:
 ```
-meta set meta.summary.markdown "this markdown comment is **bold** and *italic*"
+jobs:
+  main:
+    steps:
+      - comment: meta set meta.summary.markdown "this markdown comment is **bold** and *italic*"
 ```
 These settings will result in a Git comment that looks like:
 
