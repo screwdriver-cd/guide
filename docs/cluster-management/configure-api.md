@@ -437,9 +437,7 @@ notifications:
 
 ### Source Control Plugin
 
-We currently support [Github and Github Enterprise](https://github.com/screwdriver-cd/scm-github), [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket), and [Gitlab](https://github.com/bdangit/scm-gitlab)
-
-_Note: Gitlab is a user-created plugin_
+We currently support [Github and Github Enterprise](https://github.com/screwdriver-cd/scm-github), [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket), and [Gitlab](https://github.com/bdangit/scm-gitlab).
 
 #### Step 1: Set up your OAuth Application
 You will need to set up an OAuth Application and retrieve your OAuth Client ID and Secret.
@@ -474,10 +472,14 @@ scms:
             gheHost: github.screwdriver.cd # [Optional] GitHub enterprise host
             username: sd-buildbot # [Optional] Username for code checkout
             email: dev-null@screwdriver.cd # [Optional] Email for code checkout
+            commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] Token for writing PR comments in Github, needs "public_repo" scope
             privateRepo: false # [Optional] Set to true to support private repo; will need read and write access to public and private repos (https://developer.github.com/v3/oauth/#scopes)
 ```
 
 If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
+
+In order to enable [meta PR comments](../user-guide/metadata.md), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
+
 
 ##### Bitbucket.org
 ```yaml
