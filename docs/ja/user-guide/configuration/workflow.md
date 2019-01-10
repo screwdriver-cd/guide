@@ -10,8 +10,8 @@ toc:
   url: "#ワークフローの順序を定義する"
 - title: 論理式を用いたワークフロー定義 (Advanced Logic)
   url: "#論理式を用いたワークフロー定義"
-  - title: ブランチフィルター
-    url: "#ブランチフィルター"
+- title: ブランチフィルター
+  url: "#ブランチフィルター"
 - title: 並列実行と結合 (Parallel and Join)
   url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
