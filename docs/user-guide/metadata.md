@@ -64,6 +64,9 @@ Notes:
 - If the `--external` flag did not trigger the build, then meta will not be set.
 
 ### Pull Request Comments
+
+> Note: This feature is only available in Github plugin at the moment.
+
 You can write comments to pull requests in Git from a Screwdriver build through using metadata. The contents of the comments should be written to the meta summary object from your pipeline's PR build.
 
 To write out metadata to a pull request, you just need to set `meta.summary` with desired information. This data will show up as a comment in Git by a headless Git user.
@@ -87,3 +90,34 @@ jobs:
 These settings will result in a Git comment that looks like:
 
 ![PR comment](./assets/pr-comment.png)
+
+### Additional Pull Request Checks
+
+> Note: This feature is only available in Github plugin at the moment.
+
+You can also add additional status checks to pull requests to provide more granular information about the pull request build.
+
+To additional checks to a pull request, you just need to set `meta.status.<check>` with desired information in JSON string format. This data will show up as a Git check on the pull request.
+
+The fields you can set:
+
+| Key | Description |
+| --- | ----------- |
+| status (String) | Status of the check, can be one of: (`SUCCESS`, `FAILURE`) |
+| message (String) | Description for the check |
+| url (String) | Url for the check to link to (default: build link)
+
+For example, to add two additional checks for `findbugs` and `coverage`, your screwdriver.yaml should look something like below:
+
+```
+jobs:
+  main:
+    steps:
+      - status: |
+        meta set meta.status.findbugs '{"status":"FAILURE","message":"923 issues found. Previous count: 914 issues.","url":"findbugs.com"}'
+        meta set meta.status.coverage '{"status":"FAILURE","message":"Coverage is below 80%."}'
+```
+
+These settings will result in Git checks that look like:
+
+![PR checks](./assets/pr-checks.png)
