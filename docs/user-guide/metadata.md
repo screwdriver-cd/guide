@@ -114,8 +114,8 @@ jobs:
   main:
     steps:
       - status: |
-        meta set meta.status.findbugs '{"status":"FAILURE","message":"923 issues found. Previous count: 914 issues.","url":"findbugs.com"}'
-        meta set meta.status.coverage '{"status":"FAILURE","message":"Coverage is below 80%."}'
+          meta set meta.status.findbugs '{"status":"FAILURE","message":"923 issues found. Previous count: 914 issues.","url":"http://findbugs.com"}'
+          meta set meta.status.coverage '{"status":"SUCCESS","message":"Coverage is above 80%."}'
 ```
 
 These settings will result in Git checks that look like:
