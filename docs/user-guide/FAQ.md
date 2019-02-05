@@ -126,7 +126,7 @@ You can update a build with an `UNSTABLE` status by calling the [API](./api) in 
 
 ## What shell does Screwdriver use?
 
-By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You can specify a different shell (such as Bash) with the `USER_SHELL_BIN` [environment variable](./environment-variables).
+By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You can specify a different shell (such as Bash) with the `USER_SHELL_BIN` [environment variable](./environment-variables#user-configurable).
 
 ## How do I speed up time to upload artifacts?
 You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.

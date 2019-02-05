@@ -10,6 +10,12 @@ toc:
       url: "#what-is-metadata"
     - title: Manipulating Metadata
       url: "#manipulating-metadata"
+    - title: <span class="menu-indent">External Pipeline</span>
+      url: "#external-pipeline"
+    - title: <span class="menu-indent">Pull Request Comments</span>
+      url: "#pull-request-comments"
+    - title: <span class="menu-indent">Pull Request Checks</span>
+      url: "#additional-pull-request-checks"
 ---
 # Metadata
 
