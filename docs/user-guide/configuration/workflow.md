@@ -18,6 +18,8 @@ toc:
       url: "#remote-triggers"
     - title: Blocked By
       url: "#blocked-by"
+    - title: Freeze Windows
+      url: "#freeze-windows"
     - title: Detached Jobs and Pipelines
       url: "#detached-jobs-and-pipelines"
 ---
@@ -218,6 +220,41 @@ jobs:
         blockedBy: [~job1, ~sd@456:publish]
         steps:
             - echo: echo bye
+```
+
+## Freeze Windows
+You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value.
+
+Before the job is started, it will check if the start time falls under any of the provided cron windows, and freezes the job if so. The job will be unfrozen and run as soon as the current cron window ends.
+
+Note:
+- Different from `build_periodically`, `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
+- The combinations of day of week and day of month are usually invalid. Therefore only *one out of day of week and day of month can be specified*. The other field should be set to "?".
+- If multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window.
+
+#### Example
+In the following example, `job1` will be frozen during the month of March, `job2` will be frozen on weekends, and `job3` will be frozen from 10 PM to 10 AM.
+
+```
+shared:
+    image: node:6
+
+jobs:
+  job1:
+    freezeWindows: ['* * ? 3 *']
+    requires: [~commit]
+    steps:
+      - build: echo "build"
+  job2:
+    freezeWindows: ['* * ? * 0,6,7']
+    requires: [~job1]
+    steps:
+      - build: echo "build"
+  job3:
+    freezeWindows: ['* 0-10,22-23 ? * *']
+    requires: [~job2]
+    steps:
+      - build: echo "build"
 ```
 
 ## Detached Jobs and Pipelines
