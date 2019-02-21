@@ -62,7 +62,7 @@ _注意: `Parallel`, `series`, `matrix` はまだ実装されていません。�
 
 #### プルリクエスト
 
-プルリクエストは既存のパイプラインジョブとは別に実行されます。ジョブ名が`main`のものからステップが実行されます。
+プルリクエストは既存のパイプラインジョブとは別に実行されます。ジョブ名が`main`のステップのみが実行されます。
 
 #### 並列実行
 
@@ -121,7 +121,7 @@ $ meta get example
 {"coverage":99.95}
 ```
 
-See the [metadata page](../../user-guide/metadata) for more information.
+詳しくは[metadata page](../../user-guide/metadata)をご覧ください。
 
 ### Workflow
 
