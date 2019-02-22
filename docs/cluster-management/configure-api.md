@@ -492,6 +492,26 @@ scms:
             oauthClientSecret: YOUR-APP-SECRET
 ```
 
+### Webhooks
+
+Set these environment variables:
+
+| Environment name             | Required       | Default Value | Description                                      |
+|:-----------------------------|:---------------|:--------------|:-------------------------------------------------|
+| SCM_USERNAME                 | No             | sd-buildbot   | Obtains the SCM token for a given user. If a user does not have a valid SCM token registered with Screwdriver, it will use this |
+| IGNORE_COMMITS_BY            | No             | []            | Ignore commits made by these users               |
+| RESTRICT_PR                  | No             | none          | Restrict PR: all, none, branch, or fork |
+
+```yaml
+# config/local.yaml
+webhooks:
+  username: SCM_USERNAME
+  ignoreCommitsBy:
+    __name: IGNORE_COMMITS_BY
+    __format: json
+  restrictPR: RESTRICT_PR
+```
+
 ## Extending the Docker container
 
 There are some scenarios where you would prefer to extend the Screwdriver.cd Docker image, such as using custom Bookend plugins. This section is not meant to be exhaustive or complete, but will provide insight into some of the fundamental cases.
