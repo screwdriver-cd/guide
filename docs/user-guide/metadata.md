@@ -23,6 +23,7 @@ toc:
 
 Metadata is a structured key/value storage of relevant information about a [build](../../about/appendix/domain#build). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../../about/appendix/domain#step).
 
+
 ## Manipulating Metadata
 
 Screwdriver provides the shell command `meta get` to extract information from the meta store and `meta set` to save information to the meta store.
@@ -68,6 +69,19 @@ $ meta get example --external sd@123:publish
 Notes:
 - `meta set` is not allowed for external builds.
 - If the `--external` flag did not trigger the build, then meta will not be set.
+
+## Default Metadata
+
+By default, Screwdriver sets the following metadata
+
+| Key | Description |
+| --- | ----------- |
+| meta.build.buildId | Id of this build |
+| meta.build.jobId | Id of the job that this build belongs to |
+| meta.build.eventId | Id of the event that this build belongs to |
+| meta.build.pipelineId | Id of the pipeline that this build belongs to |
+| meta.build.sha | The commit sha that this build runs |
+| meta.build.jobName | The name of the job |
 
 ### Pull Request Comments
 
