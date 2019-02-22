@@ -130,7 +130,7 @@ $ meta get example
 ワークフロー内で実行されるジョブは次の内容を共有します。
 
 - 同じgitコミットからチェックアウトされたソースコード
-- Access to [metadata](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF) from a `main` build that triggered or was selected for this job's build
+- `main`ジョブからトリガーされて実行されるジョブからアクセスされる[メタデータ](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF)
 
 下記のworkflowセクションの例ではこのようなフローになっていて
 
