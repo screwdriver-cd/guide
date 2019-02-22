@@ -29,8 +29,10 @@ toc:
 
 ## ドメインモデル
 
-![Definition](../../../about/appendix/assets/definition-model.png)
-![Runtime](../../../about/appendix/assets/runtime-model.png)
+_注意: `Parallel`, `series`, `matrix` はまだ実装されていません。逐次処理のみが行われます。_
+
+![Definition](../../../about/assets/definition-model.png)
+![Runtime](../../../about/assets/runtime-model.png)
 
 ### ソースコード
 
@@ -38,7 +40,7 @@ toc:
 
 ### ステップ
 
-A step is a named action that needs to be performed, usually a single shell command. In essence, Screwdriver runs `/bin/sh` in your terminal then executes all the steps; in rare cases, different terminal/shell setups may have unexpected behavior. If the command finishes with a non-zero exit code, the step is considered a failure. Environment variables will be passed between steps, within the same job.
+ステップは名称付けされた処理すべきふるまいで、通常は単一のシェルコマンドです。要するに、Screwdriverはターミナルで`/bin/sh`を起動し、全てのステップを実行します。レアケースですが、異なるターミナル/シェルでセットアップすると予期しない動作が発生することがあります。コマンドがゼロ以外の終了コードで終了した場合、そのステップは失敗とみなされます。環境変数は同じジョブの内であればステップ間で共有されます。
 
 ### コンテナ
 
@@ -58,9 +60,9 @@ A step is a named action that needs to be performed, usually a single shell comm
 
 ジョブは[ソースコード](#%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89)への変更や[ワークフロー](#workflow)からのトリガーで自動的に開始します。UIから手動で開始することも可能です。
 
-#### Pull Requests
+#### プルリクエスト
 
-Pull requests are run separately from existing pipeline jobs. They will only execute steps from the `main` job in the Screwdriver configuration.
+プルリクエストは既存のパイプラインジョブとは別に実行されます。ジョブ名が`main`のステップのみが実行されます。
 
 #### 並列実行
 
@@ -107,9 +109,9 @@ matrix:
 
 ### メタデータ
 
-Metadata is a structured key/value storage of relevant information about a [build](#%E3%83%93%E3%83%AB%E3%83%89). Metadata will be shared with subsequent builds in the same [workflow](#workflow). It can be updated or retrieved throughout the build by using the built-in CLI ([meta](https://github.com/screwdriver-cd/meta-cli)) in the [steps](#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97).
+メタデータは[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)に関連する情報を構造的に格納するkey/valueストレージです。メタデータは同じ[ワークフロー](#workflow)内の後続のビルドと共有されます。[ステップ](#%E3%82%B9%E3%83%86%E3%83%83%E3%83%97)で利用できる[meta CLI](https://github.com/screwdriver-cd/meta-cli)を使用して、ビルド中に更新や取得することができます。
 
-Example:
+例:
 
 ```bash
 $ meta set example.coverage 99.95
@@ -119,14 +121,16 @@ $ meta get example
 {"coverage":99.95}
 ```
 
+詳しくは[metadata page](../../user-guide/metadata)をご覧ください。
+
 ### Workflow
 
-ワークフローとは、デフォルトブランチの`main`ジョブの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)成功後に実行される[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)の順番のことです。ジョブは並列や逐次、またはその組み合わせで実行することができます。ワークフローにはパイプライン内に定義されたジョブがすべて含まれている必要があります。
+ワークフローとは、`main`ジョブの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)成功後に実行される[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)の順番のことです。`main`ジョブは常に最初に実行されます。ジョブは並列や逐次、またはその組み合わせで実行することができます。ワークフローにはパイプライン内に定義されたジョブがすべて含まれている必要があります。
 
 ワークフロー内で実行されるジョブは次の内容を共有します。
 
 - 同じgitコミットからチェックアウトされたソースコード
-- Access to [metadata](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF) from a `main` build that triggered or was selected for this job's build
+- `main`ジョブからトリガーされて実行されるジョブからアクセスされる[メタデータ](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF)
 
 下記のworkflowセクションの例ではこのようなフローになっていて
 
