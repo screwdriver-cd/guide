@@ -2,16 +2,16 @@
 layout: main
 title: Helm
 category: Cluster Management
-menu: menu
+menu: menu_ja
 toc:
-    - title: Setting Up a Screwdriver Cluster using Kubernetes Helm Chart
-      url: "#setting-up-a-screwdriver-cluster-on-aws-using-kubernetes"
+    - title: Kubernetes Helm Chartを利用してScrewdriverをセットアップする
+      url: "#Kubernetes Helm Chartを利用してScrewdriverをセットアップする"
       active: true
 
 ---
-# Setting Up a Screwdriver Cluster using Kubernetes Helm Chart
-The whole Screwdriver ecosystem has a lot of different components which makes it difficult to configure and deploy each one of them individually for anyone who is new to Screwdriver.
+# Kubernetes Helm Chartを利用してScrewdriverをセットアップする
+Screwdriverのエコシステムには多くのコンポーネントが含まれており、それらを個別に設定、デプロイすることはScrewdriverに慣れていない利用者にとって困難でしょう。
 
-To help you set up the cluster quickly on Kubernetes, we package all the Kubernetes deployments files into a single [helm chart](https://github.com/screwdriver-cd/screwdriver-chart). Installation of the chart will deploy the whole system all at once.
+ScrewdriverのクラスタをKubernetes上で簡単にセットアップできるように、Kubernetesのdeploymentsファイルを1つの[helm chart](https://github.com/screwdriver-cd/screwdriver-chart)にまとめました。chartをインストールすることで、全てのシステムを一度にデプロイすることができます。
 
-Please refer to the chart [repo](https://github.com/screwdriver-cd/screwdriver-chart) for instructions on installation.
+インストールの説明についてはchartの[リポジトリ](https://github.com/screwdriver-cd/screwdriver-chart)を参照してください。
