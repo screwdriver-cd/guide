@@ -16,13 +16,13 @@ is_homepage: 'true'
 
 
 <div class="row">
-    <div class="col-xs-6 col-md-4 cm">
-        <h2>クラスター管理</h2>
-        <p>Screwdriverのクラスターを管理する方法については<a href="http://docs.screwdriver.cd/ja/cluster-management">クラスター管理</a>セクションをご覧ください。</p>
-    </div>
     <div class="col-xs-6 col-md-4 ug">
         <h2>ユーザーガイド</h2>
         <p>ビルドの実行にScrewdriverを利用したい場合は<a href="http://docs.screwdriver.cd/ja/user-guide/quickstart">ユーザーガイド</a>をご覧ください。</p>
+    </div>
+    <div class="col-xs-6 col-md-4 cm">
+        <h2>クラスター管理</h2>
+        <p>Screwdriverのクラスターを管理する方法については<a href="http://docs.screwdriver.cd/ja/cluster-management">クラスター管理</a>セクションをご覧ください。</p>
     </div>
     <div class="col-xs-6 col-md-4 about">
         <h2>概要</h2>
@@ -30,7 +30,16 @@ is_homepage: 'true'
     </div>
 </div>
 
-
+<div class="row">
+  <div class="col-xs-12">
+    <div class="demo">
+      <h2>デモビデオ</h2>
+      <video controls>
+      <source src="https://s3-us-west-2.amazonaws.com/static.screwdriver.cd/videos/SD+Video+Demo.mp4" type="video/mp4">
+      </video>
+    <div>
+  </div>
+</div>
 
 <div class="row">
     <div class="col-xs-12 extra">
