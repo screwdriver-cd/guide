@@ -504,6 +504,26 @@ scms:
             oauthClientSecret: YOUR-APP-SECRET
 ```
 
+## Webhooks
+
+以下の環境変数を設定します。
+
+| 環境変数名             | 必須       | デフォルト値 | 説明                                      |
+|:-----------------------------|:---------------|:--------------|:-------------------------------------------------|
+| SCM_USERNAME                 | いいえ             | sd-buildbot   | 設定されたユーザでSCMトークンを取得します。ユーザがScrewdriverに有効なトークンを登録していなければ、このトークンを使用します。 |
+| IGNORE_COMMITS_BY            | いいえ             | []            | このユーザ達からのコミットを無視します。               |
+| RESTRICT_PR                  | いいえ             | none          | PRを制限します：all, none, branch, fork |
+
+```yaml
+# config/local.yaml
+webhooks:
+  username: SCM_USERNAME
+  ignoreCommitsBy:
+    __name: IGNORE_COMMITS_BY
+    __format: json
+  restrictPR: RESTRICT_PR
+```
+
 ## Dockerコンテナの拡張
 
 Screwdriver.cdのDockerイメージを拡張したい場合は、カスタムBookendプラグインを使用してください。この章で全てをお伝えすることはできないですが、基本的な利用方法はお伝えできるでしょう。
