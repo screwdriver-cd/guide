@@ -446,8 +446,6 @@ notifications:
 
 現在は[GithubとGitHub Enterprise](https://github.com/screwdriver-cd/scm-github)、 [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)と[Gitlab](https://github.com/bdangit/scm-gitlab)をサポートしています。
 
-_注意: Gitlab はユーザにより開発されたプラグインです。_
-
 #### ステップ1: OAuthアプリケーションをセットアップ
 
 OAuthアプリケーションのセットアップと、OAuth Client ID及びSecretの取得が必要です。
@@ -486,10 +484,13 @@ scms:
             gheHost: github.screwdriver.cd # [Optional] Github Enterpriseの場合のGHEホスト
             username: sd-buildbot # [Optional] checkoutするユーザネーム
             email: dev-null@screwdriver.cd # [Optional] checkoutするユーザのEmailアドレス
+            commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] GithubでPRにコメントを書き込むためのトークン、"public_repo"のスコープが必要
             privateRepo: false # [Optional] プライベートレポジトリの read/write権限
 ```
 
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
+
+[メタPRコメント](../user-guide/metadata.md)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubでは、新規にユーザを作成します。[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
 
 ##### Bitbucket.org
 
