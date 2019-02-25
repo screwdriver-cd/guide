@@ -10,6 +10,12 @@ toc:
   url: "#Metadataとは"
 - title: Metadataの操作
   url: "#Metadataの操作"
+- title: <span class="menu-indent">外部パイプライン</span>
+  url: "#外部パイプライン"
+- title: <span class="menu-indent">プルリクエストコメント</span>
+  url: "#プルリクエストコメント"
+- title: <span class="menu-indent">プルリクエストチェック</span>
+  url: "#追加のプルリクエストチェック"
 ---
 
 # Metadata
@@ -67,3 +73,76 @@ $ meta get example --external sd@123:publish
 
 - `meta set` は外部パイプラインのジョブに対してはできません。
 - もし `--external` フラグの値がトリガー元のジョブではなかった場合、meta はセットされません。
+
+## デフォルトMetadata
+
+Screwdriver.cdはデフォルトで以下のMetadataを設定しています。
+
+| キー | 説明 |
+| --- | ----------- |
+| meta.build.buildId | ビルドのID |
+| meta.build.jobId | ビルドと紐付いているジョブのID |
+| meta.build.eventId | ビルドと紐付いているイベントのID |
+| meta.build.pipelineId | ビルドと紐付いているパイプラインのID |
+| meta.build.sha | ビルドが実行しているコミットのsha |
+| meta.build.jobName | ジョブ名 |
+
+### プルリクエストコメント
+
+> 注意：この機能は現在のところGithubプラグインでのみ使用可能です
+
+Metadataを使用することで、ScrewdriverのビルドからGitのプルリクエストにコメントを書き込むことができます。コメントの内容はパイプラインのPRビルドから、metaのsummaryオブジェクトに書き込まれます。
+
+プルリクエストにMetadataを書き出すには、`meta.summary`に必要な情報をセットするだけです。このデータはheadlessなGitのユーザからのコメントとして出てきます。
+
+例として、カバレッジの説明を加えたい場合には、screwdriver.yamlは以下のようになります。
+
+```
+jobs:
+  main:
+    steps:
+      - comment: meta set meta.summary.coverage "Coverage increased by 15%"
+```
+
+以下の例のようにMarkdown記法で書くこともできます。
+
+```
+jobs:
+  main:
+    steps:
+      - comment: meta set meta.summary.markdown "this markdown comment is **bold** and *italic*"
+```
+これらの設定をすると、以下のようにGitにコメントがされます。
+
+![PR comment](./../../user-guide/assets/pr-comment.png)
+
+### 追加のプルリクエストチェック
+
+> 注意：この機能は現在のところGithubプラグインでのみ使用可能です
+
+プルリクエストビルドのより詳細な状態を知るために追加のステータスチェックをプルリクエストに加えることができます。
+
+プルリクエストに追加のチェックをするには、`meta.status.<check>`にJSON形式で必要な情報を設定するだけでできます。このデータはGitのプルリクエストのチェックとして出てきます。
+
+設定できるフィールドは以下の通りです。
+
+| Key | Description |
+| --- | ----------- |
+| status (String) | チェックのステータス。次から一つ選びます (`SUCCESS`, `FAILURE`) |
+| message (String) | チェックの説明 |
+| url (String) | チェックのリンクのURL（デフォルトはビルドのリンク） |
+
+例として、`findbugs`と`coverage`の2つの追加のチェックを加える場合、screwdriver.yamlは次のようになります。
+
+```
+jobs:
+  main:
+    steps:
+      - status: |
+          meta set meta.status.findbugs '{"status":"FAILURE","message":"923 issues found. Previous count: 914 issues.","url":"http://findbugs.com"}'
+          meta set meta.status.coverage '{"status":"SUCCESS","message":"Coverage is above 80%."}'
+```
+
+これらの設定は以下のようにGitのチェックになります。
+
+![PR checks](./../../user-guide/assets/pr-checks.png)
