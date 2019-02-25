@@ -24,7 +24,7 @@ shared:
 
 jobs:
     main:
-        <<: *bar                  # アノテーションで定義したアンカーを参照                                # mainジョブでnode:8イメージを指定することになります
+        <<: *bar                  # アンカーを参照してアノテーションで定義した設定を使用する
         annotations:
             screwdriver.cd/cpu: HIGH                           # CPUのHIGHリソースを指定
             screwdriver.cd/buildPeriodically: H H(4-7) * * *   # 毎日午前4時から午前7時(UTC)の間にジョブを実行します
