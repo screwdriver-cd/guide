@@ -35,8 +35,6 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 ## Build Specific
 
 ### General
-
-		"SD_PR_PARENT_JOB_ID":    strconv.Itoa(job.PrParentJobID),        
         
 | Name | Description |
 |------|-------|
