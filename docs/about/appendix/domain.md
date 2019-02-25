@@ -30,8 +30,8 @@ toc:
 
 _Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
 
-![Definition](../appendix/assets/definition-model.png)
-![Runtime](../appendix/assets/runtime-model.png)
+![Definition](../assets/definition-model.png)
+![Runtime](../assets/runtime-model.png)
 
 ### Source Code
 
