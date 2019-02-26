@@ -144,6 +144,6 @@ If shallow cloning is left enabled and you wish to push back to your git reposit
 
 Screwdriver has no restriction on build container image. However it should have at the minimum `curl` && `openssh` installed.
 
-Also if the `image` is Apline-based, an extra workaround is required in the form of the following symlink. `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+Also, if the `image` is Apline-based, an extra workaround is required in the form of the following symlink. `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
 
 Alternatively you can also try setting `LD_LIBRARY_PATH` to include musl library paths.
