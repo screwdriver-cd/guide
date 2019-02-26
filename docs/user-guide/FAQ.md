@@ -37,6 +37,8 @@ toc:
       url: "#how-do-i-speed-up-time-to-upload-artifacts"
     - title: How do I disable shallow cloning?
       url: "#how-do-i-disable-shallow-cloning"
+    - title: What are the minimum soft requirements for a build image?
+      url: "#what-are-the-minimum-software-requirements-for-a-build-image"
 
 ---
 
@@ -137,3 +139,11 @@ You can set the environment variable [`GIT_SHALLOW_CLONE`](./environment-variabl
 By default Screwdriver will shallow clone source repositories to a depth of 50. Screwdriver will also enable the `--no-single-branch` flag by default.
 
 If shallow cloning is left enabled and you wish to push back to your git repository, your image must contain a git version of 1.9 or later. Alternatively, you may use the version of git bundled with Screwdriver by invoking `sd-step exec core/git "GIT COMMAND"`.
+
+## What are the minimum software requirements for a build image?
+
+Screwdriver has no restriction on build container image. However it should have at the minimum `curl` && `openssh` installed.
+
+Also if `image` is Apline based then an extra workaround is required in the form of the following symlink. `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+
+Alternatively we can also try setting `LD_LIBRARY_PATH` to include musl library paths.
