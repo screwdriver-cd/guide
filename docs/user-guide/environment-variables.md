@@ -43,7 +43,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_JOB_ID | The ID of the [job](../about/appendix/domain#job) |
 | SD_JOB_NAME | Job name (e.g.: `main`) |
 | SD_PARENT_BUILD_ID | Build(s) that trigger(s) this build |
-| SD_PARENT_EVENT_ID | ID of the parent event if this was a restart | 
+| SD_PARENT_EVENT_ID | ID of the parent event if this was a restart |
 | SD_PR_PARENT_JOB_ID | ID of the real job of PR. For example, in `PR-1:main` build, this ENV references the ID of `main` job |
 | SD_PIPELINE_ID | The ID of the [pipeline](../about/appendix/domain#pipeline) |
 | SD_PIPELINE_NAME | The name of the pipeline (e.g.: `d2lam/myPipeline`) |
@@ -60,7 +60,9 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 |------|---------------|-------------|
 | SD_ZIP_ARTIFACTS | false | **Options:** (`true`/`false`) <br><br>Compresses and uploads artifacts in a single ZIP file.<br><br>**Use case:** If you're using Amazon S3 for your store, the zip file can be unzipped on the store end using AWS Lambda. Reduces upload time when your build has a lot of artifacts but there's an upper limit to the size and number of files in the zip file you upload, since the compute resources on Lambda are limited per build. If the upload fails, it's likely that you have more artifacts or that the zip is larger than Lambda can handle.<br><br>**Note:** Consult with your cluster admin to see if this option is available. |
 | USER_SHELL_BIN | sh | The user shell bin to run the build in. Can also be the full path such as `/bin/bash`.
-| GIT_SHALLOW_CLONE | true | **Options:** (`true`/`false`) <br><br>Shallow clones source repository with a depth of 50 commits.
+| GIT_SHALLOW_CLONE | true | **Options:** (`true`/`false`) <br><br>Shallow clones source repository.
+| GIT_SHALLOW_CLONE_DEPTH | 50 | Shallow clone with a history truncated to the specified number of commits
+| GIT_SHALLOW_CLONE_SINGLE_BRANCH |  | If set to `true`, it will use `--single-branch` option for shallow clone. Otherwise, `--no-single-branch` option is used.
 
 ## Plugins
 These environment variables may or may not be available depending on what plugins are installed.
