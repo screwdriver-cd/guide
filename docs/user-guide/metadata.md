@@ -78,12 +78,12 @@ By default, Screwdriver sets the following metadata
 
 | Key | Description |
 | --- | ----------- |
-| meta.build.buildId | Id of this build |
-| meta.build.jobId | Id of the job that this build belongs to |
-| meta.build.eventId | Id of the event that this build belongs to |
-| meta.build.pipelineId | Id of the pipeline that this build belongs to |
-| meta.build.sha | The commit sha that this build runs |
-| meta.build.jobName | The name of the job |
+| build.buildId | Id of this build |
+| build.jobId | Id of the job that this build belongs to |
+| build.eventId | Id of the event that this build belongs to |
+| build.pipelineId | Id of the pipeline that this build belongs to |
+| build.sha | The commit sha that this build runs |
+| build.jobName | The name of the job |
 
 ### Pull Request Comments
 
