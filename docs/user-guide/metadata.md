@@ -16,6 +16,8 @@ toc:
       url: "#pull-request-comments"
     - title: <span class="menu-indent">Pull Request Checks</span>
       url: "#additional-pull-request-checks"
+    - title: <span class="menu-indent">Coverage and Test Results</span>
+      url: "#coverage-and-test-results"
 ---
 # Metadata
 
@@ -76,12 +78,12 @@ By default, Screwdriver sets the following metadata
 
 | Key | Description |
 | --- | ----------- |
-| meta.build.buildId | Id of this build |
-| meta.build.jobId | Id of the job that this build belongs to |
-| meta.build.eventId | Id of the event that this build belongs to |
-| meta.build.pipelineId | Id of the pipeline that this build belongs to |
-| meta.build.sha | The commit sha that this build runs |
-| meta.build.jobName | The name of the job |
+| build.buildId | Id of this build |
+| build.jobId | Id of the job that this build belongs to |
+| build.eventId | Id of the event that this build belongs to |
+| build.pipelineId | Id of the pipeline that this build belongs to |
+| build.sha | The commit sha that this build runs |
+| build.jobName | The name of the job |
 
 ### Pull Request Comments
 
@@ -141,3 +143,24 @@ jobs:
 These settings will result in Git checks that look like:
 
 ![PR checks](./assets/pr-checks.png)
+
+### Coverage and Test Results
+
+You can populate coverage and test results on build page from a Screwdriver build through using metadata. Screwdriver UI will read from `tests.coverage` and `tests.results` in metadata and display them.
+
+Example screwdriver.yaml should look something like below:
+
+```
+jobs:
+  main:
+    steps:
+      - set-coverage-and-test-results: |
+          meta set tests.coverage  100 # this should be the coverage percentage number
+          meta set tests.results 10/10 # this should be `pass_tests_number/total_tests_number`
+```
+
+> Note: metadata will override SonarQube results
+
+These settings will result in build page that looks like:
+
+![coverage-meta](./assets/coverage-meta.png)
