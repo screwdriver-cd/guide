@@ -203,9 +203,10 @@ Note:
 - Since everything is using OR syntax, you need a tilde (`~`) before each of your job names. We do not support AND logic for blockedBy.
 - To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
+- This feature does not apply to PR jobs.
 
 #### Example
-In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue.
+In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue. Screwdriver will check the queue periodically to see if `job2` is no longer blocked and will run it as soon as that is true. _Note: `blockedBy` only blocks the job that the configuration is under; the following configuration won't block `job1` if `job2` is running._
 
 ```
 shared:
@@ -216,7 +217,6 @@ jobs:
         steps:
             - echo: echo hello
     job2:
-        requires: [~commit, ~pr]
         blockedBy: [~job1, ~sd@456:publish]
         steps:
             - echo: echo bye
