@@ -205,7 +205,7 @@ Note:
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
 
 #### Example
-In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue.
+In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue. Note `blockedBy` is one way, the following configuration won't block `job1` if `job2` is running.
 
 ```
 shared:
@@ -216,7 +216,6 @@ jobs:
         steps:
             - echo: echo hello
     job2:
-        requires: [~commit, ~pr]
         blockedBy: [~job1, ~sd@456:publish]
         steps:
             - echo: echo bye
