@@ -205,7 +205,7 @@ Note:
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
 
 #### Example
-In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue. Note `blockedBy` is one way, the following configuration won't block `job1` if `job2` is running.
+In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `job1` or `sd@456:publish` is running and `job2` is triggered, `job2` will be put back into the queue. Screwdriver will check the queue periodically to see if `job2` is no longer blocked and will run it as soon as that is true. _Note: `blockedBy` only blocks the job that the configuration is under; the following configuration won't block `job1` if `job2` is running._
 
 ```
 shared:
