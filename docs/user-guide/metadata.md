@@ -8,8 +8,12 @@ toc:
       url: "#metadata"
     - title: What is Metadata?
       url: "#what-is-metadata"
+    - title: Default Metadata
+      url: "#default-metadata"
     - title: Manipulating Metadata
       url: "#manipulating-metadata"
+    - title: <span class="menu-indent">Same Pipeline</span>
+      url: "#same-pipeline"
     - title: <span class="menu-indent">External Pipeline</span>
       url: "#external-pipeline"
     - title: <span class="menu-indent">Pull Request Comments</span>
@@ -25,6 +29,18 @@ toc:
 
 Metadata is a structured key/value storage of relevant information about a [build](../../about/appendix/domain#build). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../../about/appendix/domain#step).
 
+## Default Metadata
+
+By default, Screwdriver sets the following keys in metadata:
+
+| Key | Description |
+| --- | ----------- |
+| build.buildId | ID of this build |
+| build.jobId | ID of the job that this build belongs to |
+| build.eventId | ID of the event that this build belongs to |
+| build.pipelineId | ID of the pipeline that this build belongs to |
+| build.sha | The commit sha that this build ran |
+| build.jobName | The name of the job |
 
 ## Manipulating Metadata
 
@@ -71,19 +87,6 @@ $ meta get example --external sd@123:publish
 Notes:
 - `meta set` is not allowed for external builds.
 - If the `--external` flag did not trigger the build, then meta will not be set.
-
-## Default Metadata
-
-By default, Screwdriver sets the following metadata
-
-| Key | Description |
-| --- | ----------- |
-| build.buildId | Id of this build |
-| build.jobId | Id of the job that this build belongs to |
-| build.eventId | Id of the event that this build belongs to |
-| build.pipelineId | Id of the pipeline that this build belongs to |
-| build.sha | The commit sha that this build runs |
-| build.jobName | The name of the job |
 
 ### Pull Request Comments
 
