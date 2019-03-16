@@ -105,9 +105,9 @@ These environment variables may or may not be available depending on what plugin
 
 | Name | Description |
 |------|-------|
-| SD_API_URL | Link to the Screwdriver API URL |
-| SD_BUILD_URL | Link to the Screwdriver build URL |
-| SD_STORE_URL | Link to the Screwdriver Store URL |
+| SD_API_URL | Link to the Screwdriver API URL (e.g.: `https://api.screwdriver.cd/v4/`) |
+| SD_BUILD_URL | Link to the Screwdriver build API URL (e.g.: `https://api.screwdriver.cd/v4/builds/1`) |
+| SD_STORE_URL | Link to the Screwdriver Store URL (e.g.: `https://store.screwdriver.cd/v1/`) |
 
 
 ## Continuous Integration
