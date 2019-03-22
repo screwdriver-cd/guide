@@ -6,12 +6,16 @@ menu: menu
 toc:
     - title: Annotations
       url: "#annotations"
+    - title: Job-Level Annotations
+      url: "#job-level-annotations"
+    - title: Pipeline-Level Annotations
+      url: "#pipeline-level-annotations"
 ---
 # Annotations
 Annotations is a freeform key/value store, often used to configure pipeline or build execution settings. Annotations may be used as a sandbox for [YAML anchors and aliases](http://blog.daemonl.com/2016/02/yaml.html).
 
 #### Example
-```
+```yaml
 shared:
     template: example/mytemplate@stable
     annotations:
