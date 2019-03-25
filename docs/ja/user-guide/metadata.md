@@ -8,14 +8,20 @@ toc:
   url: "#metadata"
 - title: Metadataとは?
   url: "#Metadataとは"
+- title: デフォルトMetadata
+  url: "#デフォルトMetadata"
 - title: Metadataの操作
   url: "#Metadataの操作"
+- title: <span class="menu-indent">同一パイプライン</span>
+  url: "#同一パイプライン"
 - title: <span class="menu-indent">外部パイプライン</span>
   url: "#外部パイプライン"
 - title: <span class="menu-indent">プルリクエストコメント</span>
   url: "#プルリクエストコメント"
 - title: <span class="menu-indent">プルリクエストチェック</span>
   url: "#追加のプルリクエストチェック"
+- title: <span class="menu-indent">カバレッジとテスト結果</span>
+  url: "#カバレッジとテスト結果"
 ---
 
 # Metadata
@@ -23,6 +29,19 @@ toc:
 ## Metadataとは？
 
 Metadataは [ビルド](../../about/appendix/domain#build) に関する情報を保持する key/value ストアです。Metadataは [steps](../../about/appendix/domain#step) 内で組み込まれている [meta CLI](https://github.com/screwdriver-cd/meta-cli) を利用することで、全てのビルドで更新と取得が可能です。
+
+## デフォルトMetadata
+
+Screwdriver.cdはデフォルトでMetadataに以下のキーを設定しています。
+
+| キー | 説明 |
+| --- | ----------- |
+| build.buildId | ビルドのID |
+| build.jobId | ビルドと紐付いているジョブのID |
+| build.eventId | ビルドと紐付いているイベントのID |
+| build.pipelineId | ビルドと紐付いているパイプラインのID |
+| build.sha | ビルドが実行しているコミットのsha |
+| build.jobName | ジョブ名 |
 
 ## Metadataの操作
 
@@ -73,19 +92,6 @@ $ meta get example --external sd@123:publish
 
 - `meta set` は外部パイプラインのジョブに対してはできません。
 - もし `--external` フラグの値がトリガー元のジョブではなかった場合、meta はセットされません。
-
-## デフォルトMetadata
-
-Screwdriver.cdはデフォルトで以下のMetadataを設定しています。
-
-| キー | 説明 |
-| --- | ----------- |
-| meta.build.buildId | ビルドのID |
-| meta.build.jobId | ビルドと紐付いているジョブのID |
-| meta.build.eventId | ビルドと紐付いているイベントのID |
-| meta.build.pipelineId | ビルドと紐付いているパイプラインのID |
-| meta.build.sha | ビルドが実行しているコミットのsha |
-| meta.build.jobName | ジョブ名 |
 
 ### プルリクエストコメント
 
@@ -146,3 +152,24 @@ jobs:
 これらの設定は以下のようにGitのチェックになります。
 
 ![PR checks](./../../user-guide/assets/pr-checks.png)
+
+### カバレッジとテスト結果
+
+metadataを利用して、Screwdriverのビルドからビルドページにカバレッジとテスト結果を取り込むことができます。ScrewdriverのUIはmetadata内の`tests.coverage`と`tests.results`を読み込んで表示します。
+
+screwdriver.yamlの例:
+
+```
+jobs:
+  main:
+    steps:
+      - set-coverage-and-test-results: |
+          meta set tests.coverage  100 # カバレッジパーセンテージ数
+          meta set tests.results 10/10 # 成功テスト数/全テスト数
+```
+
+> 注意: metadataはSonarQubeの結果を上書きします。
+
+これらの設定により、ビルドページは次のようになります:
+
+![coverage-meta](./../../user-guide/assets/coverage-meta.png)
