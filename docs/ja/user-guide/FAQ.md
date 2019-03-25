@@ -37,6 +37,8 @@ toc:
   url: "#Artifactsをアップロードする時間を短縮するには？"
 - title: shallow cloningを無効にするには？
   url: "#shallow-cloningを無効にするには？"
+- title: ビルドイメージの最小ソフトウェア要件は？
+  url: "#ビルドイメージの最小ソフトウェア要件は？"
 ---
 
 # よくある質問と回答
@@ -139,3 +141,11 @@ shallow cloningを無効にするには、[`GIT_SHALLOW_CLONE`](./environment-va
 デフォルトではScrewdriverはdepth 50でソースリポジトリをshallow cloneします。また、`--no-single-branch`のフラグもデフォルトで有効にしています。
 
 shallow cloningを有効のままにしてgitリポジトリへpushを行うのであれば、使用するイメージに含まれるgitのバージョンが1.9かそれ以上である必要があります。あるいは、`sd-step exec core / git" GIT COMMAND "`を呼び出して、Screwdriverにバンドルされているバージョンのgitを使用することもできます。
+
+### ビルドイメージの最小ソフトウェア要件は？
+
+Screwdriverはビルドコンテナイメージに制限がありません。しかし、最低でも`curl`と`openssh`がインストールされている必要があります。
+
+また、`image`がAlpineベースの場合は、追加で次のシンボリックリンクのような回避策が必要です。 `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+
+あるいは、muslライブラリのパスを含めるように `LD_LIBRARY_PATH`を設定してみることもできます。
