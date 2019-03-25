@@ -27,7 +27,7 @@ Screwdriver のコマンドは、ユーザが [screwdriver.yaml](./configuration
 既に存在しているコマンドを見つけるには、`GET` メソッドで  `/commands` [API](./api)エンドポイントにアクセスしてください。またこちらのパス`<YOUR_UI_URL>/commands`にアクセスすることでコマンドを確認できます。
 
 コマンドページの例:
-![Commands](./assets/commands.png)
+![Commands](../../user-guide/assets/commands.png)
 
 ## コマンドを利用する
 
@@ -160,7 +160,7 @@ jobs:
 
 _注意: 誰がコマンドを削除する権限を持っているか判断するのに必要なため、事前にコマンドのパイプラインを削除しないでください。_
 
-![Removing](assets/delete-command.png)
+![Removing](../../user-guide/assets/delete-command.png)
 
 ## 更に詳しく
 
