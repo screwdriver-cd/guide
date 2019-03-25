@@ -48,7 +48,7 @@ Screwdriver provides the shell command `meta get` to extract information from th
 
 ### Same pipeline
 
-Screwdriver build can retrieve metadata set by itself or by previous builds within the same pipeline.
+Screwdriver build can retrieve metadata set by itself or by previous builds within the same event.
 
 Example: `build1` -> `build2` -> `build3`
 
