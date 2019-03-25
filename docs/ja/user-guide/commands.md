@@ -6,12 +6,14 @@ menu: menu_ja
 toc:
 - title: コマンド
   url: "#コマンド"
+- title: コマンドを検索する
+  url: "#コマンドを検索する"
 - title: コマンドを利用する
   url: "#コマンドを利用する"
 - title: コマンドを作成する
   url: "#コマンドを作成する"
-- title: コマンドを検索する
-  url: "#コマンドを検索する"
+- title: コマンドを削除する
+  url: "#コマンドを削除する"
 - title: 更に詳しく
   url: "#更に詳しく"
 ---
@@ -20,13 +22,16 @@ toc:
 
 Screwdriver のコマンドは、ユーザが [screwdriver.yaml](./configuration) でステップを定義する代わりに利用できる実行可能なスクリプトやバイナリの[コマンド](https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF))です。
 
+## コマンドを検索する
+
+既に存在しているコマンドを見つけるには、`GET` メソッドで  `/commands` [API](./api)エンドポイントにアクセスしてください。またこちらのパス`<YOUR_UI_URL>/commands`にアクセスすることでコマンドを確認できます。
+
+コマンドページの例:
+![Commands](./assets/commands.png)
+
 ## コマンドを利用する
 
-コマンドを利用するには、`sd-cmd` という CLI を実行するよう、以下のフォーマットで `screwdriver.yaml` に定義します。
-
-```
-$ sd-cmd exec <namespace>/<name>@<version> <arguments>
-```
+コマンドを利用するには、ステップ内で `sd-cmd` という CLI を実行するよう、 `sd-cmd exec <namespace>/<name>@<version> <arguments>` というフォーマットで `screwdriver.yaml` に定義します。
 
 **入力:**
 
@@ -38,20 +43,23 @@ $ sd-cmd exec <namespace>/<name>@<version> <arguments>
 
 コマンドの取得と実行に関する全てのデバッグログは、`$SD_ARTIFACTS_DIR/.sd/commands/namespace/name/version/timestamp.log` に保存されます。
 
-例:
+以下の例では、[awscli/install command](https://github.com/screwdriver-cd-test/command-example)を使用しています。
+
+`screwdriver.yaml`の例:
 
 ```yaml
 jobs:
     main:
         requires: [~pr, ~commit]
+        image: node:6
         steps:
-            - exec: sd-cmd exec foo/bar@1 -baz sample
+            - init: sd-cmd exec awscli/install@1.0 -i mySecretID -s secretAccessKey -r us-west-2
 ```
 
-Screwdriver は Store からバイナリやスクリプトをダウンロードし、実行可能にした後、`-baz sample` を引数として実行します:
+Screwdriver は Store からバイナリやスクリプトをダウンロードし、実行可能にした後、`-i mySecretID -s secretAccessKey -r us-west-2` を引数として実行します:
 
 ```
-$ /opt/sd/commands/foo/bar/1.0.1/foobar.sh -baz sample
+$ /opt/sd/commands/awscli/install/1.0.1/install.sh -i mySecretID -s secretAccessKey -r us-west-2
 ```
 
 ## コマンドを作成する
@@ -62,9 +70,7 @@ $ /opt/sd/commands/foo/bar/1.0.1/foobar.sh -baz sample
 
 コマンドを作成するために、`sd-command.yaml` を含んだリポジトリを作成します。yaml には、コマンドのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するフォーマットとそのフォーマットに応じた設定が必要です。またオプションとして、利用方法を設定できます。こちらを設定することで、UIから利用方法を参照できるようになります。利用方法を設定しなかった場合はデフォルトとして、sd-cmd exec `<namespace>/<name>@<version>`　が表示されます。　
 
-`sd-command.yaml`の例:
-
-Binary の例:
+Binary の場合の `sd-command.yaml` の例:
 
 ```yaml
 namespace: foo # コマンドのネームスペース
@@ -86,32 +92,32 @@ binary:
     file: ./foobar.sh # スクリプトやバイナリファイルの sd-command.yaml ファイルからの相対パス、もしくは絶対パス
 ```
 
-Remote Habitat の例:
+Remote Habitat の場合の `sd-command.yaml` の例:
 
 ```yaml
-namespace: foo # コマンドのネームスペース
-name: bar # コマンドの名前
-version: '1.0' # メジャーバージョンとマイナーバージョン (パッチバージョンは自動付与)
+namespace: foo
+name: bar
+version: '1.0'
 description: |
   Lorem ipsum dolor sit amet.
-maintainer: foo@bar.com # コマンドの管理者
-format: habitat
+maintainer: foo@bar.com
+format: habitat # コマンドのフォーマット (binary または habitat)
 habitat:
     package: core/node8 # コマンドで利用する Habitat のパッケージ
     mode: remote # Habitat コマンドのモード (remote または local)
     command: node # 実行可能なコマンド
 ```
 
-Local Habitat の例:
+Local Habitat の場合の `sd-command.yaml` の例:
 
 ```yaml
-namespace: foo # コマンドのネームスペース
-name: bar # コマンドの名前
-version: '1.0' # メジャーバージョンとマイナーバージョン (パッチバージョンは自動付与)
+namespace: foo
+name: bar
+version: '1.0'
 description: |
   Lorem ipsum dolor sit amet.
-maintainer: foo@bar.com # コマンドの管理者
-format: habitat
+maintainer: foo@bar.com
+format: habitat コマンドのフォーマット (binary または habitat)
 habitat:
     package: core/node8 # コマンドで利用する Habitat のパッケージ
     mode: local # Habitat コマンドのモード (remote または local)
@@ -148,13 +154,17 @@ jobs:
             - promote: sd-cmd promote foo/bar 1.0.1 stable
 ```
 
-## コマンドを検索する
+## コマンドを削除する
 
-既に存在しているコマンドを見つけるには、`GET` メソッドで 
- `/commands` エンドポイントにアクセスしてください。詳しくは [API documentation](./api) をご覧ください。またこちらのパス`<YOUR_UI_URL>/commands`にアクセスすることでコマンドを確認できます。
+コマンドページのUIにあるゴミ箱アイコンをクリックすることで、コマンドとそれに関連するすべてのタグおよびバージョンを削除できます。
+
+_注意: 誰がコマンドを削除する権限を持っているか判断するのに必要なため、事前にコマンドのパイプラインを削除しないでください。_
+
+![Removing](assets/delete-command.png)
 
 ## 更に詳しく
 
 - [設計仕様書](https://github.com/screwdriver-cd/screwdriver/blob/master/design/commands.md)*
 
-***古くなっている可能性があります。**
+_*古くなっている可能性があります。_
+
