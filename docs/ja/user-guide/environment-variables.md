@@ -46,7 +46,6 @@ SD_JOB_NAME | ジョブの名前 (例: main)
 SD_PARENT_BUILD_ID | このビルドのトリガーとなったビルド
 SD_PARENT_EVENT_ID | リスタートの場合、親のイベントの ID
 SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる
-ID of the real job of PR. For example, in `PR-1:main` build, this ENV references the ID of `main` job
 SD_PIPELINE_ID | パイプラインの ID
 SD_PIPELINE_NAME | パイプラインの名前(例: `d2lam/myPipeline`)
 SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
