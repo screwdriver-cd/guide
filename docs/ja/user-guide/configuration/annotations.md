@@ -6,6 +6,10 @@ menu: menu_ja
 toc:
 - title: アノテーション
   url: "#アノテーション"
+- title: ジョブレベルのアノテーション
+  url: "#ジョブレベルのアノテーション"
+- title: パイプラインレベルのアノテーション
+  url: "#パイプラインレベルのアノテーション"
 ---
 
 # アノテーション
@@ -14,7 +18,7 @@ toc:
 
 #### 例
 
-```
+```yaml
 shared:
     template: example/mytemplate@stable
     annotations:
