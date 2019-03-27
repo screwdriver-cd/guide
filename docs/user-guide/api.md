@@ -106,19 +106,21 @@ For more information, see the [GitHub OAuth] documentation.
 
 ## Badges
 
-To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`.
+To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`. To get it for job, you can use `<your_UI_URL>/pipelines/<your_pipelineId>/jobName/badge`. 
 
 [![Build Status][status-image]][status-url]
 
 [status-image]: https://cd.screwdriver.cd/pipelines/1/badge
+[job-status-image]: https://cd.screwdriver.cd/pipelines/1/main/badge
 [status-url]: https://cd.screwdriver.cd/pipelines/1
 
 For example, we display the badge above by using this code in Markdown. The `status-image` URL gives you the badge image and the `status-url` should be the link to your pipeline.
 
 ```markdown
-[![Build Status][status-image]][status-url]
+[![Build Status][status-image]][status-url][job-status-image]
 
 [status-image]: https://cd.screwdriver.cd/pipelines/1/badge
+[job-status-image]: https://cd.screwdriver.cd/pipelines/1/main/badge
 [status-url]: https://cd.screwdriver.cd/pipelines/1
 ```
 
