@@ -22,6 +22,8 @@ toc:
       url: "#additional-pull-request-checks"
     - title: <span class="menu-indent">Coverage and Test Results</span>
       url: "#coverage-and-test-results"
+    - title: <span class="menu-indent">Event Labels</span>
+      url: "#event-labels"
 ---
 # Metadata
 
@@ -98,7 +100,7 @@ To write out metadata to a pull request, you just need to set `meta.summary` wit
 
 For example, to add a coverage description, your screwdriver.yaml should look something like below:
 
-```
+```yaml
 jobs:
   main:
     steps:
@@ -106,7 +108,7 @@ jobs:
 ```
 
 You can also write things in markdown syntax as shown in the following example:
-```
+```yaml
 jobs:
   main:
     steps:
@@ -134,7 +136,7 @@ The fields you can set:
 
 For example, to add two additional checks for `findbugs` and `coverage`, your screwdriver.yaml should look something like below:
 
-```
+```yaml
 jobs:
   main:
     steps:
@@ -153,12 +155,12 @@ You can populate coverage and test results on build page from a Screwdriver buil
 
 Example screwdriver.yaml should look something like below:
 
-```
+```yaml
 jobs:
   main:
     steps:
       - set-coverage-and-test-results: |
-          meta set tests.coverage  100 # this should be the coverage percentage number
+          meta set tests.coverage 100 # this should be the coverage percentage number
           meta set tests.results 10/10 # this should be `pass_tests_number/total_tests_number`
 ```
 
@@ -167,3 +169,19 @@ jobs:
 These settings will result in build page that looks like:
 
 ![coverage-meta](./assets/coverage-meta.png)
+
+### Event Labels
+
+You can label your events using the `label` key from meta. This key can be useful when trying to determine which event to [rollback](./FAQ.html#how-do-i-rollback).
+
+Example screwdriver.yaml:
+```yaml
+jobs:
+  main:
+    steps:
+      - set-label: |
+          meta set label VERSION_3.0 # this will show up in your pipeline events page
+```
+
+Result:
+![Label](./assets/label-meta.png)
