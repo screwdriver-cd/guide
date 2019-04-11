@@ -28,7 +28,7 @@ jobs:
         <<: *bar            # Referencing the annotation anchor to use that config for main job
         annotations:
             screwdriver.cd/cpu: HIGH                      # Use HIGH for CPU
-            screwdriver.cd/buildPeriodically: H H(4-7) * * *   # Run the job every day sometime between 4am and 7am UTC.
+            screwdriver.cd/buildPeriodically: H H(4-7) * * *   # Run the job every day sometime between 4:00 am and 7:59 am UTC.
 ```
 
 ## Job-Level Annotations
