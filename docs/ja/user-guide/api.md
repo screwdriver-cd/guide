@@ -112,16 +112,18 @@ ScrewdriverのユーザAPIトークンは [Screwdriver's user settings page](htt
 
 ## バッジ
 
-`<your_UI_URL>/pipelines/<your_pipelineId>/badge`のURLを利用して、特定のパイプラインに対する現在のビルドステータスを表す画像を取得できます。
+`<your_UI_URL>/pipelines/<your_pipelineId>/badge`のURLを利用して、特定のパイプラインに対する現在のビルドステータスを表す画像を取得できます。  
+ジョブのステータスを表す画像は`<your_UI_URL>/pipelines/<your_pipelineId>/<jobName>/badge`を利用することで取得できます。
 
-[![Build Status](https://cd.screwdriver.cd/pipelines/1/badge)](https://cd.screwdriver.cd/pipelines/1)
+[![Pipeline Status](https://cd.screwdriver.cd/pipelines/1/badge)](https://cd.screwdriver.cd/pipelines/1) [![Job Status](https://cd.screwdriver.cd/pipelines/1/main/badge)](https://cd.screwdriver.cd/pipelines/1/main)
 
 例えば、このMarkdown形式で書かれたコードを利用することで上のようなバッジを表示できます。`status-image` URLはバッジの画像で、`status-url` はパイプラインへのリンクです。
 
 ```markdown
-[![Build Status][status-image]][status-url]
+[![Pipeline Status][status-image]][status-url] [![Job Status][job-status-image]][status-url]
 
 [status-image]: https://cd.screwdriver.cd/pipelines/1/badge
+[job-status-image]: https://cd.screwdriver.cd/pipelines/1/main/badge
 [status-url]: https://cd.screwdriver.cd/pipelines/1
 ```
 
