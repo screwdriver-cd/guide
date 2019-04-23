@@ -186,7 +186,7 @@ jobs:
   main:
     steps:
       - set-label: |
-          meta set label VERSION_3.0 # this will show up in your pipeline events page
+          meta set label VERSION_3.0 # 設定した値はイベントに紐づいてパイプラインページ上に表示されます
 ```
 
 結果:
