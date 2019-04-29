@@ -55,8 +55,7 @@ jobs:
 ### Notes
 
 - If you define the same property in both the `sonar-project.properties` file and `$SD_SONAR_OPTS`, `$SD_SONAR_OPTS` will override the properties file.
-- Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`; you must set `sonar.sources` yourself.
-- `sonar.projectVersion` will be set to your `$SD_BUILD_SHA`.
+- Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`; you must set `sonar.sources` yourself.
 
 ### Related links
 - [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
