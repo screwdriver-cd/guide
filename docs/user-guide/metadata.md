@@ -43,6 +43,11 @@ By default, Screwdriver sets the following keys in metadata:
 | build.pipelineId | ID of the pipeline that this build belongs to |
 | build.sha | The commit sha that this build ran |
 | build.jobName | The name of the job |
+| commit.author | The author info object with the following fields: `avatar`, `name`, `url` and `username` |
+| commit.committer | The committer info object with the following fields: `avatar`, `name`, `url` and `username` |
+| commit.message | The commit message |
+| commit.url | The url to the commit |
+| commit.changedFiles | List of changed files separated by comma. **Note**: If you start a fresh event via UI, this value will be empty since it's not triggered by a commit.
 
 ## Manipulating Metadata
 
