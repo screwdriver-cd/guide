@@ -60,7 +60,7 @@ To create a pipeline, click the Create icon and paste a Git URL into the form. F
 
 ## How do I start a pipeline manually?
 
-To start a build manually, click the Start button on your pipeline page.
+To start a build manually, click the Start button on your pipeline page. Starting a pipeline starts all jobs with `~commit` event trigger.
 
 ![Start a pipeline](./assets/start-pipeline.png)
 

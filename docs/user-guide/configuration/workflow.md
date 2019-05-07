@@ -24,7 +24,7 @@ toc:
       url: "#detached-jobs-and-pipelines"
 ---
 # Workflow
-Workflow is the way that individual jobs are wired together to form a pipeline. This is done by using a `requires` keyword in your job definition with the list of jobs or events that should cause that job to run. Screwdriver defines two events for every pipeline that occur due to SCM events: `~pr`, and `~commit`. These occur when a pull-request is opened, reopened, or modified, and when a commit occurs against the pipeline's branch (respectively).
+Workflow is the way that individual jobs are wired together to form a pipeline. This is done by using a `requires` keyword in your job definition with the list of jobs or events that should cause that job to run. Screwdriver defines two events for every pipeline that occur due to SCM events: `~pr`, and `~commit`. `~pr` event occurs when a pull-request is opened, reopened, or modified. `~commit` event occurs when a commit is made against the pipeline's branch. When you start a pipeline manually, it runs all the jobs that have the `~commit` event trigger.
 
 ## Defining Workflow Order
 To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate [advanced logic](#advanced-logic).
