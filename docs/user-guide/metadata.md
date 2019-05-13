@@ -93,7 +93,7 @@ $ meta get example --external sd@123:publish
 
 Notes:
 - `meta set` is not allowed for external builds.
-- If the `--external` flag did not trigger the build, then meta will not be set.
+- If the `--external` pipeline job did not trigger the build, meta will not be set.
 
 ### Pull Request Comments
 
