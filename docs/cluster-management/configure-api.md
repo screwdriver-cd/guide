@@ -62,6 +62,21 @@ auth:
         - github:batman
 ```
 
+### Build Environment Variables
+
+You can preset default environment variables for all builds in your cluster. By default, this field is `{ SD_VERSION: 4 }`.
+
+| Key | Default| Description |
+|:----|:-------|:------------|
+| CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | Default environment variables for build. For example: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
+
+
+```yaml
+# config/local.yaml
+build:
+    environment: CLUSTER-ENV-IN-JSON-FORMAT
+```
+
 ### Bookend Plugins
 
 You can globally configure which built-in bookend plugins will be used during a build. By default, `scm` is enabled to begin builds with a SCM checkout command.
@@ -161,6 +176,7 @@ Set these environment variables:
 | DATASTORE_SEQUELIZE_STORAGE  | Yes for sqlite |               | Storage location for sqlite                      |
 | DATASTORE_SEQUELIZE_HOST     | No             |               | Network host                                     |
 | DATASTORE_SEQUELIZE_PORT     | No             |               | Network port                                     |
+| DATASTORE_SEQUELIZE_RO       | No             |               | JSON format that includes host, port, database, username, password, etc. for the readonly datastore instance - used for Metrics endpoints only |
 
 ```yaml
 # config/local.yaml
@@ -174,6 +190,7 @@ datastore:
         password: DATABASE-PASSWORD
         host: NETWORK-HOST
         port: NETWORK-PORT
+        readOnly: DATASTORE-READONLY-INSTANCE
 ```
 
 ### Executor Plugin
