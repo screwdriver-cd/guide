@@ -64,11 +64,11 @@ auth:
 
 ### Build Environment Variables
 
-You can set build environment variables for all builds in your cluster. By default, this field is `{ SD_VERSION: 4 }`.
+You can preset default environment variables for all builds in your cluster. By default, this field is `{ SD_VERSION: 4 }`.
 
 | Key | Default| Description |
 |:----|:-------|:------------|
-| CLUSTER_ENVIRONMENT_VARIABLES | { SD_VERSION: 4 } | Default environment variables for build. For example: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
+| CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | Default environment variables for build. For example: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
 
 
 ```yaml
