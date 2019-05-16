@@ -59,9 +59,9 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ![Create a pipeline](../../user-guide/assets/create-pipeline.png)
 
-## ビルドを手動で開始するには？
+## パイプラインを手動で開始するには？
 
-ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックしてください。
+ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックしてください。パイプラインを開始すると`~commit`をトリガーにもつ全てのジョブのビルドが開始します。
 
 ![Start a pipeline](../../user-guide/assets/start-pipeline.png)
 
