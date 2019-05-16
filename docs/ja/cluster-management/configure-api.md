@@ -178,6 +178,7 @@ DATASTORE_SEQUELIZE_PASSWORD | sqliteでは不要 |  | ログインパスワー�
 DATASTORE_SEQUELIZE_STORAGE | sqliteのみ必要 |  | sqliteのストレージの場所
 DATASTORE_SEQUELIZE_HOST | いいえ |  | ネットワークホスト
 DATASTORE_SEQUELIZE_PORT | いいえ |  | ネットワークホスト
+DATASTORE_SEQUELIZE_RO | いいえ |  | host, port, database, username, passwordなどを含むJSON形式の値<br>Metricsエンドポイントのみで使うRead Onlyデータストアインスタンス情報です
 
 ```yaml
 # config/local.yaml
@@ -191,6 +192,7 @@ datastore:
         password: DATABASE-PASSWORD
         host: NETWORK-HOST
         port: NETWORK-PORT
+        readOnly: DATASTORE-READONLY-INSTANCE
 ```
 
 ### Executorプラグイン
