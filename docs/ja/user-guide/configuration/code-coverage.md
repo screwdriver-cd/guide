@@ -55,8 +55,7 @@ jobs:
 ### 注意
 
 - `sonar-project.properties` と `$SD_SONAR_OPTS` で同じプロパティを設定していた場合、`$SD_SONAR_OPTS` の設定が優先されます。
-- Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`)を自動で設定します。`sonar.sources` は自分で設定する必要があります。
-- `sonar.projectVersion` には、`$SD_BUILD_SHA` が設定されます。
+- Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。`sonar.sources` は自分で設定する必要があります。
 
 ### 関連リンク
 - [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
