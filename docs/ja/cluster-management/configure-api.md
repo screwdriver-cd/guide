@@ -64,6 +64,21 @@ auth:
         - github:batman
 ```
 
+### Build Environment Variables
+
+クラスタ内の全てのビルドに対して環境変数を事前設定できます。デフォルトでは`{ SD_VERSION: 4 }`が設定されています。
+
+| キー | デフォルト | 説明 |
+|:----|:-------|:------------|
+| CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | ビルドのデフォルト環境変数です。例: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
+
+
+ ```yaml
+# config/local.yaml
+build:
+    environment: CLUSTER-ENV-IN-JSON-FORMAT
+```
+
 ### Bookend Plugins
 
 ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
