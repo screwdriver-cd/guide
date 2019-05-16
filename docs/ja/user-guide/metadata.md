@@ -44,6 +44,11 @@ Screwdriver.cdはデフォルトでMetadataに以下のキーを設定してい�
 | build.pipelineId | ビルドと紐付いているパイプラインのID |
 | build.sha | ビルドが実行しているコミットのsha |
 | build.jobName | ジョブ名 |
+| commit.author | `avatar`, `name`, `url`, `username`を含むAuthor情報のオブジェクト |
+| commit.committer | `avatar`, `name`, `url`, `username`を含むCommitter情報のオブジェクト |
+| commit.message | コミットメッセージ |
+| commit.url | コミットへのURL |
+| commit.changedFiles | カンマ区切りの変更ファイルリスト<br>**注意**: UIから新たにイベントを開始した場合はコミットでトリガーされたことにならないので、この値は空になります |
 
 ## Metadataの操作
 
@@ -93,7 +98,7 @@ $ meta get example --external sd@123:publish
 注意:
 
 - `meta set` は外部パイプラインのジョブに対してはできません。
-- もし `--external` フラグの値がトリガー元のジョブではなかった場合、meta はセットされません。
+- もしビルドのトリガー元のジョブが `--external` で指定した外部パイプラインのジョブではなかった場合、meta はセットされません。
 
 ### プルリクエストコメント
 
