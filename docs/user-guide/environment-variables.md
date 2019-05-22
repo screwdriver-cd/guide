@@ -62,6 +62,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | USER_SHELL_BIN | sh | The user shell bin to run the build in. Can also be the full path such as `/bin/bash`.
 | GIT_SHALLOW_CLONE | true | **Options:** (`true`/`false`) <br><br>Shallow clones source repository.
 | GIT_SHALLOW_CLONE_DEPTH | 50 | Shallow clone with a history truncated to the specified number of commits
+| GIT_SHALLOW_CLONE_SINCE |  | Shallow clone with a history truncated starting from the specified datetime (inclusive). If set, this has priority over `GIT_SHALLOW_CLONE_DEPTH`.<br><br>This uses `--shallow-since` which accepts both absolute dates (e.g.: `2019-04-01`) and relative dates (e.g.: `4 weeks ago`).
 | GIT_SHALLOW_CLONE_SINGLE_BRANCH |  | If set to `true`, it will use `--single-branch` option for shallow clone. Otherwise, `--no-single-branch` option is used.
 
 ## Plugins
