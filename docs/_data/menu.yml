@@ -28,6 +28,8 @@
           url: "/user-guide/configuration/settings"
         - title: "Source Paths"
           url: "/user-guide/configuration/sourcePaths"
+        - title: "Source Directory"
+          url: "/user-guide/configuration/sourceDirectory"
         - title: "External Config"
           url: "/user-guide/configuration/externalConfig"
         - title: "Build Cache"
