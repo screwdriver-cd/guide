@@ -45,4 +45,11 @@ In this example, jobs that `requires: [~commit, ~pr]` will be triggered if there
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
 - If you use `sourcePaths` together with custom source directory, the scope of the `sourcePaths` is limited to your source directory. You can not listen on changes that are outside your source directory. ***Note*** the path for your `sourcePaths` is relative to the root of the repository not your source directory.
+
+  - For example, if you want to add sourcePaths to listen on changes to `main.js` and `screwdriver.yaml`, you should set:
+```
+sourcePaths: [myapp2/app/main.js, myapp2/screwdriver.yaml]
+```
+If you try to set `sourcePaths: [app/main.js]`, it will not work, as it is missing the source dir `myapp2` and you cannot set a relative source path. If you try to set `sourcePaths: [myapp1/test.js]`, it will not work, as it is outside the scope of your source directory, `myapp2`.
+
 - The `screwdriver.yaml` must be located at root of your custom source directory.
