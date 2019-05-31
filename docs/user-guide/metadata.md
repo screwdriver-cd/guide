@@ -24,6 +24,8 @@ toc:
       url: "#coverage-and-test-results"
     - title: <span class="menu-indent">Event Labels</span>
       url: "#event-labels"
+    - title: <span class="menu-indent">Notification</span>
+      url: "#notification"
 ---
 # Metadata
 
@@ -190,3 +192,16 @@ jobs:
 
 Result:
 ![Label](./assets/label-meta.png)
+
+### Notification
+
+You can use [notification](./configuration/settings.html#slack) function from steps.
+
+Example screwdriver.yaml:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.message "<@sd-build-bot> Hello!!"
+```
