@@ -57,7 +57,7 @@ To enable Slack notifications to be sent as a result of build events, invite the
 
 You can also configure when to send a Slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`. If no `statuses` field is set, the build will only send notifications for build failures. For a full list of statuses, see the [data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96).
 
-To send data in steps as notification, [notification meta](https://docs.screwdriver.cd/user-guide/metadata.html#notification) is available.
+To send data in steps as a notification, [notification meta](https://docs.screwdriver.cd/user-guide/metadata.html#notification) is available.
 
 #### Example: Multiple Rooms
 

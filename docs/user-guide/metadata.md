@@ -193,7 +193,7 @@ jobs:
 Result:
 ![Label](./assets/label-meta.png)
 
-### Notification
+### Notifications
 
 You can use [notification](./configuration/settings.html#slack) function from steps.
 
