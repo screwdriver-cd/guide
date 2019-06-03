@@ -24,6 +24,8 @@ toc:
       url: "#coverage-and-test-results"
     - title: <span class="menu-indent">Event Labels</span>
       url: "#event-labels"
+    - title: <span class="menu-indent">Notifications</span>
+      url: "#notifications"
 ---
 # Metadata
 
@@ -190,3 +192,20 @@ jobs:
 
 Result:
 ![Label](./assets/label-meta.png)
+
+### Notifications
+
+You can customize [notification](./configuration/settings.html#slack) messages with meta.
+Meta keys are different for each notification plugin.
+
+Example screwdriver.yaml notifying with Slack:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.message "<@yoshwata> Hello!!"
+```
+
+Result:
+![notification-meta](./assets/notification-meta.png)
