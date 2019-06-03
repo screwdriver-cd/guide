@@ -25,7 +25,7 @@ toc:
     - title: <span class="menu-indent">Event Labels</span>
       url: "#event-labels"
     - title: <span class="menu-indent">Notifications</span>
-      url: "#notification"
+      url: "#notifications"
 ---
 # Metadata
 
