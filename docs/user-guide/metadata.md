@@ -196,7 +196,7 @@ Result:
 ### Notifications
 
 You can customize [notification](./configuration/settings.html#slack) messages with meta.
-Meta keys are different for each notification plugins.
+Meta keys are different for each notification plugin.
 
 Example screwdriver.yaml notifying with slack:
 ```yaml
