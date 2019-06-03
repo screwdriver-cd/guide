@@ -204,5 +204,8 @@ jobs:
   main:
     steps:
       - meta: |
-          meta set notification.slack.message "<@sd-build-bot> Hello!!"
+          meta set notification.slack.message "<@yoshwata> Hello!!"
 ```
+
+Result:
+![notification-meta](./assets/notification-meta.png)
