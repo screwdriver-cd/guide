@@ -93,7 +93,7 @@ Individual pipelines may be removed by clicking the Delete icon on the Options t
 This is caused by a variety of reasons including cluster setup issue like hyperd down (if using executor vm) or a problem with your build image etc. Fixing this issue
 requires different approaches based on what layer it's failing.
 
-1. `/opt/sd/launch: not found` This issue affects Alpine based images because it uses musl instead of glibc. Workaround is to create the following symlink `mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2` when creating your Docker image.
+1. `/opt/sd/launch: not found` This issue affects Alpine based images because it uses musl instead of glibc. Workaround is to create the following symlink `mkdir /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2` when creating your Docker image.
 1. [A bug in hyperd](https://github.com/screwdriver-cd/screwdriver/issues/1081) sometimes causes images with `VOLUME` defined to fail to launch consistently in some certain nodes. One of these images is `gradle:jdk8`. The current workaround is to use other docker images, or to rebuild the gradle image using [this Dockerfile](https://github.com/keeganwitt/docker-gradle/blob/64a348e79cbe0bc8acb9da9062f75aca02bf3023/jdk8/Dockerfile) but excluding the `VOLUME` line.
 
 ## How do I rollback?
@@ -144,6 +144,4 @@ If shallow cloning is left enabled and you wish to push back to your git reposit
 
 Screwdriver has no restriction on build container image. However it should have at the minimum `curl` && `openssh` installed.
 
-Also, if the `image` is Alpine-based, an extra workaround is required in the form of the following symlink. `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
-
-Alternatively you can also try setting `LD_LIBRARY_PATH` to include musl library paths.
+Also, if the `image` is Alpine-based, an extra workaround is required in the form of the following symlink. `mkdir -p /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
