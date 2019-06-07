@@ -28,10 +28,10 @@ Workflow is the way that individual jobs are wired together to form a pipeline. 
 
 |keyword|description|
 |:--|:--|
-| ~pr | event occurs when a pull-request is opened, reopened, or modified. |
-| ~commit | event occurs when a commit is made against the pipeline's branch. When you start a pipeline manually, it runs all the jobs that have the `~commit` event trigger. |
-| ~tag | event occurs when a tag is created. Now, this trigger is only available for user using GitHub as scm. |
-| ~release | event occurs when released. Now, this trigger is only available for user using GitHub as scm. |
+| ~pr | Event occurs when a pull-request is opened, reopened, or modified. |
+| ~commit | Event occurs when a commit is made against the pipeline's branch. When you start a pipeline manually, it runs all the jobs that have the `~commit` event trigger. |
+| ~tag | Event occurs when a tag is created. Now, this trigger is only available for user using GitHub as scm. |
+| ~release | Event occurs when released. Now, this trigger is only available for user using GitHub as scm. |
 
 ## Defining Workflow Order
 To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate [advanced logic](#advanced-logic).
