@@ -49,7 +49,11 @@ By default, Screwdriver sets the following keys in metadata:
 | commit.committer | The committer info object with the following fields: `avatar`, `name`, `url` and `username` |
 | commit.message | The commit message |
 | commit.url | The url to the commit |
-| commit.changedFiles | List of changed files separated by comma. **Note**: If you start a fresh event via UI, this value will be empty since it's not triggered by a commit.
+| commit.changedFiles | List of changed files separated by comma. **Note**: If you start a fresh event via UI, this value will be empty since it's not triggered by a commit. |
+| sd.tag.name | The name of the tag |
+| sd.release.id | ID of the release |
+| sd.release.name | The name of the release |
+| sd.release.author | The author name of the release |
 
 ## Manipulating Metadata
 
