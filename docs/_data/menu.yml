@@ -60,6 +60,8 @@
       url: "/cluster-management/kubernetes"
     - title: "Setting Up a Screwdriver Cluster using Kubernetes helm chart"
       url: "/cluster-management/helm"
+    - title: "Dependencies"
+      url: "/cluster-management/dependencies"
     - title: "FAQ"
       url: "/cluster-management/FAQ"
 - title: "About"

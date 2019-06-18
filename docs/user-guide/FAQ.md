@@ -142,6 +142,6 @@ If shallow cloning is left enabled and you wish to push back to your git reposit
 
 ## What are the minimum software requirements for a build image?
 
-Screwdriver has no restriction on build container image. However it should have at the minimum `curl` && `openssh` installed.
+Screwdriver has no restriction on build container image. However the container should have at the minimum `curl` && `openssh` installed. And default user of the container should be either `root` or have sudo NOPASSWD enabled.
 
 Also, if the `image` is Alpine-based, an extra workaround is required in the form of the following symlink. `mkdir -p /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
