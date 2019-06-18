@@ -30,5 +30,6 @@ toc:
  | RabbitMQ               | For queueing builds to build clusters | [Mozilla Public License](https://www.rabbitmq.com/mpl.html) |
  | Redis                  | For handling [workflow use-cases](https://docs.screwdriver.cd/user-guide/configuration/workflow)(e.g.: periodic builds) | [Three clause BSD license](https://redis.io/topics/license) |
  | S3(Optional) | One of the options for artifact storage | Commerical |
+ | Sequelize              | Multi SQL dialect ORM for Node.js | [MIT](https://github.com/sequelize/sequelize/blob/master/LICENSE) |
  | SonarQube (Optional)   | For providing code analysis via [coverage-sonar bookend](https://github.com/screwdriver-cd/coverage-sonar) | [GNU V3](https://www.sonarqube.org/downloads/license) |
  | Swagger                | For API documentation | [Apache 2.0](https://swagger.io/license) |
