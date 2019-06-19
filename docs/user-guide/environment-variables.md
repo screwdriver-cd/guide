@@ -42,7 +42,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_EVENT_ID | The ID of the [event](../about/appendix/domain#event) |
 | SD_JOB_ID | The ID of the [job](../about/appendix/domain#job) |
 | SD_JOB_NAME | Job name (e.g.: `main`) |
-| SD_PARENT_BUILD_ID | Build(s) that trigger(s) this build |
+| SD_PARENT_BUILD_ID | Bracketed list of build(s) that trigger(s) this build. (e.g.: `[12345 23456]`) |
 | SD_PARENT_EVENT_ID | ID of the parent event if this was a restart |
 | SD_PR_PARENT_JOB_ID | ID of the real job of PR. For example, in `PR-1:main` build, this ENV references the ID of `main` job |
 | SD_PIPELINE_ID | The ID of the [pipeline](../about/appendix/domain#pipeline) |
