@@ -95,9 +95,10 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 このエラーは（VMのexecutorを使用している場合は）hyperdのプロセスがダウンしているなどクラスタセットアップ時の問題や、ビルドを行うDocker imageの問題など、様々な理由で起こります。
 従ってどのレイヤーでエラーが起きているかによって修正する方法も変わってきます。
 
-1. `/opt/sd/launch: not found` 
+1. `/opt/sd/launch: not found`
 このエラーが出る場合はAlpineベースのimageを利用していることが原因となります。glibcの代わりにmuslが使われているためです。回避策としてはDocker imageの作成時に下記のシンボリックリンクを作成します。
-`mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+`mkdir /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+1. [hyperdのバグ](https://github.com/screwdriver-cd/screwdriver/issues/1081)が時々発生し、`VOLUME`の定義されたイメージが継続的に起動に失敗します。そういったイメージの一つに`gradle:jdk8`が上げられます。現時点でのワークアラウンドは他のdocker imageを利用するか、[ このDockerfile](https://github.com/keeganwitt/docker-gradle/blob/64a348e79cbe0bc8acb9da9062f75aca02bf3023/jdk8/Dockerfile)から`VOLUME`の行を除いてリビルドすることです。
 
 ## ビルドのロールバックを行うには？
 
@@ -144,8 +145,6 @@ shallow cloningを有効のままにしてgitリポジトリへpushを行うの�
 
 ### ビルドイメージの最小ソフトウェア要件は？
 
-Screwdriverはビルドコンテナイメージに制限がありません。しかし、最低でも`curl`と`openssh`がインストールされている必要があります。
+Screwdriverはビルドコンテナイメージに制限がありません。しかし、最低でも`curl`と`openssh`がインストールされている必要があります。さらに、コンテナのデフォルトユーザは`root`もしくはsudo NOPASSWDが有効になっている必要があります。
 
 また、`image`がAlpineベースの場合は、追加で次のシンボリックリンクのような回避策が必要です。 `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
-
-あるいは、muslライブラリのパスを含めるように `LD_LIBRARY_PATH`を設定してみることもできます。

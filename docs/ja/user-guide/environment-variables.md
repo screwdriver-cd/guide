@@ -40,9 +40,10 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 環境変数名 | 説明
 --- | ---
 SD_BUILD_ID | [ビルド](../about/appendix/domain#ビルド)番号 (例: 1, 2, など)
-SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID 
+SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID
 SD_JOB_ID | [ジョブ](../about/appendix/domain#ジョブ)の ID
 SD_JOB_NAME | ジョブの名前 (例: main)
+SD_PARENT_BUILD_ID | このビルドをトリガーするビルドのリスト(例: `[12345 23456]`) |
 SD_PARENT_BUILD_ID | このビルドのトリガーとなったビルド
 SD_PARENT_EVENT_ID | リスタートの場合、親のイベントの ID
 SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる
@@ -63,6 +64,7 @@ SD_TOKEN | ビルド用の JWT トークン
 | USER_SHELL_BIN | sh | ビルド内で実行されるシェルを指定します。`/bin/bash`のように、絶対パスでの指定もできます。
 | GIT_SHALLOW_CLONE | true | **オプション:** (`true`/`false`) <br><br>shallow clone します。
 | GIT_SHALLOW_CLONE_DEPTH | 50 | shallow clone する際の履歴を指定されたコミット数までで切り捨てます
+| GIT_SHALLOW_CLONE_SINCE |  | 指定した日時から始まる履歴の一部でShallow cloneします。設定されている場合、`GIT_SHALLOW_CLONE_DEPTH`よりも優先されます。<br><br>`--shallow-since`を利用しており、絶対年代(例: `2019-04-01`)と相対年代(例: `4 weeks ago`)が設定できます。
 | GIT_SHALLOW_CLONE_SINGLE_BRANCH |  | `true`の場合、shallow cloneの際に` --single-branch`オプションを使います。それ以外の場合、`--no-single-branch`オプションが使われます。
 
 ## プラグイン

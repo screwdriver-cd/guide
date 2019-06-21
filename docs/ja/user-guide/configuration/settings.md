@@ -63,6 +63,8 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 また、Slack通知を送信するタイミングも設定できます。例えば、ビルドステータスが `SUCCESS` または `FAILURE` になった場合などです。`statuses`を設定しない場合はビルドが失敗した場合のみ通知します。ステータスの全リストは[data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96)を参照してください。
 
+ステップ内のデータを通知として送りたい場合には、[notification meta](https://docs.screwdriver.cd/ja/user-guide/metadata.html#notification)をご利用ください。
+
 #### 例: 複数Roomの設定
 
 `slack`の設定値には配列形式で複数のチャンネルを指定することができます。
