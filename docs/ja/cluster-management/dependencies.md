@@ -2,7 +2,7 @@
 layout: main
 title: 依存関係
 category: Cluster Management
-menu: menu
+menu: menu_ja
 toc:
     - title: 外部依存
       url: "#外部依存"

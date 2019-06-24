@@ -147,4 +147,4 @@ shallow cloningを有効のままにしてgitリポジトリへpushを行うの�
 
 Screwdriverはビルドコンテナイメージに制限がありません。しかし、最低でも`curl`と`openssh`がインストールされている必要があります。さらに、コンテナのデフォルトユーザは`root`もしくはsudo NOPASSWDが有効になっている必要があります。
 
-また、`image`がAlpineベースの場合は、追加で次のシンボリックリンクのような回避策が必要です。 `mkdir -p /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+また、`image`がAlpineベースの場合は、追加で次のシンボリックリンクのような回避策が必要です。 `mkdir -p /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`

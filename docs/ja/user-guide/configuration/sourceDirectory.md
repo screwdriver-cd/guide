@@ -2,7 +2,7 @@
 layout: main
 title: ソースディレクトリ
 category: User Guide
-menu: menu
+menu: menu_ja
 toc:
     - title: ソースディレクトリ
       url: "#ソースディレクトリ"
