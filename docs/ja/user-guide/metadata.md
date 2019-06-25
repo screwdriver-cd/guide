@@ -24,6 +24,8 @@ toc:
   url: "#カバレッジとテスト結果"
 - title: <span class="menu-indent">イベントラベル</span>
   url: "#イベントラベル"
+- title: <span class="menu-indent">通知</span>
+  url: "#通知"
 ---
 
 # Metadata
@@ -49,6 +51,10 @@ Screwdriver.cdはデフォルトでMetadataに以下のキーを設定してい�
 | commit.message | コミットメッセージ |
 | commit.url | コミットへのURL |
 | commit.changedFiles | カンマ区切りの変更ファイルリスト<br>**注意**: UIから新たにイベントを開始した場合はコミットでトリガーされたことにならないので、この値は空になります |
+| sd.tag.name | タグ名 |
+| sd.release.id | リリースID |
+| sd.release.name | リリース名 |
+| sd.release.author | リリース |
 
 ## Metadataの操作
 
@@ -196,3 +202,20 @@ jobs:
 
 結果:
 ![Label](./../../user-guide/assets/label-meta.png)
+
+### 通知
+
+metaを利用することで通知をカスタマイズすることができます。
+metaのキーは通知ブラグインごとに異なります。
+
+Slack通知をするscrewdriver.yamlの例:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.message "<@yoshwata> Hello!!"
+```
+
+Result:
+![notification-meta](./../../user-guide/assets/notification-meta.png)
