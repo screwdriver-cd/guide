@@ -51,7 +51,7 @@ Screwdriver.cdはデフォルトでMetadataに以下のキーを設定してい�
 | commit.message | コミットメッセージ |
 | commit.url | コミットへのURL |
 | commit.changedFiles | カンマ区切りの変更ファイルリスト<br>**注意**: UIから新たにイベントを開始した場合はコミットでトリガーされたことにならないので、この値は空になります |
-| sd.tag.name | タグ名The name of the tag |
+| sd.tag.name | タグ名 |
 | sd.release.id | リリースID |
 | sd.release.name | リリース名 |
 | sd.release.author | リリース |
