@@ -8,7 +8,7 @@ toc:
       url: "#外部依存"
       active: true
 ---
-## External Dependencies
+## 外部依存
 
   | Technology             | Description | License |
  | ----                   | ----        | ----    |
