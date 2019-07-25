@@ -240,7 +240,7 @@ Note:
 - If multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window.
 
 #### Example
-In the following example, `job1` will be frozen during the month of March, `job2` will be frozen on weekends, and `job3` will be frozen from 10 PM to 10 AM.
+In the following example, `job1` will be frozen during the month of March, `job2` will be frozen on weekends, and `job3` will be frozen from 10:00 PM to 10:59 AM.
 
 ```
 shared:
