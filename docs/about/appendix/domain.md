@@ -28,7 +28,7 @@ toc:
 ---
 ## Domain Model
 
-_Note: `Parallel`, `series`, and `matrix` have not been implemented yet. Everything will run in series by default._
+_Note: `Matrix` has not been implemented yet._
 
 ![Definition](../assets/definition-model.png)
 ![Runtime](../assets/runtime-model.png)
@@ -63,29 +63,6 @@ Jobs can be started automatically by changes made in the [source code] or trigge
 
 Pull requests are run separately from existing pipeline jobs. They will only execute steps from the `main` job in the Screwdriver configuration.
 
-#### Parallelization
-
-It is possible to parallelize a job by defining a matrix of environment variables. These are usually used for testing against multiple [containers] or test types.
-
-In this example job definition, 4 [builds] will run in parallel:
-```yaml
-image: node:{{NODE_VERSION}}
-steps:
-    test: npm run test-${TEST_TYPE}
-matrix:
-    NODE_VERSION:
-        - 4
-        - 6
-    TEST_TYPE:
-        - unit
-        - functional
-```
-
- - `NODE_VERSION=4` and `TEST_TYPE=unit`
- - `NODE_VERSION=4` and `TEST_TYPE=functional`
- - `NODE_VERSION=6` and `TEST_TYPE=unit`
- - `NODE_VERSION=6` and `TEST_TYPE=functional`
-
 ### Build
 
 A build is an instance of a running [job]. All builds are assigned a unique build number. Each build is associated with an [event]. With a basic job configuration, only one build of a job will be running at any given time. If a [job matrix] is configured, then there can be multiple builds running in parallel.
@@ -103,7 +80,7 @@ A build can be in one of five different states:
 An event represents a commit or a manual restart of a [pipeline]. There are 2 types of events:
 
 - `pipeline`: - Events created when a user manually restarts a pipeline or merges a pull request. This type of event triggers the same sequence of jobs as the pipeline's workflow. For example: `['main', 'publish', 'deploy']`
-- `pr`:  - Events created by opening or updating a pull request. This type of event only triggers the `main` job.
+- `pr`:  - Events created by opening or updating a pull request. This type of event only triggers the first job(s).
 
 ### Metadata
 
@@ -122,24 +99,28 @@ See the [metadata page](../../user-guide/metadata) for more information.
 
 ### Workflow
 
-Workflow is the order that [jobs] will execute in after a successful [build] of the `main` job. The `main` job will always run first. Jobs can be executed in parallel, series, or a combination of the two to allow for all possibilities. Workflow must contain all defined jobs in the pipeline.
+[Workflow](../../user-guide/configuration/workflow) is the order that [jobs] will execute in after a successful [build] of the first job. Jobs can be executed in parallel, series, or a combination of the two to allow for all possibilities. Order is determined by the `requires` keyword.
 
 All jobs executed in a given workflow share:
 
  - Source code checked out from the same git commit
- - Access to [metadata] from a `main` build that triggered or was selected for this job's build
+ - Access to [metadata] from the first build that triggered or was selected for this job's build
 
-In the following example of a workflow section, this is the flow:
+In the following example of an abbreviated workflow section, this is the flow:
 ```yaml
-workflow:
-    - publish
-    - parallel:
-        - series:
-            - deploy-west
-            - validate-west
-        - series:
-            - deploy-east
-            - validate-east
+jobs:
+  main:
+    requires: [~pr]
+  publish:
+    requires: [main]
+  deploy-west:
+    requires: [publish]
+  deploy-east:
+    requires: [publish]
+  validate-west:
+    requires: [deploy-west]
+  validate-east:
+    requires: [deploy-east]
 ```
 
 After the merge of a pull-request to master:
@@ -153,7 +134,6 @@ After the merge of a pull-request to master:
 
 A pipeline represents a collection of [jobs] that share the same [source code]. These jobs are executed in the order defined by the [workflow].
 
-The `main` job is required to be defined in every pipeline as it is the one that builds for each change made to the source code (and proposed changes).
 
 [steps]: #step
 [job]: #job
