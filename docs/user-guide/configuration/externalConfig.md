@@ -43,6 +43,8 @@ jobs:
 | Parent     | All actions on its own pipeline plus create/delete/update/start child pipelines |
 | Child      | All actions on its own pipeline except delete/update itself; also, secrets are inherited from the parent pipeline by default but can be overwritten |
 
+Builds for child pipeline will have access to parent pipeline's repository at [`$SD_CONFIG_DIR`](../environment-variables#directories).
+
 ## User Interface
 Parent pipeline UI:
 ![External config parent](../assets/external-config.png)
