@@ -137,7 +137,7 @@ jobs:
 
 ```
     main:
-        requires: [~sd@123:A, B, ~sd@123:C, D, ~sd@123E, F]
+        requires: [~sd@123:A, B, ~sd@123:C, D, ~sd@123:E, F]
 ```
 
 これは `A OR C OR E OR (B AND D AND F)` という論理式と等価になります。このような複雑な `requires` は実際のワークフローではコードスメルとみなされるでしょう。

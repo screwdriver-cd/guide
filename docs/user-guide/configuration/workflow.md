@@ -123,7 +123,7 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 
 ```
     main:
-        requires: [~sd@123:A, B, ~sd@123:C, D, ~sd@123E, F]
+        requires: [~sd@123:A, B, ~sd@123:C, D, ~sd@123:E, F]
 ```
 
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
