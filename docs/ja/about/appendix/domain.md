@@ -29,7 +29,7 @@ toc:
 
 ## ドメインモデル
 
-_注意: `Parallel`, `series`, `matrix` はまだ実装されていません。逐次処理のみが行われます。_
+_注意: `matrix` はまだ実装されていません。_
 
 ![Definition](../../../about/assets/definition-model.png)
 ![Runtime](../../../about/assets/runtime-model.png)
@@ -105,7 +105,7 @@ matrix:
 イベントはコミットや[パイプライン](#%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3)の手動リスタートを表します。イベントには下記の2種類があります。
 
 - `pipeline`: - パイプラインを手動で開始したりpull requestをマージしたりした場合に作られるイベントです。この種類のイベントは、パイプラインにおけるワークフローとしてのジョブと同じ順序でトリガーされます。(例: `['main', 'publish', 'deploy']`)
-- `pr`:  - pull requestの作成や更新により作られるイベントです。この種類のイベントは`main`ジョブのみトリガーします。
+- `pr`:  - pull requestの作成や更新により作られるイベントです。この種類のイベントは初めのジョブのみトリガーします。
 
 ### メタデータ
 
@@ -125,25 +125,29 @@ $ meta get example
 
 ### Workflow
 
-ワークフローとは、`main`ジョブの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)成功後に実行される[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)の順番のことです。`main`ジョブは常に最初に実行されます。ジョブは並列や逐次、またはその組み合わせで実行することができます。ワークフローにはパイプライン内に定義されたジョブがすべて含まれている必要があります。
+[ワークフロー](../../user-guide/convfiguration/workflow)とは、初めのジョブの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)成功後に実行される[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)の順番のことです。ジョブは並列や逐次、またはその組み合わせで実行することができます。順序は`requires`キーで決定されます。
 
 ワークフロー内で実行されるジョブは次の内容を共有します。
 
 - 同じgitコミットからチェックアウトされたソースコード
-- `main`ジョブからトリガーされて実行されるジョブからアクセスされる[メタデータ](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF)
+- 初めのジョブからトリガーされて実行されるジョブからアクセスされる[メタデータ](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF)
 
-下記のworkflowセクションの例ではこのようなフローになっていて
+下記の(省略された)workflowセクションの例ではこのようなフローになっていて
 
 ```yaml
-workflow:
-    - publish
-    - parallel:
-        - series:
-            - deploy-west
-            - validate-west
-        - series:
-            - deploy-east
-            - validate-east
+jobs:
+  main:
+    requires: [~pr]
+  publish:
+    requires: [main]
+  deploy-west:
+    requires: [publish]
+  deploy-east:
+    requires: [publish]
+  validate-west:
+    requires: [deploy-west]
+  validate-east:
+    requires: [deploy-east]                
 ```
 
 pull-requestがmasterにマージされると次のように動作します。
@@ -156,5 +160,3 @@ pull-requestがmasterにマージされると次のように動作します。
 ### パイプライン
 
 パイプラインとは同じ[ソースコード](#%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89)を共有する[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)ジョブの集合を表します。これらのジョブは[ワークフロー](#workflow)で定義された順で実行されます。
-
-`main`ジョブはソースコードへの各種変更をビルドするものなので、全てのパイプラインに定義されている必要があります。
