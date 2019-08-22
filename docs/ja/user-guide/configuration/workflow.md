@@ -294,7 +294,6 @@ jobs:
 
 以下の例では、`detached-main` ジョブが分離されています。
 
-
 ```
 shared:
     image: node:8
