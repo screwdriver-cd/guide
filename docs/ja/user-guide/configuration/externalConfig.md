@@ -46,6 +46,8 @@ jobs:
 親 | 自身のパイプラインに対する全てのアクションと、子パイプラインへのcreate/delete/update/startアクション
 子 | 自身のパイプラインに対するdelete/update以外の全てのアクション<br>また、デフォルトでは親から継承されたSecretsが利用されるが、そのSecretsへの上書き
 
+子パイプラインのビルドは、[`$SD_CONFIG_DIR`](../environment-variables#directories)にある親パイプラインのリポジトリにアクセスすることができます。
+
 ## ユーザーインタフェース
 
 親パイプライン UI:

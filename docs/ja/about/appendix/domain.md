@@ -29,7 +29,7 @@ toc:
 
 ## ドメインモデル
 
-_注意: `Parallel`, `series`, `matrix` はまだ実装されていません。逐次処理のみが行われます。_
+_注意: `matrix` はまだ実装されていません。_
 
 ![Definition](../../../about/assets/definition-model.png)
 ![Runtime](../../../about/assets/runtime-model.png)
@@ -64,30 +64,6 @@ _注意: `Parallel`, `series`, `matrix` はまだ実装されていません。�
 
 プルリクエストは既存のパイプラインジョブとは別に実行されます。ジョブ名が`main`のステップのみが実行されます。
 
-#### 並列実行
-
-環境変数のマトリックスを定義することでジョブの並列実行が可能です。通常これは複数の[コンテナ](#%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A)やテストの種類が必要な際に利用されます。
-
-このジョブの例では4つの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)が並列に実行されます。
-
-```yaml
-image: node:{{NODE_VERSION}}
-steps:
-    test: npm run test-${TEST_TYPE}
-matrix:
-    NODE_VERSION:
-        - 4
-        - 6
-    TEST_TYPE:
-        - unit
-        - functional
-```
-
-- `NODE_VERSION=4` and `TEST_TYPE=unit`
-- `NODE_VERSION=4` and `TEST_TYPE=functional`
-- `NODE_VERSION=6` and `TEST_TYPE=unit`
-- `NODE_VERSION=6` and `TEST_TYPE=functional`
-
 ### ビルド
 
 ビルドは実行中の[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)ジョブのインスタンスのことを指します。すべてのビルドはユニークなビルド番号が振られています。また、各ビルドは[イベント](#%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)イベントに紐づいています。基本的なジョブ設定の場合、ジョブに対し一度に一つのビルドが実行されます。[ジョブマトリクス](#%E4%B8%A6%E5%88%97%E5%AE%9F%E8%A1%8C)が設定されていれば複数のビルドが並列に実行されます。
@@ -105,7 +81,7 @@ matrix:
 イベントはコミットや[パイプライン](#%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3)の手動リスタートを表します。イベントには下記の2種類があります。
 
 - `pipeline`: - パイプラインを手動で開始したりpull requestをマージしたりした場合に作られるイベントです。この種類のイベントは、パイプラインにおけるワークフローとしてのジョブと同じ順序でトリガーされます。(例: `['main', 'publish', 'deploy']`)
-- `pr`:  - pull requestの作成や更新により作られるイベントです。この種類のイベントは`main`ジョブのみトリガーします。
+- `pr`:  - pull requestの作成や更新により作られるイベントです。この種類のイベントは初めのジョブのみトリガーします。
 
 ### メタデータ
 
@@ -125,25 +101,29 @@ $ meta get example
 
 ### Workflow
 
-ワークフローとは、`main`ジョブの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)成功後に実行される[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)の順番のことです。`main`ジョブは常に最初に実行されます。ジョブは並列や逐次、またはその組み合わせで実行することができます。ワークフローにはパイプライン内に定義されたジョブがすべて含まれている必要があります。
+[ワークフロー](../../user-guide/configuration/workflow)とは、初めのジョブの[ビルド](#%E3%83%93%E3%83%AB%E3%83%89)成功後に実行される[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)の順番のことです。ジョブは並列や逐次、またはその組み合わせで実行することができます。順序は`requires`キーで決定されます。
 
 ワークフロー内で実行されるジョブは次の内容を共有します。
 
 - 同じgitコミットからチェックアウトされたソースコード
-- `main`ジョブからトリガーされて実行されるジョブからアクセスされる[メタデータ](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF)
+- 初めのジョブからトリガーされて実行されるジョブからアクセスされる[メタデータ](#%E3%83%A1%E3%82%BF%E3%83%87%E3%83%BC%E3%82%BF)
 
-下記のworkflowセクションの例ではこのようなフローになっていて
+下記の(省略された)workflowセクションの例ではこのようなフローになっていて
 
 ```yaml
-workflow:
-    - publish
-    - parallel:
-        - series:
-            - deploy-west
-            - validate-west
-        - series:
-            - deploy-east
-            - validate-east
+jobs:
+  main:
+    requires: [~pr]
+  publish:
+    requires: [main]
+  deploy-west:
+    requires: [publish]
+  deploy-east:
+    requires: [publish]
+  validate-west:
+    requires: [deploy-west]
+  validate-east:
+    requires: [deploy-east]                
 ```
 
 pull-requestがmasterにマージされると次のように動作します。
@@ -156,5 +136,3 @@ pull-requestがmasterにマージされると次のように動作します。
 ### パイプライン
 
 パイプラインとは同じ[ソースコード](#%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89)を共有する[ジョブ](#%E3%82%B8%E3%83%A7%E3%83%96)ジョブの集合を表します。これらのジョブは[ワークフロー](#workflow)で定義された順で実行されます。
-
-`main`ジョブはソースコードへの各種変更をビルドするものなので、全てのパイプラインに定義されている必要があります。
