@@ -129,7 +129,7 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
 
 ## Branch filtering
-To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering. The format is `~commit:branchName` or `~pr:branchName`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`). Note: Flags are not supported.
+To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering. The format is `~commit:branchName` or `~pr:branchName`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`), although note that regex flags are not supported.
 
 ### Example
 In the following example, when branch `staging` is committed, `staging-commit` and `all-commit` are triggered. Also, when branch `master` is committed, `main` and `all-commit` are triggered. When a pull request is opened in branch `staging`, `staging-pr` is triggered.
@@ -254,12 +254,12 @@ jobs:
       - build: echo "build"
   job2:
     freezeWindows: ['* * ? * 0,6,7']
-    requires: [~job1]
+    requires: [job1]
     steps:
       - build: echo "build"
   job3:
     freezeWindows: ['* 0-10,22-23 ? * *']
-    requires: [~job2]
+    requires: [job2]
     steps:
       - build: echo "build"
 ```
