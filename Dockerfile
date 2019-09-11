@@ -6,10 +6,11 @@ WORKDIR /usr/src/app
 
 # Install guide
 RUN set -x \
+  && apk update \
   # Missing https for some magical reason; need build tools for jekyll install
   && apk add --no-cache --update ca-certificates build-base \
   # You know you're using a lean image when you need to install wget
-  && apk add --virtual wget \
+  && apk add --no-cache --virtual ca-certificates wget \
   # Fetch the latest Guide release
   && wget -q -O - https://github.com/screwdriver-cd/guide/releases/latest \
       | egrep -o '/screwdriver-cd/guide/releases/download/v[0-9.]*/guide.tgz' \
