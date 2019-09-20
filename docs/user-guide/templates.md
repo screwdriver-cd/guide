@@ -39,6 +39,8 @@ jobs:
         template: nodejs/test@1.0.3
 ```
 
+Version is [semver](https://semver.org/) compatible. For example you can refer above template with `nodejs/test@1` or `nodejs/test@1.0`
+
 You can also refer to a template version with a tag name if the template has one. If no version is specified, the latest published version will be used.
 
 Example:
