@@ -56,7 +56,7 @@ The following annotations are supported by plugins maintained by Screwdriver.cd.
 
 ## Pipeline-Level Annotations
 
-Pipeline-level annotations are used to modify the properties of the entire pipeline. Pipeline-level annotations are under the same level as `shared` and `jobs`
+Pipeline-level annotations are used to modify the properties of the entire pipeline. Pipeline-level annotations are under the same level as `shared` and `jobs`. Pull requests cannot change these annotations, they need to be in the SCM branch belonging to the pipeline.
 
  | Annotation | Values | Description |
  |------------|--------|-------------|
