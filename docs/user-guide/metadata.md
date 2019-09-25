@@ -99,6 +99,7 @@ $ meta get example --external sd@123:publish
 
 Notes:
 - `meta set` is not allowed for external builds.
+- If the `--external` pipeline job did not trigger the build, then `meta` from the last successful build for the external job will be fetched.
 
 ### Pull Request Comments
 
