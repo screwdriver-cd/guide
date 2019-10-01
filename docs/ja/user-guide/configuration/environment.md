@@ -16,20 +16,24 @@ toc:
 
 ## 制限事項
 - `environment`セクションの中ではネストされた環境変数は展開されません。
+- 環境変数は宣言箇所で以下の順で評価されます:
+  `template` > `shared` > `jobs`
 
 #### 例
 
-```
+```yaml
 shared:
     template: example/mytemplate@stable
     environment:
         FOO: bar
-        MYVAR: hello        # 全てのビルドで MYVAR=hello が設定されます
+        MYVAR: ${FOO}        # 全てのビルドで MYVAR=bar が設定されます
 jobs:
     main:
         requires: [~pr, ~commit]
         environment:
-            FOO: baz        # ビルド内で FOO=baz が設定されます
+            FOO: baz        # ビルド内で FOO=baz, MYVAR=baz が設定されます
     main2:                  # ビルド内で FOO=bar が設定されます
         requires: [main]
+        environment:        # 上記のsharedセクションでの設定のため、MYVAR=bar が設定されます
+            MYVAR: hello    # MYVAR=helloがビルド内で設定されます
 ```
