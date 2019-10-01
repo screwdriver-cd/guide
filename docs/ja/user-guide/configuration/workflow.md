@@ -143,7 +143,7 @@ jobs:
 これは `A OR C OR E OR (B AND D AND F)` という論理式と等価になります。このような複雑な `requires` は実際のワークフローではコードスメルとみなされるでしょう。
 
 ## ブランチフィルター
-特定のブランチに対してコミットされた後にパイプラインでジョブをトリガーするには、ブランチフィルターを使用します。書式は `~commit：branchName`または`~pr：branchName`です。ブランチは([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~commit：/^feature-/`）。注：フラグはサポートしていません。
+特定のブランチに対してコミットされた後にパイプラインでジョブをトリガーするには、ブランチフィルターを使用します。書式は `~commit：branchName`または`~pr：branchName`です。ブランチは([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~commit：/^feature-/`）。正規表現のフラグはサポートしていません。
 
 ### 例
 
@@ -276,12 +276,12 @@ jobs:
       - build: echo "build"
   job2:
     freezeWindows: ['* * ? * 0,6,7']
-    requires: [~job1]
+    requires: [job1]
     steps:
       - build: echo "build"
   job3:
     freezeWindows: ['* 0-10,22-23 ? * *']
-    requires: [~job2]
+    requires: [job2]
     steps:
       - build: echo "build"
 ```
