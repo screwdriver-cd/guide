@@ -41,7 +41,7 @@ You should now have the `jekyll` command installed on your system. Run `bundle e
 
 ```bash
 $ bundle exec jekyll --version
-jekyll 3.5.0
+jekyll 3.8.4
 ```
 
 ## Viewing docs locally
