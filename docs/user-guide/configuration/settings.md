@@ -53,9 +53,9 @@ You can configure a list of one or more email addresses to contact. You can also
 ```
 
 ## Slack
-To enable Slack notifications to be sent as a result of build events, invite the `screwdriver-bot` Slack bot to your channel(s) and use the Slack setting in your Screwdriver yaml. Both public and private channels are supported. You can configure a list of one or more Slack channels to notify. 
+To enable Slack notifications to be sent as a result of build events, invite the `screwdriver-bot` Slack bot to your channel(s) and use the Slack setting in your Screwdriver yaml. Both public and private channels are supported. You can configure a list of one or more Slack channels to notify.
 
-You can also configure when to send a Slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`. If no `statuses` field is set, the build will only send notifications for build failures. For a full list of statuses, see the [data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96).
+You can also configure when to send a Slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`. If no `statuses` field is set, the build will only send notifications for build failures. For a full list of statuses, see the [data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96). You may also choose whether to use the default notification format or a more compact one using the `minimized` setting.
 
 To send data in steps as a notification, [notification meta](https://docs.screwdriver.cd/user-guide/metadata.html#notification) is available.
 
@@ -86,6 +86,33 @@ This Slack setting will send Slack notifications to `mychannel` and `my-other-ch
                      - RUNNING
 ```
 
-Success notification:
+#### Example: Minimized notification
 
-![Slack notification](../assets/slack-notification.png)
+The default notification format includes the job's status, a corresponding emoji, and a link to the pipeline. The notification's attachment will include a link to the build, up to 150 characters of the commit message, a link to the commit, and a description of what triggered the event.
+
+This Slack setting will use the default notification format:
+
+```
+        settings:
+            slack:
+                channels:
+                    - 'mychannel'
+                statuses:
+                    - SUCCESS
+```
+
+![Default Slack notification](../assets/slack-full-notification.png)
+
+However, if `minimized` is `true`, then the notification will use a format that consists of a link to the job, the job's status, and an attachment with a link to the build.
+
+```
+        settings:
+            slack:
+                channels:
+                    - 'mychannel'
+                statuses:
+                    - SUCCESS
+                minimized: true
+```
+
+![Minimized Slack notification](../assets/slack-minimized-notification.png)
