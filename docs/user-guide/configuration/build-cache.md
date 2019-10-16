@@ -16,9 +16,9 @@ Top-level setting that contains file paths from your build that you would like t
 
 | Scope  | Access |
 |---|---|
-| pipeline  | All builds in the same pipeline  |
-| event  | All builds in the same event  |
-| job  | All builds for the same job  |
+| pipeline  | All builds in the same pipeline ![pipeline-scope](../assets/pipeline-scope.png)  |
+| event  | All builds in the same event ![event-scope](../assets/event-scope.png) |
+| job  | All builds for the same job ![job-scope](../assets/job-scope.png) |
 
 ## Example
 
@@ -60,4 +60,4 @@ In the above example, the pipeline-scoped `.gradle` cache can be accessed under 
 Example repo: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
-- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` annotation to `HIGH` to provide more memory to the build.
+- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations.md) to `HIGH` to provide more memory to the build.
