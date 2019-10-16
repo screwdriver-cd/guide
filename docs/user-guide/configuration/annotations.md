@@ -61,4 +61,4 @@ Pipeline-level annotations are used to modify the properties of the entire pipel
  | Annotation | Values | Description |
  |------------|--------|-------------|
  | screwdriver.cd/restrictPR | `none` / `all` / `fork` / `branch` | Prevent PR jobs from running. `none` means no restriction. `all` means all PR jobs will not run. `fork` means PRs from forked repos will not run. `branch` means PRs from branch will not run.|
- | screwdriver.cd/chainPR    | `false` / `true` | Default value is `false`. When value is `false` a Pull Request will run only those jobs which has `~pr` in `requires`. When `true`, a Pull Request will run jobs which have `~pr` in requires and also trigger their downstream jobs. |
+ | screwdriver.cd/chainPR    | `false` / `true` | Default value is `false`. When value is `false` a Pull Request will run only those jobs which has `~pr` in `requires`. When `true`, a Pull Request will run jobs which have `~pr` in requires and also trigger their downstream jobs. Example repo: https://github.com/screwdriver-cd-test/chain-pr-example |

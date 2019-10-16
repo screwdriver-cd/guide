@@ -51,3 +51,5 @@ Parent pipeline UI:
 
 Child pipeline UI:
 ![External config child pipeline ](../assets/external-config-child.png)
+
+Example repo: https://github.com/screwdriver-cd-test/external-config-example

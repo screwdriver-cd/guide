@@ -61,7 +61,7 @@ Screwdriver provides the shell command `meta get` to extract information from th
 
 ### Same pipeline
 
-Screwdriver build can retrieve metadata set by itself or by previous builds within the same event.
+Screwdriver builds can retrieve metadata set by itself or by previous builds within the same event.
 
 Example: `build1` -> `build2` -> `build3`
 
@@ -84,6 +84,8 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
+Example repo: https://github.com/screwdriver-cd-test/workflow-metadata-example
+
 Notes:
 - If `foo` is not set and you try to `meta get foo`, it will return `null` by default.
 
@@ -100,6 +102,13 @@ $ meta get example --external sd@123:publish
 Notes:
 - `meta set` is not allowed for external builds.
 - If the `--external` pipeline job did not trigger the build, then `meta` from the last successful build for the external job will be fetched.
+
+### Using the API
+
+You can also prepopulate event meta by configuring the payload of the `POST` request to `/v4/events`.
+
+See the [API docs](./api.md) for more information on API endpoints.
+See the [event meta trigger example repo](https://github.com/screwdriver-cd-test/event-meta-trigger-example) and corresponding [event meta example repo](https://github.com/screwdriver-cd-test/event-meta-example) for reference.
 
 ### Pull Request Comments
 

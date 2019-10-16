@@ -26,12 +26,14 @@ toc:
 # Workflow
 Workflow is the way that individual jobs are wired together to form a pipeline. This is done by using a `requires` keyword in your job definition with the list of jobs or events that should cause that job to run. Screwdriver defines four events for every pipeline that occur due to SCM events: `~pr`, `~commit`, `~tag` and `~release`.
 
-|keyword|description|
+|Keyword|Description|
 |:--|:--|
 | ~pr | Event occurs when a pull-request is opened, reopened, or modified. |
 | ~commit | Event occurs when a commit is made against the pipeline's branch. When you start a pipeline manually, it runs all the jobs that have the `~commit` event trigger. |
 | ~tag | Event occurs when a tag is created. Now, this trigger is only available for user using GitHub as scm. |
 | ~release | Event occurs when released. Now, this trigger is only available for user using GitHub as scm. |
+
+See the [tag and release trigger example repo](https://github.com/screwdriver-cd-test/tag-trigger-example) for reference.
 
 ## Defining Workflow Order
 To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate [advanced logic](#advanced-logic).
@@ -39,7 +41,7 @@ To denote workflow order, use the `requires` keyword under a job with the job na
 #### Example
 In the following example, the job, `main`, will start after any SCM pull-request, _or_ commit event. The job, `second`, will run after `main` is successful.
 
->Please note that a job started by a pull-request will not trigger its downstream jobs. For example, if `main` starts and succeeds as a result of a pull-request being opened, `second` will not start afterwards.
+>Please note that a job started by a pull-request will not trigger its downstream jobs unless you use the chainPR annotation. For example, if `main` starts and succeeds as a result of a pull-request being opened, `second` will not start afterwards.
 
 ```
 jobs:
@@ -57,6 +59,8 @@ jobs:
 ```
 
 To specify a job to run when a pull request is opened or updated, use `requires: [~pr]`. For jobs that should start after code is merged or pushed to the main branch, use `requires: [~commit]`.
+
+Example repo: https://github.com/screwdriver-cd-test/workflow-sequential-example
 
 ## Advanced Logic
 ### Advanced Logic [_AND_]
@@ -129,10 +133,10 @@ If job names are prefixed with tildes in a `requires` line, then the job will st
 is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a complicated `requires` line in an actual workflow should be regarded as a code smell.
 
 ## Branch filtering
-To trigger jobs in your pipeline after a specific branch is committed, you can use branch filtering. The format is `~commit:branchName` or `~pr:branchName`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`), although note that regex flags are not supported.
+Branch filtering lets you listen to events happening beyond the pipeline's specified branch. To trigger jobs in your pipeline after a commit is made on a specific branch, you can use `requires: [~commit:branchName]`. To trigger jobs in your pipeline after a pull request is made against a specific branch, you can use `requires: [~pr:branchName]`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`), although note that regex flags are not supported.
 
 ### Example
-In the following example, when branch `staging` is committed, `staging-commit` and `all-commit` are triggered. Also, when branch `master` is committed, `main` and `all-commit` are triggered. When a pull request is opened in branch `staging`, `staging-pr` is triggered.
+In the following example, when a commit is made on branch `staging`, `staging-commit` and `all-commit` are triggered. Also, when a commit is made on branch `master`, `main` and `all-commit` are triggered. When a pull request is opened against branch `staging`, `staging-pr` is triggered.
 
 ```
 shared:
@@ -158,6 +162,8 @@ jobs:
         steps:
             - echo: echo staging pr
 ```
+
+See the [branch filtering example repo](https://github.com/screwdriver-cd-test/branch-filtering-example) for reference. To see how branch filtering works with pull requests, see our [example pull request](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2).
 
 ## Parallel and Join
 You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
@@ -188,6 +194,8 @@ jobs:
             - echo: echo join after A and B
 ```
 
+Example repo: https://github.com/screwdriver-cd-test/workflow-parallel-join-example
+
 ## Remote Triggers
 To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`. `~pr`, `~commit`, and jobs with `~sd@pipelineID:jobName` format follow _OR_ logic.
 
@@ -202,6 +210,8 @@ jobs:
         steps:
             - echo: echo hi
 ```
+
+Example repo: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
 
 ## Blocked By
 To have your job blocked by another job, you can use `blockedBy`. It has the same format as `requires`, except it does not accept values like `~commit` or `~pr`.
@@ -228,6 +238,8 @@ jobs:
         steps:
             - echo: echo bye
 ```
+
+Example repo: https://github.com/screwdriver-cd-test/workflow-blockedby-example
 
 ## Freeze Windows
 You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value.
@@ -279,3 +291,5 @@ jobs:
         steps:
             - echo: echo im-a-detached-job
 ```
+
+Example repo: https://github.com/screwdriver-cd-test/workflow-detached-example
