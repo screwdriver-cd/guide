@@ -80,7 +80,7 @@ These environment variables may or may not be available depending on what plugin
 
 | Name | Description |
 |------|-------|
-| SD_ARTIFACTS_DIR | Location of built/generated files |
+| SD_ARTIFACTS_DIR | Location of built/generated files. _Note: If the build does not complete successfully, the UI will only display artifacts that were generated prior to the end of the build. If some artifacts are not available in the UI, you can still access them in the Store API (e.g.: `https://store.screwdriver.cd/v1/builds/12345/ARTIFACTS/fileName.txt`). You will need to pass in a token along with the request. See the [API docs](./api.md) for more details._ |
 | SD_META_PATH | Location of the [metadata](./metadata) file |
 | SD_ROOT_DIR | Location of workspace (e.g.: `/sd/workspace`) |
 | SD_SOURCE_DIR | Location of checked-out code (e.g.: `sd/workspace/src/github.com/d2lam/myPipeline`) |
