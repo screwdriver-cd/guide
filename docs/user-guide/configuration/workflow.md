@@ -163,6 +163,8 @@ jobs:
             - echo: echo staging pr
 ```
 
+_Note: A PR against a branch will follow the workflow pattern indicated by that branch’s screwdriver.yaml._
+
 See the [branch filtering example repo](https://github.com/screwdriver-cd-test/branch-filtering-example) for reference. To see how branch filtering works with pull requests, see our [example pull request](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2).
 
 ## Parallel and Join
