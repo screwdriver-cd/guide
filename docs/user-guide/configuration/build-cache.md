@@ -16,9 +16,9 @@ Top-level setting that contains file paths from your build that you would like t
 
 | Scope  | Access |
 |---|---|
-| pipeline  | All builds in the same pipeline  |
-| event  | All builds in the same event  |
-| job  | All builds for the same job  |
+| pipeline  | All builds in the same pipeline ![pipeline-scope](../assets/pipeline-scope.png)  |
+| event  | All builds in the same event ![event-scope](../assets/event-scope.png) |
+| job  | All builds for the same job ![job-scope](../assets/job-scope.png) |
 
 ## Example
 
@@ -57,6 +57,7 @@ jobs:
 
 In the above example, the pipeline-scoped `.gradle` cache can be accessed under all builds in the pipeline to save time on `gradle install`. For event-scoped cache, we cache the `node_modules` folder under the event scope in the `setnpmcache` build so that the downstream `usenpmcache` build can save time on `npm install`. For job-scoped cache, we cache `/tmp/test` file so that it is available for any subsequent builds of the same job.
 
+Example repo: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
-- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` annotation to `HIGH` to provide more memory to the build.
+- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations.md) to `HIGH` to provide more memory to the build.

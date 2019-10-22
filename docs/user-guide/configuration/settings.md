@@ -86,6 +86,8 @@ This Slack setting will send Slack notifications to `mychannel` and `my-other-ch
                      - RUNNING
 ```
 
+Example repo: https://github.com/screwdriver-cd-test/slack-example
+
 #### Example: Minimized notification
 
 The default notification format includes the job's status, a corresponding emoji, and a link to the pipeline. The notification's attachment will include a link to the build, up to 150 characters of the commit message, a link to the commit, and a description of what triggered the event.

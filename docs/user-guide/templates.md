@@ -12,6 +12,10 @@ toc:
       url: "#using-a-template"
     - title: Creating a template
       url: "#creating-a-template"
+    - title: Testing a template
+      url: "#testing-a-template"
+    - title: Using the build cache
+      url: "#using-the-build-cache"
     - title: Removing a template
       url: "#removing-a-template"
 ---
@@ -116,7 +120,7 @@ Publishing and running templates must be done from a Screwdriver pipeline.
 
 ### Writing a template yaml
 
-To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a namespace, name, version, description, maintainer email, and a config with an image and steps. If no namespace is specified, a 'default' namespace will be applied. An optional `images` keyword can be defined to list supported images with a descriptive label. Users can use an alias in place of the actual image (e.g.:, `image: latest-image` would translate into `image: node:8`). Full example in our [screwdriver-cd-test/template-example repo](https://github.com/screwdriver-cd-test/template-example).
+To create a template, create a new repo with a `sd-template.yaml` file. The file should contain a namespace, name, version, description, maintainer email, and a config with an image and steps. If no namespace is specified, a 'default' namespace will be applied. An optional `images` keyword can be defined to list supported images with a descriptive label. Basic example can be found in our [screwdriver-cd-test/template-example repo](https://github.com/screwdriver-cd-test/template-example).
 
 Example `sd-template.yaml`:
 
@@ -139,6 +143,53 @@ config:
     secrets:
         - NPM_TOKEN
 ```
+
+#### Template images
+We recommend using the `images` feature, which can be configured to list supported images with a descriptive label or alias.
+
+For example:
+```yaml
+namespace: myNamespace
+name: template_name
+version: '1.3'
+description: template for testing
+maintainer: foo@bar.com
+images:
+    stable-image: node:6
+    latest-image: node:8
+```
+
+Users can pick an alias from the list and use it like so:
+```yaml
+jobs:
+    main:
+        template: myNamespace/template_name@1.3.0
+        image: stable-image
+```
+
+Example repo: https://github.com/screwdriver-cd-test/template-images-example
+
+#### Template Steps
+Avoid using any [wrapping](#using-a-template) prefixes (`pre` or `post`) in your step names, as it can lead to problems when users try to modify or enhance your steps. For example, if a template has these steps:
+
+```yaml
+config:
+    image: node:6
+    steps:
+        - preinstall: echo Installing
+        - install: npm install
+        - test: npm test
+```
+
+And a user consumes that template with some additional steps:
+```yaml
+jobs:
+    main:
+        template: myNamespace/template_name@1.3.0
+        steps:
+          - preinstall: echo foo
+```
+It becomes unclear whether the user was trying to override `preinstall` or wrap `install`.
 
 ### Writing a screwdriver.yaml for your template repo
 
@@ -186,6 +237,24 @@ jobs:
 Create a Screwdriver pipeline with your template repo and start the build to validate and publish it.
 
 To update a Screwdriver template, make changes in your SCM repository and rerun the pipeline build.
+
+## Testing a template
+
+In order to test your template, set up a remote test for your template by creating another pipeline which uses your template, as seen in the [template-test-example](https://github.com/screwdriver-cd-test/template-test-example/blob/master/screwdriver.yaml). This example pipeline runs after the `publish_nodejs_template` is done by using the remote triggers feature.
+_Note: You cannot test your template in the same pipeline, as template step expansion is done at event creation time. Therefore, the pipeline would use an older version of your template if you try to use it in the pipeline where you create it._
+
+## Using the build cache
+
+To use the [build cache feature](./configuration/build-cache.md), the [store-cli command](https://github.com/screwdriver-cd/store-cli) can be invoked in a step. For instance, if you are caching your `node_modules/` folder, you can specify a step before the `npm install` command that downloads the cache and another step afterwards that uploads the cache. You can also move the uploading cache step to a teardown with the `teardown-` prefix.
+
+```yaml
+config:
+    image: node:8
+    steps:
+        - getcache: store-cli get node_modules/ --type=cache --scope=event || echo "Failed to fetch Cache"
+        - install: npm install
+        - teardown-putcache: store-cli set node_modules/ --type=cache --scope=event || echo "Failed to publish Cache"
+```
 
 ## Removing a template
 
