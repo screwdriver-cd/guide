@@ -39,6 +39,8 @@ toc:
   url: "#shallow-cloningを無効にするには？"
 - title: ビルドイメージの最小ソフトウェア要件は？
   url: "#ビルドイメージの最小ソフトウェア要件は？"
+- title: Sourcelabsとの連携は？
+  url: "Sourcelabsとの連携は？"
 ---
 
 # よくある質問と回答
@@ -148,3 +150,9 @@ shallow cloningを有効のままにしてgitリポジトリへpushを行うの�
 Screwdriverはビルドコンテナイメージに制限がありません。しかし、最低でも`curl`と`openssh`がインストールされている必要があります。さらに、コンテナのデフォルトユーザは`root`もしくはsudo NOPASSWDが有効になっている必要があります。
 
 また、`image`がAlpineベースの場合は、追加で次のシンボリックリンクのような回避策が必要です。 `mkdir -p /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
+
+### Sourcelabsとの連携は？
+
+ブログ記事を参考にしてください。 https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
+
+サンプルリポジトリはこちらです。 https://github.com/screwdriver-cd-test/saucelabs-example

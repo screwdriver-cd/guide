@@ -16,9 +16,9 @@ toc:
 
 | スコープ  | アクセス範囲 |
 |---|---|
-| pipeline  | 同じパイプラインの全てのビルド  |
-| event  | 同じイベントの全てのビルド  |
-| job  | 同じジョブについての全てのビルド  |
+| pipeline  | 同じパイプラインの全てのビルド ![pipeline-scope](../../ja/user-guide/assets/pipeline-scope.png) |
+| event  | 同じイベントの全てのビルド ![event-scope](../../ja/user-guide/assets/event-scope.png) |
+| job  | 同じジョブについての全てのビルド ![job-scope](../../ja/user-guide/assets/job-scope.png) |
 
 ## 例
 
@@ -57,6 +57,7 @@ jobs:
 
 上記の例では、パイプラインスコープの `.gradle` のキャッシュがパイプラインの全てのビルドから `gradle install` の時間を短縮するためにアクセスできます。イベントスコープのキャッシュでは、 `setnpmcache`ビルドのイベントスコープの下で `node_modules` フォルダーをキャッシュして、下流の `usenpmcache` ビルドが `npm install` の時間を節約できるようにします。ジョブスコープのキャッシュでは、`/tmp/test` ファイルをキャッシュして、同じジョブのその後のビルドで使用できるようにします。
 
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
-- もしキャッシュが大きくてキャッシュ bookend がメモリオーバーとなるようでしたら、`screwdriver.cd/ram` アノテーションに `HIGH` を設定するとより多くのメモリがビルドで使用できるようになります。
+- もしキャッシュが大きくてキャッシュ bookend がメモリオーバーとなるようでしたら、`screwdriver.cd/ram` [アノテーション]((./annotations.md))に `HIGH` を設定するとより多くのメモリがビルドで使用できるようになります。

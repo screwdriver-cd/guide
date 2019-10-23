@@ -38,6 +38,8 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 | ~tag | タグが作成された際にイベントが発生します。scmとしてGitHubを利用している場合のみこのトリガーを使うことができます。|
 | ~release | リリースされたときにイベントが発生します。scmとしてGitHubを利用している場合のみこのトリガーを使うことができます。|
 
+[タグとリリーストリガーのサンプルリポジトリ](https://github.com/screwdriver-cd-test/tag-trigger-example)も参考にしてください。
+
 ## ワークフローの順序を定義する
 
 ワークフローの順序を示すために、ジョブ設定で `requires` をジョブ名の配列で定義します。ジョブ名にチルダのプレフィックスを付けることで、[論理式を用いたワークフロー定義 (Advanced Logic)](#論理式を用いたワークフロー定義)を定義することができます。
@@ -46,7 +48,7 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 
 以下の例では、`main` ジョブは SCM のプルリクエスト、*または*コミットイベントをトリガーに開始されます。`second` ジョブは `main` ジョブが成功した後に開始されます。
 
->プルリクエストによって開始されたジョブは、後続のジョブをトリガーしないことに注意してください。たとえば、プルリクエストが開かれた結果として `main`が開始し成功した場合、` second`はその後に開始しません。
+>プルリクエストによって開始されたジョブは、chainPRのアノテーションが使用されていないと後続のジョブをトリガーしないことに注意してください。たとえば、プルリクエストが開かれた結果として `main`が開始し成功した場合、` second`はその後に開始しません。
 
 ```
 jobs:
@@ -64,6 +66,8 @@ jobs:
 ```
 
 プルリクエストがオープンもしくは更新された時にジョブを実行したい場合は、 `requires: [~pr]` を使用してください。コードがマージされたりパイプラインを作成しているブランチに直接プッシュされた後にジョブを実行したい場合は `requires: [~commit]` を使用してください。
+
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-sequential-example
 
 ## 論理式を用いたワークフロー定義 (Advanced Logic)
 
@@ -143,11 +147,11 @@ jobs:
 これは `A OR C OR E OR (B AND D AND F)` という論理式と等価になります。このような複雑な `requires` は実際のワークフローではコードスメルとみなされるでしょう。
 
 ## ブランチフィルター
-特定のブランチに対してコミットされた後にパイプラインでジョブをトリガーするには、ブランチフィルターを使用します。書式は `~commit：branchName`または`~pr：branchName`です。ブランチは([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~commit：/^feature-/`）。正規表現のフラグはサポートしていません。
+ブランチフィルターは、パイプラインの特定のブランチのイベントをトリガーにすることができます。特定のブランチに対してコミットされた後にパイプラインでジョブをトリガーするには、 `[ ~commit：branchName ]` を使用します。特定のブランチに対してプルリクエストが作成された後にパイプラインでジョブをトリガーするには、`[ ~pr：branchName] `を使用します。ブランチは([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~commit：/^feature-/`）。正規表現のフラグはサポートしていません。
 
 ### 例
 
-以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`と `all-commit`がトリガーされます。また、`master`ブランチに対してコミットされると、` main`と `all-commit`がトリガーされます。プルリクエストが`staging`ブランチでオープンされると、` staging-pr`がトリガーされます。
+以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`と `all-commit`がトリガーされます。また、`master`ブランチに対してコミットされると、` main`と `all-commit`がトリガーされます。プルリクエストが`staging`ブランチに対してオープンされると、` staging-pr`がトリガーされます。
 ```
 shared:
     image: node:8
@@ -172,6 +176,10 @@ jobs:
         steps:
             - echo: echo staging pr
 ```
+
+_注意: ブランチに対するPRのワークフローは、そのブランチのscrewdriver.yamlに従います。_
+
+[ブランチフィルターのサンプルリポジトリ](https://github.com/screwdriver-cd-test/branch-filtering-example)を参考にしてください。ブランチフィルターがプルリクエストに対してどう動作するのかを見るのなら、[プルリクエストの例](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2)を参考にしてください。
 
 ## 並列実行と結合 (Parallel and Join)
 
@@ -205,6 +213,8 @@ jobs:
             - echo: echo join after A and B
 ```
 
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-parallel-join-example
+
 ## 他のパイプラインからのトリガー
 
 他のパイプラインの実行完了をトリガーに、パイプラインのジョブを実行することができます。 フォーマットは `~sd@pipelineID:jobName` です。`~pr` と `~commit` と `~sd@pipelineID:jobName` のフォーマットは *OR* のロジックに従います。
@@ -221,6 +231,8 @@ jobs:
         steps:
             - echo: echo hi
 ```
+
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
 
 ## Blocked By
 
@@ -250,6 +262,8 @@ jobs:
         steps:
             - echo: echo bye
 ```
+
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-blockedby-example
 
 ## ジョブの凍結
 `freezeWindows`を使うことでジョブを凍結させ、特定の時間帯にそれらが実行されないようにすることができます。設定値としてcron式またはそれらのリストを取ります。
@@ -320,3 +334,5 @@ jobs:
             steps:
                 - echo: echo detached hi
 ```
+
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-detached-example

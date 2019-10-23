@@ -86,6 +86,8 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-metadata-example
+
 注意:
 
 - `foo`がセットされていない場合に`meta get foo`を実行した場合、デフォルトで`null`を返します。
@@ -106,6 +108,14 @@ $ meta get example --external sd@123:publish
 - `meta set` は外部パイプラインのジョブに対してはできません。
 - もしビルドのトリガー元のジョブが `--external` で指定した外部パイプラインのジョブではなかった場合、meta はセットされません。
 - `--external`で指定したパイプラインのジョブが、そのビルドをトリガーしていなかった場合は、最後に成功した外部ジョブの`meta`が取得されます。
+
+### APIを使用する
+
+`/v4/events`への`POST`リクエストのpayloadに設定することでも、イベントメタを設定することができます。
+
+APIのエンドポイントについての詳細は、[APIのドキュメント](./api.md)を参照してください。
+
+[イベントメタトリガーのサンプルリポジトリ](https://github.com/screwdriver-cd-test/event-meta-trigger-example)や、それに対応した[イベントメタのサンプルリポジトリ](https://github.com/screwdriver-cd-test/event-meta-example)も参考にしてください。
 
 ### プルリクエストコメント
 
