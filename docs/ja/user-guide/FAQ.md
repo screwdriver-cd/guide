@@ -39,8 +39,8 @@ toc:
   url: "#shallow-cloningを無効にするには？"
 - title: ビルドイメージの最小ソフトウェア要件は？
   url: "#ビルドイメージの最小ソフトウェア要件は？"
-- title: Sourcelabsとの連携は？
-  url: "Sourcelabsとの連携は？"
+- title: Saucelabsとの連携は？
+  url: "Saucelabsとの連携は？"
 ---
 
 # よくある質問と回答
@@ -151,7 +151,7 @@ Screwdriverはビルドコンテナイメージに制限がありません。し
 
 また、`image`がAlpineベースの場合は、追加で次のシンボリックリンクのような回避策が必要です。 `mkdir -p /lib64 && ln -s /lib/ld-musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2`
 
-### Sourcelabsとの連携は？
+### Saucelabsとの連携は？
 
 ブログ記事を参考にしてください。 https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
 
