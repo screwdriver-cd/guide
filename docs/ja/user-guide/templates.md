@@ -12,6 +12,10 @@ toc:
   url: "#テンプレートを利用する"
 - title: テンプレートを作成する
   url: "#テンプレートを作成する"
+- title: テンプレートをテストする
+  url: "テンプレートをテストする"
+- title: ビルドキャッシュを利用する
+  url: "ビルドキャッシュを利用する"
 - title: テンプレートを削除する
   url: "#テンプレートを削除する"
 ---
@@ -124,7 +128,7 @@ jobs:
 
 ### テンプレート yaml を書く
 
-テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するイメージと実行するステップの設定が必要です。ネームスペースが指定されていない場合、`default` のネームスペースが適用されます。オプションとして、`images`キーワードでサポートされてるイメージをラベル付きのリストで定義することもできます。ユーザーは実際のイメージの代わりにエイリアスを使用できます(例: `image: latest-image`は`image: node:8`に変換されます)。全ての例は[screwdriver-cd-test/template-example repo](https://github.com/screwdriver-cd-test/template-example)にあります。
+テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するイメージと実行するステップの設定が必要です。ネームスペースが指定されていない場合、`default` のネームスペースが適用されます。オプションとして、`images`キーワードでサポートされてるイメージをラベル付きのリストで定義することもできます。基本的な例は[screwdriver-cd-test/template-example repo](https://github.com/screwdriver-cd-test/template-example)にあります。
 
 `sd-template.yaml`の例:
 
@@ -147,6 +151,57 @@ config:
     secrets:
         - NPM_TOKEN
 ```
+
+#### テンプレートのイメージ
+`images`に指定することで、サポートしているイメージをラベルやエイリアス付きで設定することができます。
+
+例:
+```yaml
+namespace: myNamespace
+name: template_name
+version: '1.3'
+description: template for testing
+maintainer: foo@bar.com
+images:
+    stable-image: node:6
+    latest-image: node:8
+```
+
+以下のように、リストからエイリアスを使用することもできます。
+
+```yaml
+jobs:
+    main:
+        template: myNamespace/template_name@1.3.0
+        image: stable-image
+```
+
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/template-images-example
+
+#### テンプレートのステップ
+
+ステップ名に、[ラップする](#テンプレートを利用する)接頭語(`pre`や`post`)を使用しないでください。利用者がステップを変更したり補強する際に問題が発生します。例として、テンプレートが以下のステップを持っていたとします。
+
+```yaml
+config:
+    image: node:6
+    steps:
+        - preinstall: echo Installing
+        - install: npm install
+        - test: npm test
+```
+
+そして、利用者が以下の追加のステップを利用しようとします。
+
+```yaml
+jobs:
+    main:
+        template: myNamespace/template_name@1.3.0
+        steps:
+          - preinstall: echo foo
+```
+
+この場合、利用者が`preinstall`を上書きしようとしているのか、`install`を補強しようとしているのかわからなくなります。
 
 ### テンプレートリポジトリ用の screwdriver.yaml を書く
 
@@ -196,6 +251,24 @@ jobs:
 Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートのバリデートとパブリッシュを行うためにビルドを開始します。
 
 Screwdriverのテンプレートを更新するには、ご利用のSCMリポジトリに変更を加え、パイプラインのビルドを再度実行します。
+
+## テンプレートをテストする
+
+テンプレートをテストするために、[テンプレートテストのサンプル](https://github.com/screwdriver-cd-test/template-test-example/blob/master/screwdriver.yaml)のようにテンプレートを利用する別のパイプラインを作成することで、リモートテストを設定します。この例では、リモートトリガーを利用することで`publish_nodejs_template`が実行された後にパイプラインが実行されます。
+_注意: イベント作成時にテンプレートが展開されるので、同じパイプラインでテンプレートをテストすることはできません。テンプレートの作成されたパイプライン内で使用しようとすると、古いバージョンのテンプレートが使用されます。_
+
+## ビルドキャッシュを利用する
+
+[ビルドキャッシュ](./configuration/build-cache.md)を利用するには、[store-cliコマンド](https://github.com/screwdriver-cd/store-cli)をステップ内で使用します。例えば、`node_modules/`フォルダをキャッシュする場合、`npm install`を実行するステップの前にキャッシュをダウンロードするステップを設定し、その後キャッシュをアップロードする別のステップを指定します。`teardown-`プレフィックスを使用して、キャッシュをアップロードするステップをteardownに移動することもできます。
+
+```yaml
+config:
+    image: node:8
+    steps:
+        - getcache: store-cli get node_modules/ --type=cache --scope=event || echo "Failed to fetch Cache"
+        - install: npm install
+        - teardown-putcache: store-cli set node_modules/ --type=cache --scope=event || echo "Failed to publish Cache"
+```
 
 ## テンプレートを削除する
 
