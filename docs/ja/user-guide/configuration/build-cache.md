@@ -16,9 +16,9 @@ toc:
 
 | スコープ  | アクセス範囲 |
 |---|---|
-| pipeline  | 同じパイプラインの全てのビルド ![pipeline-scope](../../ja/user-guide/assets/pipeline-scope.png) |
-| event  | 同じイベントの全てのビルド ![event-scope](../../ja/user-guide/assets/event-scope.png) |
-| job  | 同じジョブについての全てのビルド ![job-scope](../../ja/user-guide/assets/job-scope.png) |
+| pipeline  | 同じパイプラインの全てのビルド ![pipeline-scope](../../../user-guide/assets/pipeline-scope.png) |
+| event  | 同じイベントの全てのビルド ![event-scope](../../../user-guide/assets/event-scope.png) |
+| job  | 同じジョブについての全てのビルド ![job-scope](../../../user-guide/assets/job-scope.png) |
 
 ## 例
 
