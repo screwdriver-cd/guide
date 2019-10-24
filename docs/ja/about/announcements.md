@@ -23,7 +23,7 @@ toc:
 Twitterでブログの更新やミートアップ、カンファレンスの情報を発信しています。[twitter.com/screwdrivercd](https://twitter.com/screwdrivercd)をフォローしてください。
 
 ## ミーティング
-隔週月曜日の午後六時（PT）に公開のミーティングを行っています。
+隔週で太平洋標準時の月曜日の午後6時（日本標準時の火曜午前11時（サマータイムの間は火曜午前10時））に公開のミーティングを行っています。
 
 場所: [Google Meet](https://meet.google.com/rwo-ynwh-xqy?hs=122)
       `Phone +1 601-844-2661 PIN: 449 924#`
