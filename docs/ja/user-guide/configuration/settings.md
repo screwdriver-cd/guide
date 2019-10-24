@@ -109,7 +109,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
                     - SUCCESS
 ```
 
-![Default Slack notification](../../ja/user-guide/assets/slack-full-notification.png)
+![Default Slack notification](../../../user-guide/assets/slack-full-notification.png)
 
 しかし、 `minimized` が `true` の場合には、ジョブへのリンク、ジョブのステータス、ビルドへのリンクのアタッチメントからなる通知形式が使用されます。
 
