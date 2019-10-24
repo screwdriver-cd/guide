@@ -123,4 +123,4 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
                 minimized: true
 ```
 
- ![Minimized Slack notification](../../ja/user-guide/assets/slack-minimized-notification.png)
+ ![Minimized Slack notification](../../../user-guide/assets/slack-minimized-notification.png)
