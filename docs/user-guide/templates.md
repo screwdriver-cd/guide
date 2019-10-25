@@ -40,14 +40,32 @@ Example `screwdriver.yaml`:
 jobs:
     main:
         requires: [~pr, ~commit]
-        template: nodejs/test@1.0.3
+        template: nodejs/test@1.0.4
 ```
 
 Version is [semver](https://semver.org/) compatible. For example you can refer above template with `nodejs/test@1` or `nodejs/test@1.0`
 
-You can also refer to a template version with a tag name if the template has one. If no version is specified, the latest published version will be used.
+You can also refer to a template version with a tag name if the template has one. All the versions and tags of a template are displayed at the bottom of a template's description, such as for [the example template](https://cd.screwdriver.cd/templates/nodejs/test), which has the tags `latest` and `stable`.
 
-Example:
+Most templates will tag the most recent version as `latest`, and many templates use either automated testing or manual curation to identify some version as `stable`. These are floating tags, so using them in a job means its template-provided steps may suddenly change.
+
+If no template version is specified, the most recently published will be used. This is usually synonymous with specifying the `latest` tag. It is generally better to explicitly state a template version than to implictly use `latest`.
+
+The most reliable way to avoid unexpected template changes is to refer to a specific version of the template. For instance, `nodejs/test@1.0.4` is an immutable reference to a particular list of steps. Using a reference such as `nodejs/test@1.0` means that a job will automatically use `nodejs/test@1.0.5` when it becomes available, but that comes with risk of an unexpected change in behavior.
+
+## Version/Tag Semantics
+
+Template versions can be referenced in a variety of ways that express users' trade-off between an unchanging set of steps and automatically using improvements that a template's maintainers have added. As above, these examples reference [nodejs/test template](https://cd.screwdriver.cd/templates/nodejs/test).
+
+* `nodejs/test@latest` - this will use the most recently published version of the template, which may include backwards-incompatible changes, major version changes, etc. The `latest` tag should primarily be used by a template's maintainers and may be unsuitable for production or similarly important builds.
+* `nodejs/test@stable` - this will use a version of the template that its maintainers have designated as sufficiently stable for general usage. It may represent a significant change in capability from older uses of the `stable` tag. Template maintainers should communicate to users when changes to the `stable` tag are not backwards compatible.
+* `nodejs/test@1` - this will use the most recent version of `nodejs/test` that is less than 2.0.0. This is essentially the `latest` tag without crossing a major version boundary.
+* `nodejs/test@1.0` - this will use the most recent version of `nodejs/test` than is less than 1.1.0. This is essentially the `latest` tag without crossing a minor version boundary.
+* `nodejs/test@1.0.4` - this is the most predictable way to specify a pipeline's behavior and is not affected by future changes to the template.
+
+## Example
+
+For this configuration:
 ```yaml
 jobs:
     main:
@@ -259,7 +277,7 @@ config:
 ## Removing a template
 
 ### Using screwdriver-template-main npm package
-To remove your template, you can run the `template-remove` script. You will need to provide the template name as an argument. 
+To remove your template, you can run the `template-remove` script. You will need to provide the template name as an argument.
 
 ### Using the UI
 Or, you can remove your template and all its associated tags and versions by clicking on the trash icon in the UI on the template page.
@@ -267,5 +285,3 @@ Or, you can remove your template and all its associated tags and versions by cli
 _Note: Do not delete your template pipeline beforehand, because it is required to determine who has permission to delete the template._
 
 ![Removing](assets/delete-template.png)
-
-
