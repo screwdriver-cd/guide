@@ -24,6 +24,7 @@ shared:
     environment:
         FOO: bar
         MYVAR: ${FOO}        # This will set MYVAR=bar in all builds
+        X.Y: "Z"
 jobs:
     main:
         requires: [~pr, ~commit]
@@ -34,3 +35,13 @@ jobs:
         environment:        # Due to the above shared section, FOO=bar in the build
             MYVAR: hello    # This will set MYVAR=hello in the build
 ```
+
+Please be aware if you are using dot notations in the environment variables, like:
+
+```yaml
+shared:
+    environments:
+       X.Y: "Z"
+```
+
+Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['REGION.INSTANCE']` dot notation to access as well in nodejs, or other programming languages.
