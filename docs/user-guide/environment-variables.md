@@ -93,6 +93,13 @@ These environment variables may or may not be available depending on what plugin
 |------|-------|
 | &lt;environment_variable&gt; | Environment variable specified under the "environment" section in your [screwdriver.yaml](configuration/) |
 
+Please be aware if you are using dot notations in the environment variables, like
+```
+environments:
+   REGION.INSTANCE: 'xyz'
+```
+Then `process.env.REGION.INSTANCE` wont work, and you must use `process.env['env.REGION.INSTANCE']` dot notation to access as well.
+
 ## Source Code
 
 | Name | Description |
