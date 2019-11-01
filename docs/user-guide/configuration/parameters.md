@@ -28,7 +28,8 @@ nameA: "value1"
  `key: string` is a shorthand for writting as `key:value`
 
 ```yaml
-nameA:
+parameters:
+    nameA:
     value: "value1"
     description: ""
 ```
