@@ -22,7 +22,8 @@ paramters:
 **Parameters** is a dictionary which expects `key:value` pairs.
 
 ```yaml
-nameA: "value1"
+parameters:
+    nameA: "value1"
 ```
 
  `key: string` is a shorthand for writting as `key:value`
