@@ -33,7 +33,7 @@ nameA:
     description: ""
 ```
 
-These two are identical with description to be an empty string
+These two examples above are equivalent.
 
 ## Example
 You can see a full screwdriver.yaml example below:
