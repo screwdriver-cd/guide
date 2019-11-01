@@ -5,7 +5,7 @@ category: User Guide
 menu: menu
 toc:
     - title: Parameters
-      url: "#definition"
+      url: "#defining-parameters"
       active: true
 ---
 ## Defining Parameters
