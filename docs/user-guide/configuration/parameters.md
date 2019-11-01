@@ -36,6 +36,7 @@ nameA:
 These two are identical with description to be an empty string
 
 ## Example
+You can see a full screwdriver.yaml example below:
 ```yaml
 shared:
     image: node:8
