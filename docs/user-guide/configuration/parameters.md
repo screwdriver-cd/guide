@@ -9,7 +9,7 @@ toc:
       active: true
 ---
 ## Parameters Definition
-There are 2 ways of defining parameters, see:
+There are 2 ways to define parameters, you can see them both in the example below.
 
 ```yaml
 parameters:
