@@ -8,7 +8,7 @@ toc:
       url: "#definition"
       active: true
 ---
-## Parameters Definition
+## Defining Parameters
 There are 2 ways to define parameters, you can see them both in the example below.
 
 ```yaml
