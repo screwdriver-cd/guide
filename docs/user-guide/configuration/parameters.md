@@ -55,7 +55,7 @@ jobs:
             - step2: 'echo "AZ: $(meta get parameters.az.value)"'
 ```
 
-You can also preview the parameters that being used during a build in `Setup` -> `sd-setup-init` step
+You can also preview the parameters that are used during a build in the `Setup` -> `sd-setup-init` step.
 
 Pipeline Preview Screenshot:
 
