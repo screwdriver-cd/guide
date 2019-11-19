@@ -26,7 +26,7 @@ parameters:
     nameA: "value1"
 ```
 
-`key: string` (see example above) is a shorthand for writting as `key:value` (see example below).
+`key: string` (see example above) is a shorthand for writing as `key:value` (see example below).
 
 ```yaml
 parameters:

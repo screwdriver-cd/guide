@@ -29,7 +29,7 @@ toc:
  | Postgres(Optional) | [Database](https://github.com/screwdriver-cd/datastore-sequelize/)の選択肢の一つです。| [PostgreSQL Licence](https://opensource.org/licenses/postgresql) |
  | RabbitMQ               | ビルドをビルドクラスタにキューイングするために利用しています。| [Mozilla Public License](https://www.rabbitmq.com/mpl.html) |
  | Redis                  | [ワークフローのユースケース](https://docs.screwdriver.cd/user-guide/configuration/workflow)(例えばperiodic builds)のハンドリングで利用しています。 | [Three clause BSD license](https://redis.io/topics/license) |
- | S3(Optional)           | アーティファクト[ストレージ](https://github.com/screwdriver-cd/store)の選択肢の一つです。| Commerical |
+ | S3(Optional)           | アーティファクト[ストレージ](https://github.com/screwdriver-cd/store)の選択肢の一つです。| Commercial |
  | Sequelize              | Node.jsで利用できるMulti SQL dialect ORMです。 | [MIT](https://github.com/sequelize/sequelize/blob/master/LICENSE) |
  | SonarQube (Optional)   | [coverage-sonar bookend](https://github.com/screwdriver-cd/coverage-sonar)でコード分析をするために利用しています。| [GNU V3](https://www.sonarqube.org/downloads/license) |
  | Swagger                | APIのdocumentationに利用しています。 | [Apache 2.0](https://swagger.io/license) |
