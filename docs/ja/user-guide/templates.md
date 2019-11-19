@@ -117,7 +117,7 @@ jobs:
 ```yaml
 jobs:
     main:
-        equires: [~pr, ~commit]
+        requires: [~pr, ~commit]
         image: alpine
         template: nodejs/test@1.0.3
 ```

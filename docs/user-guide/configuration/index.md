@@ -115,7 +115,7 @@ You can access information about properties by hovering over the property name.
         </div>
         <div id="parameters" class="hidden">
             <h4>Parameters</h4>
-            <p>A dictionary consists of key value pairs. `key: string` is a shorthand for writting as `key:value` as shown.</p>
+            <p>A dictionary consists of key value pairs. `key: string` is a shorthand for writing as `key:value` as shown.</p>
         </div>
         <div id="jobs" class="hidden">
             <h4>Jobs</h4>
