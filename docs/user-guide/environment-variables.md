@@ -81,6 +81,7 @@ These environment variables may or may not be available depending on what plugin
 | Name | Description |
 |------|-------|
 | SD_ARTIFACTS_DIR | Location of built/generated files. <br><br>**Note**: The `sd-teardown-screwdriver-artifact-bookend` step uploads artifacts from this directory into the Store unless the build is `ABORTED`. |
+| SD_META_DIR | Location of the [metadata](./metadata) directory |
 | SD_META_PATH | Location of the [metadata](./metadata) file |
 | SD_ROOT_DIR | Location of workspace (e.g.: `/sd/workspace`) |
 | SD_SOURCE_DIR | Location of checked-out code (e.g.: `sd/workspace/src/github.com/d2lam/myPipeline`) |
