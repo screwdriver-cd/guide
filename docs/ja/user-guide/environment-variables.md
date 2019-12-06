@@ -85,6 +85,7 @@ SD_TOKEN | ビルド用の JWT トークン
 --- | ---
 SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
 SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ <br><br>**注意**: ビルドが`ABORTED`で無い場合に、`sd-teardown-screwdriver-artifact-bookend`ステップでこのディレクトリからストアへアップロードされます。
+SD_META_DIR | [メタデータ](./metadata)ディレクトリのパス
 SD_META_PATH | [メタデータ](./metadata)ファイルのパス
 SD_ROOT_DIR | ワークスペースのディレクトリ (例: `/sd/workspace`)
 SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ (例: `/sd/workspace/src/github.com/d2lam/myPipeline`)

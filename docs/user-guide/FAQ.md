@@ -41,6 +41,8 @@ toc:
       url: "#what-are-the-minimum-software-requirements-for-a-build-image"
     - title: How do I integrate with Saucelabs?
       url: "#how-do-i-integrate-with-saucelabs"
+    - title: How do I run my pipeline when commits made from inside a build are pushed to my git repository?
+      url: "#how-do-i-run-my-pipeline-when-commits-made-from-inside-a-build-are-pushed-to-my-git-repository"
 
 ---
 
@@ -152,3 +154,11 @@ Also, if the `image` is Alpine-based, an extra workaround is required in the for
 
 Read about it on our blog post: https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
 See the example repo: https://github.com/screwdriver-cd-test/saucelabs-example
+
+## How do I run my pipeline when commits made from inside a build are pushed to my git repository?
+
+Screwdriver uses `sd_buildbot` as default [git user](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L284). So when you do `git` commits from inside a build, the commit user will be `sd-buildbot`.
+
+This has implications for webhook processing. In order to prevent headless users from running your pipeline indefinitely, Screwdriver cluster admins can configure Screwdriver webhook processor to ignore commits made by headless users. This is done by setting [IGNORE_COMMITS_BY](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325) environment variable. Default git user `sd-buildbot` is usually added to this list.
+
+Users can override this behavior by using a different git user. For example `git config --global user.name my-buildbot`. With this, your `git` commits from a Screwdriver build will be associated with user `my-buildbot` and will run Screwdriver pipeline without getting ignored by webhook processor.
