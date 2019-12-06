@@ -31,8 +31,8 @@ parameters:
 ```yaml
 parameters:
     nameA:
-    value: "value1"
-    description: ""
+        value: "value1"
+        description: ""
 ```
 
 These two examples above are equivalent.
