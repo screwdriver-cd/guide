@@ -44,4 +44,4 @@ shared:
        X.Y: "Z"
 ```
 
-Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['REGION.INSTANCE']` dot notation to access as well in nodejs, or other programming languages.
+Then `process.env.X.Y` won't work, and you must use `process.env['X.Y']` dot notation to access as well in nodejs, or other programming languages.
