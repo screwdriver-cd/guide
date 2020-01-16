@@ -27,6 +27,7 @@ shared:
     environment:
         FOO: bar
         MYVAR: ${FOO}        # 全てのビルドで MYVAR=bar が設定されます
+        X.Y: "Z"
 jobs:
     main:
         requires: [~pr, ~commit]
@@ -37,3 +38,13 @@ jobs:
         environment:        # 上記のsharedセクションでの設定のため、MYVAR=bar が設定されます
             MYVAR: hello    # MYVAR=helloがビルド内で設定されます
 ```
+
+以下のように、ドットを含む環境変数を使用する場合には注意してください。
+
+```yaml
+shared:
+    environments:
+       X.Y: "Z"
+```
+
+この時、`process.env.X.Y` では環境変数を取得できません。Node.js では、 `process.env['X.Y']` を使用してください。他の言語でも同様です。
