@@ -174,7 +174,7 @@ Just need to run below commands inside each repo
 npm install && npm run start
 ```
 
-While all ui, screwdriver and store are runing, now you can go to `http://sd.screwdriver.cd:4200` to check out.
+While the UI, Screwdriver API, and Store apps are running, you can visit `http://sd.screwdriver.cd:4200` in your browser to interact with your local Screwdriver.
 
 ## Developing locally with executor-queue
 
