@@ -32,7 +32,7 @@ See screenshot as below
 
 ![developing-locally-ouath](./assets/developing-locally-ouath.png)
 
-> Take note of the client ID and the client Secret, you'll need them in following steps
+> Take note of the client ID and the client Secret, you'll need them in the following step
 
 ## Step 3: Clone necessary repos from github of screwdriver-cd organization:
 * [ui](https://github.com/screwdriver-cd/ui)
@@ -179,6 +179,5 @@ While all ui, screwdriver and store are runing, now you can go to `http://sd.scr
 ## Developing locally with executor-queue
 
 > TODO
-
 
 
