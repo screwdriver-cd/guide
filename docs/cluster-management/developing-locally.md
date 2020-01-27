@@ -70,7 +70,7 @@ module.exports = {
     openssl genrsa -out jwt.pem 2048
     openssl rsa -in jwt.pem -pubout -out jwt.pub
     ```
-* Remember to create a folder called "mw-data": `mkdir mw-data`
+* Create a folder called "mw-data" using `mkdir mw-data` in your screwdriver repo
 
 * Fill in your ip (YOUR_IP), look up your ip first using `ifconfig`
 > You may need to update this IP because of location changes.
