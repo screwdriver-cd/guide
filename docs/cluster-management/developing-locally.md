@@ -65,7 +65,7 @@ module.exports = {
 
 ### screwdriver/config/local.yaml
 * Remember to fill in your Github OAuth **client id** and OAuth **client secret**, you can find them in the OAuth application you created in Step2
-* Remember to generate your own **jwtPrivateKey** and **jwtPublicKey** using
+* Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
     ```bash
     openssl genrsa -out jwt.pem 2048
     openssl rsa -in jwt.pem -pubout -out jwt.pub
