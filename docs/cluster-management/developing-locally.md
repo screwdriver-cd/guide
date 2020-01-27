@@ -137,7 +137,7 @@ datastore:
 ```
 
 ### store/config/local.yaml
-* Similarly like the `mw-data`, remember to create a folder called "store-data": `mkdir store-data`
+* Similar to the `mw-data` file for the screwdriver repo, you will need to create a folder called "store-data" in your store repo using `mkdir store-data`
 
 ```
 auth:
@@ -179,4 +179,3 @@ While all ui, screwdriver and store are runing, now you can go to `http://sd.scr
 ## Developing locally with executor-queue
 
 > TODO
-
