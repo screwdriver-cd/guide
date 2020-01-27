@@ -28,7 +28,7 @@ Go to Settings > Developer settings > OAuth Apps, click `New OAuth App` button a
 * Application description: (choose for yourself)
 * Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
-See screenshot as below
+See screenshot below
 
 ![developing-locally-ouath](./assets/developing-locally-ouath.png)
 
