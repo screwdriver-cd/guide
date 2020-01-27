@@ -72,7 +72,7 @@ module.exports = {
     ```
 * Remember to create a folder called "mw-data": `mkdir mw-data`
 
-* Look up your ip first: `ifconfig`, YOUR_IP
+* Fill in your ip (YOUR_IP), look up your ip first using `ifconfig`
 > You may need to update this IP because of location changes.
 
 ```
@@ -179,5 +179,4 @@ While all ui, screwdriver and store are runing, now you can go to `http://sd.scr
 ## Developing locally with executor-queue
 
 > TODO
-
 
