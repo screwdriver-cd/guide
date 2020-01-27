@@ -28,7 +28,7 @@ Go to Settings > Developer settings > OAuth Apps, click `New OAuth App` button a
 * Application description: (choose for yourself)
 * Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
-See screenshot below
+See screenshot as below
 
 ![developing-locally-ouath](./assets/developing-locally-ouath.png)
 
@@ -64,15 +64,15 @@ module.exports = {
 ```
 
 ### screwdriver/config/local.yaml
-* Fill in your Github OAuth **client id** (oauthClientId) and OAuth **client secret**, (oauthClientSecret) you can find them in the OAuth application you created in Step2
-* Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
+* Remember to fill in your Github OAuth **client id** and OAuth **client secret**, you can find them in the OAuth application you created in Step2
+* Remember to generate your own **jwtPrivateKey** and **jwtPublicKey** using
     ```bash
     openssl genrsa -out jwt.pem 2048
     openssl rsa -in jwt.pem -pubout -out jwt.pub
     ```
-* Create a folder called "mw-data" using `mkdir mw-data` in your screwdriver repo
+* Remember to create a folder called "mw-data": `mkdir mw-data`
 
-* Fill in your ip (YOUR_IP), look up your ip first using `ifconfig`
+* Look up your ip first: `ifconfig`, YOUR_IP
 > You may need to update this IP because of location changes.
 
 ```
@@ -137,7 +137,7 @@ datastore:
 ```
 
 ### store/config/local.yaml
-* Similar to the `mw-data` file for the screwdriver repo, you will need to create a folder called "store-data" in your store repo using `mkdir store-data`
+* Similarly like the `mw-data`, remember to create a folder called "store-data": `mkdir store-data`
 
 ```
 auth:
@@ -174,8 +174,95 @@ Just need to run below commands inside each repo
 npm install && npm run start
 ```
 
-While the UI, Screwdriver API, and Store apps are running, you can visit `http://sd.screwdriver.cd:4200` in your browser to interact with your local Screwdriver.
+While all ui, screwdriver and store are runing, now you can go to `http://sd.screwdriver.cd:4200` to check out.
 
 ## Developing locally with executor-queue
 
-> TODO
+### Step 1: Install redis server and client
+```
+brew update
+brew install redis
+```
+
+To have launchd start redis now and restart at login:
+```
+brew services start redis
+```
+
+Or, if you don't want/need a background service you can just run:
+
+```
+redis-server /usr/local/etc/redis.conf
+```
+
+Test if Redis server is running.
+
+```
+redis-cli ping
+```
+If it replies “PONG”, then it’s good to go!
+
+Location of Redis configuration file. Modfy "requirepass" if you want to set password.
+
+```
+/usr/local/etc/redis.conf
+```
+
+Uninstall Redis and its files.
+
+```
+brew uninstall redis
+rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+```
+### Step 2: Modify screwdriver/config/local.yaml and change executor configuration
+```
+executor:
+    plugin: queue
+    queue:
+        enabled: true
+        options:
+            # Configuration of the redis instance containing resque
+            redisConnection:
+                host: "127.0.0.1"
+                port: 6379
+                options:
+                    # Set password if set in previous step
+                    password: 'a-secure-password-not-welcome123'
+                    tls: false
+                database: 0
+```
+
+### Step 3: Clone repository [queue-worker](https://github.com/screwdriver-cd/queue-worker) and modify default.yaml
+```
+git clone git@github.com:screwdriver-cd/queue-worker.git
+```
+### queue-worker/config/default.yaml
+``` 
+ executor:
+    plugin: docker
+    docker:
+      enabled: true
+      options:
+        docker:
+            socketPath: "/var/run/docker.sock"
+           
+ ecosystem:
+    # Externally routable URL for the User Interface
+    ui: http://sd.ouroath.com:4200
+    # Externally routable URL for the API
+    api: http://$YOUR_IP:9001
+    # Externally routable URL for the Artifact Store
+    store: http://$YOUR_IP:9002
+    
+ redis:
+    # Host of redis cluster
+    host: 127.0.0.1
+    # Password to connect to redis cluster, if set in first step
+    password: 'a-secure-password-not-welcome123'
+    # Port of redis cluster
+    port: 6379
+    # Prefix for the queue name
+    # prefix: 'beta-'
+    # Flag to enable client for TLS-based communication
+    tls: false
+```
