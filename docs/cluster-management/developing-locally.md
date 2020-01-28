@@ -184,7 +184,7 @@ brew update
 brew install redis
 ```
 
-To have launchd start redis now and restart at login:
+To have launchd, start Redis now and restart at login:
 ```
 brew services start redis
 ```
@@ -195,14 +195,14 @@ Or, if you don't want/need a background service you can just run:
 redis-server /usr/local/etc/redis.conf
 ```
 
-Test if Redis server is running.
+Test to see if the Redis server is running.
 
 ```
 redis-cli ping
 ```
 If it replies “PONG”, then it’s good to go!
 
-Location of Redis configuration file. Modfy "requirepass" if you want to set password.
+Location of the Redis configuration file. Modify "requirepass" if you want to set the password.
 
 ```
 /usr/local/etc/redis.conf
