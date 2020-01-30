@@ -178,66 +178,58 @@ While all ui, screwdriver and store are runing, now you can go to `http://sd.scr
 
 ## Developing locally with executor-queue
 
+Instead of using single docker executor, we can use redis queue to enable screwdriver to run more sophisticated [workflow](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
+
 ### Step 1: Install redis server and client
-```
-brew update
+
+> We uses [brew](https://brew.sh/) as Package Manager for mac, you need to have `brew` installed locally prior to proceeding.
+
+```bash
 brew install redis
 ```
 
 To have launchd, start Redis now and restart at login:
-```
+
+```bash
 brew services start redis
 ```
 
 Or, if you don't want/need a background service you can just run:
 
-```
+```bash
 redis-server /usr/local/etc/redis.conf
 ```
 
 Test to see if the Redis server is running.
 
-```
+```bash
 redis-cli ping
 ```
+
 If it replies “PONG”, then it’s good to go!
 
 Location of the Redis configuration file. Modify "requirepass" if you want to set the password.
 
-```
+```bash
 /usr/local/etc/redis.conf
 ```
 
 Uninstall Redis and its files.
 
-```
+```bash
 brew uninstall redis
 rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
 ```
-### Step 2: Modify screwdriver/config/local.yaml and change executor configuration
-```
-executor:
-    plugin: queue
-    queue:
-        enabled: true
-        options:
-            # Configuration of the redis instance containing resque
-            redisConnection:
-                host: "127.0.0.1"
-                port: 6379
-                options:
-                    # Set password if set in previous step
-                    password: 'a-secure-password-not-welcome123'
-                    tls: false
-                database: 0
-```
 
-### Step 3: Clone repository [queue-worker](https://github.com/screwdriver-cd/queue-worker) and modify default.yaml
-```
+### Step 2: Clone repository [queue-worker](https://github.com/screwdriver-cd/queue-worker) and modify default.yaml
+
+```bash
 git clone git@github.com:screwdriver-cd/queue-worker.git
 ```
+
 ### queue-worker/config/default.yaml
-``` 
+
+```yaml
  executor:
     plugin: docker
     docker:
@@ -258,11 +250,37 @@ git clone git@github.com:screwdriver-cd/queue-worker.git
     # Host of redis cluster
     host: 127.0.0.1
     # Password to connect to redis cluster, if set in first step
-    password: 'a-secure-password-not-welcome123'
+    password: 'c1cd-$cr3wdriver-cd'
     # Port of redis cluster
     port: 6379
-    # Prefix for the queue name
+    # Prefix for the queue name if needed
     # prefix: 'beta-'
     # Flag to enable client for TLS-based communication
     tls: false
+```
+
+### Step 3: Modify screwdriver/config/local.yaml and change executor configuration
+
+```yaml
+executor:
+    plugin: queue # <- this step is essential in order to use queue
+    queue:
+        enabled: true
+        options:
+            # Configuration of the redis instance containing resque
+            redisConnection:
+                host: "127.0.0.1"
+                port: 6379
+                options:
+                    # Set password if set in previous step
+                    password: 'c1cd-$cr3wdriver-cd'
+                    tls: false
+                database: 0
+```
+
+Now, you start the screwdriver backend server to use redis queue. 
+
+
+```bash
+npm install && npm run start
 ```
