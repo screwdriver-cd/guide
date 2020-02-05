@@ -28,7 +28,7 @@ Go to Settings > Developer settings > OAuth Apps, click `New OAuth App` button a
 * Application description: (choose for yourself)
 * Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
-See screenshot as below
+See screenshot below
 
 ![developing-locally-ouath](./assets/developing-locally-ouath.png)
 
@@ -64,7 +64,8 @@ module.exports = {
 ```
 
 ### screwdriver/config/local.yaml
-* Remember to fill in your Github OAuth **client id** and OAuth **client secret**, you can find them in the OAuth application you created in Step2
+* Fill in your Github OAuth **client id** (oauthClientId) and OAuth **client secret**, (oauthClientSecret) you can find them in the OAuth application you created in Step2
+
 * Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
     ```bash
     openssl genrsa -out jwt.pem 2048
@@ -174,7 +175,7 @@ Just need to run below commands inside each repo
 npm install && npm run start
 ```
 
-While all ui, screwdriver and store are runing, now you can go to `http://sd.screwdriver.cd:4200` to check out.
+While the UI, Screwdriver API, and Store apps are running, you can visit `http://sd.screwdriver.cd:4200` in your browser to interact with your local Screwdriver.
 
 ## Developing locally with executor-queue
 
