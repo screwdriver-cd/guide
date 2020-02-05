@@ -171,7 +171,7 @@ These settings will result in Git checks that look like:
 
 ### Coverage and Test Results
 
-You can populate coverage and test results on build page from a Screwdriver build through using metadata. Screwdriver UI will read from `tests.coverage` and `tests.results` in metadata and display them.
+You can populate coverage and test results and set their url to build artifact on build page from a Screwdriver build through using metadata. Screwdriver UI will read from `tests.coverage`, `tests.results`, `tests.coverageUrl` and `tests.resultsUrl` in metadata and display/set them accordingly.
 
 Example screwdriver.yaml should look something like below:
 
@@ -182,6 +182,8 @@ jobs:
       - set-coverage-and-test-results: |
           meta set tests.coverage 100 # this should be the coverage percentage number
           meta set tests.results 10/10 # this should be `pass_tests_number/total_tests_number`
+          meta set tests.results /test/testReport.html # this should be a relative path to a build artifact
+          meta set tests.results /test/coverageReport.html # this should be a relative path to a build artifact
 ```
 
 > Note: metadata will override SonarQube results
