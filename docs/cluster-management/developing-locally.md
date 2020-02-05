@@ -1,6 +1,6 @@
 ---
 layout: main
-title: Configuring the UI
+title: Developing Locally
 category: Cluster Management
 menu: menu
 toc:
