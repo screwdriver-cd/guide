@@ -65,14 +65,14 @@ module.exports = {
 
 ### screwdriver/config/local.yaml
 * Remember to fill in your Github OAuth **client id** and OAuth **client secret**, you can find them in the OAuth application you created in Step2
-* Remember to generate your own **jwtPrivateKey** and **jwtPublicKey** using
+* Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
     ```bash
     openssl genrsa -out jwt.pem 2048
     openssl rsa -in jwt.pem -pubout -out jwt.pub
     ```
-* Remember to create a folder called "mw-data": `mkdir mw-data`
+* Create a folder called "mw-data" using `mkdir mw-data` in your screwdriver repo
 
-* Look up your ip first: `ifconfig`, YOUR_IP
+* Fill in your ip (YOUR_IP), look up your ip first using `ifconfig`
 > You may need to update this IP because of location changes.
 
 ```
@@ -137,7 +137,7 @@ datastore:
 ```
 
 ### store/config/local.yaml
-* Similarly like the `mw-data`, remember to create a folder called "store-data": `mkdir store-data`
+* Similar to the `mw-data` file for the screwdriver repo, you will need to create a folder called "store-data" in your store repo using `mkdir store-data`
 
 ```
 auth:
@@ -240,7 +240,7 @@ git clone git@github.com:screwdriver-cd/queue-worker.git
            
  ecosystem:
     # Externally routable URL for the User Interface
-    ui: http://sd.ouroath.com:4200
+    ui: http://sd.screwdriver.cd:4200
     # Externally routable URL for the API
     api: http://$YOUR_IP:9001
     # Externally routable URL for the Artifact Store
