@@ -119,6 +119,7 @@ Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['RE
 | SD_BUILD_URL | Link to the Screwdriver build API URL (e.g.: `https://api.screwdriver.cd/v4/builds/1`) |
 | SD_STORE_URL | Link to the Screwdriver Store URL (e.g.: `https://store.screwdriver.cd/v1/`) |
 | SD_UI_URL | Link to the Screwdriver UI URL (e.g.: `https://cd.screwdriver.cd/`) |
+| SD_UI_BUILD_URL | Link to the Screwdriver UI build URL (e.g.: `https://cd.screwdriver.cd/pipelines/259/builds/173`) |
 
 
 ## Continuous Integration
