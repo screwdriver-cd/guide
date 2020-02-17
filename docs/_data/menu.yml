@@ -56,6 +56,8 @@
       url: "/cluster-management/configure-ui"
     - title: "Configuring the Store"
       url: "/cluster-management/configure-store"
+    - title: "Developing Locally"
+      url: "/cluster-management/developing-locally"
     - title: "Running Locally"
       url: "/cluster-management/running-locally"
     - title: "Setting Up a Screwdriver Cluster on AWS using Kubernetes"

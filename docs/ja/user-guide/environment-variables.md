@@ -85,6 +85,7 @@ SD_TOKEN | ビルド用の JWT トークン
 --- | ---
 SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
 SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ <br><br>**注意**: ビルドが`ABORTED`で無い場合に、`sd-teardown-screwdriver-artifact-bookend`ステップでこのディレクトリからストアへアップロードされます。
+SD_META_DIR | [メタデータ](./metadata)ディレクトリのパス
 SD_META_PATH | [メタデータ](./metadata)ファイルのパス
 SD_ROOT_DIR | ワークスペースのディレクトリ (例: `/sd/workspace`)
 SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ (例: `/sd/workspace/src/github.com/d2lam/myPipeline`)
@@ -97,6 +98,15 @@ SD_CONFIG_DIR | 親パイプラインのリポジトリのディレクトリ([�
 環境変数名 | 説明
 --- | ---
 <environment_variable> | [screwdriver.yaml](configuration/) の "environment" の項目で設定された環境変数
+
+以下のように、ドットを含む環境変数を使用する場合には注意してください。
+
+```yaml
+environments:
+   REGION.INSTANCE: 'xyz'
+```
+
+この時、`process.env.REGION.INSTANCE` では環境変数を取得できません。`process.env['REGION.INSTANCE']` を使用してください。
 
 ## ソースコード
 

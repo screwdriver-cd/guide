@@ -81,6 +81,7 @@ These environment variables may or may not be available depending on what plugin
 | Name | Description |
 |------|-------|
 | SD_ARTIFACTS_DIR | Location of built/generated files. <br><br>**Note**: The `sd-teardown-screwdriver-artifact-bookend` step uploads artifacts from this directory into the Store unless the build is `ABORTED`. |
+| SD_META_DIR | Location of the [metadata](./metadata) directory |
 | SD_META_PATH | Location of the [metadata](./metadata) file |
 | SD_ROOT_DIR | Location of workspace (e.g.: `/sd/workspace`) |
 | SD_SOURCE_DIR | Location of checked-out code (e.g.: `sd/workspace/src/github.com/d2lam/myPipeline`) |
@@ -92,6 +93,13 @@ These environment variables may or may not be available depending on what plugin
 | Name | Description |
 |------|-------|
 | &lt;environment_variable&gt; | Environment variable specified under the "environment" section in your [screwdriver.yaml](configuration/) |
+
+Please be aware if you are using dot notations in the environment variables, like:
+```
+environments:
+   REGION.INSTANCE: 'xyz'
+```
+Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['REGION.INSTANCE']` dot notation to access as well.
 
 ## Source Code
 
@@ -111,6 +119,7 @@ These environment variables may or may not be available depending on what plugin
 | SD_BUILD_URL | Link to the Screwdriver build API URL (e.g.: `https://api.screwdriver.cd/v4/builds/1`) |
 | SD_STORE_URL | Link to the Screwdriver Store URL (e.g.: `https://store.screwdriver.cd/v1/`) |
 | SD_UI_URL | Link to the Screwdriver UI URL (e.g.: `https://cd.screwdriver.cd/`) |
+| SD_UI_BUILD_URL | Link to the Screwdriver UI build URL (e.g.: `https://cd.screwdriver.cd/pipelines/259/builds/173`) |
 
 
 ## Continuous Integration
