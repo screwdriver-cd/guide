@@ -41,6 +41,9 @@ toc:
   url: "#ビルドイメージの最小ソフトウェア要件は？"
 - title: Saucelabsとの連携は？
   url: "Saucelabsとの連携は？"
+- title: ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
+  url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
+
 ---
 
 # よくある質問と回答
@@ -156,3 +159,11 @@ Screwdriverはビルドコンテナイメージに制限がありません。し
 ブログ記事を参考にしてください。 https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
 
 サンプルリポジトリはこちらです。 https://github.com/screwdriver-cd-test/saucelabs-example
+
+## ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
+
+Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L284)に`sd-buildbot`を使用します。したがって、ビルド内で`git`コミットを行うと、コミットユーザーは`sd-buildbot`になります。
+
+これは、webhook処理に影響を及ぼします。 ヘッドレスユーザーがパイプラインを無期限に実行することを防ぐために、ヘッドレスユーザーによるコミットを無視するようにScrewdriverクラスター管理者はwebhookプロセッサの設定を行えます。これを行うには、[IGNORE_COMMITS_BY]（https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325）環境変数を設定します。通常、デフォルトgitユーザーの`sd-buildbot`がこのリストに追加されます。
+
+ユーザーは、別のgitユーザーを使用することでこの動作を上書きできます。例えば、`git config --global user.name my-buildbot`とすることで、Screwdriverのビルドからの`git`コミットは`my-buildbot`ユーザーによって行われ、webhookプロセッサに無視されることなく、Screwdriverパイプラインが実行されます。

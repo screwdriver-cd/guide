@@ -96,6 +96,7 @@ We have two methods of storing artifacts right now: - `memory` - In-memory store
 | S3_REGION            | *none*  | Amazon S3 region                               |
 | S3_BUCKET            | *none*  | Amazon S3 bucket that you have write access to |
 | S3_ENDPOINT          | *none*  | Custom endpoint for Amazon S3 compatible API   |
+| S3_DEFAULT_ACL       | public-read | default ACL for putting objects in your s3 bucket |
 
 ```yaml
 # config/local.yaml

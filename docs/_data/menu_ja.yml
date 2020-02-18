@@ -34,6 +34,8 @@
           url: "/ja/user-guide/configuration/externalConfig"
         - title: "ビルドキャッシュ"
           url: "/ja/user-guide/configuration/build-cache"
+        - title: "パラメーター"
+          url: "/ja/user-guide/configuration/parameters"
     - title: "Metadata"
       url: "/ja/user-guide/metadata"
     - title: "環境変数"
