@@ -100,7 +100,8 @@ These environment variables may or may not be available depending on what plugin
 | SCM_URL | SCM URL that was checked out (e.g.: `https://github.com/d2lam/myPipeline`) |
 | GIT_URL | SCM URL that was checked out with .git appended (e.g.: `https://github.com/d2lam/myPipeline.git`) |
 | CONFIG_URL | SCM URL of the parent pipeline repository (only set for [child pipelines](./configuration/externalConfig)) |
-| GIT_BRANCH | Reference for PR or the branch (e.g.: `remotes/pull/${PRNUMBER}/head` or `origin/${BRANCH}`) |
+| GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
+| PR_BRANCH_NAME | Branch name for PR (e.g.: `origin/${BRANCH}`) | 
 | SD_BUILD_SHA | The Git commit SHA (e.g.: `b5a94cdabf23b21303a0e6d5be5e96bd6300847a`) |
 
 ## URLs
