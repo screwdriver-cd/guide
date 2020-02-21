@@ -123,9 +123,10 @@ SD_BUILD_SHA | Git の commit SHA (例: `b5a94cdabf23b21303a0e6d5be5e96bd6300847
 環境変数名 | 説明
 --- | ---
 SD_API_URL | Screwdriver API の URL へのリンク (例: `https://api.screwdriver.cd/v4/`)
-SD_BUILD_URL | Screwdriver のビルドページへのリンク (例: `https://api.screwdriver.cd/v4/builds/1`)
+SD_BUILD_URL | Screwdriver のビルド API へのリンク (例: `https://api.screwdriver.cd/v4/builds/1`)
 SD_STORE_URL | Screwdriver Store の URL へのリンク (例: `https://store.screwdriver.cd/v1/`)
 SD_UI_URL | Screwdriver UI の URL へのリンク (例: `https://cd.screwdriver.cd/`)
+SD_UI_BUILD_URL | Screwdriver UI のビルド URL へのリンク (例: `https://cd.screwdriver.cd/pipelines/259/builds/173`)
 
 ## 継続的インテグレーション
 
