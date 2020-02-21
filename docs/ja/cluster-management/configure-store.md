@@ -97,14 +97,15 @@ builds:
 
 現在、アーティファクトの保存には次の2つの方法があります。`memory` - インメモリストア（非効率・非永続）、 `s3` - Amazon S3
 
-キー | デフォルト | 説明
---- | --- | ---
-STRATEGY | memory | アーティファクトを保存する方法(memoryまたはs3)
-S3_ACCESS_KEY_ID | *なし* | Amazonアクセスキー
-S3_ACCESS_KEY_SECRET | *なし* | Amazonシークレットアクセスキー
-S3_REGION | *なし* | Amazon S3 のリージョン
-S3_BUCKET | *なし* | 書き込みアクセスを行うAmazon S3 のバケット
-S3_ENDPOINT | *なし* | Amazon S3と互換性のある独自のエンドポイント
+| キー                 | デフォルト  | 説明                                                     |
+|:---------------------|:------------|:---------------------------------------------------------|
+| STRATEGY             | memory      | アーティファクトを保存する方法(memoryまたはs3)           |
+| S3_ACCESS_KEY_ID     | *なし*      | Amazonアクセスキー                                       |
+| S3_ACCESS_KEY_SECRET | *なし*      | Amazonシークレットアクセスキー                           |
+| S3_REGION            | *なし*      | Amazon S3 のリージョン                                   |
+| S3_BUCKET            | *なし*      | 書き込みアクセスを行うAmazon S3 のバケット               |
+| S3_ENDPOINT          | *なし*      | Amazon S3と互換性のある独自のエンドポイント              |
+| S3_DEFAULT_ACL       | public-read | S3 のバケットにオブジェクトを保存する時のデフォルトのACL |
 
 ```yaml
 # config/local.yaml
