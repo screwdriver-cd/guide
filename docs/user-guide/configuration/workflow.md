@@ -16,6 +16,8 @@ toc:
       url: "#parallel-and-join"
     - title: Remote Triggers
       url: "#remote-triggers"
+    - title: Remote Join
+      url: "#remote-join"
     - title: Blocked By
       url: "#blocked-by"
     - title: Freeze Windows
@@ -90,7 +92,7 @@ jobs:
 ```
 
 ### Advanced Logic [_OR_]
-You can specify a job to to start when any of its `requires` jobs are successful [_OR_] by adding a tilde (~) prefix to the jobs it requires. It will need to follow the format `~sd@pipelineID:jobName`.
+You can specify a job to to start when any of its `requires` jobs are successful [_OR_] by adding a tilde (`~`) prefix to the jobs it requires. It will need to follow the format `~sd@pipelineID:jobName`.
 
 ### Example
 In the following example, the `last` job will trigger anytime either `first` _OR_ `second` complete successfully.
@@ -214,6 +216,61 @@ jobs:
 ```
 
 Example repo: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
+
+## Remote Join
+You can also have remote join jobs. Please double check with your cluster admin whether it is supported. 
+
+#### Example
+In the following example, this pipeline 3 will start the `join_job` job after successful completion of: internal_fork, external_fork in pipeline 2, _and_ external_fork in pipeline 4.
+
+![Remote join](../assets/remote-join.png)
+
+Pipeline 3 screwdriver.yaml:
+
+```
+shared:
+  image: node:12
+  steps:
+    - echo: echo hi
+jobs:
+  main:
+    requires: [~commit, ~pr]
+  internal_fork:
+    requires: [main]
+  join_job:
+    requires: [internal_fork, sd@2:external_fork, sd@4:external_fork]
+```
+
+Pipeline 2 screwdriver.yaml:
+
+```
+shared:
+  image: node:12
+  steps:
+    - echo: echo hi
+jobs:
+  external_fork:
+    requires: [~sd@3:main]
+```
+
+Pipeline 4 screwdriver.yaml:
+
+```
+shared:
+  image: node:12
+  steps:
+    - echo: echo hi
+jobs:
+  external_fork:
+    requires: [~sd@3:main]
+```
+
+#### Caveats
+
+- In the downstream remote job, you’ll need to use ~ tilde prefix for the external requires
+- This feature is only guaranteed one external dependency level deep
+- This feature currently does not work with PR chain
+- The event list on the right side of the UI might not show the complete mini-graph for the event
 
 ## Blocked By
 To have your job blocked by another job, you can use `blockedBy`. It has the same format as `requires`, except it does not accept values like `~commit` or `~pr`.

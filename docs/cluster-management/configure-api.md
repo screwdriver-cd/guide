@@ -62,19 +62,27 @@ auth:
         - github:batman
 ```
 
-### Build Environment Variables
+### Build Variables
 
+#### Environment
 You can preset default environment variables for all builds in your cluster. By default, this field is `{ SD_VERSION: 4 }`.
 
 | Key | Default| Description |
 |:----|:-------|:------------|
 | CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | Default environment variables for build. For example: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
 
+#### Remote join
+By default, [the remote join feature](../user-guide/workflow.md#remote-join) is turned off.
+
+| Key | Default| Description |
+|:----|:-------|:------------|
+| EXTERNAL_JOIN | `false` | Whether remote join feature is on or not. Options: `true` or `false` |
 
 ```yaml
 # config/local.yaml
 build:
     environment: CLUSTER-ENV-IN-JSON-FORMAT
+    externalJoin: true
 ```
 
 ### Bookend Plugins
