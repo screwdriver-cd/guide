@@ -179,7 +179,7 @@ jobs:
 
 ### カバレッジとテスト結果
 
-metadataを利用して、Screwdriverのビルドからビルドページにカバレッジとテスト結果を取り込むことができます。ScrewdriverのUIはmetadata内の`tests.coverage`と`tests.results`を読み込んで表示します。
+metadataを利用して、Screwdriverのビルドからビルドページにカバレッジの結果やテスト結果をそれらの生成物へのURLと一緒に取り込むことができます。ScrewdriverのUIはmetadata内の`tests.coverage`、 `tests.results`、 `tests.coverageUrl`、 `tests.resultsUrl`を読み込んで対応するものを表示させたり設定したりします。
 
 screwdriver.yamlの例:
 
@@ -190,6 +190,8 @@ jobs:
       - set-coverage-and-test-results: |
           meta set tests.coverage 100 # カバレッジパーセンテージ数
           meta set tests.results 10/10 # 成功テスト数/全テスト数
+          meta set tests.coverageUrl /test/coverageReport.html # ビルド成果物への相対パスで指定します
+          meta set tests.resultsUrl /test/testReport.html # ビルド成果物への相対パスで指定します
 ```
 
 > 注意: metadataはSonarQubeの結果を上書きします。
