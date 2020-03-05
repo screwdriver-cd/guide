@@ -40,9 +40,9 @@ See screenshot below
 * [store](https://github.com/screwdriver-cd/store)
 
 ```bash
-git clone git@github.com:screwdriver-cd/ui.git
-git clone git@github.com:screwdriver-cd/screwdriver.git
-git clone git@github.com:screwdriver-cd/store.git
+git clone https://github.com/screwdriver-cd/ui.git
+git clone https://github.com/screwdriver-cd/screwdriver.git
+git clone https://github.com/screwdriver-cd/store.git
 ```
 
 ## Step 4: Add local config files for these three repos
