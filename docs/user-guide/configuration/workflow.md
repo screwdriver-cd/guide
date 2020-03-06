@@ -267,7 +267,7 @@ jobs:
 
 #### Caveats
 
-- In the downstream remote job, you’ll need to use ~ tilde prefix for the external requires
+- In the downstream remote job (e.g.: for instance, in pipeline 2 or pipeline 4 examples above), we currently do not support `AND` syntax (e.g.: `requires: [sd@3:main]` or `requires: [sd@3:main, sd@1:main]`) for external triggers in the start nodes; you must use `OR` syntax for these nodes (e.g.: `requires: [~sd@3:main]` or `requires: [~sd@3:main, ~sd@1:main]`)
 - This feature is only guaranteed one external dependency level deep
 - This feature currently does not work with PR chain
 - The event list on the right side of the UI might not show the complete mini-graph for the event
