@@ -118,11 +118,12 @@ $ sd-local config view
 ```
 
 ### 設定できるキーの一覧
+
 |キー|説明|
 |---|---|
 |api-url|ご利用しているクラスタのScrewdriver APIのURLを指定してください|
 |store-url|ご利用しているクラスタのScrewdriver StoreのURLを指定してください|
-|token|[APIトークン](../api#認証と認可)を指定してください|
+|token|[APIトークン](api#認証と認可)を指定してください|
 |launcher-image|launcherイメージを指定してください（デフォルトは `screwdrivercd/launcher`）|
 |launcher-version|launcherバージョンを指定してください（デフォルトは `stable`）|
 
@@ -147,8 +148,8 @@ buildコマンドには以下のオプションを設定することができま
 |-e, --env|ビルド環境に設定する環境変数を`<key>=<value>` 形式で設定します（複数指定可）|
 |--env-file|ビルド環境に設定する環境変数をファイル形式で設定します（ファイルの形式は[env-fileのフォーマット](#env-fileの形式)を参照）|
 |-m, --memory|ビルド環境のメモリリソースのリミット値を指定します（b,k,m,gのメモリ単位で指定できます）|
-|--meta|ビルド環境に渡す[メタデータ](../metadata)を指定します（JSON形式）|
-|--meta-file|ビルド環境に渡す[メタデータ](../metadata)をファイルで指定します（JSON形式）|
+|--meta|ビルド環境に渡す[メタデータ](metadata)を指定します（JSON形式）|
+|--meta-file|ビルド環境に渡す[メタデータ](metadata)をファイルで指定します（JSON形式）|
 |--src-url|ソースコードをリモートのSCMから取得します（`https` または `ssh` 形式のURLを渡せます）|
 
 注意：  
@@ -164,7 +165,7 @@ buildコマンドには以下のオプションを設定することができま
 - 引用符に特殊な処理はされません。値の一部とみなされます
 
 ## 環境変数の一覧
-sd-localのビルド内では、以下の環境変数が利用できます。デフォルト値に`-`が設定されているものは、Screwdriver上でのビルドと同様のため、[環境変数](#environment-variables)を参照ください。
+sd-localのビルド内では、以下の環境変数が利用できます。デフォルト値に`-`が設定されているものは、Screwdriver上でのビルドと同様のため、[環境変数](environment-variables)を参照ください。
 
 |環境変数名|デフォルト値|
 |---|---|

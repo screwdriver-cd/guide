@@ -44,6 +44,8 @@
       url: "/user-guide/templates"
     - title: "Commands"
       url: "/user-guide/commands"
+    - title: "Local Build"
+      url: "/user-guide/local"
     - title: "FAQ"
       url: "/user-guide/FAQ"
 - title: "Cluster Management"
