@@ -61,7 +61,7 @@ $ cd quickstart-generic
 
 
 ## Build configuration
-sd-local needs some settings for builds, so you have to configure with config command.
+sd-local needs some settings for builds, so you have to configure using the `config` command:
 ```bash
 $ sd-local config set api-url https://api.screwdriver.cd
 $ sd-local config set store-url https://store.screwdriver.cd
