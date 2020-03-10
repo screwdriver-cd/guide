@@ -17,8 +17,7 @@ toc:
 ---
 
 # What is sd-local ?
-sd-local enable you to build as Screwdriver does without uploading source code to SCM.
-You can use features including Command, Template, Metadata and so on as same as Screwdriver.
+sd-local enables running a more feature-complete local Screwdriver without needing uploading source code to SCM. With sd-local, you can use features such as Command, Template, Metadata, and more.
 
 
 # Installing sd-local
