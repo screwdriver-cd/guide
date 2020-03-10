@@ -71,7 +71,7 @@ $ sd-local config set launcher-version latest
 
 
 ## Execute build
-You can execute the main job using sd-local.
+You can execute the main job using sd-local `build` command:
 
 
 ```bash
