@@ -31,7 +31,7 @@ sd-local enables running a more feature-complete local Screwdriver without needi
 ## How to Install
 
 
-You can install sd-local by the following command.
+You can install sd-local using the following command:
 ```bash
 $ go get github.com/screwdriver-cd/sd-local
 ```
