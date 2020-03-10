@@ -43,7 +43,7 @@ https://golang.org/
 
 
 # Simple usage
-This section describes the steps to execute build with sd-local.
+This section describes the steps needed to execute a build with sd-local.
 Let Screwdriver API be `https://api.screwdriver.cd`, and let Screwdriver Store be `https://store.screwdriver.cd` in this section.
 
 
