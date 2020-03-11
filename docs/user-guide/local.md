@@ -30,19 +30,14 @@ sd-local enables running a more feature-complete local Screwdriver without needi
 
 ## How to Install
 
+Download a latest binary of [sd-local](https://github.com/screwdriver-cd/sd-local/releases) and install it in your environment like following.
 
-You can install sd-local using the following command:
 ```bash
-$ go get github.com/screwdriver-cd/sd-local
+$ mv sd-local_*_amd64 /usr/local/bin/sd-local
+$ chmod +x /usr/local/bin/sd-local
 ```
 
-
-Note:
-go command is required to install sd-local.
-https://golang.org/
-
-
-# Simple usage
+# Quick start
 This section describes the steps needed to execute a build with sd-local.
 Let Screwdriver API be `https://api.screwdriver.cd`, and let Screwdriver Store be `https://store.screwdriver.cd` in this section.
 

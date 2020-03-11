@@ -28,18 +28,14 @@ sd-local実行には以下のコマンドが必要になります
   - [src-url]オプションを利用する場合に必要になります
 
 ## インストール方法
+最新の[sd-local](https://github.com/screwdriver-cd/sd-local/releases) をダウンロードし、以下のようにインストールします。
 
-以下のコマンドを実行してsd-localをインストールできます。
 ```bash
-$ go get github.com/screwdriver-cd/sd-local
+$ mv sd-local_*_amd64 /usr/local/bin/sd-local
+$ chmod +x /usr/local/bin/sd-local
 ```
 
-注意：  
-sd-localをインストールするには、goコマンドが必要です。  
-goコマンドをまだインストールしていない場合は、先にそちらのインストールを行ってください。  
-https://golang.org/
-
-# 簡単な使い方
+# クイックスタート
 sd-localでビルドを実行するまでの流れを説明します。
 
 ここでは、ScrewdriverのAPIを `https://api.screwdriver.cd`、 Storeを `https://store.screwdriver.cd` とします。
