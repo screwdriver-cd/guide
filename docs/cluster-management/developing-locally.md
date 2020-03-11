@@ -127,6 +127,7 @@ scms:
             secret: a-really-real-secret
             username: sd-buildbot
             email: dev-null@screwdriver.cd
+            privateRepo: false
 
 datastore:
   plugin: sequelize
