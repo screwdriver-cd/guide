@@ -109,7 +109,7 @@ Your settings are stored in `~/.sdlocal/config`.
 
 
 ### set subcommand
-You can configure sd-local in key/value format. You have to set `api-url`, `store-url` and `token` to execute builds.
+You can configure sd-local in key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.
 Please refer to the [List of keys](#list-of-keys) about available settings.
 ```bash
 $ sd-local config set <key> <value>
