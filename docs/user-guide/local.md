@@ -125,7 +125,8 @@ $ sd-local config view
 ```
 
 
-### List of the key.
+### List of keys
+You must set `api-url`, `store-url`, and `token` in order to execute builds.
 
 |key|description|
 |---|---|
