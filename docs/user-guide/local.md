@@ -142,7 +142,7 @@ This command runs builds in your local environment.
 
 
 ## Usage
-Run build with specific the job. Even if a job is succeeded, any other jobs are not triggered.
+Run a build for a specific job. Even if the build succeeds, other builds are not triggered.
 ```bash
 $ sd-local build <job name>
 ```
