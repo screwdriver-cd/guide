@@ -155,15 +155,15 @@ It starts the build based on the `screwdriver.yaml` config in the current direct
 The following options can be used with the build command:
 
 
-|option|describe|
+|option|description|
 |---|---|
-|--artifacts-dir|Specify the destination of build artifacts. (default: `./sd-artifacts`)|
-|-e, --env|Set the environment variables in the build environment in `<key>=<value>` formats. (Multiple specifications allowed)|
-|--env-file|Set the environment variables in the build environment in file format. (Refer to [env-file format](#env-file-format))|
-|-m, --memory|Specify the limit value of the memory resource of the build environment. (Can be specified in b, k, m, g memory unit)|
-|--meta|Specify [metadata](metadata) used in build environment. (JSON format) e.g. `"{\"HOGE\": \"FOO\"}"`|
-|--meta-file|Specify [metadata](metadata) used in build environment in the file. (JSON format)|
-|--src-url|Specify the remote SCM URL to build. (`https` or `ssh` format)|
+|--artifacts-dir|The build artifacts destination (default: `./sd-artifacts`)|
+|-e, --env|The environment variables in a build environment using `<key>=<value>` format (multiple variables allowed)|
+|--env-file|The environment variables in a build environment using file format (refer to [env-file format](#env-file-format))|
+|-m, --memory|The memory limit of the build environment (can be specified in b, k, m, or g memory unit)|
+|--meta|The [metadata](metadata) used in a build environment using string JSON format: e.g. `"{\"HOGE\": \"FOO\"}"`|
+|--meta-file|The [metadata](metadata) used in build environment using file format|
+|--src-url|The remote SCM URL to build (`https` or `ssh` format)|
 
 
 Note:
