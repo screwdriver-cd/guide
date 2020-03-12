@@ -148,7 +148,7 @@ $ sd-local build <job name>
 ```
 
 
-It starts the job based on `screwdriver.yaml` in the current directory, and the build artifacts are created under the "./sd-artifacts" directory.
+It starts the build based on the `screwdriver.yaml` config in the current directory. Build artifacts will be created under the "./sd-artifacts" directory.
 
 
 ## Options
