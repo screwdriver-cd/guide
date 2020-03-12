@@ -38,13 +38,13 @@ $ chmod +x /usr/local/bin/sd-local
 ```
 
 # Quick start
-This section describes the steps needed to execute a build with sd-local.
+This section describes the steps needed to execute a build with sd-local.  
 Let Screwdriver API be `https://api.screwdriver.cd`, and let Screwdriver Store be `https://store.screwdriver.cd` in this section.
 
 
-## Create API token
-sd-local uses an API token to communicate with Screwdriver API and Store.
-Please create an API token with reference to [Authentication and Authorization](api#authentication-and-authorization).
+## Create user API token
+sd-local uses an user API token to communicate with Screwdriver API and Store.  
+Please create an user API token with reference to [Authentication and Authorization](api#authentication-and-authorization).
 
 
 ## Get repository for build
@@ -101,7 +101,7 @@ builds.log       environment.json steps.json
 
 
 # config command
-You can configure sd-local settings in key/value format by config command.
+You can configure sd-local settings in key/value format by config command.  
 Your settings are stored in `~/.sdlocal/config`.
 
 
@@ -109,7 +109,7 @@ Your settings are stored in `~/.sdlocal/config`.
 
 
 ### set subcommand
-You can configure sd-local in key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.
+You can configure sd-local in key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.  
 Please refer to the [List of keys](#list-of-keys) about available settings.
 ```bash
 $ sd-local config set <key> <value>
@@ -195,7 +195,7 @@ You can use the following environment variables in sd-local build. The default v
 |SD_API_URL|api-url in your config|
 |SD_STORE_URL|store-url in your config|
 |SD_TOKEN|generated JWT based on the token in your config|
-|SD_SOURCE_DIR|/sd/workspace/src/screwdriver.cd/sd-local/local-build|
+|SD_SOURCE_DIR|`/sd/workspace/src/screwdriver.cd/sd-local/local-build`|
 |SD_JOB_NAME|-|
 |SD_TEMPLATE_FULLNAME|-|
 |SD_TEMPLATE_NAME|-|

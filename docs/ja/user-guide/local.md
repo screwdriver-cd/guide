@@ -40,9 +40,9 @@ sd-localでビルドを実行するまでの流れを説明します。
 
 ここでは、ScrewdriverのAPIを `https://api.screwdriver.cd`、 Storeを `https://store.screwdriver.cd` とします。
 
-## APIトークンの作成
-sd-localでは、Screwdriver API, Storeとやり取りするためのAPIトークンを利用します。
-[認証と認可](api#認証と認可)を参考に、APIトークンを作成してください。
+## ユーザAPIトークンの作成
+sd-localでは、Screwdriver API, Storeとやり取りするためにユーザAPIトークンを利用します。  
+[認証と認可](api#認証と認可)を参考に、ユーザAPIトークンを作成してください。
 
 ## ビルド対象のリポジトリを取得
 ビルド対象のソースコードと `screwdriver.yaml` を取得します。ここでは[quickstart-generic](https://github.com/screwdriver-cd-test/quickstart-generic.git)を使います。
@@ -99,8 +99,8 @@ configコマンドでは、sd-local自体の設定をkey/valueの形式で行い
 ## 使い方
 
 ### setサブコマンド
-key/value形式で設定を行います。ビルドを実行するには`api-url`, `store-url`, `token`を設定する必要があります。
-利用できる設定内容については、[設定できるキーの一覧](#設定できるキーの一覧)を参照ください。
+key/value形式で設定を行います。ビルドを実行するには`api-url`, `store-url`, `token`を設定する必要があります。  
+利用できる設定内容については、[設定できるキーの一覧](#設定できるキーの一覧)を参照してください。
 
 ```bash
 $ sd-local config set <key> <value>
@@ -117,8 +117,8 @@ $ sd-local config view
 
 |キー|説明|
 |---|---|
-|api-url|ご利用しているクラスタのScrewdriver APIのURLを指定してください|
-|store-url|ご利用しているクラスタのScrewdriver StoreのURLを指定してください|
+|api-url|利用しているScrewdriver APIのURLを指定してください|
+|store-url|利用しているScrewdriver StoreのURLを指定してください|
 |token|[APIトークン](api#認証と認可)を指定してください|
 |launcher-image|launcherイメージを指定してください（デフォルトは `screwdrivercd/launcher`）|
 |launcher-version|launcherバージョンを指定してください（デフォルトは `stable`）|
@@ -132,7 +132,7 @@ $ sd-local config view
 $ sd-local build <job name>
 ```
 
-上記のコマンドではカレントディレクトリの `screwdriver.yaml` をもとにジョブを実行します。
+上記のコマンドではカレントディレクトリの `screwdriver.yaml` をもとにジョブを実行します。  
 また、ビルド成果物は`./sd-artifacts` ディレクトリ以下に保存されます。
 
 ## オプション
@@ -161,7 +161,7 @@ buildコマンドには以下のオプションを設定することができま
 - 引用符に特殊な処理はされません。値の一部とみなされます
 
 ## 環境変数の一覧
-sd-localのビルド内では、以下の環境変数が利用できます。デフォルト値に`-`が設定されているものは、Screwdriver上でのビルドと同様のため、[環境変数](environment-variables)を参照ください。
+sd-localのビルド内では、以下の環境変数が利用できます。デフォルト値に`-`が設定されているものは、Screwdriver上でのビルドと同様のため、[環境変数](environment-variables)を参照してください。
 
 |環境変数名|デフォルト値|
 |---|---|
@@ -171,7 +171,7 @@ sd-localのビルド内では、以下の環境変数が利用できます。デ
 |SD_API_URL|configで設定したapi-urlが設定されます|
 |SD_STORE_URL|configで設定したstore-urlが設定されます|
 |SD_TOKEN|configで設定したtokenに基づいたJWTが設定されます|
-|SD_SOURCE_DIR|/sd/workspace/src/screwdriver.cd/sd-local/local-build|
+|SD_SOURCE_DIR|`/sd/workspace/src/screwdriver.cd/sd-local/local-build`|
 |SD_JOB_NAME|-|
 |SD_TEMPLATE_FULLNAME|-|
 |SD_TEMPLATE_NAME|-|
