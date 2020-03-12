@@ -172,10 +172,10 @@ Note:
 
 
 ### env-file format
-`--env-file` option is using the file format as same as the [.env](https://docs.docker.com/compose/env-file/) format of docker.
+`--env-file` option expects a file with a file format like the [.env](https://docs.docker.com/compose/env-file/) format of docker.
 
 
-- Each line in an `env` file to be in `VAR=VAL` format.
+- Each line in an `env` file should follow `VAR=VAL` format.
 - Lines beginning with `#` are processed as comments and ignored.
 - Blank lines are ignored.
 - There is no special handling of quotation marks. This means that they are part of the VAL.
