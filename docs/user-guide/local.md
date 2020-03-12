@@ -130,11 +130,11 @@ You must set `api-url`, `store-url`, and `token` in order to execute builds.
 
 |key|description|
 |---|---|
-|api-url|Please specify the URL of Screwdriver API of the cluster you are using.|
-|store-url|Please specify the URL of Screwdriver Store of the cluster you are using.|
-|token|Please specify the [API token](api#authentication-and-authorization)|
-|launcher-image|Please specify the launcher image. (default: `screwdrivercd/launcher`)|
-|launcher-version|Please specify the launcher version. (default: `stable`)|
+|api-url|The Screwdriver API URL of the cluster you are using|
+|store-url|The Screwdriver Store URL of the cluster you are using|
+|token|An [API token](api#authentication-and-authorization) for the Screwdriver API of the cluster you are using|
+|launcher-image|The launcher image (default: `screwdrivercd/launcher`)|
+|launcher-version|The launcher version (default: `stable`)|
 
 
 # build command
