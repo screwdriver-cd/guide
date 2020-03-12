@@ -25,7 +25,7 @@ sd-local enables running a more feature-complete local Screwdriver without needi
 - [docker](https://www.docker.com/)
   - Use Docker container as build environment.
 - [git](https://git-scm.com/)
-  - Required when using [--src-url] option.
+  - Required when using `--src-url` option.
 
 
 ## How to Install

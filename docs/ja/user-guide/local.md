@@ -25,7 +25,7 @@ sd-local実行には以下のコマンドが必要になります
 - [docker](https://www.docker.com/)
   - ビルドの実行環境としてdockerコンテナを利用します
 - [git](https://git-scm.com/)
-  - [src-url]オプションを利用する場合に必要になります
+  - `--src-url`オプションを利用する場合に必要になります
 
 ## インストール方法
 最新の[sd-local](https://github.com/screwdriver-cd/sd-local/releases) をダウンロードし、以下のようにインストールします。
