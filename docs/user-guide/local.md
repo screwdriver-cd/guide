@@ -182,7 +182,7 @@ Note:
 
 
 ## List of environment variables
-You can use the following environment variables in sd-local build. The default values whose value is showed as  '-' are same as Screwdriver. Please refer to [environment variables](environment-variables) in the details.
+You can use the following environment variables in sd-local build. The default values shown as  `-` are the same defaults as in production Screwdriver. Please refer to [environment variables](environment-variables) for more details.
 
 
 
