@@ -161,7 +161,7 @@ The following options can be used with the build command:
 |-e, --env|Set the environment variables in the build environment in `<key>=<value>` formats. (Multiple specifications allowed)|
 |--env-file|Set the environment variables in the build environment in file format. (Refer to [env-file format](#env-file-format))|
 |-m, --memory|Specify the limit value of the memory resource of the build environment. (Can be specified in b, k, m, g memory unit)|
-|--meta|Specify [metadata](metadata) used in build environment. (JSON format)|
+|--meta|Specify [metadata](metadata) used in build environment. (JSON format) e.g. `"{\"HOGE\": \"FOO\"}"`|
 |--meta-file|Specify [metadata](metadata) used in build environment in the file. (JSON format)|
 |--src-url|Specify the remote SCM URL to build. (`https` or `ssh` format)|
 
