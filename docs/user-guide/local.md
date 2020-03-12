@@ -152,7 +152,7 @@ It starts the build based on the `screwdriver.yaml` config in the current direct
 
 
 ## Options
-The following options can be used in build command.
+The following options can be used with the build command:
 
 
 |option|describe|
