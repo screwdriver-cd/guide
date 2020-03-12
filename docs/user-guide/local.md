@@ -138,7 +138,7 @@ You must set `api-url`, `store-url`, and `token` in order to execute builds.
 
 
 # build command
-This command run the build in your local environment.
+This command runs builds in your local environment.
 
 
 ## Usage
