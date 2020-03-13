@@ -150,7 +150,7 @@ buildコマンドには以下のオプションを設定することができま
 
 注意：  
 - `--env`, `--env-file` オプションで同じ環境変数が指定された場合、 `--env` で指定した環境変数が優先されます
-- `-meta`, `--meta-file` オプションを同時に指定することはできません
+- `--meta`, `--meta-file` オプションを同時に指定することはできません
 
 ### env-fileの形式
 `--env-file` オプションで指定するファイルは docker の [.env](https://docs.docker.com/compose/env-file/) と同様の形式です。
