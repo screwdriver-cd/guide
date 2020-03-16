@@ -44,6 +44,8 @@
       url: "/ja/user-guide/templates"
     - title: "コマンド"
       url: "/ja/user-guide/commands"
+    - title: "ローカルビルド"
+      url: "/ja/user-guide/local"
     - title: "FAQ"
       url: "/ja/user-guide/FAQ"
 - title: "クラスター管理"
