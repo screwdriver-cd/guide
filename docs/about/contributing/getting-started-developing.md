@@ -95,7 +95,7 @@ httpd:
 
 #### scms
 ##### github
-In this example, we'll set the github SCM. For further options, see the [default.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L147-L185).
+In this example, we'll set the github SCM. For further options, see the [default.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L182-L222).
 
 You'll need to set the `oauthClientId` and `oauthClientSecret`. Navigate to your [Developer Settings page](https://github.com/settings/developers), click New OAuth App. Set the fields as pictured here:
 
