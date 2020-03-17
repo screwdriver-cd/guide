@@ -147,10 +147,12 @@ buildコマンドには以下のオプションを設定することができま
 |--meta|ビルド環境に渡す[メタデータ](metadata)を指定します（JSON形式）例: `"{\"HOGE\": \"FOO\"}"`|
 |--meta-file|ビルド環境に渡す[メタデータ](metadata)をファイルで指定します（JSON形式）|
 |--src-url|ソースコードをリモートのSCMから取得します（`https` または `ssh` 形式のURLを渡せます）|
+|--sudo|Dockerランタイム実行時に`sudo`コマンドを付与します|
 
 注意：  
 - `--env`, `--env-file` オプションで同じ環境変数が指定された場合、 `--env` で指定した環境変数が優先されます
 - `--meta`, `--meta-file` オプションを同時に指定することはできません
+- Dockerランタイムの実行権限がない場合、`--sudo`オプションを使ってください
 
 ### env-fileの形式
 `--env-file` オプションで指定するファイルは docker の [.env](https://docs.docker.com/compose/env-file/) と同様の形式です。
