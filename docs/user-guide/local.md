@@ -164,11 +164,13 @@ The following options can be used with the build command:
 |--meta|The [metadata](metadata) used in a build environment using string JSON format: e.g. `"{\"HOGE\": \"FOO\"}"`|
 |--meta-file|The [metadata](metadata) used in build environment using file format|
 |--src-url|The remote SCM URL to build (`https` or `ssh` format)|
+|--sudo|Use sudo command to execute docker runtime|
 
 
 Note:
 - sd-local uses the value specified by `--env` option, if a same environment variable is specified in both `--env` and `--env-file` options.
 - You can't use both `--meta` and `--meta-file` options.
+- If you don't have a permission for docker runtime, use `--sudo` option.
 
 
 ### env-file format
