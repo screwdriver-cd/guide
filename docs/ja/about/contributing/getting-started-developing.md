@@ -95,7 +95,7 @@ httpd:
 
 #### scms
 ##### github
-この例では、github SCM を設定します。その他のオプションについては、[default.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L147-L185)を見てください。
+この例では、github SCM を設定します。その他のオプションについては、[default.yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L182-L222)を見てください。
 
 `oauthClientId` と `oauthClientSecret` を設定する必要があります。[Developer Settings page](https://github.com/settings/developers) に行き、New OAuth App をクリックします。ここに描かれているように設定します。
 ![Definition](../../../assets/scm-oauth-app.png)

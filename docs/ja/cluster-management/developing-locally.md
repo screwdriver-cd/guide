@@ -40,9 +40,9 @@ Settings > Developer settings > OAuth Apps へ行き、 `New OAuth App` ボタ�
 * [store](https://github.com/screwdriver-cd/store)
 
 ```bash
-git clone git@github.com:screwdriver-cd/ui.git
-git clone git@github.com:screwdriver-cd/screwdriver.git
-git clone git@github.com:screwdriver-cd/store.git
+git clone https://github.com/screwdriver-cd/ui.git
+git clone https://github.com/screwdriver-cd/screwdriver.git
+git clone https://github.com/screwdriver-cd/store.git
 ```
 
 ## ステップ 4: クローンしてきたリポジトリに local 設定ファイルを追加する
@@ -127,6 +127,7 @@ scms:
             secret: a-really-real-secret
             username: sd-buildbot
             email: dev-null@screwdriver.cd
+            privateRepo: false
 
 datastore:
   plugin: sequelize

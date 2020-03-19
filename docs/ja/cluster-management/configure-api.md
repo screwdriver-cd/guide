@@ -64,22 +64,30 @@ auth:
         - github:batman
 ```
 
-### Build Environment Variables
+### ビルド変数
 
+#### 環境変数
 クラスタ内の全てのビルドに対して環境変数を事前設定できます。デフォルトでは`{ SD_VERSION: 4 }`が設定されています。
 
 | キー | デフォルト | 説明 |
 |:----|:-------|:------------|
 | CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | ビルドのデフォルト環境変数です。例: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
 
+#### リモートジョイン
+デフォルトでは、[リモートジョイン機能](../user-guide/workflow.md#リモートジョイン)は無効になっています。
+
+| キー | デフォルト | 説明 |
+|:----|:-------|:------------|
+| EXTERNAL_JOIN | `false` | リモートジョイン機能が有効か無効か。 設定値: `true` または `false` |
 
  ```yaml
 # config/local.yaml
 build:
     environment: CLUSTER-ENV-IN-JSON-FORMAT
+    externalJoin: true
 ```
 
-### Bookend Plugins
+### ブックエンドプラグイン
 
 ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
 
