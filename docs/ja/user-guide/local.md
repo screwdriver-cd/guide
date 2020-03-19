@@ -163,7 +163,7 @@ buildコマンドには以下のオプションを設定することができま
 - 引用符に特殊な処理はされません。値の一部とみなされます
 
 ### Secretsの利用方法
-sd-localでは[Secrets](configuration/secrets)を利用する場合、環境変数として`--env`もしくは`--env-file`オプションによって直接指定する必要があります。
+sd-localでは[Secrets](configuration/secrets)を利用する場合、`screwdriver.yaml`の`secrets`の項目で設定していた値を環境変数として`--env`もしくは`--env-file`オプションによって直接指定する必要があります。
 
 ```
 $ sd-local build <job name> --env <secret name>=<secret value>

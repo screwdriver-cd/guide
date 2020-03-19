@@ -183,7 +183,7 @@ Note:
 - There is no special handling of quotation marks. This means that they are part of the VAL.
 
 ### How to use Secrets
-You can use [Secrets](configuration/secrets) by passing as environment variables with `--env` or `--env-file` option.
+You can use [Secrets](configuration/secrets) by passing `secrets` in `screwdriver.yaml` as environment variables with `--env` or `--env-file` option.
 
 ```
 $ sd-local build <job name> --env <secret name>=<secret value>
