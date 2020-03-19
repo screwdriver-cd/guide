@@ -162,6 +162,14 @@ buildコマンドには以下のオプションを設定することができま
 - 空行は無視されます
 - 引用符に特殊な処理はされません。値の一部とみなされます
 
+### Secretsの利用方法
+sd-localでは[Secrets](configuration/secrets)を利用する場合、環境変数として`--env`もしくは`--env-file`オプションによって直接指定する必要があります。
+
+```
+$ sd-local build <job name> --env <secret name>=<secret value>
+```
+
+
 ## 環境変数の一覧
 sd-localのビルド内では、以下の環境変数が利用できます。デフォルト値に`-`が設定されているものは、Screwdriver上でのビルドと同様のため、[環境変数](environment-variables)を参照してください。
 
