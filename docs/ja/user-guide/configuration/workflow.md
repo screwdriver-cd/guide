@@ -16,6 +16,8 @@ toc:
   url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
   url: "#他のパイプラインからのトリガー"
+- title: リモートジョイン
+  url: "#リモートジョイン"
 - title: Blocked By
   url: "#blocked-by"
 - title: ジョブの凍結
@@ -101,7 +103,7 @@ jobs:
 
 ### OR 条件 (Advanced Logic [*OR*])
 
-チルダ (~) をジョブ名の前に付けることで、 `requires` に含まれるジョブのいずれかが成功した場合に開始するジョブを定義することができます。`~sd@pipelineID:jobName` のようなフォーマットである必要があります。
+チルダ (`~`) をジョブ名の前に付けることで、 `requires` に含まれるジョブのいずれかが成功した場合に開始するジョブを定義することができます。`~sd@pipelineID:jobName` のようなフォーマットである必要があります。
 
 ### 例
 
@@ -233,6 +235,54 @@ jobs:
 ```
 
 サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
+
+## リモートジョイン
+リモートジョインジョブを作成することもできます。この機能がサポートされているかは、クラスタ管理者に確認してください。
+
+#### 例
+以下の例では、このパイプライン3は、パイプライン2の internal_fork、external_fork とパイプライン4の external_fork が成功した場合に `join_job` を開始します。
+
+![Remote join](../../user-guide/assets/remote-join.png)
+
+Pipeline 3 screwdriver.yaml:
+
+```
+shared:
+  image: node:12
+  steps:
+    - echo: echo hi
+jobs:
+  main:
+    requires: [~commit, ~pr]
+  internal_fork:
+    requires: [main]
+  join_job:
+    requires: [internal_fork, sd@2:external_fork, sd@4:external_fork]
+```
+
+Pipeline 2 screwdriver.yaml:
+
+```
+shared:
+  image: node:12
+  steps:
+    - echo: echo hi
+jobs:
+  external_fork:
+    requires: [~sd@3:main]
+```
+
+Pipeline 4 screwdriver.yaml:
+
+```
+shared:
+  image: node:12
+  steps:
+    - echo: echo hi
+jobs:
+  external_fork:
+    requires: [~sd@3:main]
+```
 
 ## Blocked By
 
