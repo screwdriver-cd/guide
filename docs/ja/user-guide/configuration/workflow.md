@@ -242,7 +242,7 @@ jobs:
 #### 例
 以下の例では、このパイプライン3は internal_fork ジョブとパイプライン2の external_fork とパイプライン4の external_fork がすべて成功した場合に `join_job` を開始します。
 
-![Remote join](../../user-guide/assets/remote-join.png)
+![Remote join](../../../user-guide/assets/remote-join.png)
 
 Pipeline 3 screwdriver.yaml:
 
