@@ -107,7 +107,7 @@ Notes:
 
 You can also prepopulate event meta by configuring the payload of the `POST` request to `/v4/events`.
 
-See the [API docs](./api.md) for more information on API endpoints.
+See the [API docs](./api) for more information on API endpoints.
 See the [event meta trigger example repo](https://github.com/screwdriver-cd-test/event-meta-trigger-example) and corresponding [event meta example repo](https://github.com/screwdriver-cd-test/event-meta-example) for reference.
 
 ### Pull Request Comments

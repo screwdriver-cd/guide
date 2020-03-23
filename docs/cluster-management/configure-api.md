@@ -72,7 +72,7 @@ You can preset default environment variables for all builds in your cluster. By 
 | CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | Default environment variables for build. For example: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
 
 #### Remote join
-By default, [the remote join feature](../user-guide/workflow.md#remote-join) is turned off.
+By default, [the remote join feature](../user-guide/configuration/workflow#remote-join) is turned off.
 
 | Key | Default| Description |
 |:----|:-------|:------------|
@@ -505,7 +505,7 @@ scms:
 
 If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
 
-In order to enable [meta PR comments](../user-guide/metadata.md), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
+In order to enable [meta PR comments](../user-guide/metadata), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
 
 
 ##### Bitbucket.org

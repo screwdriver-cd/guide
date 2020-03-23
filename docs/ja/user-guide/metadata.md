@@ -113,7 +113,7 @@ $ meta get example --external sd@123:publish
 
 `/v4/events`への`POST`リクエストのpayloadに設定することでも、イベントメタを設定することができます。
 
-APIのエンドポイントについての詳細は、[APIのドキュメント](./api.md)を参照してください。
+APIのエンドポイントについての詳細は、[APIのドキュメント](./api)を参照してください。
 
 [イベントメタトリガーのサンプルリポジトリ](https://github.com/screwdriver-cd-test/event-meta-trigger-example)や、それに対応した[イベントメタのサンプルリポジトリ](https://github.com/screwdriver-cd-test/event-meta-example)も参考にしてください。
 
