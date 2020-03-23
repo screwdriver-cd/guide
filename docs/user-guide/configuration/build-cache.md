@@ -60,4 +60,4 @@ In the above example, the pipeline-scoped `.gradle` cache can be accessed under 
 Example repo: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
-- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations.md) to `HIGH` to provide more memory to the build.
+- If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations) to `HIGH` to provide more memory to the build.

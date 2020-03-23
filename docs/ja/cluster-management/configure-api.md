@@ -74,7 +74,7 @@ auth:
 | CLUSTER_ENVIRONMENT_VARIABLES | `{ SD_VERSION: 4 }` | ビルドのデフォルト環境変数です。例: `{ SD_VERSION: 4, SCM_CLONE_TYPE: "ssh" }` |
 
 #### リモートジョイン
-デフォルトでは、[リモートジョイン機能](../user-guide/workflow.md#リモートジョイン)は無効になっています。
+デフォルトでは、[リモートジョイン機能](../user-guide/configuration/workflow#リモートジョイン)は無効になっています。
 
 | キー | デフォルト | 説明 |
 |:----|:-------|:------------|
@@ -516,7 +516,7 @@ scms:
 
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
 
-[メタPRコメント](../user-guide/metadata.md)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
+[メタPRコメント](../user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
 
 ##### Bitbucket.org
 

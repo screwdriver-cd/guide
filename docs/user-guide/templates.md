@@ -263,7 +263,7 @@ _Note: You cannot test your template in the same pipeline, as template step expa
 
 ## Using the build cache
 
-To use the [build cache feature](./configuration/build-cache.md), the [store-cli command](https://github.com/screwdriver-cd/store-cli) can be invoked in a step. For instance, if you are caching your `node_modules/` folder, you can specify a step before the `npm install` command that downloads the cache and another step afterwards that uploads the cache. You can also move the uploading cache step to a teardown with the `teardown-` prefix.
+To use the [build cache feature](./configuration/build-cache), the [store-cli command](https://github.com/screwdriver-cd/store-cli) can be invoked in a step. For instance, if you are caching your `node_modules/` folder, you can specify a step before the `npm install` command that downloads the cache and another step afterwards that uploads the cache. You can also move the uploading cache step to a teardown with the `teardown-` prefix.
 
 ```yaml
 config:

@@ -60,4 +60,4 @@ jobs:
 サンプルリポジトリ: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
-- もしキャッシュが大きくてキャッシュ bookend がメモリオーバーとなるようでしたら、`screwdriver.cd/ram` [アノテーション]((./annotations.md))に `HIGH` を設定するとより多くのメモリがビルドで使用できるようになります。
+- もしキャッシュが大きくてキャッシュ bookend がメモリオーバーとなるようでしたら、`screwdriver.cd/ram` [アノテーション]((./annotations))に `HIGH` を設定するとより多くのメモリがビルドで使用できるようになります。
