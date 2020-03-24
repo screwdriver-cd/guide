@@ -130,7 +130,7 @@ The following options can be used with the config command:
 
 |option|description|
 |---|---|
-|--local|Read/Modify .sdlocal/config file in current directory|
+|--local|Read/Modify `.sdlocal/config` file in current directory|
 
 ### List of keys
 You must set `api-url`, `store-url`, and `token` in order to execute builds.
