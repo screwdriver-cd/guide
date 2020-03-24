@@ -167,7 +167,7 @@ The following options can be used with the build command:
 |--artifacts-dir|The build artifacts destination (default: `./sd-artifacts`)|
 |-e, --env|The environment variables in a build environment using `<key>=<value>` format (multiple variables allowed)|
 |--env-file|The environment variables in a build environment using file format (refer to [env-file format](#env-file-format))|
-|--local|Run command with .sdlocal/config file in current directory.|
+|--local|Run command with `.sdlocal/config` file in current directory.|
 |-m, --memory|The memory limit of the build environment (can be specified in b, k, m, or g memory unit)|
 |--meta|The [metadata](metadata) used in a build environment using string JSON format: e.g. `"{\"HOGE\": \"FOO\"}"`|
 |--meta-file|The [metadata](metadata) used in build environment using file format|
