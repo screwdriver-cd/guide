@@ -19,8 +19,8 @@ toc:
 Like the other services, the API is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/queue-service/) with port 80 exposed.
 
 ```bash
-$ docker run -d -p 7000:80 screwdrivercd/queue-service:latest
-$ open http://localhost:7000
+$ docker run -d -p 9003:80 screwdrivercd/queue-service:latest
+$ open http://localhost:9003
 ```
 
 Our images are tagged with the version (eg. `v1.2.3`) as well as a floating tag `latest` and `stable`. Most installations should be using `stable` or the fixed version tags.
@@ -82,7 +82,7 @@ Configure some settings about storing Build Artifacts.
 | Key                | Required            |  Default              | Description       |
 |:-------------------|:---------------------|:----------------------------------------------------|
 | REDIS_HOST          | Yes                  | 127.0.0.1            | Redis host                  |
-| REDIS_PORT          | Yes                  | 9999                 | Redis port                  |
+| REDIS_PORT          | Yes                  | 6379                 | Redis port                  |
 | REDIS_PASSWORD      | Yes                  | a-secure-password    | Redis password              |
 | REDIS_TLS_ENABLED   | No                   | false                | Redis tls enabled           |
 | REDIS_DB_NUMBER     | No                   | 0                    | Redis db number             |
@@ -92,7 +92,7 @@ Configure some settings about storing Build Artifacts.
 queue:
   redisConnection:
     host: "127.0.0.1"
-    port: 9999
+    port: 6379
     options:
       password: a-secure-password
       tls: false
