@@ -23,7 +23,7 @@ $ docker run -d -p 7000:80 screwdrivercd/queue-service:latest
 $ open http://localhost:7000
 ```
 
-Our images are tagged for their version (eg. `1.2.3`) as well as a floating `latest` and `stable`. Most installations should be using `stable` or the fixed version tags.
+Our images are tagged with the version (eg. `v1.2.3`) as well as a floating tag `latest` and `stable`. Most installations should be using `stable` or the fixed version tags.
 
 ## Configuration
 
