@@ -349,7 +349,7 @@ executor:
 ```
 
 #### Queue (queue)
-Using the `queue` executor will allow builds to be queued to a remote queue service running a Redis instance containing Resque.
+Using the `queue` executor will allow builds to be queued to a [remote queue service](./configure-queue-service) running a Redis instance containing Resque.
 
 | Environment name       | Default Value | Description          |
 |:-----------------------|:--------------|:---------------------|
