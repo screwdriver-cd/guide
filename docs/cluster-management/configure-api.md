@@ -39,6 +39,7 @@ Configure how users can and who can access the API.
 | JWT_ENVIRONMENT | No      | Environment to generate the JWT for. Ex: `prod`, `beta`. If you want the JWT to not contain `environment`, don't set this environment variable (do not set it to `''`). |
 | SECRET_JWT_PRIVATE_KEY | Yes      | A private key uses for signing jwt tokens. Generate one by running `$ openssl genrsa -out jwt.pem 2048`                   |
 | SECRET_JWT_PUBLIC_KEY  | Yes      | The public key used for verifying the signature. Generate one by running `$ openssl rsa -in jwt.pem -pubout -out jwt.pub` |
+| SECRET_JWT_QUEUE_SVC_PUBLIC_KEY  | Yes      | The public key used for verifying the signature when plugin is queue. Generate one by running `$ openssl rsa -in jwtqs.pem -pubout -out jwtqs.pub` |
 | SECRET_COOKIE_PASSWORD | Yes      | A password used for encrypting session data. **Needs to be minimum 32 characters**                                        |
 | SECRET_PASSWORD        | Yes      | A password used for encrypting stored secrets. **Needs to be minimum 32 characters**                                      |
 | IS_HTTPS               | No       | A flag to set if the server is running over https. Used as a flag for the OAuth flow (default to `false`)                 |
@@ -52,6 +53,8 @@ auth:
         PRIVATE KEY HERE
     jwtPublicKey: |
         PUBLIC KEY HERE
+    jwtQueueServicePublicKey: |
+        QUEUE SVC PUBLIC KEY HERE
     cookiePassword: 975452d6554228b581bf34197bcb4e0a08622e24
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
@@ -155,7 +158,7 @@ Specify externally routable URLs for your UI, Artifact Store, and Badge service.
 | ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | URL for the User Interface                   |
 | ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | URL for the Artifact Store                   |
 | ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | URL with templates for status text and color |
-
+| ECOSYSTEM_QUEUE  | http://sdqueuesvc.screwdriver.svc.cluster.local                                          | Internal URL for the Queue Service to be used with queue plugin
 ```yaml
 # config/local.yaml
 ecosystem:
@@ -165,6 +168,8 @@ ecosystem:
     store: https://store.screwdriver.cd
     # Badge service (needs to add a status and color)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
+    # Internally routable FQDNS of the queue svc
+    queue: http://sdqueuesvc.screwdriver.svc.cluster.local 
 ```
 
 ### Datastore Plugin
@@ -344,30 +349,17 @@ executor:
 ```
 
 #### Queue (queue)
-Using the `queue` executor will allow builds to be queued using a Redis instance containing Resque.
+Using the `queue` executor will allow builds to be queued to a [remote queue service](./configure-queue-service) running a Redis instance containing Resque.
 
 | Environment name       | Default Value | Description          |
 |:-----------------------|:--------------|:---------------------|
 | EXECUTOR_PLUGIN        | k8s           | Default executor. Set to `queue` |
-| QUEUE_REDIS_HOST       | 127.0.0.1     | Redis host                       |
-| QUEUE_REDIS_PORT       | 9999          | Redis port                       |
-| QUEUE_REDIS_PASSWORD   | "THIS-IS-A-PASSWORD" | Redis password            |
-| QUEUE_REDIS_TLS_ENABLED | false        | TLS enabled flag                 |
-| QUEUE_REDIS_DATABASE   | 0             | Redis database                   |
 
 ```yaml
 # config/local.yaml
 executor:
     plugin: queue
-    queue:
-        options:
-            redisConnection:
-              host: "127.0.0.1"
-              port: 9999
-              options:
-                  password: "THIS-IS-A-PASSWORD"
-                  tls: false
-              database: 0
+    queue: ''
 ```
 
 #### Nomad (nomad)

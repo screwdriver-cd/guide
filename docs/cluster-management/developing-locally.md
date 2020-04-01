@@ -38,15 +38,17 @@ See screenshot below
 * [ui](https://github.com/screwdriver-cd/ui)
 * [screwdriver](https://github.com/screwdriver-cd/screwdriver)
 * [store](https://github.com/screwdriver-cd/store)
+* [queue-service](https://github.com/screwdriver-cd/queue-service)
 
 ```bash
 git clone https://github.com/screwdriver-cd/ui.git
 git clone https://github.com/screwdriver-cd/screwdriver.git
 git clone https://github.com/screwdriver-cd/store.git
+git clone https://github.com/screwdriver-cd/queue-service.git
 ```
 
 ## Step 4: Add local config files for these three repos
-Create a file called `local.js` in `ui/config` and `local.yaml` in `screwdriver/config` and `store/config` folders.
+Create a file called `local.js` in `ui/config` and `local.yaml` in `screwdriver/config` and `local.yaml` in `queue-service/config` and `store/config` folders.
 
 ### ui/config/local.js
 
@@ -178,7 +180,7 @@ npm install && npm run start
 
 While the UI, Screwdriver API, and Store apps are running, you can visit `http://sd.screwdriver.cd:4200` in your browser to interact with your local Screwdriver.
 
-## Developing locally with executor-queue
+## Developing locally with executor queue and queue service 
 
 Instead of using single docker executor, we can use redis queue to enable screwdriver to run more sophisticated [workflow](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
 
@@ -223,15 +225,21 @@ brew uninstall redis
 rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
 ```
 
-### Step 2: Clone repository [queue-worker](https://github.com/screwdriver-cd/queue-worker) and modify default.yaml
+### Step 2: Clone repository [queue-service](https://github.com/screwdriver-cd/queue-service) and modify default.yaml
 
 ```bash
-git clone git@github.com:screwdriver-cd/queue-worker.git
+git clone git@github.com:screwdriver-cd/queue-service.git
 ```
 
-### queue-worker/config/default.yaml
+### queue-service/config/default.yaml
 
 ```yaml
+
+ httpd:
+  port: 9003
+  host: 0.0.0.0
+  uri: http://YOUR_IP:9003
+
  executor:
     plugin: docker
     docker:
@@ -248,39 +256,37 @@ git clone git@github.com:screwdriver-cd/queue-worker.git
     # Externally routable URL for the Artifact Store
     store: http://$YOUR_IP:9002
     
- redis:
-    # Host of redis cluster
-    host: 127.0.0.1
-    # Password to connect to redis cluster, if set in first step
-    password: 'c1cd-$cr3wdriver-cd'
-    # Port of redis cluster
-    port: 6379
-    # Prefix for the queue name if needed
-    # prefix: 'beta-'
-    # Flag to enable client for TLS-based communication
-    tls: false
+ queue:
+    # Configuration of the redis instance containing resque
+    redisConnection:
+        host: "127.0.0.1"
+        port: 6379
+        options:
+            password: 'a-secure-password'
+            tls: false
+        database: 0
+        prefix: ""
 ```
 
-### Step 3: Modify screwdriver/config/local.yaml and change executor configuration
+### Step 3: Modify screwdriver/config/local.yaml, change executor configuration and add queue uri 
 
 ```yaml
-executor:
+ ecosystem:
+    # Externally routable URL for the User Interface
+    ui: http://sd.screwdriver.cd:4200
+    # Externally routable URL for the API
+    api: http://$YOUR_IP:9001
+    # Externally routable URL for the Artifact Store
+    store: http://$YOUR_IP:9002
+    # Routable URI of the queue service
+    queue: http://$YOUR_IP:9003
+
+ executor:
     plugin: queue # <- this step is essential in order to use queue
-    queue:
-        enabled: true
-        options:
-            # Configuration of the redis instance containing resque
-            redisConnection:
-                host: "127.0.0.1"
-                port: 6379
-                options:
-                    # Set password if set in previous step
-                    password: 'c1cd-$cr3wdriver-cd'
-                    tls: false
-                database: 0
+    queue: ''
 ```
 
-Now, you start the screwdriver backend server to use redis queue. 
+Now, you start the screwdriver backend server and queue service to use redis queue. 
 
 
 ```bash
