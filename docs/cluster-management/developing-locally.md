@@ -234,6 +234,12 @@ git clone git@github.com:screwdriver-cd/queue-service.git
 ### queue-service/config/default.yaml
 
 ```yaml
+
+ httpd:
+  port: 9003
+  host: 0.0.0.0
+  uri: http://YOUR_IP:9003
+
  executor:
     plugin: docker
     docker:
@@ -256,8 +262,7 @@ git clone git@github.com:screwdriver-cd/queue-service.git
         host: "127.0.0.1"
         port: 6379
         options:
-            # Set password if set in previous step
-            password: 'c1cd-$cr3wdriver-cd'
+            password: 'a-secure-password'
             tls: false
         database: 0
         prefix: ""

@@ -33,7 +33,7 @@ Screwdriver already [defaults most configuration](https://github.com/screwdriver
 
 Configure the validation of incoming JWTs from the API.
 
-| Key                   | Default | Description                                                                                           |
+| Key                   | Required | Description                                                                                           |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------------|
 | JWT_ENVIRONMENT | No      | Environment to generate the JWT for. Ex: `prod`, `beta`. If you want the JWT to not contain `environment`, don't set this environment variable (do not set it to `''`). |
 | SECRET_JWT_PRIVATE_KEY | Yes      | A private key uses for signing jwt tokens. Generate one by running `$ openssl genrsa -out jwtqs.pem 2048`                   |
@@ -79,11 +79,14 @@ httpd:
 
 Configure some settings about storing Build Artifacts.
 
-| Key                | Default              | Description                                         |
+| Key                | Required            |  Default              | Description       |
 |:-------------------|:---------------------|:----------------------------------------------------|
-| REDIS_HOST    | 127.0.0.1      | Redis host                        |
-| REDIS_PORT    | 9999           | Redis port                        |
-
+| REDIS_HOST          | Yes                  | 127.0.0.1            | Redis host                  |
+| REDIS_PORT          | Yes                  | 9999                 | Redis port                  |
+| REDIS_PASSWORD      | Yes                  | a-secure-password    | Redis password              |
+| REDIS_TLS_ENABLED   | No                   | false                | Redis tls enabled           |
+| REDIS_DB_NUMBER     | No                   | 0                    | Redis db number             |
+| REDIS_QUEUE_PREFIX  | No                   | ''                   | Redis queue prefix          |
 ```yaml
 # config/local.yaml
 queue:
