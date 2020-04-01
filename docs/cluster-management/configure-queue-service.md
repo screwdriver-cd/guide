@@ -5,7 +5,7 @@ category: Cluster Management
 menu: menu
 toc: 
     - title: Managing the Queue Service
-      url: "#managing-the-queue-svc"
+      url: "#managing-the-queue-service"
       active: true
     - title: Packages
       url: "#packages"
