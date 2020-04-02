@@ -58,6 +58,8 @@
       url: "/cluster-management/configure-ui"
     - title: "Configuring the Store"
       url: "/cluster-management/configure-store"
+    - title: "Configuring the Queue Service"
+      url: "/cluster-management/configure-queue-service"
     - title: "Developing Locally"
       url: "/cluster-management/developing-locally"
     - title: "Running Locally"
