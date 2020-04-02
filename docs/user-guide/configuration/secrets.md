@@ -57,10 +57,10 @@ When a secret is created via the UI, or API, enabling `allowInPR` will cause tha
 
 ## User Interface
 The easiest way to create a secret for your pipeline is via the Screwdriver UI.
-![Secrets UI](../../assets/secrets.png)
+![Secrets UI](../assets/secrets.png)
 
 ### Creating Secrets
-Simply enter the key and value in the inputs in the grey box, and click the add button. A checkbox is provided to allow you to enable `allowInPR`.
+Click on the Options tab in the pipeline page, then  enter the key and value in the inputs in the grey box, and click the Add button. A checkbox is provided to allow you to enable `allowInPR`. You can also optionally toggle the eye icon in the Value box to see what you have entered.
 
 ### Updating Secrets
 A secret's original value is never delivered to the UI, but values of secrets may be updated in the UI by adding a new value in the text field next to the appropriate key name and clicking the update button.
