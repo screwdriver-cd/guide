@@ -33,10 +33,10 @@ toc:
 ```
 
 ##### ソースディレクトリを利用してパイプラインを作成
-![Create UI](../../../assets/source-directory-create.png)
+![Create UI](../../../user-guide/assets/source-directory-create.png)
 
 ##### ソースディレクトリを利用してパイプラインを更新
-![Update UI](../../../assets/source-directory-update.png)
+![Update UI](../../../user-guide/assets/source-directory-update.png)
 
 この例では、`requires: [~commit, ~pr]`としているジョブは、`myapp2`ディレクトリ以下のファイルに変更が発生した場合にトリガーされます。
 

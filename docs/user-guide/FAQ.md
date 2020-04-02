@@ -21,14 +21,16 @@ toc:
       url: "#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline"
     - title: How do I delete a pipeline permanently?
       url: "#how-do-i-delete-a-pipeline-permanently"
+    - title: How do I see pipeline metrics?
+      url: "#how-do-i-see-pipeline-metrics"
+    - title: How do I toggle time formats in the build logs?
+      url: "#how-do-i-toggle-time-formats-in-the-build-logs"
     - title: How do I fix "Build failed to start" error message?
       url: "#how-do-i-fix-build-failed-to-start-error-message"
     - title: How do I rollback?
       url: "#how-do-i-rollback"
-    - title: How do I rerun a build?
-      url: "#how-do-i-rerun-a-build"
-    - title: How do I run a detached pipeline?
-      url: "#how-do-i-run-a-detached-pipeline"
+    - title: How do I rerun a build or start a detached build?
+      url: "#how-do-i-rerun-a-build-or-start-a-detached-build"
     - title: How do I mark a build as UNSTABLE?
       url: "#how-do-i-mark-a-build-as-unstable"
     - title: What shell does Screwdriver use?
@@ -64,9 +66,12 @@ To create a pipeline, click the Create icon and paste a Git URL into the form. F
 
 ## How do I start a pipeline manually?
 
-To start a build manually, click the Start button on your pipeline page. Starting a pipeline starts all jobs with `~commit` event trigger.
+To start a build manually, you can either click the "Start" button on your pipeline page or click on a build bubble and choose "Start pipeline from here" from the dropdown. Then click "Yes" to confirm. Starting a pipeline using the first option starts all jobs with `~commit` event trigger.
 
+Clicking the start button:
 ![Start a pipeline](./assets/start-pipeline.png)
+
+See *How do I rerun a build?* section for the second option.
 
 ## How do I update a pipeline repo and branch?
 
@@ -76,7 +81,7 @@ If you want to update your pipeline repo and branch, modify the checkout URL in 
 
 ## How do I disable/enable a job temporarily?
 
-To temporarily disable/enable a job to quickly stop the line, toggle the switch to disable/enable for a particular job under the Options tab on your pipeline page.
+To temporarily disable/enable a job to quickly stop the line, toggle the switch to disable/enable for a particular job under the Options tab on your pipeline page. You can also optionally provide a reason for disabling/enabling the job.
 
 ![Disable a pipeline](./assets/disable-pipeline.png)
 
@@ -92,6 +97,18 @@ Individual pipelines may be removed by clicking the Delete icon on the Options t
 
 ![Delete a pipeline](./assets/delete-pipeline.png)
 
+## How do I see pipeline metrics?
+
+You can get to [the metrics page](https://blog.screwdriver.cd/post/184117350247/build-metrics) by either: clicking on a build bubble and selecting "Go to build metrics" or clicking on the "Metrics" tab in the pipeline page.
+
+![See metrics](./assets/see-metrics.png)
+
+## How do I toggle time formats in the build logs?
+
+You can toggle through different time formats for your build logs such as _Since build started_, _Since step started_, _Local Timestamp_, and _UTC Timestamp_ by clicking on the text in the top left corner of the logs.
+
+![Toggle time formats](./assets/toggle-time-format.png)
+
 ## How do I fix "Build failed to start" error message?
 
 This is caused by a variety of reasons including cluster setup issue like hyperd down (if using executor vm) or a problem with your build image etc. Fixing this issue
@@ -104,31 +121,22 @@ requires different approaches based on what layer it's failing.
 
 You can use one of two patterns to rollback: either rerunning a build in your pipeline or running a detached pipeline.
 
-### How do I rerun a build?
+### How do I rerun a build or start a detached build?
 
 To rerun a job's build from a past event, do the following steps.
 
-1. Log in.
 1. Click on the desired event from the event list, which loads the detailed event graph.
-1. Then, click the job bubble you'd like to rerun. In the pop up, select “Start pipeline from here” to rerun that job using that event context.
-![Load event graph](../assets/re-run-select.png)
-![Start new build for job](../assets/re-run-start.png)
+1. Then, click the job bubble you'd like to rerun.
+1. In the pop up, click “Start pipeline from here” to rerun that job using that event context.
+1. Lastly, click "Yes" to confirm.
+![Load event graph](./assets/re-run-select.png)
+![Start new build for job](./assets/re-run-start.png)
 
-### How do I run a detached pipeline?
-
-To rollback, do the following steps. You'll most likely want to `meta set` an image name or version in your last job (in this example, job D) and `meta get` that name or version in your rollback job (in this example, detached). The detached job will have access to the metadata set in job D.
-
-1. Log in.
-1. Click on the desired event from the event list, which loads the detailed event graph.
-![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
-1. Then, click the job bubble at the start of that detached pipeline. In the pop up, select “Start pipeline from here” to start the detached workflow with the desired event context.
-![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
-1. Click Yes to rerun the pipeline from that job.
-![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
+To rollback, do the following steps on a [detached build](./configuration/workflow#detached-jobs-and-pipelines). You'll most likely want to use [metadata](./metadata) to `meta set` an image name or version in your last job (in this example, job D) and `meta get` that name or version in your rollback job (in this example, detached). The detached job will have access to the metadata set in job D.
 
 ## How do I mark a build as UNSTABLE?
 
-You can update a build with an `UNSTABLE` status by calling the [API](./api) in a build. You can [clone our example unstable build repository here](https://github.com/screwdriver-cd-test/unstable-build-example).
+You can update a build with an `UNSTABLE` status by calling the [API](./api) in a build. Screwdriver will consider builds marked with this status as not successful and will not proceed with the next job. You can [clone our example unstable build repository here](https://github.com/screwdriver-cd-test/unstable-build-example).
 
 ## What shell does Screwdriver use?
 
