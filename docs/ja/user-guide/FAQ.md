@@ -117,7 +117,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 1. ログインする。
 2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。
-3. 再ビルドを行いたいジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](../../assets/re-run-select.png)![Start new build for job](../../assets/re-run-start.png)
+3. 再ビルドを行いたいジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](../../user-guide/assets/re-run-select.png)![Start new build for job](../../user-guide/assets/re-run-start.png)
 
 ### ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
 

@@ -10,6 +10,8 @@ toc:
       url: "#example"
     - title: Notes
       url: "#notes"
+    - title: Clearing the Cache
+      url: "#clearing-the-cache"
 ---
 # Build Cache
 Top-level setting that contains file paths from your build that you would like to cache. The cache is stored in a build's teardown bookend and restored in a build's setup bookend. You can limit access to the cache using the pipeline, event or job scope.
@@ -61,3 +63,8 @@ Example repo: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
 - If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations) to `HIGH` to provide more memory to the build.
+
+## Clearing the Cache
+In order to clear the cache, you can go to the Options tab for your pipeline in the Screwdriver UI and click on the Trash icon under the Cache section.
+
+![Clear cache](../assets/clear-cache.png)
