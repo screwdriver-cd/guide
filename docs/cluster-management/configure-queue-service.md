@@ -80,7 +80,7 @@ httpd:
 Configure some settings about storing Build Artifacts.
 
 | Key                | Required            |  Default              | Description       |
-|:-------------------|:---------------------|:----------------------------------------------------|
+|:-------------------|:---------------------|:---------------------|:-----------------------------|
 | REDIS_HOST          | Yes                  | 127.0.0.1            | Redis host                  |
 | REDIS_PORT          | Yes                  | 6379                 | Redis port                  |
 | REDIS_PASSWORD      | Yes                  | a-secure-password    | Redis password              |
