@@ -213,6 +213,7 @@ Result:
 You can customize [notification](./configuration/settings.html#slack) messages with meta.
 Meta keys are different for each notification plugin.
 
+#### Basic
 Example screwdriver.yaml notifying with Slack:
 ```yaml
 jobs:
@@ -220,6 +221,23 @@ jobs:
     steps:
       - meta: |
           meta set notification.slack.message "<@yoshwata> Hello!!"
+```
+
+Result:
+![notification-meta](./assets/notification-meta.png)
+
+#### Job based
+*Note*: Job based slack notification meta data will overwrite the Basic notification message. 
+
+Structure of meta variable is `notification.slack.<jobname>.message` replacing `<jobname>` with the name of the SD job.
+
+Example screwdriver.yaml notifying with specific slack message for job `slack-notification-test`:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.slack-notification-test.message "<@yoshwata> Hello!!"
 ```
 
 Result:
