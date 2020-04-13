@@ -227,7 +227,7 @@ Result:
 ![notification-meta](./assets/notification-meta.png)
 
 #### Job based
-*Note*: Job based slack notification meta data will overwrite the Basic notification message. 
+*Note*: Job-based Slack notification meta data will overwrite the basic notification message. 
 
 Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
 
