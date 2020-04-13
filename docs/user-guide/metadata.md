@@ -237,7 +237,7 @@ jobs:
   main:
     steps:
       - meta: |
-          meta set notification.slack.slack-notification-test.message "<@yoshwata> Hello!!"
+          meta set notification.slack.slack-notification-test.message "<@yoshwata> Hello Meta!"
 ```
 
 Result:
