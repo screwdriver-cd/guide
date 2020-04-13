@@ -229,7 +229,7 @@ Result:
 #### Job based
 *Note*: Job based slack notification meta data will overwrite the Basic notification message. 
 
-Structure of meta variable is `notification.slack.<jobname>.message` replacing `<jobname>` with the name of the SD job.
+Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
 
 Example screwdriver.yaml notifying with specific Slack message for job `slack-notification-test`:
 ```yaml
