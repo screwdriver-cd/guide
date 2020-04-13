@@ -231,7 +231,7 @@ Result:
 
 Structure of meta variable is `notification.slack.<jobname>.message` replacing `<jobname>` with the name of the SD job.
 
-Example screwdriver.yaml notifying with specific slack message for job `slack-notification-test`:
+Example screwdriver.yaml notifying with specific Slack message for job `slack-notification-test`:
 ```yaml
 jobs:
   main:
