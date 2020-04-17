@@ -45,6 +45,9 @@ toc:
       url: "#how-do-i-integrate-with-saucelabs"
     - title: How do I run my pipeline when commits made from inside a build are pushed to my git repository?
       url: "#how-do-i-run-my-pipeline-when-commits-made-from-inside-a-build-are-pushed-to-my-git-repository"
+    - title: 'Why do my pull request builds fail with the error: "fatal: refusing to merge unrelated histories" in the sd-setup-scm step?'
+      url: "#why-do-my-pull-request-builds-fail-with-the-error-fatal-refusing-to-merge-unrelated-histories-in-the-sd-setup-scm-step"
+
 
 ---
 
