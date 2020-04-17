@@ -87,7 +87,7 @@ $ meta get foo
 Example repo: https://github.com/screwdriver-cd-test/workflow-metadata-example
 
 Notes:
-- If `foo` is not set and you try to `meta get foo`, it will return `null` by default.
+- If `foo` is not set and you try to `meta get foo`, it will return a string with value `null` by default.
 
 ### External pipeline
 
