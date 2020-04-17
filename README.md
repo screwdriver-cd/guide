@@ -71,7 +71,7 @@ Configuration file: docs/_config.yml
 ### Docker
 
 If you don't have Ruby installed, you can easily build and view the Screwdriver Guide using Docker. From the root directory
-of the repository, exeucte:
+of the repository, execute:
 
 ```bash
 docker run --rm \
