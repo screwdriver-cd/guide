@@ -138,6 +138,8 @@ These settings will result in a Git comment that looks like:
 
 ![PR comment](./assets/pr-comment.png)
 
+_Note: Screwdriver will try to edit the same comment in Git if multiple builds are run on it._
+
 ### Additional Pull Request Checks
 
 > Note: This feature is only available in Github plugin at the moment.
@@ -210,8 +212,7 @@ Result:
 
 ### Notifications
 
-You can customize [notification](./configuration/settings.html#slack) messages with meta.
-Meta keys are different for each notification plugin.
+You can customize [notification](./configuration/settings.html#slack) messages with meta. Meta keys are different for each notification plugin.
 
 #### Basic
 Example screwdriver.yaml notifying with Slack:
@@ -220,13 +221,13 @@ jobs:
   main:
     steps:
       - meta: |
-          meta set notification.slack.message "<@yoshwata> Hello!!"
+          meta set notification.slack.message "<@yoshwata> Hello Meta!"
 ```
 
 Result:
 ![notification-meta](./assets/notification-meta.png)
 
-#### Job based
+#### Job-based
 *Note*: Job-based Slack notification meta data will overwrite the basic notification message. 
 
 Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
