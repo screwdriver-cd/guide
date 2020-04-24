@@ -8,6 +8,8 @@ toc:
       url: "#ビルドキャッシュ"
     - title: 例
       url: "#例"
+    - title: 特定のジョブでキャッシュを無効にする
+      url: "#特定のジョブでキャッシュを無効にする"
     - title: 注意
       url: "#注意"
 ---
@@ -61,3 +63,38 @@ jobs:
 
 ## Notes
 - もしキャッシュが大きくてキャッシュ bookend がメモリオーバーとなるようでしたら、`screwdriver.cd/ram` [アノテーション]((./annotations))に `HIGH` を設定するとより多くのメモリがビルドで使用できるようになります。
+
+## 特定のジョブでキャッシュを無効にする
+特定のジョブでキャッシュを利用したくない場合には、`cache` の設定を特定のジョブに設定します。
+`cache` の値が `false` のときには、トップレベルのキャッシュの設定がされていてもそのジョブではキャッシュのキャッシュもリストアも行いません。
+
+例:
+```
+cache:
+   event: [$SD_SOURCE_DIR/node_modules]
+
+jobs:
+    setnpmcache:
+        image: node:12
+        steps:
+            - install: npm install
+        requires: [~commit, ~pr]
+    usenpmcache:
+        image: node:12
+        steps:
+            - ls: ls
+            - install: npm install
+        requires: [setnpmcache]
+    no-usenpmcache:
+        image: node:12
+        steps:
+            - ls: ls
+            - run-command: echo 'run command which not uses npmcache.'
+        requires: [usenpmcache]
+        cache: false
+```
+
+## キャッシュの削除
+キャッシュを削除するには、 Screwdriver の UI からパイプラインのオプションタブへ行き、キャッシュのセクションのゴミ箱アイコンをクリックします。
+
+![Clear cache](../../../user-guide/assets/clear-cache.png)
