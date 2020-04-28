@@ -166,7 +166,7 @@ $ sd-local config view
 * cluster2:
     api-url: https://cluster2-api-screwdriver.com
     store-url: https://cluster2-store-screwdriver.com
-    token: yourcluster1token
+    token: yourcluster2token
     launcher:
       version: stable
       image: screwdrivercd/launcher
