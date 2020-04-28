@@ -146,7 +146,7 @@ $ sd-local config delete <name>
 - You can't delete the setting in use
 
 ### use subcommand
-You can switch a setting in use
+You can switch a setting in use.
 
 ```bash
 $ sd-local config use <name>
