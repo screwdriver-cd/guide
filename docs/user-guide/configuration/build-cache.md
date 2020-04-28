@@ -10,6 +10,8 @@ toc:
       url: "#example"
     - title: Notes
       url: "#notes"
+    - title: Disable Cache for a Specific Job
+      url: "#disable-cache-for-a-specific-job"
     - title: Clearing the Cache
       url: "#clearing-the-cache"
 ---
@@ -63,6 +65,36 @@ Example repo: https://github.com/screwdriver-cd-test/cache-example
 
 ## Notes
 - If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations) to `HIGH` to provide more memory to the build.
+
+## Disable Cache for a Specific Job
+If you do not want to use cache in a specific job, you can set `cache` configuration under the specific job configuration.
+When the value of `cache` is `false`, a specific job will not store and restore the cache even if top-level cache settings are set.
+
+Example
+```
+cache:
+   event: [$SD_SOURCE_DIR/node_modules]
+
+jobs:
+    setnpmcache:
+        image: node:12
+        steps:
+            - install: npm install
+        requires: [~commit, ~pr]
+    usenpmcache:
+        image: node:12
+        steps:
+            - ls: ls
+            - install: npm install
+        requires: [setnpmcache]
+    no-usenpmcache:
+        image: node:12
+        steps:
+            - ls: ls
+            - run-command: echo 'run command which will not use npmcache.'
+        requires: [usenpmcache]
+        cache: false
+```
 
 ## Clearing the Cache
 In order to clear the cache, you can go to the Options tab for your pipeline in the Screwdriver UI and click on the Trash icon under the Cache section.
