@@ -10,8 +10,8 @@ toc:
       url: "#example"
     - title: Notes
       url: "#notes"
-    - title: Disable Cache with a Specific Job
-      url: "#disable-cache-with-a-specifc-job"
+    - title: Disable Cache for a Specific Job
+      url: "#disable-cache-for-a-specific-job"
     - title: Clearing the Cache
       url: "#clearing-the-cache"
 ---
