@@ -93,7 +93,7 @@ builds.log       environment.json steps.json
 ```
 
 # config コマンド
-configコマンドでは、sd-local自体の設定を行います。設定内容は複数環境ごとに保持することができます。  
+configコマンドでは、sd-local自体の設定を行います。設定内容は、環境ごとに複数保持することができます。  
 設定内容は `~/.sdlocal/config` 以下の形式で保存されます。
 
 ```
