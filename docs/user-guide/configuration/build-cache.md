@@ -66,9 +66,9 @@ Example repo: https://github.com/screwdriver-cd-test/cache-example
 ## Notes
 - If your cache is large and the cache bookend runs out of memory, you can set the `screwdriver.cd/ram` [annotation](./annotations) to `HIGH` to provide more memory to the build.
 
-## Disable Cache with a Specific Job
-If you do not want to use cache in a specific job, you set `cache` configuration under the spacific job configuration.
-When a value of `cache` is `false`, a specific job not stores and restores the cache even if top-level cache settings are set.
+## Disable Cache for a Specific Job
+If you do not want to use cache in a specific job, you can set `cache` configuration under the specific job configuration.
+When the value of `cache` is `false`, a specific job will not store and restore the cache even if top-level cache settings are set.
 
 Example
 ```
