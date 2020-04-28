@@ -143,7 +143,7 @@ You can delete a setting.
 $ sd-local config delete <name>
 ```
 
-- You can't delete the setting in use
+- You can't delete the setting currently in use
 
 ### use subcommand
 You can switch a setting in use.
