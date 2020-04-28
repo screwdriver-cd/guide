@@ -153,7 +153,7 @@ $ sd-local config use <name>
 ```
 
 ### set subcommand
-You can configure a setting in use by key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.  
+You can configure the setting currently using by key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.  
 Please refer to the [List of keys](#list-of-keys) about available settings.
 ```bash
 $ sd-local config set <key> <value>
