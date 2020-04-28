@@ -91,7 +91,7 @@ jobs:
         image: node:12
         steps:
             - ls: ls
-            - run-command: echo 'run command which not uses npmcache.'
+            - run-command: echo 'run command which will not use npmcache.'
         requires: [usenpmcache]
         cache: false
 ```
