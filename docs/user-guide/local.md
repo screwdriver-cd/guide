@@ -8,8 +8,8 @@ toc:
   url: "#what-is-sd-local-?"
 - title: Installing sd-local
   url: "#installing-sd-local"
-- title: Simple usage
-  url: "#simple-usage"
+- title: Quick start
+  url: "#quick-start"
 - title: config command
   url: "#config-command"
 - title: build command
@@ -101,15 +101,59 @@ builds.log       environment.json steps.json
 
 
 # config command
-You can configure sd-local settings in key/value format by config command.  
-Your settings are stored in `~/.sdlocal/config`.
+You can configure sd-local for multiple environments by config command.  
+Your settings are stored in `~/.sdlocal/config` like below.
 
+```
+configs:
+  default:
+    api-url: ""
+    store-url: ""
+    token: ""
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
+  yourConfigName:
+    api-url: ""
+    store-url: ""
+    token: ""
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
+current: default
+```
+
+- `default` is created automatically when the first time you use sd-local
+- `current` points the setting which you are currently using
 
 ## Usage
 
 
+### create subcommand
+You can create a new setting.
+
+```bash
+$ sd-local config create <name>
+```
+
+### delete subcommand
+You can delete a setting.
+
+```bash
+$ sd-local config delete <name>
+```
+
+- You can't delete the setting currently in use
+
+### use subcommand
+You can switch a setting in use.
+
+```bash
+$ sd-local config use <name>
+```
+
 ### set subcommand
-You can configure sd-local in key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.  
+You can configure the setting currently using by key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.  
 Please refer to the [List of keys](#list-of-keys) about available settings.
 ```bash
 $ sd-local config set <key> <value>
@@ -117,20 +161,26 @@ $ sd-local config set <key> <value>
 
 
 ### view subcommand
-You can confirm the current settings.
+You can confirm the current settings. The setting starts with `*` is in use.
 
 
 ```bash
 $ sd-local config view
+  cluster1:
+    api-url: https://cluster1-api-screwdriver.com
+    store-url: https://cluster1-store-screwdriver.com
+    token: yourcluster1token
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
+* cluster2:
+    api-url: https://cluster2-api-screwdriver.com
+    store-url: https://cluster2-store-screwdriver.com
+    token: yourcluster2token
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
 ```
-
-## Options
-The following options can be used with the config command:
-
-
-|option|description|
-|---|---|
-|--local|Read/Modify `.sdlocal/config` file in current directory|
 
 ### List of keys
 You must set `api-url`, `store-url`, and `token` in order to execute builds.
@@ -167,7 +217,6 @@ The following options can be used with the build command:
 |--artifacts-dir|The build artifacts destination (default: `./sd-artifacts`)|
 |-e, --env|The environment variables in a build environment using `<key>=<value>` format (multiple variables allowed)|
 |--env-file|The environment variables in a build environment using file format (refer to [env-file format](#env-file-format))|
-|--local|Run command with `.sdlocal/config` file in current directory.|
 |-m, --memory|The memory limit of the build environment (can be specified in b, k, m, or g memory unit)|
 |--meta|The [metadata](metadata) used in a build environment using string JSON format: e.g. `"{\"HOGE\": \"FOO\"}"`|
 |--meta-file|The [metadata](metadata) used in build environment using file format|
