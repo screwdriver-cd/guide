@@ -27,6 +27,8 @@ Bundler version 1.15.1
 
 Jekyll supports Ruby version 2.1 or above.
 
+You can also build and serve the documentation using Docker (see below). If you choose this approach, there is no need to install Ruby/bundle/jekyll.
+
 ### Standard
 
 To install the `jekyll` using bundle, making sure we're in the same directory as the `Gemfile`.
@@ -64,6 +66,34 @@ Configuration file: docs/_config.yml
  Auto-regeneration: enabled for 'docs'
     Server address: http://127.0.0.1:4000/
   Server running... press ctrl-c to stop.
+```
+
+### Docker
+
+If you don't have Ruby installed, you can easily build and view the Screwdriver Guide using Docker. From the root directory
+of the repository, execute:
+
+```bash
+docker run --rm \
+  --volume="$PWD:/srv/jekyll" -p 4000:4000 \
+  -it jekyll/builder:3.8 \
+  jekyll serve --source docs --destination _site
+```
+
+This may take some time as it must download all gems specified in the Gemfile on every run. If you need to rebuild the
+guide frequently, you could simply commit your changes and work from your commited image containing all dependencies.
+
+For example:
+
+```bash
+docker run --volume ... --destination _site # be sure to leave off --rm
+docker commit $(docker ps -q -a |head -n 1 | awk '{print $1}') cached-jekyll
+
+# will already contain all installed gems: should be much faster!
+docker run --rm \
+  --volume="$PWD:/srv/jekyll" -p 4000:4000 \
+  -it cached-jekyll \
+  jekyll serve --source docs --destination _site
 ```
 
 ### Browse your local guide

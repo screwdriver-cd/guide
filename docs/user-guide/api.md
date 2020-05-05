@@ -42,7 +42,7 @@ Swagger model:
 ![Swagger model](./assets/swagger-model.png)
 
 ### With a REST Client
-Use a REST client like [Postman] to make requests against the API. You will need an authorization token. To get an authorization token, login using `/v4/auth/login` and copy the token value when redirected to `/v4/auth/token`. See the [Authorization and Authentication](#authorization-and-authentication) section for more information.
+Use a REST client like [Postman] to make requests against the API. You will need an authorization token. To get an authorization token, login using `/v4/auth/login` and copy the token value when redirected to `/v4/auth/token`. See the [Authorization and Authentication](#authentication-and-authorization) section for more information.
 
 Requests can be made to the API with headers like below:
 ```yaml

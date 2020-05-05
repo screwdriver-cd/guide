@@ -87,7 +87,7 @@ $ meta get foo
 Example repo: https://github.com/screwdriver-cd-test/workflow-metadata-example
 
 Notes:
-- If `foo` is not set and you try to `meta get foo`, it will return `null` by default.
+- If `foo` is not set and you try to `meta get foo`, it will return a string with value `null` by default.
 
 ### External pipeline
 
@@ -137,6 +137,8 @@ jobs:
 These settings will result in a Git comment that looks like:
 
 ![PR comment](./assets/pr-comment.png)
+
+_Note: Screwdriver will try to edit the same comment in Git if multiple builds are run on it._
 
 ### Additional Pull Request Checks
 
@@ -210,16 +212,33 @@ Result:
 
 ### Notifications
 
-You can customize [notification](./configuration/settings.html#slack) messages with meta.
-Meta keys are different for each notification plugin.
+You can customize [notification](./configuration/settings.html#slack) messages with meta. Meta keys are different for each notification plugin.
 
+#### Basic
 Example screwdriver.yaml notifying with Slack:
 ```yaml
 jobs:
   main:
     steps:
       - meta: |
-          meta set notification.slack.message "<@yoshwata> Hello!!"
+          meta set notification.slack.message "<@yoshwata> Hello Meta!"
+```
+
+Result:
+![notification-meta](./assets/notification-meta.png)
+
+#### Job-based
+*Note*: Job-based Slack notification meta data will overwrite the basic notification message. 
+
+Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
+
+Example screwdriver.yaml notifying with specific Slack message for job `slack-notification-test`:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.slack-notification-test.message "<@yoshwata> Hello Meta!"
 ```
 
 Result:
