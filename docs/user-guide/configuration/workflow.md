@@ -277,7 +277,7 @@ To have your job blocked by another job, you can use `blockedBy`. It has the sam
 
 Note:
 - Since everything is using OR syntax, you need a tilde (`~`) before each of your job names. We do not support AND logic for blockedBy.
-- To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
+- By default, to prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
 - This feature does not apply to PR jobs.
 
@@ -308,7 +308,7 @@ Before the job is started, it will check if the start time falls under any of th
 Note:
 - Different from `build_periodically`, `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
 - The combinations of day of week and day of month are usually invalid. Therefore only *one out of day of week and day of month can be specified*. The other field should be set to "?".
-- If multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window.
+- By default, if multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window. You can turn this feature off by setting the `screwdriver.cd/collapseBuilds` [annotation](./annotations) to `false`.
 
 #### Example
 In the following example, `job1` will be frozen during the month of March, `job2` will be frozen on weekends, and `job3` will be frozen from 10:00 PM to 10:59 AM.
