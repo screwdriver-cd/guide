@@ -90,7 +90,7 @@ $ meta get foo
 
 注意:
 
-- `foo`がセットされていない場合に`meta get foo`を実行した場合、デフォルトで`null`を返します。
+- `foo`がセットされていない場合に`meta get foo`を実行した場合、デフォルトで文字列の`null`を返します。
 
 ### 外部パイプライン
 
@@ -220,7 +220,7 @@ jobs:
 
 metaを利用することで通知をカスタマイズすることができます。
 metaのキーは通知ブラグインごとに異なります。
-
+#### 基本
 Slack通知をするscrewdriver.yamlの例:
 ```yaml
 jobs:
@@ -228,6 +228,25 @@ jobs:
     steps:
       - meta: |
           meta set notification.slack.message "<@yoshwata> Hello!!"
+```
+
+Result:
+![notification-meta](./../../user-guide/assets/notification-meta.png)
+
+#### ジョブベース
+
+*注意* ジョブベースのSlack通知のメタデータは基本的な通知メッセージを上書きします。
+
+メタ変数の構造は、`notification.slack.<jobname>.message`です。  
+`<jobname>`をScrewdriver.cdのジョブ名に置き換えます。
+
+特定のジョブをSlackメッセージで通知する例:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.slack-notification-test.message "<@yoshwata> Hello Meta!"
 ```
 
 Result:

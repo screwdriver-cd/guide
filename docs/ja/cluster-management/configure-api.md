@@ -41,6 +41,7 @@ Screwdriverは最初から[多くのデフォルト設定](https://github.com/sc
 JWT_ENVIRONMENT | いいえ | JWT を生成する環境です。例えば `prod` や `beta` などを指定します。JWT に環境変数を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)
 SECRET_JWT_PRIVATE_KEY | はい | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。`$ openssl genrsa -out jwt.pem 2048`
 SECRET_JWT_PUBLIC_KEY | はい | 署名を検証するための公開鍵です。次のコマンドにより生成できます。`$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
+SECRET_JWT_QUEUE_SVC_PUBLIC_KEY | はい | プラグインがキューの場合に署名を検証するための公開鍵です。次のコマンドにより生成できます。 `$ openssl rsa -in jwtqs.pem -pubout -out jwtqs.pub`
 SECRET_COOKIE_PASSWORD | はい | セッションデータを暗号化するためのパスワードです。**32文字以上である必要があります。**
 SECRET_PASSWORD | はい | SECRETを暗号化するためのパスワードです。**32文字以上である必要があります。**
 IS_HTTPS | いいえ | サーバーがhttpsで動作しているかどうかを設定するフラグです。OAuthフローのフラグとして利用されます。(デフォルトは`false`です)
@@ -54,6 +55,8 @@ auth:
         PRIVATE KEY HERE
     jwtPublicKey: |
         PUBLIC KEY HERE
+    jwtQueueServicePublicKey: |
+        QUEUE SVC PUBLIC KEY HERE
     cookiePassword: 975452d6554228b581bf34197bcb4e0a08622e24
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
@@ -156,6 +159,7 @@ httpd:
 ECOSYSTEM_UI | https://cd.screwdriver.cd | ユーザーインターフェースのURL
 ECOSYSTEM_STORE | https://store.screwdriver.cd | アーティファクトストアURL
 ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | ステータステキストと色をテンプレートにしたURL
+ECOSYSTEM_QUEUE | http://sdqueuesvc.screwdriver.svc.cluster.local | キュープラグインで使用されるキューサービスの内部URL
 
 ```yaml
 # config/local.yaml
@@ -166,6 +170,8 @@ ecosystem:
     store: https://store.screwdriver.cd
     # Badge service (needs to add a status and color)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
+    # Internally routable FQDNS of the queue svc
+    queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
 
 ### データストアプラグイン
@@ -350,7 +356,7 @@ executor:
 ```
 
 #### Queue (queue)
-`queue` executor を使用すると、Resque のある Redis インスタンスを使用してビルドをキューすることができます。
+`queue` executorを使用すると、Resqueを含むRedisインスタを実行している[リモートキューサービス](./configure-queue-service)にビルドをキューすることができます。
 
 | 環境変数名       | デフォルト値 | 説明          |
 |:-----------------------|:--------------|:---------------------|
@@ -365,15 +371,7 @@ executor:
 # config/local.yaml
 executor:
     plugin: queue
-    queue:
-        options:
-            redisConnection:
-              host: "127.0.0.1"
-              port: 9999
-              options:
-                  password: "THIS-IS-A-PASSWORD"
-                  tls: false
-              database: 0
+    queue: ''
 ```
 
 #### Nomad (nomad)
