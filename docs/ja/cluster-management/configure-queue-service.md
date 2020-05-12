@@ -1,8 +1,8 @@
 ---
 layout: main
-title: Configuring the Queue Service
+title: キューサービスの設定
 category: Cluster Management
-menu: menu
+menu: menu_ja
 toc: 
     - title: キューサービスの管理
       url: "#キューサービスの管理"
@@ -40,7 +40,7 @@ APIから受信するJWTのバリデーションを設定します。
 | JWT_ENVIRONMENT | いいえ      | JWT を生成する環境です。例えば prod や beta などを指定します。JWT に環境変数を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)|
 | SECRET_JWT_PRIVATE_KEY | はい      | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。<br /> `$ openssl genrsa -out jwt.pem 2048`|
 | SECRET_JWT_PUBLIC_KEY  | はい     | 署名を検証するための公開鍵です。次のコマンドにより生成できます。<br />`$ openssl rsa -in jwtqs.pem -pubout -out jwtqs.pub`|
-| SECRET_JWT_SD_API_PUBLIC_KEY | *none*  | JWTの署名の検証に使用する公開鍵。APIで設定したものと同じものを使用してください。 |
+| SECRET_JWT_SD_API_PUBLIC_KEY | *none*  | JWTの署名の検証に使用する公開鍵です。APIで設定したものと同じものを使用してください。 |
 
 ```yaml
 # config/local.yaml
