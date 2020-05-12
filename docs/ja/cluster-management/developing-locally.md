@@ -180,7 +180,7 @@ npm install && npm run start
 
 UI、 API、 Store が実行されている時に、 `http://sd.screwdriver.cd:4200` へブラウザでアスセスすることでローカルで稼働している Screwdriver へアクセスできます。
 
-## executor-queueまたはqueue serviceを使用してローカルで開発
+## executor-queueとqueue serviceを使用してローカルで開発
 
 docker executor を使用する代わりに、 redis queue を使用することで、 `build_periodically` や `freezeWindow` などのより複雑な[ワークフロー](https://docs.screwdriver.cd/ja/user-guide/configuration/workflow)が screwdriver で実行できるようになります。
 
@@ -281,6 +281,7 @@ git clone git@github.com:screwdriver-cd/queue-service.git
     queue: http://$YOUR_IP:9003
  executor:
     plugin: queue # <- this step is essential in order to use queue
+    queue: ''
 ```
 
 これで screwdriver のバックエンドサーバとredis queueを使用する queue serviceを起動できます。

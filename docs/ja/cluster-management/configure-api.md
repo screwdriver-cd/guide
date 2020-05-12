@@ -356,16 +356,11 @@ executor:
 ```
 
 #### Queue (queue)
-`queue` executorを使用すると、Resqueを含むRedisインスタを実行している[リモートキューサービス](./configure-queue-service)にビルドをキューすることができます。
+`queue` executorを使用すると、Resqueを含むRedisインスタンスを実行している[リモートキューサービス](./configure-queue-service)にビルドをキューすることができます。
 
 | 環境変数名       | デフォルト値 | 説明          |
 |:-----------------------|:--------------|:---------------------|
 | EXECUTOR_PLUGIN        | k8s           | デフォルトの executor (`queue` を設定します) |
-| QUEUE_REDIS_HOST       | 127.0.0.1     | Redis のホスト                       |
-| QUEUE_REDIS_PORT       | 9999          | Redis のポート                       |
-| QUEUE_REDIS_PASSWORD   | "THIS-IS-A-PASSWORD" | Redis のパスワード            |
-| QUEUE_REDIS_TLS_ENABLED | false        | TLS を有効にするフラグ                 |
-| QUEUE_REDIS_DATABASE   | 0             | Redis のデータベース                   |
 
 ```yaml
 # config/local.yaml

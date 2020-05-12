@@ -113,6 +113,8 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 [メトリクスページ](https://blog.screwdriver.cd/post/184117350247/build-metrics)にアクセスするには、
 ビルドをクリックして「Go to build metrics」を選択するか、パイプラインページのタブの「Metric」を選択してください。
 
+![See metrics](../../user-guide/assets/see-metrics.png)
+
 ## ビルドログの時間形式を切り替えるには？
 ビルドログの左上の文字列をクリックすると、_Since build started_, _Since step started_, _Local TimeStamp_, _UTC TimeStamp_ などの時間形式に切り替えることができます。
 ![Toggle time formats](../../user-guide/assets/toggle-time-format.png)
@@ -133,28 +135,23 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 - パイプラインの過去の成功時のビルドを再実行する
 - ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を作成して実行
 
-### 過去の成功時のビルドを再実行、Detached Jobを実行するには？
+### 過去のビルドを再実行、Detached Jobを実行するには？
 
 過去のイベントから再ビルドを行う手順は下記の通りとなります。
 
 1. ログインする。
-2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。
-3. 再ビルドを行いたいジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックして、最後に「YES」を押してジョブを実行させます。
+1. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。
+1. 再ビルドを行いたいジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックして、最後に「YES」を押してジョブを実行させます。
 ![Load event graph](../../user-guide/assets/re-run-select.png)
 ![Start new build for job](../../user-guide/assets/re-run-start.png)
 
-Detached Jobを実行するには？
+ロールバックするには[detached build](./configuration/workflow#分離されたジョブとパイプライン)で行います。
+[Metadata](./metadata)を使って最後のジョブ（下記の例ではジョブD）で`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetached）で`meta get` コマンドを使用して設定されたメタ情報を取得します。detachedジョブはジョブDで設定されたメタ情報にアクセスできます。
 
-通常のパイプラインから独立したジョブ（detachedジョブ）を作成してロールバックを行う手順は下記の通りとなります。通常のパイプラインの最後のジョブ（下記の例ではジョブD）で`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetached）で`meta get` コマンドを使用して設定されたメタ情報を取得します。detachedジョブはジョブDで設定されたメタ情報にアクセスできます。
-
-1. ログインする。
-2. 過去のイベント一覧から再ビルドを行いたいイベントをクリックして、画面上部にワークフローの詳細を表示させます。![Select Event](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
-3. スタートさせたいdetachedジョブをクリックして、ポップアップから「Start pipeline from here」のリンクをクリックしてジョブを実行させます。![Load event graph](http://78.media.tumblr.com/fb595b0e3f2493c9b4623a05d2dd60dc/tumblr_inline_p5aw66dJ1n1uvhog4_1280.png)
-4. 「Yes」をクリックしてジョブを開始します。 ![Start new build for job](http://78.media.tumblr.com/f99978ba2dcea4a67e352b053e50ae76/tumblr_inline_p5aw6lyDLW1uvhog4_1280.png)
 
 ### ビルドをUNSTABLEの状態にするには？
 
-ビルド中に[API](./api)を呼び出すことで、ビルドのステータスを`UNSTABLE`にすることができます。Screwdriver.cdは、このステータスで表示されたビルドを失敗とみなし後続のジョブを実行しません。
+ビルド中に[API](./api)を呼び出すことで、ビルドのステータスを`UNSTABLE`にすることができます。Screwdriver.cdは、このステータスで表示されたビルドを成功ではないものとみなし後続のジョブを実行しません。
 詳しくは[UNSTABLEビルドのサンプルリポジトリ](https://github.com/screwdriver-cd-test/unstable-build-example)を参照してください。
 
 ### Screwdriverが使用しているシェルは？
@@ -199,4 +196,4 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 このメッセージは、gitがfeatureブランチとmainブランチの間に共通の祖先が見つけられないことを示しています。  
 この問題を解決するには、`$GIT_SHALLOW_CLONE`を無効にする、大きな数に調整するまたは、featureブランチのコミット数を減らしてください。
 (例: rebase, squashなど)  
-詳しくは[こちら](https://docs.screwdriver.cd/user-guide/environment-variables#user-configurable)のドキュメントをご確認ください。
+詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
