@@ -139,8 +139,8 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 過去のイベントから再ビルドを行う手順は下記の通りとなります。
 1. イベントリストから目的のイベントをクリックすると、詳細なイベントグラフが表示されます。
-1. 次に、過去のイベント一覧から再ビルドを行いたいジョブをクリックします。
-1. ポップアップが開き「Start pipeline from here」のリンクをクリックします。
+1. ビルドを再実行したいジョブをクリックします。
+1. ポップアップから「Start pipeline from here」のリンクをクリックします。
 1. 最後に「YES」を押してジョブを実行させます。
 ![Load event graph](../../user-guide/assets/re-run-select.png)
 ![Start new build for job](../../user-guide/assets/re-run-start.png)
