@@ -38,15 +38,17 @@ Settings > Developer settings > OAuth Apps へ行き、 `New OAuth App` ボタ�
 * [ui](https://github.com/screwdriver-cd/ui)
 * [screwdriver](https://github.com/screwdriver-cd/screwdriver)
 * [store](https://github.com/screwdriver-cd/store)
+* [queue-service](https://github.com/screwdriver-cd/queue-service)
 
 ```bash
 git clone https://github.com/screwdriver-cd/ui.git
 git clone https://github.com/screwdriver-cd/screwdriver.git
 git clone https://github.com/screwdriver-cd/store.git
+git clone https://github.com/screwdriver-cd/queue-service.git
 ```
 
 ## ステップ 4: クローンしてきたリポジトリに local 設定ファイルを追加する
-`local.js` というファイルを `ui/config` に、 `local.yaml` を `screwdriver/config` と `store/config` フォルダに追加します。
+`local.js` というファイルを `ui/config` に、 `local.yaml` を `screwdriver/config`,`store/config`,`queue-service/config`フォルダに追加します。
 
 ### ui/config/local.js
 
@@ -178,7 +180,7 @@ npm install && npm run start
 
 UI、 API、 Store が実行されている時に、 `http://sd.screwdriver.cd:4200` へブラウザでアスセスすることでローカルで稼働している Screwdriver へアクセスできます。
 
-## executor-queueを使用してローカルで開発
+## executor-queueとqueue serviceを使用してローカルで開発
 
 docker executor を使用する代わりに、 redis queue を使用することで、 `build_periodically` や `freezeWindow` などのより複雑な[ワークフロー](https://docs.screwdriver.cd/ja/user-guide/configuration/workflow)が screwdriver で実行できるようになります。
 
@@ -223,15 +225,19 @@ brew uninstall redis
 rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
 ```
 
-### ステップ 2: [queue-worker](https://github.com/screwdriver-cd/queue-worker) のリポジトリをクローンして、 default.yaml を変更します
+### ステップ 2: [queue-service](https://github.com/screwdriver-cd/queue-service) のリポジトリをクローンして、 default.yaml を変更します
 
 ```bash
-git clone git@github.com:screwdriver-cd/queue-worker.git
+git clone git@github.com:screwdriver-cd/queue-service.git
 ```
 
-### queue-worker/config/default.yaml
+### queue-service/config/default.yaml
 
 ```yaml
+ httpd:
+    port: 9003
+    host: 0.0.0.0
+    uri: http://YOUR_IP:9003
  executor:
     plugin: docker
     docker:
@@ -248,39 +254,37 @@ git clone git@github.com:screwdriver-cd/queue-worker.git
     # Externally routable URL for the Artifact Store
     store: http://$YOUR_IP:9002
     
- redis:
-    # Host of redis cluster
-    host: 127.0.0.1
-    # Password to connect to redis cluster, if set in first step
-    password: 'c1cd-$cr3wdriver-cd'
-    # Port of redis cluster
-    port: 6379
-    # Prefix for the queue name if needed
-    # prefix: 'beta-'
-    # Flag to enable client for TLS-based communication
-    tls: false
+ queue:
+    # Configuration of the redis instance containing resque
+    redisConnection:
+        host: 127.0.0.1
+        port: 6379
+        options:
+            password: 'a-secure-password'
+            tls: false
+        database: 0
+        prefix: ""
+
 ```
 
-### ステップ 3: screwdriver/config/local.yaml に変更を加え、 executor の設定を変更します
+### ステップ 3: screwdriver/config/local.yaml に変更を加え、 executor の設定を変更とキューURIを追加します。
 
 ```yaml
-executor:
-    plugin: queue # <- queue を使用するにはこのステップが重要です
-    queue:
-        enabled: true
-        options:
-            # Configuration of the redis instance containing resque
-            redisConnection:
-                host: "127.0.0.1"
-                port: 6379
-                options:
-                    # Set password if set in previous step
-                    password: 'c1cd-$cr3wdriver-cd'
-                    tls: false
-                database: 0
+ ecosystem:
+    # Externally routable URL for the User Interface
+    ui: http://sd.screwdriver.cd:4200
+    # Externally routable URL for the API
+    api: http://$YOUR_IP:9001
+    # Externally routable URL for the Artifact Store
+    store: http://$YOUR_IP:9002
+    # Routable URI of the queue service
+    queue: http://$YOUR_IP:9003
+ executor:
+    plugin: queue # <- this step is essential in order to use queue
+    queue: ''
 ```
 
-これで redis queue を使用する screwdriver のバックエンドサーバを起動できます。
+これで screwdriver のバックエンドサーバとredis queueを使用する queue serviceを起動できます。
 
 
 ```bash
