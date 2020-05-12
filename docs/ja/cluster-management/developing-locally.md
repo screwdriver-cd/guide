@@ -231,7 +231,7 @@ rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
 git clone git@github.com:screwdriver-cd/queue-service.git
 ```
 
-### queue-worker/config/default.yaml
+### queue-service/config/default.yaml
 
 ```yaml
  httpd:
