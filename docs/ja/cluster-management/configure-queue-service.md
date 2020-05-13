@@ -61,7 +61,7 @@ auth:
 | PORT      | 80                  | サービスが受けているポート |
 | HOST      | 0.0.0.0             | サービスが立ち上がるホスト  (このマシンからの接続のみを受け入れるように localhost に設定)|
 | URI       | http://localhost:80 | 外部ルーティング可能な URI (通常は、ロードバランサまたはCNAME) |
-| HTTPD_TLS | false               | TLS サポート、SSLの場合は`false`。[`tls.createServer`](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener)で必要なオプションをJSONオブジェクトに置き換えます。|
+| HTTPD_TLS | false               | SSLサポートの有無です。有効にする場合は`false`を[`tls.createServer`](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener)に渡すJSONオブジェクトに置き換えてください。|
 
 
 ```yaml
