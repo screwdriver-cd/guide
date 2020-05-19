@@ -15,8 +15,8 @@ toc:
   url: "#バッジ"
 - title: 設計思想
   url: "#設計思想"
-- title: Make Your Own
-  url: "#make-your-own"
+- title: 自作する
+  url: "#自作する"
 ---
 
 # API
@@ -135,7 +135,7 @@ ScrewdriverのAPIは次の三原則を念頭に設計されました。
 2. 意図がわかりやすく、人間が読みやすくするため、リソースはREST-fulであるべきで、操作は小さく区切るべき
 3. クライアントのコード自動生成を可能にするため、APIにはバージョンがあり自己文書化されているべき
 
-## Make Your Own
+## 自作する
 
 Swaggerドキュメントを作成したい場合は、次のJSONを参考にしてください:
  [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)

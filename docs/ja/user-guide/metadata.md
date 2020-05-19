@@ -146,6 +146,8 @@ jobs:
 
 ![PR comment](./../../user-guide/assets/pr-comment.png)
 
+_注意: ビルドを複数実行すると、Gitの同じコメントを編集します。_
+
 ### 追加のプルリクエストチェック
 
 > 注意：この機能は現在のところGithubプラグインでのみ使用可能です
@@ -218,8 +220,8 @@ jobs:
 
 ### 通知
 
-metaを利用することで通知をカスタマイズすることができます。
-metaのキーは通知ブラグインごとに異なります。
+metaを利用することで[通知](./configuration/settings.html#slack)メッセージをカスタマイズすることができます。metaのキーは通知ブラグインごとに異なります。
+
 #### 基本
 Slack通知をするscrewdriver.yamlの例:
 ```yaml
@@ -227,7 +229,7 @@ jobs:
   main:
     steps:
       - meta: |
-          meta set notification.slack.message "<@yoshwata> Hello!!"
+          meta set notification.slack.message "<@yoshwata> Hello Meta!"
 ```
 
 Result:
