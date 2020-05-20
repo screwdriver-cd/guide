@@ -63,7 +63,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 また、Slack通知を送信するタイミングも設定できます。例えば、ビルドステータスが `SUCCESS` または `FAILURE` になった場合などです。`statuses`を設定しない場合はビルドが失敗した場合のみ通知します。ステータスの全リストは[data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96)を参照してください。 `minimized` の設定を利用することで、よりコンパクトな形式の通知を利用することもできます。
 
-ステップ内のデータを通知として送りたい場合には、[notification meta](https://docs.screwdriver.cd/ja/user-guide/metadata.html#通知)をご利用ください。
+ステップ内のデータを通知として送りたい場合には、[notification meta](../metadata#通知)をご利用ください。ジョブごとに通知をカスタマイズすることもできます。
 
 #### 例: 複数Roomの設定
 
@@ -123,4 +123,8 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
                 minimized: true
 ```
 
- ![Minimized Slack notification](../../../user-guide/assets/slack-minimized-notification.png)
+![Minimized Slack notification](../../../user-guide/assets/slack-minimized-notification.png)
+
+#### 例: Metadataを使用
+
+Metadataを使用してSlackメッセージを設定することもできます。これはジョブごとにカスタマイズできます。[Metadataページの通知](../metadata#通知)を参照してください。

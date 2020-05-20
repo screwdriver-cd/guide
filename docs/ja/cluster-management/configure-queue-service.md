@@ -79,11 +79,11 @@ httpd:
 
 ### Redisキューの設定
 
-ビルド成果物の保存に関するいくつかの設定を行います。  
+キューを構成するための設定を行います。  
 
 
 | キー                 | 必須 |  デフォルト | 説明|
-|:--------------------|:---------------------|:----------------------|------------------------------|
+|:--------------------|:---------------------|:----------------------|:------------------------------|
 | REDIS_HOST          | はい                  | 127.0.0.1            | Redis ホスト                  |
 | REDIS_PORT          | はい                 | 6379                 | Redis ポート                 |
 | REDIS_PASSWORD      | はい                 | a-secure-password    | Redis パスワード              |
@@ -91,8 +91,8 @@ httpd:
 | REDIS_DB_NUMBER     | いいえ                   | 0                    | Redis db 番号             |
 | REDIS_QUEUE_PREFIX  | いいえ                   | ''                   | Redis queue プレフィックス |
 
-# config/local.yaml
 ```yaml
+# config/local.yaml
 queue:
   redisConnection:
     host: "127.0.0.1"
@@ -102,4 +102,25 @@ queue:
       tls: false
     database: 0
   prefix: ''
+```
+
+### Blocked Byの設定
+
+[blockedBy](../user-guide/configuration/workflow#blocked-by)のための設定を行います。
+
+| Key                | Required            |  Default              | Description       |
+|:-------------------|:---------------------|:----------------------------------------------------|
+| PLUGIN_BLOCKEDBY_REENQUEUE_WAIT_TIME | いいえ           | 1            | ブロックされている場合に再エンキューする前に待機する時間（分）   |
+| PLUGIN_BLOCKEDBY_BLOCK_TIMEOUT       | いいえ           | 120          | ジョブのブロックによりタイムアウトとなるまでの最大時間（分)        |
+| PLUGIN_BLOCKEDBY_BLOCKED_BY_SELF     | いいえ           | true         | 同じジョブをブロックされるかどうか    |
+| PLUGIN_BLOCKEDBY_COLLAPSE            | いいえ           | true         | 同タイミングに同じジョブで複数のビルドが走った場合に1つのビルドに集約するかどうか   |
+
+```yaml
+# config/local.yaml
+plugins:
+  blockedBy:
+    reenqueueWaitTime: 5
+    blockTimeout: 180
+    blockedBySelf: false
+    collapse: false
 ```
