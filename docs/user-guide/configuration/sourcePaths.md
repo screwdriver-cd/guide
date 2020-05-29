@@ -67,7 +67,7 @@ jobs:
         steps:
             - echo: echo hi
 ```
-In this example, the job `main` will be triggered if there are any changes to files under `src/app/` or the `screwdriver.yaml` file except with `src/app/package.json` (like on `src/app/main.js`, etc.). The `main` job will **not**, however, be triggered on changes to `README.md`, `test/`, `src/app/package.json`, or `src/other/`.
+In this example, the job `main` will be triggered if there are any changes to files under `src/app/` or the `screwdriver.yaml` file except for changes in the `src/app/package.json` file, like on `src/app/main.js`. The `main` job will **not**, however, be triggered on changes to `README.md`, `test/`, `src/app/package.json`, or `src/other/`.
 
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
