@@ -51,6 +51,24 @@ In this example, the job `main` will be triggered if there are any changes to fi
 ### Matched source path
 
 Screwdriver will expose the source path that triggered this build in an environment variable `SD_SOURCE_PATH`. This value will be the first path in `sourcePaths` which matches any of the modified files and can be used to write scripts which depends on the source path that triggered current build.
+
+### Exclude source path
+
+If you don't want trigger jobs when specific subdirectories and/or specific files changing which are in source paths, you can use exclude source path. To ignore change of specific subdirectories and/or specific files, add an exclamation (`!`) at the top.
+
+#### Example
+Given a same repository like above, and the `screwdriver.yaml`:
+```yaml
+jobs:
+    main:
+        image: node:6
+        requires: [~pr, ~commit]
+        sourcePaths: ["src/app/", "screwdriver.yaml", "!src/app/package.json"]
+        steps:
+            - echo: echo hi
+```
+In this example, the job `main` will be triggered if there are any changes to files under `src/app/` or the `screwdriver.yaml` file except with `src/app/package.json` (like on `src/app/main.js`, etc.). The `main` job will **not**, however, be triggered on changes to `README.md`, `test/`, `src/app/package.json`, or `src/other/`.
+
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
 - `sourcePaths` will be ignored if you manually start a pipeline or restart a job.
