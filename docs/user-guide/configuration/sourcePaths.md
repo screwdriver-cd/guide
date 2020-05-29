@@ -54,7 +54,7 @@ Screwdriver will expose the source path that triggered this build in an environm
 
 ### Exclude source path
 
-If you don't want trigger jobs when specific subdirectories and/or specific files changing which are in source paths, you can use exclude source path. To ignore change of specific subdirectories and/or specific files, add an exclamation (`!`) at the top.
+If you don't want to trigger jobs when specific subdirectories and/or specific files change that are in certain source paths, you can exclude source paths. To ignore changes in specific subdirectories and/or specific files, prefix the source path with an exclamation (`!`).
 
 #### Example
 Given a same repository like above, and the `screwdriver.yaml`:
