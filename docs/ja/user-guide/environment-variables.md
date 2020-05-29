@@ -37,24 +37,23 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 
 ### 全般
 
-環境変数名 | 説明
---- | ---
-SD_BUILD_ID | [ビルド](../about/appendix/domain#ビルド)番号 (例: 1, 2, など)
-SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID
-SD_JOB_ID | [ジョブ](../about/appendix/domain#ジョブ)の ID
-SD_JOB_NAME | ジョブの名前 (例: main)
-SD_PARENT_BUILD_ID | このビルドをトリガーするビルドのリスト(例: `[12345 23456]`) |
-SD_PARENT_BUILD_ID | このビルドのトリガーとなったビルド
-SD_PARENT_EVENT_ID | リスタートの場合、親のイベントの ID
-SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる
-SD_PIPELINE_ID | パイプラインの ID
-SD_PIPELINE_NAME | パイプラインの名前(例: `d2lam/myPipeline`)
-SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
-SD_TEMPLATE_FULLNAME | 使用しているテンプレートの完全な名前 (テンプレートを使用していない場合は空)
-SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空)
-SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空)
-SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空)
-SD_TOKEN | ビルド用の JWT トークン
+| 環境変数名 | 説明 |
+|---|---|
+| SD_BUILD_ID | [ビルド](../about/appendix/domain#ビルド)番号 (例: 1, 2, など) |
+| SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID |
+| SD_JOB_ID | [ジョブ](../about/appendix/domain#ジョブ)の ID |
+| SD_JOB_NAME | ジョブの名前 (例: main) |
+| SD_PARENT_BUILD_ID | このビルドをトリガーするビルドのリスト(例: `[12345 23456]`) |
+| SD_PARENT_EVENT_ID | リスタートの場合、親のイベントの ID |
+| SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる |
+| SD_PIPELINE_ID | パイプラインの ID |
+| SD_PIPELINE_NAME | パイプラインの名前(例: `d2lam/myPipeline`) |
+| SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空) |
+| SD_TEMPLATE_FULLNAME | 使用しているテンプレートの完全な名前 (テンプレートを使用していない場合は空) |
+| SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空) |
+| SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空) |
+| SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空) |
+| SD_TOKEN | ビルド用の JWT トークン |
 
 ### ユーザ設定
 
