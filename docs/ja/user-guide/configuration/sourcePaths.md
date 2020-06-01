@@ -55,6 +55,25 @@ jobs:
 
 Screwdriverはビルドをトリガーしたソースパスを環境変数`SD_SOURCE_PATH`にセットします。この値は変更されたファイルのいずれかとマッチする`sourcePaths`の最初のパスになり、そのビルドをトリガしたソースパスに依存するスクリプトを書く場合に使用できます。
 
+### 除外ソースパス
+
+ソースパスの中にある特定のサブディレクトリや特定のファイルが変更された時にジョブがトリガーされたくない場合には、除外ソースパスを利用できます。特定のサブディレクトリや特定のファイルの変更を無視するために、エクスクラメーション(`!`)を先頭に付けます。
+
+#### 例
+
+上と同じリポジトリがあり、`screwdriver.yaml`が以下のようとします。
+```yaml
+jobs:
+    main:
+        image: node:6
+        requires: [~pr, ~commit]
+        sourcePaths: ["src/app/", "screwdriver.yaml", "!src/app/package.json"]
+        steps:
+            - echo: echo hi
+```
+この例では、`main` ジョブは `src/app/package.json` を除いた `src/app/` 以下にあるファイル (`src/app/main.js` など) の更新、または `screwdriver.yaml` の更新でトリガーされます。
+しかし `main` ジョブは、`README.md`, `test/`, `src/app/package.json` または `src/other/` の更新では**トリガーされません**。
+
 ### 警告
 
 - この機能は現在 [Github SCM](https://github.com/screwdriver-cd/scm-github) のみでご利用いただけます。
