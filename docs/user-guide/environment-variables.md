@@ -48,6 +48,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_PIPELINE_ID | The ID of the [pipeline](../about/appendix/domain#pipeline) |
 | SD_PIPELINE_NAME | The name of the pipeline (e.g.: `d2lam/myPipeline`) |
 | SD_PULL_REQUEST | Pull Request number (e.g.: `1`; blank if non-PR) |
+| SD_STEP_EXIT_CODE | Exit code from previously executed steps, only available at teardown steps (e.g.: `0` if all previous steps have passed, otherwise, the latest non-zero exit code) |
 | SD_TEMPLATE_FULLNAME | Full template name the job is using (e.g.: `d2lam/myTemplate`; blank if not using template) |
 | SD_TEMPLATE_NAME | Name of the template the job is using (e.g.: `myTemplate`; blank if not using template) |
 | SD_TEMPLATE_NAMESPACE | Namespace of the template the job is using (e.g.: `d2lam`; blank if not using template) |
