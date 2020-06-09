@@ -70,6 +70,8 @@
       url: "/cluster-management/helm"
     - title: "Dependencies"
       url: "/cluster-management/dependencies"
+    - title: "Configure Build"
+      url: "/cluster-management/configure-build"
     - title: "FAQ"
       url: "/cluster-management/FAQ"
 - title: "About"

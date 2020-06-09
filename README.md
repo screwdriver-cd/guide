@@ -119,6 +119,7 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
      - [x] Logging plugins
   - [X] Configuring Queue Service
   - [x] Running locally
+  - [x] Configure Build
   - Examples
     - [x] Setting up Kubernetes
   - [ ] Debugging
