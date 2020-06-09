@@ -10,7 +10,7 @@ toc:
 ---
 ## Configure Build 
 
-Configure Screwdriver and Store api timeouts and max retry attempts from a build. These environment variables should be set by executors and should be available inside build.  
+Configure Screwdriver and Store api timeouts and max retry attempts. These environment variables should be set by executors and should be available inside build.  
 
 | Name | Description |
 |------|-------|
