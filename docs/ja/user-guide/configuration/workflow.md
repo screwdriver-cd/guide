@@ -189,7 +189,7 @@ _注意: ブランチに対するPRのワークフローは、そのブランチ
 タグフィルター/リリースフィルターを使用して、特定の名称の`~tag`/`~release`イベントをトリガーにすることができます。特定の名称のタグが作成された後にパイプラインでジョブをトリガーするには、`requires: [~tag:tagName]`を使用します。特定の名称のリリースがされた後にパイプラインでジョブをトリガーするには、`requires: [~release:releaseName]`を使用します。`tagName`と`releaseName`は([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~release：/^feature-/`）。正規表現のフラグはサポートしていません。
 
 ### 例
-以下の例では、`stable`という名称のリリースがされると、`stable-release`がトリガーされます。また、`v1.0`という名称のタグが作成されると、`v1-tag`がトリガーされます。`v2.0`という名称のタグが作成されると、`all-tag-and-release`がトリガーされます。
+以下の例では、`stable`という名称のリリースがされると、`all-tag-and-release`と `stable-release`がトリガーされます。また、`v1.0`という名称のタグが作成されると、`all-tag-and-release`と `v1-tag`がトリガーされます。`v2.0`という名称のタグが作成されると、`all-tag-and-release`がトリガーされます。
 
 ```
 shared:
