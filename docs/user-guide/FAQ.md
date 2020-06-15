@@ -7,6 +7,8 @@ toc:
     - title: Frequently Asked Questions
       url: "#frequently-asked-questions"
       active: true
+    - title: How do I skip a step?
+      url: "#how-do-i-skip-a-step"
     - title: How do I skip a build?
       url: "#how-do-i-skip-a-build"
     - title: How do I create a pipeline?
@@ -52,6 +54,22 @@ toc:
 ---
 
 # Frequently Asked Questions
+
+## How do I skip a step?
+
+You might want to use a template but without one of its steps.
+
+To do this, replace the unwanted step with any shell command that returns a successful status, such as `echo`, `true`, or even just `:`. Commands must be strings, so commands such as `true` or `:` should be quoted. Commands with backticks must be quoted too. Commands that return an unsuccessful status will abort the build.
+
+Partial example:
+
+```yaml
+steps:
+  - first: echo I am skipping step first
+  - second: 'true'
+  - third: ":"
+  - WRONG: "`exit 22`"
+```
 
 ## How do I skip a build?
 

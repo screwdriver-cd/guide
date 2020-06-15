@@ -128,7 +128,7 @@ Example:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: alpine
+        image: node:latest
         template: nodejs/test@1.0.3
 ```
 
