@@ -12,6 +12,8 @@ toc:
   url: "#論理式を用いたワークフロー定義"
 - title: ブランチフィルター
   url: "#ブランチフィルター"
+- title: タグフィルターとリリースフィルター
+  url: "#タグフィルターとリリースフィルター"
 - title: 並列実行と結合 (Parallel and Join)
   url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
@@ -182,6 +184,31 @@ jobs:
 _注意: ブランチに対するPRのワークフローは、そのブランチのscrewdriver.yamlに従います。_
 
 [ブランチフィルターのサンプルリポジトリ](https://github.com/screwdriver-cd-test/branch-filtering-example)を参考にしてください。ブランチフィルターがプルリクエストに対してどう動作するのかを見るのなら、[プルリクエストの例](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2)を参考にしてください。
+
+## タグフィルターとリリースフィルター
+タグフィルター/リリースフィルターを使用して、特定の名称の`~tag`/`~release`イベントをトリガーにすることができます。特定の名称のタグが作成された後にパイプラインでジョブをトリガーするには、`requires: [~tag:tagName]`を使用します。特定の名称のリリースがされた後にパイプラインでジョブをトリガーするには、`requires: [~release:releaseName]`を使用します。`tagName`と`releaseName`は([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~release：/^feature-/`）。正規表現のフラグはサポートしていません。
+
+### 例
+以下の例では、`stable`という名称のリリースがされると、`all-tag-and-release`と `stable-release`がトリガーされます。また、`v1.0`という名称のタグが作成されると、`all-tag-and-release`と `v1-tag`がトリガーされます。`v2.0`という名称のタグが作成されると、`all-tag-and-release`がトリガーされます。
+
+```
+shared:
+    image: node:12
+
+jobs:
+    all-tag-and-release:
+        requires: [~tag, ~release]
+        steps:
+            - echo: echo all
+    v1-tag:
+        requires: [~tag:/^v1\.*/]
+        steps:
+            - echo: echo v1 tag
+    stable-release:
+        requires: [~release:stable]
+        steps:
+            - echo: echo stable release
+```
 
 ## 並列実行と結合 (Parallel and Join)
 

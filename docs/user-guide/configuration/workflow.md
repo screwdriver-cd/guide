@@ -12,6 +12,8 @@ toc:
       url: "#advanced-logic"
     - title: Branch filtering
       url: "#branch-filtering"
+    - title: Tag/Release filtering
+      url: "#tag-release-filtering"
     - title: Parallel and Join
       url: "#parallel-and-join"
     - title: Remote Triggers
@@ -168,6 +170,31 @@ jobs:
 _Note: A PR against a branch will follow the workflow pattern indicated by that branch’s screwdriver.yaml._
 
 See the [branch filtering example repo](https://github.com/screwdriver-cd-test/branch-filtering-example) for reference. To see how branch filtering works with pull requests, see our [example pull request](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2).
+
+## Tag/Release filtering
+You can use Tag/Release filtering to limit the listening for `~tag`/`~release` events to a specific tag or release name. To trigger a job in your pipeline after a tag with a specific name has been created, you can use `requires: [~tag:tagName]`. To trigger a job in your pipeline after a release with a specific name has been pushed, you can use `requires: [~release:releaseName]`. `tagName` and `releaseName` may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. ~release:/^feature-/), although note that regex flags are not supported.
+
+### Example
+In the following example, when `stable` release is pushed, `all-tag-and-release` and `stable-release` are triggered. When `v1.0` tag is created, `all-tag-and-release` and `v1-tag` are triggered. When `v2.0` tag is created, `all-tag-and-release` is triggered.
+
+```
+shared:
+    image: node:12
+
+jobs:
+    all-tag-and-release:
+        requires: [~tag, ~release]
+        steps:
+            - echo: echo all
+    v1-tag:
+        requires: [~tag:/^v1\.*/]
+        steps:
+            - echo: echo v1 tag
+    stable-release:
+        requires: [~release:stable]
+        steps:
+            - echo: echo stable release
+```
 
 ## Parallel and Join
 You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
