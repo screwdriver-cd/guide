@@ -13,7 +13,7 @@ toc:
     - title: Branch filtering
       url: "#branch-filtering"
     - title: Tag/Release filtering
-      url: "#tag-release-filtering"
+      url: "#tagrelease-filtering"
     - title: Parallel and Join
       url: "#parallel-and-join"
     - title: Remote Triggers
