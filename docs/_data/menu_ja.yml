@@ -70,6 +70,8 @@
       url: "/ja/cluster-management/helm"
     - title: "依存関係"
       url: "/ja/cluster-management/dependencies"
+    - title: "ビルドの設定"
+      url: "/ja/cluster-management/configure-build"
     - title: "FAQ"
       url: "/ja/cluster-management/FAQ"
 - title: "概要"
