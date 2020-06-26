@@ -251,7 +251,7 @@ Structure of meta variable is `notification.slack.<jobName>.channels`, replacing
 
 The setting is a comma-separated string that allows setting multiple channels.
 
-Example screwdriver.yaml notifying for job `component` different Slack channels :
+Example screwdriver.yaml notifying different Slack channels upon job failure for the `component` job:
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
