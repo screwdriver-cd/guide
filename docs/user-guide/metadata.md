@@ -249,7 +249,7 @@ Result:
 
 Structure of meta variable is `notification.slack.<jobName>.channels`, replacing `<jobname>` with the name of the Screwdriver job.
 
-The setting is a comma separated string that allows setting multiple channels.
+The setting is a comma-separated string that allows setting multiple channels.
 
 Example screwdriver.yaml notifying for job `component` different Slack channels :
 ```yaml
