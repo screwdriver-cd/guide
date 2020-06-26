@@ -262,7 +262,7 @@ shared:
             statuses: [ FAILURE ]
 
 jobs:
-   main:
+   component:
     steps:
       - meta: |
           meta set notification.slack.component.channels "fail_channel, prod_channel"
