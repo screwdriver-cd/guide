@@ -245,7 +245,7 @@ Result:
 ![notification-meta](./assets/notification-meta.png)
 
 #### Job-based Slack Channel
-*Note*: Job-based slack channel meta will only overwrite the basic slack notification channel. It is not a replacement for setting a [notification channel.](./configuration/settings.html#slack)
+*Note*: Job-based Slack channel meta will only overwrite the basic Slack notification channel. It is not a replacement for setting a [notification channel](./configuration/settings#slack).
 
 Structure of meta variable is `notification.slack.<jobName>.channels`, replacing `<jobname>` with the name of the Screwdriver job.
 
