@@ -210,7 +210,7 @@ jobs:
 Result:
 ![Label](./assets/label-meta.png)
 
-### Notifications
+### Slack Notifications
 
 You can customize [notification](./configuration/settings.html#slack) messages with meta. Meta keys are different for each notification plugin.
 
@@ -227,8 +227,8 @@ jobs:
 Result:
 ![notification-meta](./assets/notification-meta.png)
 
-#### Job-based
-*Note*: Job-based Slack notification meta data will overwrite the basic notification message. 
+#### Job-based Slack message
+*Note*: Job-based Slack notification meta data will overwrite the basic notification message.
 
 Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
 
@@ -243,3 +243,28 @@ jobs:
 
 Result:
 ![notification-meta](./assets/notification-meta.png)
+
+#### Job-based Slack Channel
+*Note*: Job-based Slack channel meta will only overwrite the basic Slack notification channel. It is not a replacement for setting a [notification channel](./configuration/settings#slack).
+
+Structure of meta variable is `notification.slack.<jobName>.channels`, replacing `<jobname>` with the name of the Screwdriver job.
+
+The setting is a comma-separated string that allows setting multiple channels.
+
+Example screwdriver.yaml notifying different Slack channels upon job failure for the `component` job:
+```yaml
+shared:
+    image: docker.ouroath.com:4443/x/y/z
+    
+    settings:
+        slack:
+            channels: [ main_channel ]
+            statuses: [ FAILURE ]
+
+jobs:
+   component:
+    steps:
+      - meta: |
+          meta set notification.slack.component.channels "fail_channel, prod_channel"
+```
+In the above example a Slack notification failure message will be send to channels `fail_channel` and `prod_channel` instead of `main_channel`. All other jobs in this pipeline would still post to `main_channel`.
