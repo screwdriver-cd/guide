@@ -121,4 +121,4 @@ However, if `minimized` is `true`, then the notification will use a format that 
 
 #### Example: Using Metadata
 
-You can also use metadata to set Slack messages. This can be customized for each job. See [notifications section in the metadata page](../metadata#notifications).
+You can also use metadata to set Slack messages. This can be customized for each job. See [notifications section in the metadata page](../metadata#slack-notifications).
