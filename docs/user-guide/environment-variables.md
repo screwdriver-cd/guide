@@ -110,7 +110,8 @@ Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['RE
 | GIT_URL | SCM URL that was checked out with .git appended (e.g.: `https://github.com/d2lam/myPipeline.git`) |
 | CONFIG_URL | SCM URL of the parent pipeline repository (only set for [child pipelines](./configuration/externalConfig)) |
 | GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
-| PR_BRANCH_NAME | Branch name for PR (e.g.: `origin/${BRANCH}` or `upstream/${BRANCH}`) | 
+| PR_BASE_BRANCH_NAME | Base branch name the PR is opened against (e.g.: `${BRANCH}`) |
+| PR_BRANCH_NAME | Branch name of the PR (e.g.: `origin/${BRANCH}` or `upstream/${BRANCH}`) |
 | SD_BUILD_SHA | The Git commit SHA (e.g.: `b5a94cdabf23b21303a0e6d5be5e96bd6300847a`) |
 
 ## URLs
