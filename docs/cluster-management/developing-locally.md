@@ -8,7 +8,7 @@ toc:
       url: "#developing-locally"
       active: true
     - title: Developing locally with executor-queue
-      url: "#developing-locally-with-executor-queue"
+      url: "#developing-locally-with-executor-queue-and-queue-service"
 
 ---
 ## Developing Locally
@@ -182,11 +182,11 @@ While the UI, Screwdriver API, and Store apps are running, you can visit `http:/
 
 ## Developing locally with executor queue and queue service 
 
-Instead of using single docker executor, we can use redis queue to enable screwdriver to run more sophisticated [workflow](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
+Instead of using single Docker executor, we can use the Redis queue to enable Screwdriver to run more sophisticated [workflows](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
 
-### Step 1: Install redis server and client
+### Step 1: Install Redis server and client
 
-> We uses [brew](https://brew.sh/) as Package Manager for mac, you need to have `brew` installed locally prior to proceeding.
+> We uses [brew](https://brew.sh/) as a Package Manager for Mac, you need to have `brew` installed locally prior to proceeding.
 
 ```bash
 brew install redis
