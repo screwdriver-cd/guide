@@ -9,7 +9,7 @@ toc:
       active: true
 ---
 ## Defining Parameters
-There are 2 ways to define parameters, you can see them both in the example below.
+There are 3 ways to define parameters, you can see them both in the example below.
 
 ```yaml
 parameters:
@@ -17,6 +17,7 @@ parameters:
     nameB:
         value: "value2"
         description: "description of nameB"
+    nameC: ["value1", "value2"]
 ```
 
 **Parameters** is a dictionary which expects `key:value` pairs.
@@ -37,6 +38,13 @@ parameters:
 
 These two examples above are equivalent.
 
+You can also define parameters with array to pick up from some candidates.
+
+```yaml
+parameters:
+    nameA: ["value1", "value2"]
+```
+
 ## Example
 You can see a full screwdriver.yaml example below:
 ```yaml
@@ -48,6 +56,7 @@ parameters:
     az:
         value: "1"
         description: "default availability zone"
+    cluster: ["cluster1", "cluster2"]
 
 jobs:
     main:
@@ -55,6 +64,7 @@ jobs:
         steps:
             - step1: 'echo "Region: $(meta get parameters.region.value)"'
             - step2: 'echo "AZ: $(meta get parameters.az.value)"'
+            - step3: 'echo "Cluster: $(meta get parameters.cluster.value)"'
 ```
 
 You can also preview the parameters that are used during a build in the `Setup` -> `sd-setup-init` step.
@@ -62,6 +72,8 @@ You can also preview the parameters that are used during a build in the `Setup` 
 Pipeline Preview Screenshot:
 
 ![image](../assets/parameters1-event-start.png)
+
+![image](../assets/parameters1-event-start-dropdown.png)
 
 ![image](../assets/parameters2-sd-init-step.png)
 
