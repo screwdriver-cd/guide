@@ -33,3 +33,5 @@ toc:
  | Sequelize              | Multi SQL dialect ORM for Node.js | [MIT](https://github.com/sequelize/sequelize/blob/master/LICENSE) |
  | SonarQube (Optional)   | For providing code analysis via [coverage-sonar bookend](https://github.com/screwdriver-cd/coverage-sonar) | [GNU V3](https://www.sonarqube.org/downloads/license) |
  | Swagger                | For API documentation | [Apache 2.0](https://swagger.io/license) |
+ | Prometheus(Optional)   | For metrics based monitoring | [Apache 2.0](https://github.com/prometheus/prometheus/blob/master/LICENSE) |
+ | Prometheus Pushgateway(Optional) | For build metrics  | [Apache 2.0](https://github.com/prometheus/pushgateway/blob/master/LICENSE) |
