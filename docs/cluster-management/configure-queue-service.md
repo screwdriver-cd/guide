@@ -121,3 +121,11 @@ plugins:
     blockedBySelf: false
     collapse: false
 ```
+
+### Configure pushgateway
+
+Configure pushgateway to collect [build metrics](./collect-metrics#build-metrics).
+
+|Key                        | Required | Default | Description     |
+|:--------------------------|:---------|:--------|:----------------|
+|ECOSYSTEM_PUSHGATEWAY_URL  | No       |         | Pushgateway URL |
