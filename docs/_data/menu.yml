@@ -72,6 +72,8 @@
       url: "/cluster-management/dependencies"
     - title: "Configure Build"
       url: "/cluster-management/configure-build"
+    - title: "Collect Metrics"
+      url: "/cluster-management/collect-metrics"
     - title: "FAQ"
       url: "/cluster-management/FAQ"
 - title: "About"

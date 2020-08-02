@@ -124,3 +124,9 @@ plugins:
     blockedBySelf: false
     collapse: false
 ```
+### Pushgatewayの設定
+[ビルドメトリクス](./collect-metrics#build-metrics)を取得する場合はPushgatewayの設定を追加する必要があります。
+
+|Key                        | Required | Default | Description     |
+|:--------------------------|:---------|:--------|:----------------|
+|ECOSYSTEM_PUSHGATEWAY_URL  | いいえ   |         | Pushgateway URL |
