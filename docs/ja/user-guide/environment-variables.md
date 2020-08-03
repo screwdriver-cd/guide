@@ -116,7 +116,8 @@ SCM_URL | チェックアウトされた SCM の URL
 GIT_URL | チェックアウトされた SCM の URL に .git を追加した URL
 CONFIG_URL | 親パイプラインのリポジトリの SCM の URL ([子パイプライン](./configuration/externalConfig)でのみ設定されます)
 GIT_BRANCH | プルリクエストまたはブランチのリファレンス (例: `origin/refs/${PRREF}` または `origin/${BRANCH}`)
-PR_BRANCH_NAME | プルリクエストのブランチ名 (e.g.: `origin/${BRANCH}` または `upstream/${BRANCH}`) | 
+PR_BASE_BRANCH_NAME | プルリクエストのベースとなっているブランチ名 (例: `${BRANCH}`)
+PR_BRANCH_NAME | プルリクエストのブランチ名 (例: `origin/${BRANCH}` または `upstream/${BRANCH}`) | 
 SD_BUILD_SHA | Git の commit SHA (例: `b5a94cdabf23b21303a0e6d5be5e96bd6300847a`) |
 
 ## URLs
