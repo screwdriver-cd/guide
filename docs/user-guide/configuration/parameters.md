@@ -38,7 +38,7 @@ parameters:
 
 These two examples above are equivalent.
 
-You can also define parameters with array to pick up from some candidates. The top value of the array is picked up as default, e.g `value1` is selected as default in the example blow:
+You can also define parameters in an array for drop down options. The first value in the array is picked up as default, e.g `value1` is selected as default in the example below:
 
 ```yaml
 parameters:
