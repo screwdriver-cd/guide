@@ -127,4 +127,4 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 #### 例: Metadataを使用
 
-Metadataを使用してSlackメッセージを設定することもできます。これはジョブごとにカスタマイズできます。[Metadataページの通知](../metadata#通知)を参照してください。
+Metadataを使用してSlackメッセージを設定することもできます。これはジョブごとにカスタマイズできます。[Metadataページの通知](../metadata#Slack通知)を参照してください。

@@ -7,8 +7,8 @@ toc:
     - title: ローカルで開発
       url: "#ローカルで開発"
       active: true
-    - title: executor-queueを使用してローカルで開発
-      url: "#executor-queueを使用してローカルで開発"
+    - title: executor-queueとqueue-serviceを使用してローカルで開発
+      url: "#executor-queueとqueue-serviceを使用してローカルで開発"
 
 ---
 ## ローカルで開発
@@ -186,7 +186,7 @@ docker executor を使用する代わりに、 redis queue を使用すること
 
 ### ステップ 1: redis server と client をインストールする
 
-> mac のパッケージマネージャの [brew](https://brew.sh/) を使用するので、あらかじめ `brew` がローカルにインストールされている必要があります。
+> Mac のパッケージマネージャの [brew](https://brew.sh/) を使用するので、あらかじめ `brew` がローカルにインストールされている必要があります。
 
 ```bash
 brew install redis

@@ -24,8 +24,8 @@ toc:
   url: "#カバレッジとテスト結果"
 - title: <span class="menu-indent">イベントラベル</span>
   url: "#イベントラベル"
-- title: <span class="menu-indent">通知</span>
-  url: "#通知"
+- title: <span class="menu-indent">Slack通知</span>
+  url: "#Slack通知"
 ---
 
 # Metadata
@@ -218,7 +218,7 @@ jobs:
 結果:
 ![Label](./../../user-guide/assets/label-meta.png)
 
-### 通知
+### Slack通知
 
 metaを利用することで[通知](./configuration/settings.html#slack)メッセージをカスタマイズすることができます。metaのキーは通知ブラグインごとに異なります。
 
@@ -235,7 +235,7 @@ jobs:
 Result:
 ![notification-meta](./../../user-guide/assets/notification-meta.png)
 
-#### ジョブベース
+#### ジョブベースのSlackメッセージ
 
 *注意* ジョブベースのSlack通知のメタデータは基本的な通知メッセージを上書きします。
 
@@ -253,3 +253,28 @@ jobs:
 
 Result:
 ![notification-meta](./../../user-guide/assets/notification-meta.png)
+
+#### ジョブベースのSlackチャンネル
+*注意*: ジョブベースのSlackチャンネルのメタデータは基本的なSlack通知チャンネルを上書きするだけです。[チャンネル通知](./configuration/settings#slack)設定の代わりになるものではありません。
+
+メタ変数の構造は、`notification.slack.<jobName>.channels`です。
+`<jobname>`をScrewdriver.cdのジョブ名に置き換えます。
+
+コンマ区切りの文字列にすることで、複数のチャンネルを設定することができます。
+
+`component`ジョブで失敗した時に別のSlackチャンネルへ通知するscrewdriver.yamlの例:
+```yaml
+shared:
+    image: docker.ouroath.com:4443/x/y/z
+    
+    settings:
+        slack:
+            channels: [ main_channel ]
+            statuses: [ FAILURE ]
+jobs:
+   component:
+    steps:
+      - meta: |
+          meta set notification.slack.component.channels "fail_channel, prod_channel"
+```
+上記の例では、Slackの失敗通知のメッセージは`main_channel`へ送られる代わりに`fail_channel`と、`prod_channel`へ送られます。パイプラインの他のすべてのジョブは、`main_channel`へ通知します。
