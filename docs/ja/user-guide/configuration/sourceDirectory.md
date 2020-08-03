@@ -40,7 +40,7 @@ toc:
 
 この例では、`requires: [~commit, ~pr]`としているジョブは、`myapp2`ディレクトリ以下のファイルに変更が発生した場合にトリガーされます。
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/monorepo-example
+サンプルリポジトリ: https://github.com/screwdriver-cd-test/source-dir-example
 
 ### 注意点
 - この機能は現在は[Github SCM](https://github.com/screwdriver-cd/scm-github)を利用の場合のみ利用可能です。
