@@ -120,10 +120,12 @@ In order to use Sonar in your cluster, set up a Sonar server (see example at [ou
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | Yes      | Should be `sonar`     |
 | URI             | Yes      | Screwdriver API url   |
+| ECOSYSTEM_UI    | Yes      | Screwdriver UI url    |
 | COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
 | COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
+| COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise (true) or open source edition of SonarQube(false); default `false` |
 
-You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details.
+You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details. Using Enterprise edition of SonarQube will default to _pipeline_ scope for SonarQube project keys and names. Will also allow for usage of PR analysis and prevent creation of separate projects for each Screwdriver job. Using non-Enterprise SonarQube will default to _job_ scope for SonarQube project keys and names.
 
 ### Serving
 
