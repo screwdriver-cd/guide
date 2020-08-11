@@ -496,7 +496,7 @@ scms:
             email: dev-null@screwdriver.cd # [Optional] Email for code checkout
             commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] Token for writing PR comments in Github, needs "public_repo" scope
             privateRepo: false # [Optional] Set to true to support private repo; will need read and write access to public and private repos (https://developer.github.com/v3/oauth/#scopes)
-            autoDeployKeyGeneration: false # Set to true to allow automatic generation of private and public deploy keys and add them to the build pipeline and github respectively
+            autoDeployKeyGeneration: false # [Optional] Set to true to allow automatic generation of private and public deploy keys and add them to the build pipeline and Github, respectively
 ```
 
 If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
@@ -505,8 +505,10 @@ In order to enable [meta PR comments](../user-guide/metadata), you’ll need to 
 
 ###### Deploy Keys
 
+Deploy Keys are repo specific SSH keys. As opposed to Personal Access Tokens. which give user-wide access for all the repositories, deploy keys, because of their limited access, are preferred for private repositories. 
+
 If users want to use deploy keys in their pipeline they have 2 options:
-* Enable automatic generation and handling of deploy keys as a part of the pipeline by using the `autoDeployKeyGeneration` flag in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
+* Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
 * Manually generate the public and private key pair using `openssl genrsa -out jwt.pem 2048` and `openssl rsa -in jwt.pem -pubout -out jwt.pub`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](../../user-guide/configuration/secrets) for adding secrets.
 
 
