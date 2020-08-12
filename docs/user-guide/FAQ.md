@@ -49,7 +49,7 @@ toc:
       url: "#how-do-i-run-my-pipeline-when-commits-made-from-inside-a-build-are-pushed-to-my-git-repository"
     - title: 'Why do my pull request builds fail with the error: "fatal: refusing to merge unrelated histories" in the sd-setup-scm step?'
       url: "#why-do-my-pull-request-builds-fail-with-the-error-fatal-refusing-to-merge-unrelated-histories-in-the-sd-setup-scm-step"
-    - title: 'Why do I get "Not Found" when I try to Start my pipeline?'
+    - title: 'Why do I get "Not Found" when I try to start my pipeline?'
       url: "#why-do-i-get-not-found-when-i-try-to-start-my-pipeline%3F"
 
 
