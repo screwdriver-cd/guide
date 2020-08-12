@@ -200,6 +200,6 @@ If your pull request branch has more than `$GIT_SHALLOW_CLONE_DEPTH` commits (de
 
 To resolve this issue, you could disable or tune the shallow clone settings ([see them listed here](./environment-variables#user-configurable)) for your job, or reduce the number of commits on your feature branch (e.g. rebase and squash).
 
-## Why do I get `Not Found` when I try to Start my pipeline?
+## Why do I get `Not Found` when I try to start my pipeline?
 
-Screwdriver Pipeline has a 1:1 relation to underlying SCM Repo and this is validated by not only using the SCM Repo Name but also it's unique id. `Not Found` error occurs when the SCM Repo is deleted and re-created under same Repo name (delete & re-fork has same effect). This results in the new SCM Repo getting a new id and hence failing Screwdriver validations. If your pipeline is in this state, your only option is to re-create the pipeline and reach out Screwdriver cluster admin to remove  the old Pipeline.
+Screwdriver pipelines have a 1:1 relation to the underlying SCM repository and this is validated by using not only the SCM repository name but also its unique repository ID. The `Not Found` error occurs when the SCM repository is deleted and re-created under same repository name (delete & re-fork has same effect). This action results in the new SCM repository getting a new ID and hence failing Screwdriver validations. If your pipeline is in this state, your only option is to re-create the pipeline and reach out Screwdriver cluster admin to remove the old pipeline.
