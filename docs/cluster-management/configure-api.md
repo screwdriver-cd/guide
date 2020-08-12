@@ -505,7 +505,7 @@ In order to enable [meta PR comments](../user-guide/metadata), you’ll need to 
 
 ###### Deploy Keys
 
-Deploy Keys are repo specific SSH keys. As opposed to Personal Access Tokens. which give user-wide access for all the repositories, deploy keys, because of their limited access, are preferred for private repositories. 
+Deploy Keys are SSH keys that grant access to a single GitHub repository. This key is attached directly to the repository instead of to a personal user account, as opposed to Github personal access tokens. Github personal access tokens give user-wide access for all the repositories while deploy keys, on the other hand, give access to a single repository. Due to their limited access, deploy keys are preferred for private repositories. 
 
 If users want to use deploy keys in their pipeline they have 2 options:
 * Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
