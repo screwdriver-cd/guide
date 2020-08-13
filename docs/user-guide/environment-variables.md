@@ -76,6 +76,9 @@ These environment variables may or may not be available depending on what plugin
 |------|-------|
 | SD_SONAR_AUTH_URL | Screwdriver API authentication URL that will return a Sonar access token |
 | SD_SONAR_HOST | Sonar host URL |
+| SD_SONAR_ENTERPRISE | Whether using Enterprise (true) or open source edition of SonarQube(false) |
+| SD_SONAR_PROJECT_KEY | Sonar project key (e.g.: `pipeline:123` or `job:456`) |
+| SD_SONAR_PROJECT_NAME | Sonar project name (e.g.: `d2lam/myPipeline` or `d2lam/myPipeline:main`) |
 
 ## Directories
 
