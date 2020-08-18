@@ -4,7 +4,7 @@
   subcategories:
     - title: "Quickstart"
       url: "/user-guide/quickstart"
-    - title: "Access Tokens"
+    - title: "Tokens"
       url: "/user-guide/tokens"
     - title: "API"
       url: "/user-guide/api"

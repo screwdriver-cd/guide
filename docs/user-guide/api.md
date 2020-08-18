@@ -55,7 +55,7 @@ Example request:
 
 ### With User or Pipeline tokens
 
-For easy scripting with our API, we recommend using [API access tokens](./tokens).
+For easy scripting with our API, we recommend using [tokens](./tokens).
 
 #### Using Tokens to Authenticate
 To authenticate with your newly created token, make a GET request to `https://${API_URL}/v4/auth/token?api_token=${YOUR_TOKEN_VALUE}`. This returns a JSON object with a token field. The value of this field will be a JSON Web Token, which you can use in an Authorization header to make further requests to the Screwdriver API. This JWT will be valid for 12 hours, after which you must re-authenticate.
