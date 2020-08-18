@@ -4,6 +4,8 @@
   subcategories:
     - title: "Quickstart"
       url: "/user-guide/quickstart"
+    - title: "Access Tokens"
+      url: "/user-guide/tokens"
     - title: "API"
       url: "/user-guide/api"
     - title: "Authentication and Authorization"

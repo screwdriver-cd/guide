@@ -53,9 +53,9 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 Example request:
 ![Postman response](./assets/postman.png)
 
-### With User or Pipeline API tokens
+### With User or Pipeline tokens
 
-For easy scripting with our API, we recommend using API tokens.
+For easy scripting with our API, we recommend using [API access tokens](./tokens).
 
 #### Using Tokens to Authenticate
 To authenticate with your newly created token, make a GET request to `https://${API_URL}/v4/auth/token?api_token=${YOUR_TOKEN_VALUE}`. This returns a JSON object with a token field. The value of this field will be a JSON Web Token, which you can use in an Authorization header to make further requests to the Screwdriver API. This JWT will be valid for 12 hours, after which you must re-authenticate.
@@ -88,9 +88,7 @@ an `Authorization` header.
 * To generate a JWT with OAuth, visit the `/v4/auth/login` endpoint, which will redirect you to the `/v4/auth/token` endpoint.
 * To generate a JWT with a Screwdriver API Token, make a `GET` request to the `/v4/auth/token` endpoint with your API token as the `api_token` query parameter.
 
-Screwdriver user API tokens can be managed from [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings). Pipeline API tokens can be managed from your Screwdriver pipeline's Secrets tab.
-
-Authorization is handled by your SCM. Screwdriver uses SCM user tokens
+[Authorization](./authentication-authorization) is handled by your SCM. Screwdriver uses SCM user tokens
 and identity to:
 
  - identify what repositories you have read, write, and admin access to
