@@ -56,6 +56,7 @@ You can configure a list of one or more email addresses to contact. You can also
 To enable Slack notifications to be sent as a result of build events, invite the `screwdriver-bot` Slack bot to your channel(s) and use the Slack setting in your Screwdriver yaml. Both public and private channels are supported. You can configure a list of one or more Slack channels to notify.
 
 You can also configure when to send a Slack notification, e.g. when the build status is `SUCCESS` and/or `FAILURE`. If no `statuses` field is set, the build will only send notifications for build failures. For a list of statuses, see the [data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96). There is another status `FIXED` which is not listed on [data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96). `FIXED` is emitted when the build status changes from `FAILURE` to `SUCCESS`.
+You can receive 'FIXED' notification when "FAILURE" is set in  `statuses` field.
 
 You may also choose whether to use the default notification format or a more compact one using the `minimized` setting.
 
