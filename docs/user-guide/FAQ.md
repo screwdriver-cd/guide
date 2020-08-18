@@ -39,6 +39,8 @@ toc:
       url: "#what-shell-does-screwdriver-use"
     - title: How do I speed up time to upload artifacts?
       url: "#how-do-i-speed-up-time-to-upload-artifacts"
+    - title: How do I permalink pipeline jobs and artifacts?
+      url: "#how-do-i-permalink-pipeline-jobs-and-artifacts"
     - title: How do I disable shallow cloning?
       url: "#how-do-i-disable-shallow-cloning"
     - title: What are the minimum software requirements for a build image?
@@ -51,7 +53,6 @@ toc:
       url: "#why-do-my-pull-request-builds-fail-with-the-error-fatal-refusing-to-merge-unrelated-histories-in-the-sd-setup-scm-step"
     - title: 'Why do I get "Not Found" when I try to start my pipeline?'
       url: "#why-do-i-get-not-found-when-i-try-to-start-my-pipeline"
-
 
 ---
 
@@ -167,6 +168,29 @@ By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You c
 
 ## How do I speed up time to upload artifacts?
 You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.
+
+## How do I permalink pipeline jobs and artifacts?
+You can follow the following conventions to permalink your jobs and artifacts for your pipelines:
+
+```
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status=SUCCESS
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status=FAILURE
+/pipelines/{PIPELINE_ID}/jobs{JOB_NAME}/3
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/4?status=SUCCESS
+
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts?status=SUCCESS
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts/file-path?status=SUCCESS
+```
+
+Examples:
+
+```
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=SUCCESS
+https://cd.screwdriver.cd/pipelines/1/jobs/main/6
+
+https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts?status=SUCCESS
+https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts/meta.json?status=SUCCESS
+```
 
 ## How do I disable shallow cloning?
 You can set the environment variable [`GIT_SHALLOW_CLONE`](./environment-variables#user-configurable) to `false` in order to disable shallow cloning.
