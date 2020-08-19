@@ -170,23 +170,23 @@ By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You c
 You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.
 
 ## How do I permalink pipeline jobs and artifacts?
-You can follow the following conventions to permalink your jobs and artifacts for your pipelines:
+You can follow the following conventions to permalink your jobs and artifacts for your pipelines with given [STATUS](./configuration/settings):
 
 ```
-/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status=SUCCESS
-/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status=FAILURE
-/pipelines/{PIPELINE_ID}/jobs{JOB_NAME}/3
-/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/4?status=SUCCESS
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status={STATUS}
 
-/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts?status=SUCCESS
-/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts/file-path?status=SUCCESS
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts?status={STATUS}
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts/file-path?status={STATUS}
 ```
+
 
 Examples:
 
 ```
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest
 https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=SUCCESS
-https://cd.screwdriver.cd/pipelines/1/jobs/main/6
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=FAILURE
 
 https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts?status=SUCCESS
 https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts/meta.json?status=SUCCESS
