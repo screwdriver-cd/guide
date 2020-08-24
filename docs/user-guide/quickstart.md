@@ -111,7 +111,7 @@ In order to use Screwdriver, you will need to login to Screwdriver using Github,
 
 1. _You will be asked to give Screwdriver access to your repositories. Choose appropriately and click Authorize._
 
-1. Enter your repository link into the field. SSH or HTTPS link is fine, with `#<YOUR_BRANCH_NAME>` immediately after (ex: `git@github.com:screwdriver-cd/guide.git#test`). If no `BRANCH_NAME` is provided, it will default to the `master` branch.
+1. Enter your repository link into the field. SSH or HTTPS link is fine, with `#<YOUR_BRANCH_NAME>` immediately after (ex: `git@github.com:screwdriver-cd/guide.git#test`). If no `BRANCH_NAME` is provided, it will default to the default branch configured in the SCM.
 Click Use this repository to confirm and then click Create Pipeline.
 
 ### Start Your First Build

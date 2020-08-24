@@ -140,7 +140,7 @@ is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a
 Branch filtering lets you listen to events happening beyond the pipeline's specified branch. To trigger jobs in your pipeline after a commit is made on a specific branch, you can use `requires: [~commit:branchName]`. To trigger jobs in your pipeline after a pull request is made against a specific branch, you can use `requires: [~pr:branchName]`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`), although note that regex flags are not supported.
 
 ### Example
-In the following example, when a commit is made on branch `staging`, `staging-commit` and `all-commit` are triggered. Also, when a commit is made on branch `master`, `main` and `all-commit` are triggered. When a pull request is opened against branch `staging`, `staging-pr` is triggered.
+In the following example, when a commit is made on branch `staging`, both `staging-commit` job and `all-commit` job are triggered. Also, when a commit is made on branch `default`, both `main` job and `all-commit` job are triggered. When a pull request is opened against branch `staging`, `staging-pr` job is triggered.
 
 ```
 shared:
