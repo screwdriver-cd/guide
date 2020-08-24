@@ -78,13 +78,13 @@ steps:
 
 You might want to skip a build if you're only changing documentation.
 
- If you don't want Screwdriver to trigger a build when you're pushing to master, add `[ci skip]` or `[skip ci]` somewhere in the commit message. If you don't want Screwdriver to trigger a build when you merge a pull request, add `[ci skip]` or `[skip ci]` to the pull request title.
+ If you don't want Screwdriver to trigger a build when you're pushing to your base branch, add `[ci skip]` or `[skip ci]` somewhere in the commit message. If you don't want Screwdriver to trigger a build when you merge a pull request, add `[ci skip]` or `[skip ci]` to the pull request title.
 
 _Note: Doesn't apply to pull request builds: a commit message containing `[skip ci]` or `[ci skip]` will still trigger a pre-commit job (a PR job will always run)._
 
 ## How do I create a pipeline?
 
-To create a pipeline, click the Create icon and paste a Git URL into the form. Followed by `#` and the branch name, if the branch is not `master`.
+To create a pipeline, click the Create icon and paste a Git URL into the form. Followed by `#` and the branch name, otherwise SCM default branch will be used.
 
 ![Create a pipeline](./assets/create-pipeline.png)
 
