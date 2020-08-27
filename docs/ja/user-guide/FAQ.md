@@ -43,6 +43,8 @@ toc:
   url: "#Screwdriverが使用しているシェルは？"
 - title: Artifactsをアップロードする時間を短縮するには？
   url: "#Artifactsをアップロードする時間を短縮するには？"
+- title: パイプラインのジョブやArtifactsへのPermalinkは？
+  url: "#パイプラインのジョブやArtifactsへのPermalinkは？"
 - title: shallow cloningを無効にするには？
   url: "#shallow-cloningを無効にするには？"
 - title: ビルドイメージの最小ソフトウェア要件は？
@@ -53,6 +55,8 @@ toc:
   url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
 - title: sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？
   url "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
+- title: パイプラインをスタートさせた時に`Not found`となるのはなぜ？
+  url "#パイプラインをスタートさせた時に`Not found`となるのはなぜ？"
 
 ---
 
@@ -78,7 +82,7 @@ steps:
 
 README等ちょっとしたドキュメント修正のみの時など、screwdriverのビルドをスキップさせたい場合があると思います。
 
-masterにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字列を追加してください。
+ベースブランチにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字列を追加してください。
 また、プルリクエストのマージ時にビルドをスキップさせたい場合は、プルリクエストのタイトル欄に `[ci skip]` または `[skip ci]`の文字列を追加してください。
 
 注意: プルリクエストビルドはスキップ出来ません。
@@ -86,7 +90,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ## パイプラインの作り方は？
 
-新しいパイプラインを作成するには、画面右上の作成アイコンをクリックし、gitリポジトリのURLをフォームに入力してください。master以外のブランチを指定する場合は、`#`の後にブランチ名を指定してください。
+新しいパイプラインを作成するには、画面右上の作成アイコンをクリックし、gitリポジトリのURLをフォームに入力してください。ベースブランチ以外のブランチを指定する場合は、`#`の後にブランチ名を指定してください。
 
 ![Create a pipeline](../../user-guide/assets/create-pipeline.png)
 
@@ -180,6 +184,28 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 管理者が予め使用できるように設定していれば、[`SD_ZIP_ARTIFACTS`](./environment-variables#ユーザ設定)の環境変数を`true`にすることで、Artifactsをアップロードする前にzip化します。
 
+### パイプラインのジョブやArtifactsへのPermalinkは？
+
+パイプラインのジョブやArtifactsを指定された[ステータス]((./configuration/settings))でパーマリンクするには、以下の形式で指定できます。
+
+```
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status={STATUS}
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts?status={STATUS}
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts/file-path?status={STATUS}
+```
+
+
+例:
+
+```
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=SUCCESS
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=FAILURE
+https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts?status=SUCCESS
+https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts/meta.json?status=SUCCESS
+```
+
 ### shallow cloningを無効にするには？
 
 shallow cloningを無効にするには、[`GIT_SHALLOW_CLONE`](./environment-variables#ユーザ設定)の環境変数を`false`にセットします。
@@ -215,3 +241,7 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 この問題を解決するには、`$GIT_SHALLOW_CLONE`を無効にする、大きな数に調整するまたは、featureブランチのコミット数を減らしてください。
 (例: rebase, squashなど)  
 詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
+
+## パイプラインをスタートさせた時に`Not found`となるのはなぜ？
+
+Screwdriverのパイプラインは利用しているSCMのリポジトリと1対1の関係があり、この関係はSCMのリポジトリ名だけでなくリポジトリのユニークIDによって関係付けられています。`Not Found`エラーはSCMのリポジトリを削除して同じ名前で再作成した際に発生します（削除後に再度forkした場合も同じです）。この操作により新しいSCMのリポジトリは新しいIDで作成されるのでScrewdriverの検証で失敗します。もしパイプラインがこの状態になってしまったら、パイプラインを再作成してScrewdriverのクラスタ管理者へ連絡して古いパイプラインを削除してもらうしかありません。

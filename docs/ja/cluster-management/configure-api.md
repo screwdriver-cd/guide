@@ -121,10 +121,12 @@ bookends:
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | はい | `sonar` としてください |
 | URI | はい | Screwdriver の API の URI |
+| ECOSYSTEM_UI | はい | Screwdriver の UI の URL |
 | COVERAGE_SONAR_HOST | はい | Sonar の host の URL |
 | COVERAGE_SONAR_ADMIN_TOKEN | はい | Sonar の admin token |
+| COVERAGE_SONAR_ENTERPRISE | いいえ | SonarQube を Enterprise 版で利用している（true）か、OpenSourceEdition で利用している(false）か。デフォルト値は `false` |
 
-更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。
+更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。SonarQube の Enterprise 版を利用している場合には、 SonarQube のプロジェクトキーや名前はデフォルトでは _パイプライン_ スコープになります。これにより、 PR 解析が使えるようになったり、 Screwdriver のジョブ毎に個別のプロジェクトが作成されることを防げます。Enterprise 版の SonarQube を使用していない場合、SonarQube のプロジェクトキーや名前はデフォルトでは _ジョブ_ スコープになります。
 
 ### 配信
 
@@ -505,11 +507,20 @@ scms:
             email: dev-null@screwdriver.cd # [Optional] checkoutするユーザのEmailアドレス
             commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] GithubのPRにコメントを書き込むためのトークン、"public_repo"のスコープが必要
             privateRepo: false # [Optional] プライベートレポジトリの read/write権限
+            autoDeployKeyGeneration: false # [Optional] trueにすると、deploy keyの公開鍵と秘密鍵を自動で生成し、それぞれをビルドパイプラインとチェックアウト用の Github のリポジトリに追加します。
 ```
 
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
 
 [メタPRコメント](../user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
+
+###### Deploy Keys
+
+Deploy Keyは、単一のGitHubリポジトリへのアクセスが許可されているSSH鍵です。この鍵はGitHubのpersonal access tokenと反対に、個人のユーザアカウントではなくリポジトリに直接紐付けられてます。GitHubのpersonal access tokenは全てのリポジトリに対してユーザ単位でのアクセス権を与える一方、Deploy Keyは単一のリポジトリへのアクセスを許可します。アクセスの制限が可能となるため、privateリポジトリではDeploy Keyの利用をおすすめします。
+
+パイプラインでDeploy Keyを利用したい場合、2つの方法があります:
+* `config/local.yaml`で、`autoDeployKeyGeneration`のフラグを`true`にすることで、パイプラインの一部としてDeploy Keyの自動生成と処理を有効にします。フラグを`true`にすることで、ユーザはUIで自動生成のオプションを追加できるようになります。
+* `openssl genrsa -out jwt.pem 2048`と`openssl rsa -in jwt.pem -pubout -out jwt.pub`を使用して公開鍵と秘密鍵のペアを手動で生成します。そして、公開鍵をDeploy Keyとしてリポジトリに登録します。秘密鍵は**base64でエンコード**される必要があり、それを`SD_SCM_DEPLOY_KEY`のsecretsとしてパイプラインに追加します。secretsの追加方法は、[secrets](../../user-guide/configuration/secrets)を参照してください。
 
 ##### Bitbucket.org
 

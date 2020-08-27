@@ -118,7 +118,7 @@ Screwdriverを利用するには、Githubを利用してScrewdriverにログイ�
 
 3. *あなたのリポジトリへのアクセス権をScrewdriverに与えてよいか確認されます。適切に選択し、Authorizeボタンをクリックします。*
 
-4. ビルド対象リポジトリのリンクを入力します。SSHかHTTPSリンクの後に`#<YOUR_BRANCH_NAME>`を付加します(例：`git@github.com:screwdriver-cd/guide.git#test`)。`BRANCH_NAME`が指定されていない場合、デフォルトとして`master`ブランチが指定されます。 "Use this repository" をクリックし、 ”Create Pipeline" をクリックします。
+4. ビルド対象リポジトリのリンクを入力します。SSHかHTTPSリンクの後に`#<YOUR_BRANCH_NAME>`を付加します(例：`git@github.com:screwdriver-cd/guide.git#test`)。`BRANCH_NAME`が指定されていない場合、デフォルトとしてSCMで設定されているデフォルトブランチが指定されます。 "Use this repository" をクリックし、 ”Create Pipeline" をクリックします。
 
 ### はじめてのビルドを開始
 
