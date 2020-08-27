@@ -155,7 +155,7 @@ jobs:
 
 ### 例
 
-以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`と `all-commit`がトリガーされます。また、`master`ブランチに対してコミットされると、` main`と `all-commit`がトリガーされます。プルリクエストが`staging`ブランチに対してオープンされると、` staging-pr`がトリガーされます。
+以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`ジョブと `all-commit`ジョブが両方トリガーされます。また、`default`ブランチに対してコミットされると、` main`ジョブと `all-commit`ジョブが両方トリガーされます。プルリクエストが`staging`ブランチに対してオープンされると、` staging-pr`ジョブがトリガーされます。
 ```
 shared:
     image: node:8

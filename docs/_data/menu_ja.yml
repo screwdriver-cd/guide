@@ -4,6 +4,8 @@
   subcategories:
     - title: "クイックスタート"
       url: "/ja/user-guide/quickstart"
+    - title: "トークン"
+      url: "/ja/user-guide/tokens"
     - title: "API"
       url: "/ja/user-guide/api"
     - title: "認証と認可"

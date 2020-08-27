@@ -9,7 +9,7 @@ toc:
       active: true
 ---
 ## パラメーター定義
-パラメータを定義するには、以下の例のように2つの方法があります。
+パラメータを定義するには、以下の例のように3つの方法があります。
 
 ```yaml
 parameters:
@@ -17,6 +17,7 @@ parameters:
     nameB:
         value: "value2"
         description: "description of nameB"
+    nameC: ["value1", "value2"]
 ```
 
 **パラメーター**とは`key:value`のペアで定義できるものです。
@@ -37,6 +38,13 @@ parameters:
 
 上記の2つの例は同等のものです。
 
+ドロップダウンから選択するために、パラメーターを配列で定義することもできます。配列の先頭要素がデフォルトとして使われます。例えば、以下の例では`value1`がデフォルトとして選択されます。
+
+```yaml
+parameters:
+    nameA: ["value1", "value2"]
+```
+
 ## 例
 screwdriver.yamlの全容は以下の通り:
 ```yaml
@@ -48,6 +56,7 @@ parameters:
     az:
         value: "1"
         description: "default availability zone"
+    cluster: ["cluster1", "cluster2"]
 
 jobs:
     main:
@@ -55,6 +64,7 @@ jobs:
         steps:
             - step1: 'echo "Region: $(meta get parameters.region.value)"'
             - step2: 'echo "AZ: $(meta get parameters.az.value)"'
+            - step3: 'echo "Cluster: $(meta get parameters.cluster.value)"'
 ```
 
 ビルドで利用されるパラメーターは`Setup` -> `sd-setup-init`ステップで確認することができます。
@@ -62,6 +72,8 @@ jobs:
 パイプラインの動作イメージ:
 
 ![image](../../../user-guide/assets/parameters1-event-start.png)
+
+![image](../../../user-guide/assets/parameters1-event-start-dropdown.png)
 
 ![image](../../../user-guide/assets/parameters2-sd-init-step.png)
 
