@@ -274,8 +274,6 @@ git clone git@github.com:screwdriver-cd/queue-service.git
  ecosystem:
     # Externally routable URL for the User Interface
     ui: http://sd.screwdriver.cd:4200
-    # Externally routable URL for the API
-    api: http://$YOUR_IP:9001
     # Externally routable URL for the Artifact Store
     store: http://$YOUR_IP:9002
     # Routable URI of the queue service
@@ -283,7 +281,17 @@ git clone git@github.com:screwdriver-cd/queue-service.git
 
  executor:
     plugin: queue # <- this step is essential in order to use queue
-    queue: ''
+    queue:
+        options:
+            # Configuration of the redis instance containing resque
+            redisConnection:
+                host: "127.0.0.1"
+                port: 6379
+                options:
+                    password: 'a-secure-password'
+                    tls: false
+                database: 0
+                prefix: ""
 ```
 
 Now, you start the screwdriver backend server and queue service to use redis queue. 
