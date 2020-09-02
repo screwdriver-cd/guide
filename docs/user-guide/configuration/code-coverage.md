@@ -19,7 +19,7 @@ We currently support [SonarQube](https://github.com/screwdriver-cd/coverage-sona
 
 ## SonarQube
 
-You can configure Sonar properties in your `sonar-project.properties` file or in your screwdriver.yaml as an environment variable. The property `sonar.sources` is always required, and should be set to your source path.
+You can configure Sonar properties in your `sonar-project.properties` file or in your screwdriver.yaml as the `$SD_SONAR_OPTS` environment variable. The property `sonar.sources` is always required, and should be set to your source path.
 
 ### sonar-project.properties
 
@@ -55,7 +55,7 @@ jobs:
 ### Notes
 
 - If you define the same property in both the `sonar-project.properties` file and `$SD_SONAR_OPTS`, `$SD_SONAR_OPTS` will override the properties file.
-- Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`; you must set `sonar.sources` yourself.
+- Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`; **you must set `sonar.sources` yourself**.
 
 ### Related links
 - [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
@@ -63,3 +63,6 @@ jobs:
 - [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript)
 - [Examples from the SonarQube website](https://github.com/SonarSource/sonar-scanning-examples)
 - [SonarQube docs](https://docs.sonarqube.org/display/SCAN)
+
+### Github pull request decoration
+If your Screwdriver cluster supports Sonar Enterprise, you might have the ability to add [Pull Request decoration](https://docs.sonarqube.org/7.8/analysis/pull-request/) to Checks in GitHub. If this feature is supported, you can enable it by adding the Screwdriver Sonar PR Checks Github app to your repository. Check with your Screwdriver cluster admin for support details.
