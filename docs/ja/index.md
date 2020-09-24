@@ -31,17 +31,6 @@ is_homepage: 'true'
 </div>
 
 <div class="row">
-  <div class="col-xs-12">
-    <div class="demo">
-      <h2>デモビデオ</h2>
-      <video controls>
-      <source src="https://s3-us-west-2.amazonaws.com/static.screwdriver.cd/videos/SD+Video+Demo.mp4" type="video/mp4">
-      </video>
-    <div>
-  </div>
-</div>
-
-<div class="row">
     <div class="col-xs-12 extra">
         <p>初めてScrewdriverを利用する場合、まずは<a href="http://docs.screwdriver.cd/ja/about/appendix/domain">ドメインモデル</a>と<a href="http://docs.screwdriver.cd/ja/user-guide/configuration/index">YAML設定</a>を読み、Screwdriverの各種概念を理解した上でそれらがどのように繋がっているかを理解することから始めてみましょう。
         <a href="http://docs.screwdriver.cd/ja/user-guide/quickstart">クイックスタートの例</a>より様々な言語のビルドを実際に試すことができます。</p>
