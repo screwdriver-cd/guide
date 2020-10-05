@@ -36,6 +36,23 @@ Download a latest binary of [sd-local](https://github.com/screwdriver-cd/sd-loca
 $ mv sd-local_*_amd64 /usr/local/bin/sd-local
 $ chmod +x /usr/local/bin/sd-local
 ```
+## How to Update
+Use the sd-local update command.
+```bash
+$ sd-local update
+Do you want to update to 1.0.5? (y/n): y
+Successfully updated to version 1.0.5
+```
+If you get the following error while running the update command,
+```
+Error occurred while detecting version: GET https://api.github.com/repos/screwdriver-cd/sd-local/releases: 403 API rate limit exceeded.
+```
+Please set the [GitHub personal access token.](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)
+### bash
+```bash
+export GITHUB_TOKEN=<token>
+```
+
 
 # Quick start
 This section describes the steps needed to execute a build with sd-local.  
