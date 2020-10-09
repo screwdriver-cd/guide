@@ -216,7 +216,7 @@ Screwdriver uses `sd_buildbot` as default [git user](https://github.com/screwdri
 
 This has implications for webhook processing. In order to prevent headless users from running your pipeline indefinitely, Screwdriver cluster admins can configure Screwdriver webhook processor to ignore commits made by headless users. This is done by setting [IGNORE_COMMITS_BY](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325) environment variable. Default git user `sd-buildbot` is usually added to this list.
 
-Users can override this behavior by using a different git user. For example `git config --global user.name my-buildbot`. With this, your `git` commits from a Screwdriver build will be associated with user `my-buildbot` and will run Screwdriver pipeline without getting ignored by webhook processor.
+Users can override this behavior by using a different git user. For example `git config --global user.name my-buildbot` and `git config --global user.email my-buildbot-email`. With this, your `git` commits from a Screwdriver build will be associated with user `my-buildbot` and will run Screwdriver pipeline without getting ignored by webhook processor.
 
 ## Why do my pull request builds fail with the error: `fatal: refusing to merge unrelated histories` in the sd-setup-scm step?
 
