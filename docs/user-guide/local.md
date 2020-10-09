@@ -40,8 +40,8 @@ $ chmod +x /usr/local/bin/sd-local
 Use the sd-local update command.
 ```bash
 $ sd-local update
-Do you want to update to 1.0.5? [y/N]: y
-Successfully updated to version 1.0.5
+Do you want to update to 1.0.x? [y/N]: y
+Successfully updated to version 1.0.x
 ```
 If you get the following error while running the update command,
 ```
