@@ -173,7 +173,7 @@ ecosystem:
     # Badge service (needs to add a status and color)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
     # Internally routable FQDNS of the queue svc
-    queue: http://sdqueuesvc.screwdriver.svc.cluster.local 
+    queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
 
 ### Datastore Plugin
@@ -506,7 +506,7 @@ In order to enable [meta PR comments](../user-guide/metadata), you’ll need to 
 
 ###### Deploy Keys
 
-Deploy Keys are SSH keys that grant access to a single GitHub repository. This key is attached directly to the repository instead of to a personal user account, as opposed to Github personal access tokens. Github personal access tokens give user-wide access for all the repositories while deploy keys, on the other hand, give access to a single repository. Due to their limited access, deploy keys are preferred for private repositories. 
+Deploy Keys are SSH keys that grant access to a single GitHub repository. This key is attached directly to the repository instead of to a personal user account, as opposed to Github personal access tokens. Github personal access tokens give user-wide access for all the repositories while deploy keys, on the other hand, give access to a single repository. Due to their limited access, deploy keys are preferred for private repositories.
 
 If users want to use deploy keys in their pipeline they have 2 options:
 * Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
@@ -542,6 +542,25 @@ webhooks:
     __name: IGNORE_COMMITS_BY
     __format: json
   restrictPR: RESTRICT_PR
+```
+
+### Rate Limiting
+
+Set these environment variables to configure rate limiting by authentication token:
+
+| Environment name     | Default Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| RATE_LIMIT_VARIABLES | `'{ "enabled": false, "limit": 300, "duration": 300000 }'` | JSON string configuration for rate limiting |
+
+Or override the default with the following `config/local.yaml` file.
+
+```yaml
+# config/local.yaml
+rateLimit:
+    enabled: true
+    # limit to max 60 requests in 1 minute
+    limit: 60
+    duration: 60000
 ```
 
 ## Extending the Docker container
