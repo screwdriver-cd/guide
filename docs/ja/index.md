@@ -5,15 +5,11 @@ category: Home
 menu: menu_ja
 is_homepage: 'true'
 ---
-
-
 <div class="top">
     <img src="/assets/Screwdriver_Icon_Full@1x.png">
     <h1>Screwdriverにようこそ</h1>
     <p>ドキュメントは3つの異なるセクションに分かれています</p>
 </div>
-
-
 
 <div class="row">
     <div class="col-xs-6 col-md-4 ug">

@@ -58,6 +58,7 @@ jobs:
 | screwdriver.cd/dockerCpu | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するCPU数を設定することができます。設定される値については`screwdriver.cd/cpu`の説明をご覧ください。 |
 | screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するメモリ容量を設定することができます。設定される値については`screwdriver.cd/ram`の説明をご覧ください。 |
 | screwdriver.cd/coverageScope | `pipeline` / `job` | カバレッジプラグインを利用している場合に、プロジェクトを作成するスコープを設定できます。デフォルト値はクラスタの設定(e.g. `COVERAGE_SONAR_ENTERPRISE`)によるので、クラスタ管理者にご確認ください。 |
+| screwdriver.cd/displayName | パイプライングラフに表示するジョブ名 | パイプライングラフに表示するジョブ名を、yamlのユニーク制約に縛られない自由な名前にできます。 |
 
 ## パイプラインレベルのアノテーション
 
@@ -67,3 +68,4 @@ jobs:
  |------------|--------|-------------|
  | screwdriver.cd/restrictPR | `none` / `all` / `fork` / `branch` | PRジョブが実行されないように制限します。`none` の場合は制限なしを意味します。`all` の場合はすべてのPRジョブ実行を制限します。`fork` はフォークされたリポジトリからのPRを制限します。`branch` はブランチからのPRを制限します。 |
 | screwdriver.cd/chainPR    | `false` / `true` | デフォルトは`false`です。`false`の場合、PRは`requires`に`~pr`を設定しているジョブのみトリガーします。`true`を指定した場合、PRは`requires`に`~pr`を設定しているジョブだけでなく、その後続のジョブも順番にトリガーします。サンプルリポジトリ: https://github.com/screwdriver-cd-test/chain-pr-example |
+| screwdriver.cd/pipelineDescription | パイプラインの説明文 | パイプラインページに説明文を表示します。 |

@@ -19,7 +19,7 @@ toc:
 
 ## SonarQube
 
-Sonar properties を `sonar-project.properties` ファイルや、screwdriver.yaml 内に環境変数として設定することができます。`sonar.sources` のプロパティは必須で、ソースのパスを指定します。
+Sonar properties を `sonar-project.properties` ファイルや、screwdriver.yaml 内に `$SD_SONAR_OPTS` の環境変数として設定することができます。`sonar.sources` のプロパティは必須で、ソースのパスを指定します。
 
 ### sonar-project.properties
 
@@ -55,7 +55,7 @@ jobs:
 ### 注意
 
 - `sonar-project.properties` と `$SD_SONAR_OPTS` で同じプロパティを設定していた場合、`$SD_SONAR_OPTS` の設定が優先されます。
-- Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。`sonar.sources` は自分で設定する必要があります。
+- Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。**`sonar.sources` は自分で設定する必要があります。**
 
 ### 関連リンク
 - [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
@@ -63,3 +63,6 @@ jobs:
 - [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript)
 - [Examples from the SonarQube website](https://github.com/SonarSource/sonar-scanning-examples)
 - [SonarQube docs](https://docs.sonarqube.org/display/SCAN)
+
+### Github pull request decoration
+ScrewdriverのクラスタがSonar Enterpriseを利用している場合、GitHubでのチェックに[Pull Request decoration](https://docs.sonarqube.org/7.8/analysis/pull-request/)を利用することができます。この機能が有効な場合、リポジトリにSonar PR Checks用のGithub appを追加することで利用することが出来ます。サポート状況の詳細はScrewdriverクラスタ管理者に確認してください。
