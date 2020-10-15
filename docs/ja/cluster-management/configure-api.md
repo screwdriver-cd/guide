@@ -563,7 +563,7 @@ webhooks:
 |:---------------------|:--------------|:---------------------|
 | RATE_LIMIT_VARIABLES | `'{ "enabled": false, "limit": 300, "duration": 300000 }'` | レートリミットを設定するJSON文字列 |
 
-デフォルト値として、以下のような `config/local.yaml` で設定した値が使用されます。
+または以下のような `config/local.yaml` でデフォルト値を上書きできます。
 
 ```yaml
 # config/local.yaml
