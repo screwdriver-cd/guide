@@ -35,6 +35,22 @@ $ mv sd-local_*_amd64 /usr/local/bin/sd-local
 $ chmod +x /usr/local/bin/sd-local
 ```
 
+## アップデート方法
+sd-localのupdateコマンドを利用できます。
+```bash
+$ sd-local update
+Do you want to update to 1.0.x? [y/N]: y
+Successfully updated to version 1.0.x
+```
+アップデートコマンドの実行中に下記のエラーが出た場合、
+```
+Error occurred while detecting version: GET https://api.github.com/repos/screwdriver-cd/sd-local/releases: 403 API rate limit exceeded.
+```
+[GitHub personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)を設定してください。
+```bash
+export GITHUB_TOKEN=<token>
+```
+
 # クイックスタート
 sd-localでビルドを実行するまでの流れを説明します。
 
