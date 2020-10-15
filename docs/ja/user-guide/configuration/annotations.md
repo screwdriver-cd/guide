@@ -58,7 +58,7 @@ jobs:
 | screwdriver.cd/dockerCpu | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するCPU数を設定することができます。設定される値については`screwdriver.cd/cpu`の説明をご覧ください。 |
 | screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するメモリ容量を設定することができます。設定される値については`screwdriver.cd/ram`の説明をご覧ください。 |
 | screwdriver.cd/coverageScope | `pipeline` / `job` | カバレッジプラグインを利用している場合に、プロジェクトを作成するスコープを設定できます。デフォルト値はクラスタの設定(e.g. `COVERAGE_SONAR_ENTERPRISE`)によるので、クラスタ管理者にご確認ください。 |
-| screwdriver.cd/displayName | パイプライングラフに表示するジョブ名 | パイプライングラフに表示するジョブ名を、yamlの制約に縛られない自由な名前にできます。 |
+| screwdriver.cd/displayName | パイプライングラフに表示するジョブ名 | パイプライングラフに表示するジョブ名を、yamlのユニーク制約に縛られない自由な名前にできます。 |
 
 ## パイプラインレベルのアノテーション
 
