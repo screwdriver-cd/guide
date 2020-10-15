@@ -152,7 +152,7 @@ images:
     stable-image: node:6
     latest-image: node:8
 config:
-    image: node:6
+    image: stable-image
     steps:
         - install: npm install
         - test: npm test
