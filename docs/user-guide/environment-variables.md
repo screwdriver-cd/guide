@@ -54,7 +54,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_TEMPLATE_NAMESPACE | Namespace of the template the job is using (e.g.: `d2lam`; blank if not using template) |
 | SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template) |
 | SD_TOKEN | JWT token for the build |
-| SD_SCHEDULED_BUILD | The build is triggered by scheduler or not |
+| SD_SCHEDULED_BUILD | Whether the build is triggered by scheduler(true) or not(false) |
 
 ### User configurable
 
