@@ -78,7 +78,7 @@ steps:
 
 You might want to skip a build if you're only changing documentation.
 
- If you don't want Screwdriver to trigger a build when you're pushing to your base branch, add `[ci skip]` or `[skip ci]` somewhere in the commit message. If you don't want Screwdriver to trigger a build when you merge a pull request, add `[ci skip]` or `[skip ci]` to the pull request title.
+If you don't want Screwdriver to trigger a build when you're pushing to your base branch, add `[ci skip]` or `[skip ci]` to the commit message on any of your commits off your pull request.
 
 _Note: Doesn't apply to pull request builds: a commit message containing `[skip ci]` or `[ci skip]` will still trigger a pre-commit job (a PR job will always run)._
 
