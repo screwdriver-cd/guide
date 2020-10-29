@@ -4,59 +4,59 @@ title: FAQ
 category: User Guide
 menu: menu_ja
 toc:
-- title: よくある質問と回答
-  url: "#よくある質問と回答"
-  active: 'true'
-- title: ステップをスキップする方法は？
-  url: "#ステップをスキップする方法は？"
-- title: ビルドをスキップする方法は？
-  url: "#ビルドをスキップする方法は？"
-- title: パイプラインの作り方は？
-  url: "#パイプラインの作り方は？"
-- title: パイプラインを手動で開始するには？
-  url: "#パイプラインを手動で開始するには？"
-- title: パイプラインのリポジトリやブランチを変更したい場合は？
-  url: "#パイプラインのリポジトリやブランチを変更したい場合は？"
-- title: ジョブのdisable/enableを一時的に切り替えるには？
-  url: "#ジョブのdisable/enableを一時的に切り替えるには？"
-- title: パイプラインがソースコードと正しく同期しているか確かめるには？
-  url: "#パイプラインがソースコードと正しく同期しているか確かめるには？"
-- title: パイプラインを削除するには？
-  url: "#パイプラインを削除するには？"
-- title: パイプラインメトリクスを表示するには？
-  url: "#パイプラインメトリクスを表示するには？"
-- title: ビルドログの時間形式を切り替えるには？
-  url: "#ビルドログの時間形式を切り替えるには？"
-- title: "「Build failed to start」のエラーを修正するには？"
-  url: "#「Build-failed-to-start」のエラーを修正するには？"
-- title: ビルドのロールバックを行うには？
-  url: "#ビルドのロールバックを行うには？"
-- title: 過去の成功時のビルドを再実行、Detached Jobをスタートするには？
-  url: "#過去の成功時のビルドを再実行、Detached Jobをスタートするには？"
-- title: 過去の成功時のビルドを再実行するには？
-  url: "#過去の成功時のビルドを再実行するには？"
-- title: ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
-  url: "#ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？"
-- title: ビルドをUNSTABLEの状態にするには？
-  url: "#ビルドをUNSTABLEの状態にするには？"
-- title: Screwdriverが使用しているシェルは？
-  url: "#Screwdriverが使用しているシェルは？"
-- title: Artifactsをアップロードする時間を短縮するには？
-  url: "#Artifactsをアップロードする時間を短縮するには？"
-- title: パイプラインのジョブやArtifactsへのPermalinkは？
-  url: "#パイプラインのジョブやArtifactsへのPermalinkは？"
-- title: shallow cloningを無効にするには？
-  url: "#shallow-cloningを無効にするには？"
-- title: ビルドイメージの最小ソフトウェア要件は？
-  url: "#ビルドイメージの最小ソフトウェア要件は？"
-- title: Saucelabsとの連携は？
-  url: "Saucelabsとの連携は？"
-- title: ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
-  url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
-- title: sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？
-  url "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
-- title: パイプラインをスタートさせた時に`Not found`となるのはなぜ？
-  url "#パイプラインをスタートさせた時に`Not found`となるのはなぜ？"
+    - title: よくある質問と回答
+      url: "#よくある質問と回答"
+      active: 'true'
+    - title: ステップをスキップする方法は？
+      url: "#ステップをスキップする方法は？"
+    - title: ビルドをスキップする方法は？
+      url: "#ビルドをスキップする方法は？"
+    - title: パイプラインの作り方は？
+      url: "#パイプラインの作り方は？"
+    - title: パイプラインを手動で開始するには？
+      url: "#パイプラインを手動で開始するには？"
+    - title: パイプラインのリポジトリやブランチを変更したい場合は？
+      url: "#パイプラインのリポジトリやブランチを変更したい場合は？"
+    - title: ジョブのdisable/enableを一時的に切り替えるには？
+      url: "#ジョブのdisable/enableを一時的に切り替えるには？"
+    - title: パイプラインがソースコードと正しく同期しているか確かめるには？
+      url: "#パイプラインがソースコードと正しく同期しているか確かめるには？"
+    - title: パイプラインを削除するには？
+      url: "#パイプラインを削除するには？"
+    - title: パイプラインメトリクスを表示するには？
+      url: "#パイプラインメトリクスを表示するには？"
+    - title: ビルドログの時間形式を切り替えるには？
+      url: "#ビルドログの時間形式を切り替えるには？"
+    - title: "「Build failed to start」のエラーを修正するには？"
+      url: "#「Build-failed-to-start」のエラーを修正するには？"
+    - title: ビルドのロールバックを行うには？
+      url: "#ビルドのロールバックを行うには？"
+    - title: 過去の成功時のビルドを再実行、Detached Jobをスタートするには？
+      url: "#過去の成功時のビルドを再実行、Detached Jobをスタートするには？"
+    - title: 過去の成功時のビルドを再実行するには？
+      url: "#過去の成功時のビルドを再実行するには？"
+    - title: ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
+      url: "#ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？"
+    - title: ビルドをUNSTABLEの状態にするには？
+      url: "#ビルドをUNSTABLEの状態にするには？"
+    - title: Screwdriverが使用しているシェルは？
+      url: "#Screwdriverが使用しているシェルは？"
+    - title: Artifactsをアップロードする時間を短縮するには？
+      url: "#Artifactsをアップロードする時間を短縮するには？"
+    - title: パイプラインのジョブやArtifactsへのPermalinkは？
+      url: "#パイプラインのジョブやArtifactsへのPermalinkは？"
+    - title: shallow cloningを無効にするには？
+      url: "#shallow-cloningを無効にするには？"
+    - title: ビルドイメージの最小ソフトウェア要件は？
+      url: "#ビルドイメージの最小ソフトウェア要件は？"
+    - title: Saucelabsとの連携は？
+      url: "#Saucelabsとの連携は？"
+    - title: ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
+      url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
+    - title: 'sd-setup-scmステップで、プルリクエストのビルドが "fatal: refusing to merge unrelated histories"エラーで終了するのはなぜ？'
+      url: "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
+    - title: パイプラインをスタートさせた時に`Not found`となるのはなぜ？
+      url: "#パイプラインをスタートさせた時に`Not found`となるのはなぜ？"
 
 ---
 
