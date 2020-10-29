@@ -54,9 +54,9 @@ toc:
     - title: ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
       url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
     - title: sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？
-      url "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
+      url: "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
     - title: パイプラインをスタートさせた時に`Not found`となるのはなぜ？
-      url "#パイプラインをスタートさせた時に`Not found`となるのはなぜ？"
+      url: "#パイプラインをスタートさせた時に`Not found`となるのはなぜ？"
 
 ---
 
