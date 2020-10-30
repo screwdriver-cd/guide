@@ -86,7 +86,6 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 
 環境変数名 | 説明
 --- | ---
-SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
 SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ <br><br>**注意**: ビルドが`ABORTED`で無い場合に、`sd-teardown-screwdriver-artifact-bookend`ステップでこのディレクトリからストアへアップロードされます。
 SD_META_DIR | [メタデータ](./metadata)ディレクトリのパス
 SD_META_PATH | [メタデータ](./metadata)ファイルのパス
