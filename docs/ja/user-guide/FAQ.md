@@ -222,9 +222,9 @@ Screwdriverはビルドコンテナイメージに制限がありません。し
 
 ### Saucelabsとの連携は？
 
-ブログ記事を参考にしてください。 https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
+ブログ記事を参考にしてください。 <https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver>
 
-サンプルリポジトリはこちらです。 https://github.com/screwdriver-cd-test/saucelabs-example
+サンプルリポジトリはこちらです。 <https://github.com/screwdriver-cd-test/saucelabs-example>
 
 ## ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
 

@@ -64,7 +64,7 @@ jobs:
 
 To specify a job to run when a pull request is opened or updated, use `requires: [~pr]`. For jobs that should start after code is merged or pushed to the main branch, use `requires: [~commit]`.
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-sequential-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
 ## Advanced Logic
 ### Advanced Logic [_AND_]
@@ -225,7 +225,7 @@ jobs:
             - echo: echo join after A and B
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-parallel-join-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ## Remote Triggers
 To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`. `~pr`, `~commit`, and jobs with `~sd@pipelineID:jobName` format follow _OR_ logic.
@@ -242,7 +242,7 @@ jobs:
             - echo: echo hi
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## Remote Join
 You can also have remote join jobs. Please double check with your cluster admin whether it is supported. 
@@ -325,7 +325,7 @@ jobs:
             - echo: echo bye
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-blockedby-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-blockedby-example>
 
 ## Freeze Windows
 You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value.
@@ -378,4 +378,4 @@ jobs:
             - echo: echo im-a-detached-job
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-detached-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-detached-example>

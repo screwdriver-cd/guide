@@ -159,10 +159,10 @@ httpd:
 
 キー | デフォルト | 説明
 --- | --- | ---
-ECOSYSTEM_UI | https://cd.screwdriver.cd | ユーザーインターフェースのURL
-ECOSYSTEM_STORE | https://store.screwdriver.cd | アーティファクトストアURL
-ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | ステータステキストと色をテンプレートにしたURL
-ECOSYSTEM_QUEUE | http://sdqueuesvc.screwdriver.svc.cluster.local | キュープラグインで使用されるキューサービスの内部URL
+ECOSYSTEM_UI | <https://cd.screwdriver.cd> | ユーザーインターフェースのURL
+ECOSYSTEM_STORE | <https://store.screwdriver.cd> | アーティファクトストアURL
+ECOSYSTEM_BADGES | <https://img.shields.io/badge/build-{{status}}-{{color}}.svg> | ステータステキストと色をテンプレートにしたURL
+ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュープラグインで使用されるキューサービスの内部URL
 
 ```yaml
 # config/local.yaml
@@ -240,8 +240,8 @@ K8S_MEMORY_HIGH | 12 | high 時のメモリ数(GB)
 K8S_MEMORY_TURBO | 16 | turbo 時のメモリ数(GB)
 K8S_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルトのタイムアウト時間(分)
 K8S_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分)
-K8S_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node
-K8S_PREFERRED_NODE_SELECTORS | `{}`|  pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature
+K8S_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node>
+K8S_PREFERRED_NODE_SELECTORS | `{}`|  pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature>
 DOCKER_FEATURE_ENABLED | false | ビルドポッド内でDocker In Dockerを有効にするフラグ |
 
 
@@ -283,8 +283,8 @@ executor:
 | K8S_MEMORY_TURBO | 16 | turbo 時のメモリ数(GB) |
 | K8S_VM_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルトのタイムアウト時間(分) |
 | K8S_VM_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分) |
-| K8S_VM_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
-| K8S_VM_PREFERRED_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+| K8S_VM_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
+| K8S_VM_PREFERRED_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
 
 ```yaml
 # config/local.yaml

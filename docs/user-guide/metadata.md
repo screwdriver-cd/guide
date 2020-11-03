@@ -84,7 +84,7 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-metadata-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-metadata-example>
 
 Notes:
 - If `foo` is not set and you try to `meta get foo`, it will return a string with value `null` by default.

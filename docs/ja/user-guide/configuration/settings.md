@@ -94,7 +94,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
                      - RUNNING
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/slack-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/slack-example>
 
 #### 例: 短縮した通知
 

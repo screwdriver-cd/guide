@@ -207,8 +207,8 @@ Also, if the `image` is Alpine-based, an extra workaround is required in the for
 
 ## How do I integrate with Saucelabs?
 
-Read about it on our blog post: https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
-See the example repo: https://github.com/screwdriver-cd-test/saucelabs-example
+Read about it on our blog post: <https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver>
+See the example repo: <https://github.com/screwdriver-cd-test/saucelabs-example>
 
 ## How do I run my pipeline when commits made from inside a build are pushed to my git repository?
 

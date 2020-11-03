@@ -41,7 +41,7 @@ Given a repository with the file structure depicted below:
 
 In this example, jobs that `requires: [~commit, ~pr]` will be triggered if there are any changes to files under `myapp2`.
 
-Example repo: https://github.com/screwdriver-cd-test/source-dir-example
+Example repo: <https://github.com/screwdriver-cd-test/source-dir-example>
 
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.

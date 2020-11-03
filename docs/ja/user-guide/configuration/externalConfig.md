@@ -56,4 +56,4 @@ jobs:
 子パイプライン UI:
 ![External config child pipeline ](../../../user-guide/assets/external-config-child.png)
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/external-config-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/external-config-example>
