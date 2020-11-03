@@ -194,7 +194,7 @@ jobs:
         image: stable-image
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/template-images-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/template-images-example>
 
 #### テンプレートのステップ
 

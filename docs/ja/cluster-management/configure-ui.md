@@ -71,7 +71,7 @@ $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bi
 ### カスタムドキュメントリンク
 環境変数 `SDDOC_URL` を通して、ドキュメントのリンクを設定することができます。
 
-デフォルト: https://docs.screwdriver.cd
+デフォルト: <https://docs.screwdriver.cd>
 
 例:
 ```bash

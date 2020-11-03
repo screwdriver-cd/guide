@@ -236,8 +236,8 @@ If you use this executor, builds will run in pods in Kubernetes.
 | K8S_MEMORY_TURBO   | 16            | Memory in GB for turbo                     |
 | K8S_BUILD_TIMEOUT  | 90            | Default build timeout for all builds in this cluster (in minutes) |
 | K8S_MAX_BUILD_TIMEOUT | 120        | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
-| K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
-| K8S_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+| K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
+| K8S_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
 | DOCKER_FEATURE_ENABLED | false | Flag to enable a Docker In Docker container in the build pod |
 
 
@@ -277,8 +277,8 @@ If you use the `k8s-vm` executor, builds will run in VMs in pods in Kubernetes.
 | K8S_MEMORY_TURBO   | 16            | Memory in GB for turbo                     |
 | K8S_VM_BUILD_TIMEOUT  | 90         | Default build timeout for all builds in this cluster (in minutes) |
 | K8S_VM_MAX_BUILD_TIMEOUT | 120     | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
-| K8S_VM_NODE_SELECTORS | `{}`       | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
-| K8S_VM_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+| K8S_VM_NODE_SELECTORS | `{}`       | K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
+| K8S_VM_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
 
 ```yaml
 # config/local.yaml

@@ -185,7 +185,7 @@ jobs:
         image: stable-image
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/template-images-example
+Example repo: <https://github.com/screwdriver-cd-test/template-images-example>
 
 #### Template Steps
 Avoid using any [wrapping](#using-a-template) prefixes (`pre` or `post`) in your step names, as it can lead to problems when users try to modify or enhance your steps. For example, if a template has these steps:

@@ -86,7 +86,7 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-metadata-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-metadata-example>
 
 注意:
 

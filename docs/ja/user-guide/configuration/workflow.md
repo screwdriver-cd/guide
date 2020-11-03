@@ -71,7 +71,7 @@ jobs:
 
 プルリクエストがオープンもしくは更新された時にジョブを実行したい場合は、 `requires: [~pr]` を使用してください。コードがマージされたりパイプラインを作成しているブランチに直接プッシュされた後にジョブを実行したい場合は `requires: [~commit]` を使用してください。
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-sequential-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
 ## 論理式を用いたワークフロー定義 (Advanced Logic)
 
@@ -242,7 +242,7 @@ jobs:
             - echo: echo join after A and B
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-parallel-join-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ## 他のパイプラインからのトリガー
 
@@ -261,7 +261,7 @@ jobs:
             - echo: echo hi
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## リモートジョイン
 リモートジョインジョブを作成することもできます。この機能がサポートされているかは、クラスタ管理者に確認してください。
@@ -346,7 +346,7 @@ jobs:
             - echo: echo bye
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-blockedby-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-blockedby-example>
 
 ## ジョブの凍結
 `freezeWindows`を使うことでジョブを凍結させ、特定の時間帯にそれらが実行されないようにすることができます。設定値としてcron式またはそれらのリストを取ります。
@@ -418,4 +418,4 @@ jobs:
                 - echo: echo detached hi
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-detached-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-detached-example>

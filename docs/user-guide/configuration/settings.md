@@ -88,7 +88,7 @@ This Slack setting will send Slack notifications to `mychannel` and `my-other-ch
                      - RUNNING
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/slack-example
+Example repo: <https://github.com/screwdriver-cd-test/slack-example>
 
 #### Example: Minimized notification
 
