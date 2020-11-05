@@ -55,6 +55,7 @@ The following annotations are supported by plugins maintained by Screwdriver.cd.
 | screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | When using a `k8s` executor and Docker is enabled, this will set the memory resources for the Docker container, see the `screwdriver.cd/ram` annotation above for defaults. |
 | screwdriver.cd/coverageScope | `pipeline` / `job` | When using the coverage plugin, this will set the scope for project creation. Default behavior depends on cluster configuration (e.g. `COVERAGE_SONAR_ENTERPRISE`), please check with your cluster admin for that. |
 | screwdriver.cd/displayName | Job name to display in the pipeline graph | You can use any name you like for a job to appear in the pipeline graph, without being limited by the unique constraints of Yaml. |
+| screwdriver.cd/mergeSharedSteps | When using a template, set it to `true`, and allow the user to merge steps defined in shared and job. |
 
 ## Pipeline-Level Annotations
 
