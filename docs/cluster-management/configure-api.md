@@ -11,6 +11,42 @@ toc:
       url: "#packages"
     - title: Configuration
       url: "#configuration"
+    - title: Authentication / Authorization
+      url: "#authentication--authorization"
+      subitem: true  
+    - title: Build Variables
+      url: "#build-variables"
+      subitem: true  
+    - title: Bookend Plugins
+      url: "#bookend-plugins"
+      subitem: true  
+    - title: Serving
+      url: "#serving"
+      subitem: true                    
+    - title: Ecosystem
+      url: "#ecosystem"
+      subitem: true   
+    - title: Data Store
+      url: "#datastore-plugin"
+      subitem: true               
+    - title: Executors
+      url: "#executor-plugin"
+      subitem: true       
+    - title: Notifications
+      url: "#notifications-plugin"
+      subitem: true 
+    - title: Source Control
+      url: "#source-control-plugin"
+      subitem: true             
+    - title: Webhooks
+      url: "#webhooks"
+      subitem: true      
+    - title: Rate Limiting
+      url: "#rate-limiting"
+      subitem: true
+    - title: Canary Routing
+      url: "#canary-routing"
+      subitem: true 
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
 ---
@@ -561,6 +597,28 @@ rateLimit:
     # limit to max 60 requests in 1 minute
     limit: 60
     duration: 60000
+```
+
+### Canary Routing
+
+If your Screwdriver Kubernetes Cluster is using [nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary), then set this environment variable to have API server set a cookie for a limited duration such that subsequent API requests are served by same canary API pods.
+
+| Environment name     | Example Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| RELEASE_ENVIRONMENT_VARIABLES | `'{ "cookieName": "release", "cookieValue": "canary"}'` | JSON string configuration for release information |
+
+Or override the default with the following `config/local.yaml` file.
+
+```yaml
+# config/local.yaml
+# environment release information
+release: 
+    mode: stable
+    cookieName: release
+    cookieValue: stable
+    cookieTimeout: 2 # in minutes
+    headerName: release
+    headerValue: stable
 ```
 
 ## Extending the Docker container

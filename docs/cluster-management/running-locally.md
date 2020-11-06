@@ -1,22 +1,17 @@
 ---
 layout: main
-title: Running Locally
+title: Running Screwdriver Locally using SD-in-a-Box
 category: Cluster Management
 menu: menu
 toc:
-    - title: Running Locally
-      url: "#running-locally"
-      active: true
     - title: SD-in-a-Box
       url: "#sd-in-a-box"
+      active: true
     - title: Configuring SD-in-a-Box
       url: "#configuring-sd-in-a-box"
 ---
-# Running Locally
-You can run Screwdriver locally by using our Screwdriver-in-a-box tool.
-
 ## SD-in-a-Box
-This handy feature will bring up an entire Screwdriver instance (UI, API, and log store) locally for you to play with.
+You can run Screwdriver locally by using our Screwdriver-in-a-box tool. This handy feature will bring up an entire Screwdriver instance (UI, API, and log store) locally for you to play with.
 
 Follow instructions in the [SD-in-a-box docs](https://github.com/screwdriver-cd/in-a-box#screwdriver-in-a-box).
 
