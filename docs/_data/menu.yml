@@ -64,7 +64,7 @@
       url: "/cluster-management/configure-queue-service"
     - title: "Developing Locally"
       url: "/cluster-management/developing-locally"
-    - title: "Running Locally"
+    - title: "SD-in-a-Box"
       url: "/cluster-management/running-locally"
     - title: "Setting Up a Screwdriver Cluster on AWS using Kubernetes"
       url: "/cluster-management/kubernetes"

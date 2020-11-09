@@ -3,6 +3,8 @@
         {% for toc_item in page.toc %}
         {% if forloop.first %}
         <li class="main {% if toc_item.active %}active{% endif %}"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        {% elsif toc_item.subitem %}
+        <li><a href="{{ toc_item.url }}"><span class="menu-indent">{{ toc_item.title }}</span></a></li>
         {% else %}
         <li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
         {% endif %}

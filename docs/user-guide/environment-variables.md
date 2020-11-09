@@ -9,10 +9,12 @@ toc:
       active: true
     - title: Build Specific
       url: "#build-specific"
-    - title: <span class="menu-indent">General</span>
+    - title: General
+      subitem: true
       url: "#general"
-    - title: <span class="menu-indent">User configurable</span>
+    - title: User configurable
       url: "#user-configurable"
+      subitem: true
     - title: Plugins
       url: "#plugins"
     - title: Directories

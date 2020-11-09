@@ -150,7 +150,7 @@ Once you've got the UI running at http://localhost:4200, login.
 
 # Running SD-in-a-Box
 
-See [Running Locally docs](../../cluster-management/running-locally).
+See [Running SD-in-a-Box docs](../../cluster-management/running-locally).
 
 [docker]: https://www.docker.com/products/docker
 [kubectl]: https://kubernetes.io/docs/user-guide/kubectl-overview/
