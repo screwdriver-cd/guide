@@ -10,6 +10,18 @@ toc:
       url: "#finding-templates"
     - title: Using a template
       url: "#using-a-template"
+    - title: Overriding Template Steps
+      url: "#overriding-template-steps"
+      subitem: true
+    - title: Wrap a Step
+      url: "#wrap"
+      subitem: level-2
+    - title: Replace a Step
+      url: "#replace"
+      subitem: level-2
+    - title: Merging with Shared Steps
+      url: "#merging-with-shared-steps"
+      subitem: level-2
     - title: Creating a template
       url: "#creating-a-template"
     - title: Testing a template
@@ -89,6 +101,9 @@ jobs:
         secrets:
               - NPM_TOKEN
 ```
+## Overriding Template Steps
+
+A job can override Template steps by wrapping or replacing existing steps.
 
 ### Wrap
 Wrapping is when you add commands to run before and/or after an existing step. To wrap a step from a template, add a `pre` or `post` in front of the step name.
@@ -132,6 +147,28 @@ jobs:
         template: nodejs/test@1.0.3
 ```
 
+### Merging with shared steps
+
+When overriding Template steps, a job can get the step defenitions from either `shared.steps` or `job.steps` with precedence for `steps` defined in `job` section. This follows the same order of precedence for step defenitions without using a template. Users can change this behavior using [annotation](./configuration/annotations) `screwdriver.cd/mergeSharedSteps: true`. When `true` steps in `shared` and `job` sections are merged.
+
+
+Example
+```yaml
+shared:
+  annotations:
+    screwdriver.cd/mergeSharedSteps: true
+  steps:
+     - premotd: echo build
+jobs:
+    main:
+        template: python/package_rpm@latest
+        requires: [~pr, ~commit]
+        steps:
+         - preinit_os: echo replace
+
+```
+
+
 ## Creating a template
 
 Publishing and running templates must be done from a Screwdriver pipeline.
@@ -149,8 +186,8 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:6
-    latest-image: node:8
+    stable-image: node:12
+    latest-image: node:14
 config:
     image: stable-image
     steps:
@@ -173,7 +210,7 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:6
+    stable-image: node:12
     latest-image: node:8
 ```
 
@@ -192,7 +229,7 @@ Avoid using any [wrapping](#using-a-template) prefixes (`pre` or `post`) in your
 
 ```yaml
 config:
-    image: node:6
+    image: node:12
     steps:
         - preinstall: echo Installing
         - install: npm install
@@ -224,7 +261,7 @@ Example `screwdriver.yaml`:
 
 ```yaml
 shared:
-    image: node:6
+    image: node:12
 jobs:
     main:
         requires: [~pr, ~commit]
