@@ -12,20 +12,33 @@ toc:
       url: "#default-metadata"
     - title: Manipulating Metadata
       url: "#manipulating-metadata"
-    - title: <span class="menu-indent">Same Pipeline</span>
+    - title: Same Pipeline
       url: "#same-pipeline"
-    - title: <span class="menu-indent">External Pipeline</span>
+      subitem: true
+    - title: External Pipeline
       url: "#external-pipeline"
-    - title: <span class="menu-indent">Pull Request Comments</span>
+      subitem: true
+    - title: Pull Request Comments
       url: "#pull-request-comments"
-    - title: <span class="menu-indent">Pull Request Checks</span>
+      subitem: true
+    - title: Pull Request Checks
       url: "#additional-pull-request-checks"
-    - title: <span class="menu-indent">Coverage and Test Results</span>
+      subitem: true
+    - title: Coverage and Test Results
       url: "#coverage-and-test-results"
-    - title: <span class="menu-indent">Event Labels</span>
+      subitem: true
+    - title: Event Labels
       url: "#event-labels"
-    - title: <span class="menu-indent">Slack Notifications</span>
+      subitem: true
+    - title: Slack Notifications
       url: "#slack-notifications"
+      subitem: true
+    - title: Job-based Message
+      url: "#job-based-slack-message"
+      subitem: level-2
+    - title: Job-based Channel
+      url: "#job-based-slack-channel"
+      subitem: level-2
 ---
 # Metadata
 

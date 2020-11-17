@@ -394,3 +394,11 @@ h6:hover .headerlink {
 .menu-indent {
   margin-left: 10px;
 }
+
+.menu-indent.level-2 {
+  margin-left: 20px;
+}
+
+.menu-indent.level-3 {
+  margin-left: 25px;
+}

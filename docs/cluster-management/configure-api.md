@@ -13,40 +13,40 @@ toc:
       url: "#configuration"
     - title: Authentication / Authorization
       url: "#authentication--authorization"
-      subitem: true  
+      subitem: true
     - title: Build Variables
       url: "#build-variables"
-      subitem: true  
+      subitem: true
     - title: Bookend Plugins
       url: "#bookend-plugins"
-      subitem: true  
+      subitem: true
     - title: Serving
       url: "#serving"
-      subitem: true                    
+      subitem: true
     - title: Ecosystem
       url: "#ecosystem"
-      subitem: true   
+      subitem: true
     - title: Data Store
       url: "#datastore-plugin"
-      subitem: true               
+      subitem: true
     - title: Executors
       url: "#executor-plugin"
-      subitem: true       
+      subitem: true
     - title: Notifications
       url: "#notifications-plugin"
-      subitem: true 
+      subitem: true
     - title: Source Control
       url: "#source-control-plugin"
-      subitem: true             
+      subitem: true
     - title: Webhooks
       url: "#webhooks"
-      subitem: true      
+      subitem: true
     - title: Rate Limiting
       url: "#rate-limiting"
       subitem: true
     - title: Canary Routing
       url: "#canary-routing"
-      subitem: true 
+      subitem: true
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
 ---
@@ -612,7 +612,7 @@ Or override the default with the following `config/local.yaml` file.
 ```yaml
 # config/local.yaml
 # environment release information
-release: 
+release:
     mode: stable
     cookieName: release
     cookieValue: stable
