@@ -33,10 +33,10 @@ toc:
     - title: Slack Notifications
       url: "#slack-notifications"
       subitem: true
-    - title: Job based Message
+    - title: Job-based Message
       url: "#job-based-slack-message"
       subitem: level-2
-    - title: Job based Channel
+    - title: Job-based Channel
       url: "#job-based-slack-channel"
       subitem: level-2
 ---
