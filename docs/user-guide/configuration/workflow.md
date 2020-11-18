@@ -383,10 +383,10 @@ jobs:
 Example repo: <https://github.com/screwdriver-cd-test/workflow-detached-example>
 
 ## Subscribed SCM Notifications
-You can subscribe to external repositories so that the builds are triggered in the pipeline whenever there are changes in those external repositories. The pipeline can be configured to subscribe to webhook notifications of standard events such as `~pr`, `~commit`, `~tag` and `~release`. The jobs need to be independently configured to respond to the subscribed event(s).
+You can subscribe to external repositories so builds are triggered in your pipeline whenever there are changes in those external repositories. You can configure your pipeline to subscribe to webhook notifications for events such as `~pr`, `~commit`, `~tag` and `~release`. Each job needs to be independently configured to respond to the subscribed event(s).
 
 ### Example
-In the following example, we can add the repositories to subsribe to in the `scmUrls` sections of the `subscribe` object. Then we need to specify the events that it is subscribing to, which here are `~commit` and `~pr`. It is to be noted that the webhooks are automatically registered to the repositories at the time of pipeline creation.
+In the following example, we can add repositories to subscribe to in the `scmUrls` sections of the `subscribe` object. Then we need to specify the events to subscribing to, which are `~commit` and `~pr` in this example. Note that webhooks are automatically registered to the repositories at the time of pipeline creation.
 
 ```
 shared:
