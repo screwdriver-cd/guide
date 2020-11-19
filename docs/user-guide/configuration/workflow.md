@@ -26,6 +26,8 @@ toc:
       url: "#freeze-windows"
     - title: Detached Jobs and Pipelines
       url: "#detached-jobs-and-pipelines"
+    - title: Subscribed SCM notifications
+      url: "#subscribed-scm-notifications"
 ---
 # Workflow
 Workflow is the way that individual jobs are wired together to form a pipeline. This is done by using a `requires` keyword in your job definition with the list of jobs or events that should cause that job to run. Screwdriver defines four events for every pipeline that occur due to SCM events: `~pr`, `~commit`, `~tag` and `~release`.
@@ -379,3 +381,30 @@ jobs:
 ```
 
 Example repo: <https://github.com/screwdriver-cd-test/workflow-detached-example>
+
+## Subscribed SCM Notifications
+You can subscribe to external repositories so builds are triggered in your pipeline whenever there are changes in those external repositories. You can configure your pipeline to subscribe to webhook notifications for events such as `~pr`, `~commit`, `~tag` and `~release`. Each job needs to be independently configured to respond to the subscribed event(s).
+
+### Example
+In the following example, we can add repositories to subscribe to in the `scmUrls` sections of the `subscribe` object. Then we need to specify the events to subscribe to, which are `~commit` and `~pr` in this example. Note that webhooks are automatically registered to the repositories at the time of pipeline creation.
+
+```
+shared:
+    image: node:8
+
+subscribe: 
+    scmUrls:
+        - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
+```
+
+Now to configure specific jobs to respond to subscribed events:
+
+```
+jobs:
+    A:
+        steps:
+            - echo: echo test
+        requires: [~pr, ~commit, ~subscribe]
+```
+
+Here the `~subscribed` event tells the job to respond to external notifications. 
