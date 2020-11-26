@@ -39,6 +39,9 @@ toc:
     - title: Job-based Channel
       url: "#job-based-slack-channel"
       subitem: level-2
+    - title: Job-based minimized setting
+      url: "#job-based-minimized-setting"
+      subitem: level-2      
 ---
 # Metadata
 
@@ -282,7 +285,7 @@ jobs:
 ```
 In the above example a Slack notification failure message will be send to channels `fail_channel` and `prod_channel` instead of `main_channel`. All other jobs in this pipeline would still post to `main_channel`.
 
-#### Job-based `minimized`setting
+#### Job-based minimized setting
 Job-based Slack `minimized` meta setting will overwrite the default Slack minimized setting.
 
 Structure of meta variable is `notification.slack.<jobName>.minimized`, replacing `<jobname>` with the name of the Screwdriver job.
