@@ -51,8 +51,8 @@ toc:
       url: "#how-do-i-run-my-pipeline-when-commits-made-from-inside-a-build-are-pushed-to-my-git-repository"
     - title: 'Why do my pull request builds fail with the error: "fatal: refusing to merge unrelated histories" in the sd-setup-scm step?'
       url: "#why-do-my-pull-request-builds-fail-with-the-error-fatal-refusing-to-merge-unrelated-histories-in-the-sd-setup-scm-step"
-    - title: 'Why do I get "Not Found" when I try to start my pipeline?'
-      url: "#why-do-i-get-not-found-when-i-try-to-start-my-pipeline"
+    - title: 'Why do I get "Not Found" when I try to start/delete my pipeline?'
+      url: "#why-do-i-get-not-found-when-i-try-to-start-or-delete-my-pipeline"
 
 ---
 
@@ -224,6 +224,6 @@ If your pull request branch has more than `$GIT_SHALLOW_CLONE_DEPTH` commits (de
 
 To resolve this issue, you could disable or tune the shallow clone settings ([see them listed here](./environment-variables#user-configurable)) for your job, or reduce the number of commits on your feature branch (e.g. rebase and squash).
 
-## Why do I get `Not Found` when I try to start my pipeline?
+## Why do I get `Not Found` when I try to start or delete my pipeline?
 
 Screwdriver pipelines have a 1:1 relation to the underlying SCM repository and this is validated by using not only the SCM repository name but also its unique repository ID. The `Not Found` error occurs when the SCM repository is deleted and re-created under same repository name (delete & re-fork has same effect). This action results in the new SCM repository getting a new ID and hence failing Screwdriver validations. If your pipeline is in this state, your only option is to re-create the pipeline and reach out Screwdriver cluster admin to remove the old pipeline.
