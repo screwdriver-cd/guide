@@ -39,6 +39,9 @@ toc:
     - title: Job-based Channel
       url: "#job-based-slack-channel"
       subitem: level-2
+    - title: Job-based minimized setting
+      url: "#job-based-minimized-setting"
+      subitem: level-2      
 ---
 # Metadata
 
@@ -281,3 +284,31 @@ jobs:
           meta set notification.slack.component.channels "fail_channel, prod_channel"
 ```
 In the above example a Slack notification failure message will be send to channels `fail_channel` and `prod_channel` instead of `main_channel`. All other jobs in this pipeline would still post to `main_channel`.
+
+#### Job-based minimized setting
+Job-based Slack `minimized` meta setting will overwrite the default Slack minimized setting.
+
+Structure of meta variable is `notification.slack.<jobName>.minimized`, replacing `<jobname>` with the name of the Screwdriver job.
+
+Example screwdriver.yaml sending a minimized Slack message in case the `component` job was triggered by the scheduler:
+
+```yaml
+shared:
+    image: docker.ouroath.com:4443/x/y/z
+    
+    settings:
+        slack:
+            channels: [ main_channel ]
+            statuses: [ FAILURE ]
+            minimized: false
+
+jobs:
+   component:
+    steps:
+      - meta: |
+          if [[ $SD_SCHEDULED_BUILD == true ]]; then
+             meta set notification.slack.component.minimized true
+          fi
+```
+In the above example a Slack notification message will be send in `minimized` format for the `component` job if it was triggered by the scheduler.
+
