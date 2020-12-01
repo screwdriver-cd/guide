@@ -53,7 +53,7 @@ The following annotations are supported by plugins maintained by Screwdriver.cd.
 | screwdriver.cd/dockerEnabled | `true` / `false` | When using a `k8s` executor, set it to `true`, and a docker-in-docker container will come up alongside your build container, enabling docker builds and running docker images. In addition to this flag in your yaml, your cluster manager must enable the docker in docker feature. (See cluster-management doc). |
 | screwdriver.cd/dockerCpu | `MICRO` / `LOW` / `HIGH` / `TURBO` | When using a `k8s` executor and docker is enabled, this will set the compute resources for the docker container, see the `screwdriver.cd/cpu` annotation above for defaults. |
 | screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | When using a `k8s` executor and docker is enabled, this will set the memory resources for the docker container, see the `screwdriver.cd/ram` annotation above for defaults. |
-
+| screwdriver.cd/terminationGracePeriodSeconds | Number of seconds | This will allow the user to choose the number of seconds a build should wait before aborting to execute the teardown steps. Default is `'60'` minutes and Max is `'120'`. In most cases more than default will not be required. |
 ## Pipeline-Level Annotations
 
 Pipeline-level annotations are used to modify the properties of the entire pipeline. Pipeline-level annotations are under the same level as `shared` and `jobs`. Pull requests cannot change these annotations, they need to be in the SCM branch of the pipeline.

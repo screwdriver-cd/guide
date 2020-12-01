@@ -74,7 +74,8 @@ jobs:
             - teardown-mystep1: echo goodbye
             - teardown-mystep2: echo world
 ```
-
+## Teardown
+The teardown steps run a set of screwdriver bookend steps after the build steps are completed or aborted or failed. These steps are implicity added at the end of job and start with "sd-teardown-". The pod/container is removed after these steps are completed. In case of aborted builds, we can also configure the grace period of the pod before termination during which the teardown steps will be executed. See [annotations](/user-guide/configuration/annotations) for detailed usage
 
 # Shared
 The `shared` configuration is a special job configuration section that is applied to all jobs. Configuration that is specified in a job configuration will override the same configuration in `shared`.
