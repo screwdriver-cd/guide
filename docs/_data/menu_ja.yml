@@ -4,6 +4,8 @@
   subcategories:
     - title: "クイックスタート"
       url: "/ja/user-guide/quickstart"
+    - title: "トークン"
+      url: "/ja/user-guide/tokens"
     - title: "API"
       url: "/ja/user-guide/api"
     - title: "認証と認可"
@@ -58,6 +60,8 @@
       url: "/ja/cluster-management/configure-ui"
     - title: "Storeの設定"
       url: "/ja/cluster-management/configure-store"
+    - title: キューサービスの設定
+      url: "/ja/cluster-management/configure-queue-service"
     - title: "ローカルで開発"
       url: "/ja/cluster-management/developing-locally"
     - title: "ローカルで実行"
@@ -68,6 +72,10 @@
       url: "/ja/cluster-management/helm"
     - title: "依存関係"
       url: "/ja/cluster-management/dependencies"
+    - title: "ビルドの設定"
+      url: "/ja/cluster-management/configure-build"
+    - title: "メトリクスの収集"
+      url: "/ja/cluster-management/collect-metrics"
     - title: "FAQ"
       url: "/ja/cluster-management/FAQ"
 - title: "概要"

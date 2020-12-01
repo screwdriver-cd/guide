@@ -8,8 +8,8 @@ toc:
   url: "#sd-localとは？"
 - title: sd-localのインストール
   url: "#sd-localのインストール"
-- title: 簡単な使い方
-  url: "#簡単な使い方"
+- title: クイックスタート
+  url: "#クイックスタート"
 - title: configコマンド
   url: "#configコマンド"
 - title: buildコマンド
@@ -33,6 +33,22 @@ sd-local実行には以下のコマンドが必要になります
 ```bash
 $ mv sd-local_*_amd64 /usr/local/bin/sd-local
 $ chmod +x /usr/local/bin/sd-local
+```
+
+## アップデート方法
+sd-localのupdateコマンドを利用できます。
+```bash
+$ sd-local update
+Do you want to update to 1.0.x? [y/N]: y
+Successfully updated to version 1.0.x
+```
+アップデートコマンドの実行中に下記のエラーが出た場合、
+```
+Error occurred while detecting version: GET https://api.github.com/repos/screwdriver-cd/sd-local/releases: 403 API rate limit exceeded.
+```
+[GitHub personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)を設定してください。
+```bash
+export GITHUB_TOKEN=<token>
 ```
 
 # クイックスタート
@@ -93,13 +109,58 @@ builds.log       environment.json steps.json
 ```
 
 # config コマンド
-configコマンドでは、sd-local自体の設定をkey/valueの形式で行います。
-設定内容は `~/.sdlocal/config` に保存されます。
+configコマンドでは、sd-local自体の設定を行います。設定内容は、環境ごとに複数保持することができます。  
+設定内容は `~/.sdlocal/config` 以下の形式で保存されます。
+
+```
+configs:
+  default:
+    api-url: ""
+    store-url: ""
+    token: ""
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
+  yourConfigName:
+    api-url: ""
+    store-url: ""
+    token: ""
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
+current: default
+```
+
+- `default` はsd-localの初回利用時に自動的に作成されます
+- `current` は現在使用中の設定を表します
 
 ## 使い方
 
+### createサブコマンド
+新規設定を作成します。
+
+```bash
+$ sd-local config create <name>
+```
+
+### deleteサブコマンド
+設定を削除します。
+
+```bash
+$ sd-local config delete <name>
+```
+
+- 現在使用中の設定は削除できません
+
+### useサブコマンド
+現在使用中の設定を変更します。
+
+```bash
+$ sd-local config use <name>
+```
+
 ### setサブコマンド
-key/value形式で設定を行います。ビルドを実行するには`api-url`, `store-url`, `token`を設定する必要があります。  
+現在使用中の設定に対してkey/value形式で設定を行います。ビルドを実行するには`api-url`, `store-url`, `token`を設定する必要があります。  
 利用できる設定内容については、[設定できるキーの一覧](#設定できるキーの一覧)を参照してください。
 
 ```bash
@@ -107,18 +168,25 @@ $ sd-local config set <key> <value>
 ```
 
 ### viewサブコマンド
-現在の設定内容を確認できます。
+設定内容を確認できます。先頭に`*`がついているものが現在使用中の設定です。
 
 ```bash
 $ sd-local config view
+  cluster1:
+    api-url: https://cluster1-api-screwdriver.com
+    store-url: https://cluster1-store-screwdriver.com
+    token: yourcluster1token
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
+* cluster2:
+    api-url: https://cluster2-api-screwdriver.com
+    store-url: https://cluster2-store-screwdriver.com
+    token: yourcluster2token
+    launcher:
+      version: stable
+      image: screwdrivercd/launcher
 ```
-
-## オプション
-configコマンドには以下のオプションを設定することができます。
-
-|オプション|説明|
-|---|---|
-|--local|カレントディレクトリの`.sdlocal/config`に対して操作します|
 
 ### 設定できるキーの一覧
 
@@ -150,7 +218,6 @@ buildコマンドには以下のオプションを設定することができま
 |--artifacts-dir|ビルド成果物の保存先を指定します（デフォルトは`./sd-artifacts`）|
 |-e, --env|ビルド環境に設定する環境変数を`<key>=<value>` 形式で設定します（複数指定可）|
 |--env-file|ビルド環境に設定する環境変数をファイル形式で設定します（ファイルの形式は[env-fileのフォーマット](#env-fileの形式)を参照）|
-|--local|カレントディレクトリの`.sdlocal/config`の設定をもとにビルドを実行します|
 |-m, --memory|ビルド環境のメモリリソースのリミット値を指定します（b,k,m,gのメモリ単位で指定できます）|
 |--meta|ビルド環境に渡す[メタデータ](metadata)を指定します（JSON形式）例: `"{\"HOGE\": \"FOO\"}"`|
 |--meta-file|ビルド環境に渡す[メタデータ](metadata)をファイルで指定します（JSON形式）|

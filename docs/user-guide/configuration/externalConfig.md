@@ -26,7 +26,7 @@ In your parent repository's `screwdriver.yaml`, you can define child pipelines w
 childPipelines:
    scmUrls:
       - git@github.com:minz1027/test.template.git
-      - git@github.com:minz1027/quickstart-generic.git#master
+      - git@github.com:minz1027/quickstart-generic.git#main
 
 jobs:
     main:
@@ -52,4 +52,4 @@ Parent pipeline UI:
 Child pipeline UI:
 ![External config child pipeline ](../assets/external-config-child.png)
 
-Example repo: https://github.com/screwdriver-cd-test/external-config-example
+Example repo: <https://github.com/screwdriver-cd-test/external-config-example>

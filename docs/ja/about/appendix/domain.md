@@ -126,7 +126,7 @@ jobs:
     requires: [deploy-east]                
 ```
 
-pull-requestがmasterにマージされると次のように動作します。
+pull-requestがベースブランチにマージされると次のように動作します。
 
 - `main`が実行され、`publish`をトリガー
 - `publish`は`deploy-west`と`deploy-east`を並列でトリガー

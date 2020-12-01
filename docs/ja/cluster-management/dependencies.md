@@ -33,3 +33,5 @@ toc:
  | Sequelize              | Node.jsで利用できるMulti SQL dialect ORMです。 | [MIT](https://github.com/sequelize/sequelize/blob/master/LICENSE) |
  | SonarQube (Optional)   | [coverage-sonar bookend](https://github.com/screwdriver-cd/coverage-sonar)でコード分析をするために利用しています。| [GNU V3](https://www.sonarqube.org/downloads/license) |
  | Swagger                | APIのdocumentationに利用しています。 | [Apache 2.0](https://swagger.io/license) |
+ | Prometheus(Optional)   | メトリクスベースのモニタリングに利用します | [Apache 2.0](https://github.com/prometheus/prometheus/blob/master/LICENSE) |
+ | Prometheus Pushgateway(Optional) | ビルドメトリクスの取得に利用します  | [Apache 2.0](https://github.com/prometheus/pushgateway/blob/master/LICENSE) |

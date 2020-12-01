@@ -55,7 +55,7 @@ jobs:
 
 また、ビルドが成功しても失敗しても実行されるteardownステップも設定することができます。teardownステップは他のステップよりも後に定義し、ステップ名を"teardown-"で始める必要があります。
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/user-teardown-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/user-teardown-example>
 
 ステップに記述した処理はデフォルトでBourne shell (`/bin/sh`)で実行されます。他のシェルで実行したい場合は`USER_SHELL_BIN`で指定することができます。例として、Bashを使いたい場合はジョブのenvironmentに`USER_SHELL_BIN: bash`を設定します。
 

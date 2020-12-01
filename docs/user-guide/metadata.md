@@ -12,20 +12,36 @@ toc:
       url: "#default-metadata"
     - title: Manipulating Metadata
       url: "#manipulating-metadata"
-    - title: <span class="menu-indent">Same Pipeline</span>
+    - title: Same Pipeline
       url: "#same-pipeline"
-    - title: <span class="menu-indent">External Pipeline</span>
+      subitem: true
+    - title: External Pipeline
       url: "#external-pipeline"
-    - title: <span class="menu-indent">Pull Request Comments</span>
+      subitem: true
+    - title: Pull Request Comments
       url: "#pull-request-comments"
-    - title: <span class="menu-indent">Pull Request Checks</span>
+      subitem: true
+    - title: Pull Request Checks
       url: "#additional-pull-request-checks"
-    - title: <span class="menu-indent">Coverage and Test Results</span>
+      subitem: true
+    - title: Coverage and Test Results
       url: "#coverage-and-test-results"
-    - title: <span class="menu-indent">Event Labels</span>
+      subitem: true
+    - title: Event Labels
       url: "#event-labels"
-    - title: <span class="menu-indent">Notifications</span>
-      url: "#notifications"
+      subitem: true
+    - title: Slack Notifications
+      url: "#slack-notifications"
+      subitem: true
+    - title: Job-based Message
+      url: "#job-based-slack-message"
+      subitem: level-2
+    - title: Job-based Channel
+      url: "#job-based-slack-channel"
+      subitem: level-2
+    - title: Job-based minimized setting
+      url: "#job-based-minimized-setting"
+      subitem: level-2      
 ---
 # Metadata
 
@@ -84,10 +100,10 @@ $ meta get foo
 [null,null,{"bar":[null,"baz"]}]
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-metadata-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-metadata-example>
 
 Notes:
-- If `foo` is not set and you try to `meta get foo`, it will return `null` by default.
+- If `foo` is not set and you try to `meta get foo`, it will return a string with value `null` by default.
 
 ### External pipeline
 
@@ -137,6 +153,8 @@ jobs:
 These settings will result in a Git comment that looks like:
 
 ![PR comment](./assets/pr-comment.png)
+
+_Note: Screwdriver will try to edit the same comment in Git if multiple builds are run on it._
 
 ### Additional Pull Request Checks
 
@@ -208,19 +226,89 @@ jobs:
 Result:
 ![Label](./assets/label-meta.png)
 
-### Notifications
+### Slack Notifications
 
-You can customize [notification](./configuration/settings.html#slack) messages with meta.
-Meta keys are different for each notification plugin.
+You can customize [notification](./configuration/settings.html#slack) messages with meta. Meta keys are different for each notification plugin.
 
+#### Basic
 Example screwdriver.yaml notifying with Slack:
 ```yaml
 jobs:
   main:
     steps:
       - meta: |
-          meta set notification.slack.message "<@yoshwata> Hello!!"
+          meta set notification.slack.message "<@yoshwata> Hello Meta!"
 ```
 
 Result:
 ![notification-meta](./assets/notification-meta.png)
+
+#### Job-based Slack message
+*Note*: Job-based Slack notification meta data will overwrite the basic notification message.
+
+Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
+
+Example screwdriver.yaml notifying with specific Slack message for job `slack-notification-test`:
+```yaml
+jobs:
+  main:
+    steps:
+      - meta: |
+          meta set notification.slack.slack-notification-test.message "<@yoshwata> Hello Meta!"
+```
+
+Result:
+![notification-meta](./assets/notification-meta.png)
+
+#### Job-based Slack Channel
+*Note*: Job-based Slack channel meta will only overwrite the basic Slack notification channel. It is not a replacement for setting a [notification channel](./configuration/settings#slack).
+
+Structure of meta variable is `notification.slack.<jobName>.channels`, replacing `<jobname>` with the name of the Screwdriver job.
+
+The setting is a comma-separated string that allows setting multiple channels.
+
+Example screwdriver.yaml notifying different Slack channels upon job failure for the `component` job:
+```yaml
+shared:
+    image: docker.ouroath.com:4443/x/y/z
+    
+    settings:
+        slack:
+            channels: [ main_channel ]
+            statuses: [ FAILURE ]
+
+jobs:
+   component:
+    steps:
+      - meta: |
+          meta set notification.slack.component.channels "fail_channel, prod_channel"
+```
+In the above example a Slack notification failure message will be send to channels `fail_channel` and `prod_channel` instead of `main_channel`. All other jobs in this pipeline would still post to `main_channel`.
+
+#### Job-based minimized setting
+Job-based Slack `minimized` meta setting will overwrite the default Slack minimized setting.
+
+Structure of meta variable is `notification.slack.<jobName>.minimized`, replacing `<jobname>` with the name of the Screwdriver job.
+
+Example screwdriver.yaml sending a minimized Slack message in case the `component` job was triggered by the scheduler:
+
+```yaml
+shared:
+    image: docker.ouroath.com:4443/x/y/z
+    
+    settings:
+        slack:
+            channels: [ main_channel ]
+            statuses: [ FAILURE ]
+            minimized: false
+
+jobs:
+   component:
+    steps:
+      - meta: |
+          if [[ $SD_SCHEDULED_BUILD == true ]]; then
+             meta set notification.slack.component.minimized true
+          fi
+```
+In the above example a Slack notification message will be send in `minimized` format for the `component` job if it was triggered by the scheduler.
+

@@ -37,24 +37,24 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 
 ### 全般
 
-環境変数名 | 説明
---- | ---
-SD_BUILD_ID | [ビルド](../about/appendix/domain#ビルド)番号 (例: 1, 2, など)
-SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID
-SD_JOB_ID | [ジョブ](../about/appendix/domain#ジョブ)の ID
-SD_JOB_NAME | ジョブの名前 (例: main)
-SD_PARENT_BUILD_ID | このビルドをトリガーするビルドのリスト(例: `[12345 23456]`) |
-SD_PARENT_BUILD_ID | このビルドのトリガーとなったビルド
-SD_PARENT_EVENT_ID | リスタートの場合、親のイベントの ID
-SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる
-SD_PIPELINE_ID | パイプラインの ID
-SD_PIPELINE_NAME | パイプラインの名前(例: `d2lam/myPipeline`)
-SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空)
-SD_TEMPLATE_FULLNAME | 使用しているテンプレートの完全な名前 (テンプレートを使用していない場合は空)
-SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空)
-SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空)
-SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空)
-SD_TOKEN | ビルド用の JWT トークン
+| 環境変数名 | 説明 |
+|---|---|
+| SD_BUILD_ID | [ビルド](../about/appendix/domain#ビルド)番号 (例: 1, 2, など) |
+| SD_EVENT_ID | [イベント](../about/appendix/domain#イベント)の ID |
+| SD_JOB_ID | [ジョブ](../about/appendix/domain#ジョブ)の ID |
+| SD_JOB_NAME | ジョブの名前 (例: main) |
+| SD_PARENT_BUILD_ID | このビルドをトリガーするビルドのリスト(例: `[12345 23456]`) |
+| SD_PARENT_EVENT_ID | リスタートの場合、親のイベントの ID |
+| SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる |
+| SD_PIPELINE_ID | パイプラインの ID |
+| SD_PIPELINE_NAME | パイプラインの名前(例: `d2lam/myPipeline`) |
+| SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空) |
+| SD_STEP_EXIT_CODE | 以前実行されたステップの終了コード。teardown stepsのみで利用可能。（例: 以前のすべてのステップがパスしていれば`0`、そうでなければ最後の`0`でない終了コード。)|
+| SD_TEMPLATE_FULLNAME | 使用しているテンプレートの完全な名前 (テンプレートを使用していない場合は空) |
+| SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空) |
+| SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空) |
+| SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空) |
+| SD_TOKEN | ビルド用の JWT トークン |
 
 ### ユーザ設定
 
@@ -78,12 +78,14 @@ SD_TOKEN | ビルド用の JWT トークン
 |------|-------|
 | SD_SONAR_AUTH_URL | Sonar のアクセストークンを返す Screwdriver API の認証 URL |
 | SD_SONAR_HOST | Sonar のホストの URL |
+| SD_SONAR_ENTERPRISE | SonarQube の Enterprise 版を利用している(true)か、オープンソース版を使っている(false)か |
+| SD_SONAR_PROJECT_KEY | Sonar の project key (例: `pipeline:123` or `job:456`) |
+| SD_SONAR_PROJECT_NAME | Sonar の project 名 (例: `d2lam/myPipeline` or `d2lam/myPipeline:main`) |
 
 ## ディレクトリ
 
 環境変数名 | 説明
 --- | ---
-SD_SOURCE_DIR | チェックアウトされたコードのディレクトリ
 SD_ARTIFACTS_DIR | ビルド･生成されたファイルのディレクトリ <br><br>**注意**: ビルドが`ABORTED`で無い場合に、`sd-teardown-screwdriver-artifact-bookend`ステップでこのディレクトリからストアへアップロードされます。
 SD_META_DIR | [メタデータ](./metadata)ディレクトリのパス
 SD_META_PATH | [メタデータ](./metadata)ファイルのパス
@@ -116,7 +118,8 @@ SCM_URL | チェックアウトされた SCM の URL
 GIT_URL | チェックアウトされた SCM の URL に .git を追加した URL
 CONFIG_URL | 親パイプラインのリポジトリの SCM の URL ([子パイプライン](./configuration/externalConfig)でのみ設定されます)
 GIT_BRANCH | プルリクエストまたはブランチのリファレンス (例: `origin/refs/${PRREF}` または `origin/${BRANCH}`)
-PR_BRANCH_NAME | プルリクエストのブランチ名 (e.g.: `origin/${BRANCH}` または `upstream/${BRANCH}`) | 
+PR_BASE_BRANCH_NAME | プルリクエストのベースとなっているブランチ名 (例: `${BRANCH}`)
+PR_BRANCH_NAME | プルリクエストのブランチ名 (例: `origin/${BRANCH}` または `upstream/${BRANCH}`) | 
 SD_BUILD_SHA | Git の commit SHA (例: `b5a94cdabf23b21303a0e6d5be5e96bd6300847a`) |
 
 ## URLs

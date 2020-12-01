@@ -41,6 +41,7 @@ Screwdriverは最初から[多くのデフォルト設定](https://github.com/sc
 JWT_ENVIRONMENT | いいえ | JWT を生成する環境です。例えば `prod` や `beta` などを指定します。JWT に環境変数を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)
 SECRET_JWT_PRIVATE_KEY | はい | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。`$ openssl genrsa -out jwt.pem 2048`
 SECRET_JWT_PUBLIC_KEY | はい | 署名を検証するための公開鍵です。次のコマンドにより生成できます。`$ openssl rsa -in jwt.pem -pubout -out jwt.pub`
+SECRET_JWT_QUEUE_SVC_PUBLIC_KEY | はい | プラグインがキューの場合に署名を検証するための公開鍵です。次のコマンドにより生成できます。 `$ openssl rsa -in jwtqs.pem -pubout -out jwtqs.pub`
 SECRET_COOKIE_PASSWORD | はい | セッションデータを暗号化するためのパスワードです。**32文字以上である必要があります。**
 SECRET_PASSWORD | はい | SECRETを暗号化するためのパスワードです。**32文字以上である必要があります。**
 IS_HTTPS | いいえ | サーバーがhttpsで動作しているかどうかを設定するフラグです。OAuthフローのフラグとして利用されます。(デフォルトは`false`です)
@@ -54,6 +55,8 @@ auth:
         PRIVATE KEY HERE
     jwtPublicKey: |
         PUBLIC KEY HERE
+    jwtQueueServicePublicKey: |
+        QUEUE SVC PUBLIC KEY HERE
     cookiePassword: 975452d6554228b581bf34197bcb4e0a08622e24
     encryptionPassword: 5c6d9edc3a951cda763f650235cfc41a3fc23fe8
     https: false
@@ -118,10 +121,13 @@ bookends:
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | はい | `sonar` としてください |
 | URI | はい | Screwdriver の API の URI |
+| ECOSYSTEM_UI | はい | Screwdriver の UI の URL |
 | COVERAGE_SONAR_HOST | はい | Sonar の host の URL |
 | COVERAGE_SONAR_ADMIN_TOKEN | はい | Sonar の admin token |
+| COVERAGE_SONAR_ENTERPRISE | いいえ | SonarQube を Enterprise 版で利用している（true）か、OpenSourceEdition で利用している(false）か。デフォルト値は `false` |
+| COVERAGE_SONAR_GIT_APP_NAME | いいえ | SonarのPull Request DecorationのためのGithub app名。デフォルト値は `Screwdriver Sonar PR Checks` です。この機能にはSonar Enterprise Editionが必要です。詳細は[Sonarのドキュメント](https://docs.sonarqube.org/latest/analysis/pr-decoration)をご覧ください。
 
-更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。
+更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。SonarQube の Enterprise 版を利用している場合には、 SonarQube のプロジェクトキーや名前はデフォルトでは _パイプライン_ スコープになります。これにより、 PR 解析が使えるようになったり、 Screwdriver のジョブ毎に個別のプロジェクトが作成されることを防げます。Enterprise 版の SonarQube を使用していない場合、SonarQube のプロジェクトキーや名前はデフォルトでは _ジョブ_ スコープになります。
 
 ### 配信
 
@@ -153,9 +159,10 @@ httpd:
 
 キー | デフォルト | 説明
 --- | --- | ---
-ECOSYSTEM_UI | https://cd.screwdriver.cd | ユーザーインターフェースのURL
-ECOSYSTEM_STORE | https://store.screwdriver.cd | アーティファクトストアURL
-ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | ステータステキストと色をテンプレートにしたURL
+ECOSYSTEM_UI | <https://cd.screwdriver.cd> | ユーザーインターフェースのURL
+ECOSYSTEM_STORE | <https://store.screwdriver.cd> | アーティファクトストアURL
+ECOSYSTEM_BADGES | <https://img.shields.io/badge/build-{{status}}-{{color}}.svg> | ステータステキストと色をテンプレートにしたURL
+ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュープラグインで使用されるキューサービスの内部URL
 
 ```yaml
 # config/local.yaml
@@ -166,6 +173,8 @@ ecosystem:
     store: https://store.screwdriver.cd
     # Badge service (needs to add a status and color)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
+    # Internally routable FQDNS of the queue svc
+    queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
 
 ### データストアプラグイン
@@ -231,8 +240,8 @@ K8S_MEMORY_HIGH | 12 | high 時のメモリ数(GB)
 K8S_MEMORY_TURBO | 16 | turbo 時のメモリ数(GB)
 K8S_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルトのタイムアウト時間(分)
 K8S_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分)
-K8S_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node
-K8S_PREFERRED_NODE_SELECTORS | `{}`|  pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature
+K8S_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node>
+K8S_PREFERRED_NODE_SELECTORS | `{}`|  pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature>
 DOCKER_FEATURE_ENABLED | false | ビルドポッド内でDocker In Dockerを有効にするフラグ |
 
 
@@ -274,8 +283,8 @@ executor:
 | K8S_MEMORY_TURBO | 16 | turbo 時のメモリ数(GB) |
 | K8S_VM_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルトのタイムアウト時間(分) |
 | K8S_VM_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分) |
-| K8S_VM_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
-| K8S_VM_PREFERRED_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+| K8S_VM_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
+| K8S_VM_PREFERRED_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
 
 ```yaml
 # config/local.yaml
@@ -350,30 +359,17 @@ executor:
 ```
 
 #### Queue (queue)
-`queue` executor を使用すると、Resque のある Redis インスタンスを使用してビルドをキューすることができます。
+`queue` executorを使用すると、Resqueを含むRedisインスタンスを実行している[リモートキューサービス](./configure-queue-service)にビルドをキューすることができます。
 
 | 環境変数名       | デフォルト値 | 説明          |
 |:-----------------------|:--------------|:---------------------|
 | EXECUTOR_PLUGIN        | k8s           | デフォルトの executor (`queue` を設定します) |
-| QUEUE_REDIS_HOST       | 127.0.0.1     | Redis のホスト                       |
-| QUEUE_REDIS_PORT       | 9999          | Redis のポート                       |
-| QUEUE_REDIS_PASSWORD   | "THIS-IS-A-PASSWORD" | Redis のパスワード            |
-| QUEUE_REDIS_TLS_ENABLED | false        | TLS を有効にするフラグ                 |
-| QUEUE_REDIS_DATABASE   | 0             | Redis のデータベース                   |
 
 ```yaml
 # config/local.yaml
 executor:
     plugin: queue
-    queue:
-        options:
-            redisConnection:
-              host: "127.0.0.1"
-              port: 9999
-              options:
-                  password: "THIS-IS-A-PASSWORD"
-                  tls: false
-              database: 0
+    queue: ''
 ```
 
 #### Nomad (nomad)
@@ -512,11 +508,20 @@ scms:
             email: dev-null@screwdriver.cd # [Optional] checkoutするユーザのEmailアドレス
             commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] GithubのPRにコメントを書き込むためのトークン、"public_repo"のスコープが必要
             privateRepo: false # [Optional] プライベートレポジトリの read/write権限
+            autoDeployKeyGeneration: false # [Optional] trueにすると、deploy keyの公開鍵と秘密鍵を自動で生成し、それぞれをビルドパイプラインとチェックアウト用の Github のリポジトリに追加します。
 ```
 
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
 
 [メタPRコメント](../user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
+
+###### Deploy Keys
+
+Deploy Keyは、単一のGitHubリポジトリへのアクセスが許可されているSSH鍵です。この鍵はGitHubのpersonal access tokenと反対に、個人のユーザアカウントではなくリポジトリに直接紐付けられてます。GitHubのpersonal access tokenは全てのリポジトリに対してユーザ単位でのアクセス権を与える一方、Deploy Keyは単一のリポジトリへのアクセスを許可します。アクセスの制限が可能となるため、privateリポジトリではDeploy Keyの利用をおすすめします。
+
+パイプラインでDeploy Keyを利用したい場合、2つの方法があります:
+* `config/local.yaml`で、`autoDeployKeyGeneration`のフラグを`true`にすることで、パイプラインの一部としてDeploy Keyの自動生成と処理を有効にします。フラグを`true`にすることで、ユーザはUIで自動生成のオプションを追加できるようになります。
+* `openssl genrsa -out jwt.pem 2048`と`openssl rsa -in jwt.pem -pubout -out jwt.pub`を使用して公開鍵と秘密鍵のペアを手動で生成します。そして、公開鍵をDeploy Keyとしてリポジトリに登録します。秘密鍵は**base64でエンコード**される必要があり、それを`SD_SCM_DEPLOY_KEY`のsecretsとしてパイプラインに追加します。secretsの追加方法は、[secrets](../../user-guide/configuration/secrets)を参照してください。
 
 ##### Bitbucket.org
 
@@ -548,6 +553,25 @@ webhooks:
     __name: IGNORE_COMMITS_BY
     __format: json
   restrictPR: RESTRICT_PR
+```
+
+### レートリミット
+
+以下の環境変数を設定することで、認証トークンによるレートリミットを設定します。
+
+| 環境変数名           | デフォルト値  | 説明                 |
+|:---------------------|:--------------|:---------------------|
+| RATE_LIMIT_VARIABLES | `'{ "enabled": false, "limit": 300, "duration": 300000 }'` | レートリミットを設定するJSON文字列 |
+
+または以下のような `config/local.yaml` でデフォルト値を上書きできます。
+
+```yaml
+# config/local.yaml
+rateLimit:
+    enabled: true
+    # リクエスト回数を1分間で最大60回に制限する
+    limit: 60
+    duration: 60000
 ```
 
 ## Dockerコンテナの拡張

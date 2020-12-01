@@ -12,6 +12,8 @@ toc:
   url: "#論理式を用いたワークフロー定義"
 - title: ブランチフィルター
   url: "#ブランチフィルター"
+- title: タグフィルターとリリースフィルター
+  url: "#タグフィルターとリリースフィルター"
 - title: 並列実行と結合 (Parallel and Join)
   url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
@@ -69,7 +71,7 @@ jobs:
 
 プルリクエストがオープンもしくは更新された時にジョブを実行したい場合は、 `requires: [~pr]` を使用してください。コードがマージされたりパイプラインを作成しているブランチに直接プッシュされた後にジョブを実行したい場合は `requires: [~commit]` を使用してください。
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-sequential-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
 ## 論理式を用いたワークフロー定義 (Advanced Logic)
 
@@ -153,7 +155,7 @@ jobs:
 
 ### 例
 
-以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`と `all-commit`がトリガーされます。また、`master`ブランチに対してコミットされると、` main`と `all-commit`がトリガーされます。プルリクエストが`staging`ブランチに対してオープンされると、` staging-pr`がトリガーされます。
+以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`ジョブと `all-commit`ジョブが両方トリガーされます。また、`default`ブランチに対してコミットされると、` main`ジョブと `all-commit`ジョブが両方トリガーされます。プルリクエストが`staging`ブランチに対してオープンされると、` staging-pr`ジョブがトリガーされます。
 ```
 shared:
     image: node:8
@@ -182,6 +184,31 @@ jobs:
 _注意: ブランチに対するPRのワークフローは、そのブランチのscrewdriver.yamlに従います。_
 
 [ブランチフィルターのサンプルリポジトリ](https://github.com/screwdriver-cd-test/branch-filtering-example)を参考にしてください。ブランチフィルターがプルリクエストに対してどう動作するのかを見るのなら、[プルリクエストの例](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2)を参考にしてください。
+
+## タグフィルターとリリースフィルター
+タグフィルター/リリースフィルターを使用して、特定の名称の`~tag`/`~release`イベントをトリガーにすることができます。特定の名称のタグが作成された後にパイプラインでジョブをトリガーするには、`requires: [~tag:tagName]`を使用します。特定の名称のリリースがされた後にパイプラインでジョブをトリガーするには、`requires: [~release:releaseName]`を使用します。`tagName`と`releaseName`は([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~release：/^feature-/`）。正規表現のフラグはサポートしていません。
+
+### 例
+以下の例では、`stable`という名称のリリースがされると、`all-tag-and-release`と `stable-release`がトリガーされます。また、`v1.0`という名称のタグが作成されると、`all-tag-and-release`と `v1-tag`がトリガーされます。`v2.0`という名称のタグが作成されると、`all-tag-and-release`がトリガーされます。
+
+```
+shared:
+    image: node:12
+
+jobs:
+    all-tag-and-release:
+        requires: [~tag, ~release]
+        steps:
+            - echo: echo all
+    v1-tag:
+        requires: [~tag:/^v1\.*/]
+        steps:
+            - echo: echo v1 tag
+    stable-release:
+        requires: [~release:stable]
+        steps:
+            - echo: echo stable release
+```
 
 ## 並列実行と結合 (Parallel and Join)
 
@@ -215,7 +242,7 @@ jobs:
             - echo: echo join after A and B
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-parallel-join-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ## 他のパイプラインからのトリガー
 
@@ -234,7 +261,7 @@ jobs:
             - echo: echo hi
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## リモートジョイン
 リモートジョインジョブを作成することもできます。この機能がサポートされているかは、クラスタ管理者に確認してください。
@@ -297,7 +324,7 @@ jobs:
 注意:
 
 - 全て OR のロジックを使用するため、それぞれのジョブ名の前にチルダ (`~`) を付ける必要があります。blockedBy では AND のロジックはサポートしていません。
-- 競合状態を防ぐため、ジョブは常に自分自身をブロックします。つまり、1つのジョブは同時に2つのビルドを実行することはありません。
+- デフォルトでは、競合状態を防ぐため、ジョブは常に自分自身をブロックします。つまり、1つのジョブは同時に2つのビルドを実行することはありません。
 - この機能はクラスタで `executor-queue` を使用している場合のみ利用可能です。クラスタ管理者にサポートしているかどうかお尋ねください。
 - この機能はPRジョブでは適用されません。
 
@@ -319,7 +346,7 @@ jobs:
             - echo: echo bye
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-blockedby-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-blockedby-example>
 
 ## ジョブの凍結
 `freezeWindows`を使うことでジョブを凍結させ、特定の時間帯にそれらが実行されないようにすることができます。設定値としてcron式またはそれらのリストを取ります。
@@ -330,7 +357,7 @@ jobs:
 
 -  `build_periodically`とは異なり、`freezeWindows`はハッシュ化された時間を使うべきではないため*ハッシュのシンボル`H`は無効です。*
 - 曜日と日にちの組み合わせは通常無効です。したがって、*指定できるのは曜日と日にちのうち1つ*のみです。 他方のフィールドは"?"に設定する必要があります。
-- ジョブの凍結中に複数のビルドが発生した場合、それらは1つのビルドにまとめられ、凍結が明けた際に凍結中に発生した内の最新のコミットで実行されます。
+- デフォルトでは、ジョブの凍結中に複数のビルドが発生した場合、それらは1つのビルドにまとめられ、凍結が明けた際に凍結中に発生した内の最新のコミットで実行されます。この機能を無効にするには、[アノテーション](./annotations)の `screwdriver.cd/collapseBuilds` を `false` に設定してください。
 
 #### 例
 以下の例では、`job1` は3月中に凍結され、` job2` は週末に凍結され、`job3` は午後10時00分から午前10時59分まで凍結されます。
@@ -391,4 +418,4 @@ jobs:
                 - echo: echo detached hi
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/workflow-detached-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-detached-example>

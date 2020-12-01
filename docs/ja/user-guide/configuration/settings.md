@@ -61,9 +61,11 @@ Email 通知を有効にしてビルドの結果を送信するには、Email �
 
 Slack 通知を有効にしてビルドの結果を送信するには、`screwdriver-bot` をチャンネルに招待し、Slack の settings を利用します。パブリックチャンネルとプライベートチャンネルの両方をサポートしています。送信先には1つ以上の Slack チャンネルを設定できます。
 
-また、Slack通知を送信するタイミングも設定できます。例えば、ビルドステータスが `SUCCESS` または `FAILURE` になった場合などです。`statuses`を設定しない場合はビルドが失敗した場合のみ通知します。ステータスの全リストは[data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96)を参照してください。 `minimized` の設定を利用することで、よりコンパクトな形式の通知を利用することもできます。
+また、Slack通知を送信するタイミングも設定できます。例えば、ビルドステータスが `SUCCESS` または `FAILURE` になった場合などです。`statuses`を設定しない場合はビルドが失敗した場合のみ通知します。ステータスのリストは[data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96)を参照してください。`FAILURE` が `statuses` に設定されている場合、[data-schema](https://github.com/screwdriver-cd/data-schema/blob/c2ea9b0372c6e62cb81e1f50602b751d0b10d547/models/build.js#L83-L96)のリストにはない `FIXED` の通知も受け取れます。`FIXED` は、ビルドステータス `FAILURE` から `SUCCESS` に変わった時に通知されます。
 
-ステップ内のデータを通知として送りたい場合には、[notification meta](https://docs.screwdriver.cd/ja/user-guide/metadata.html#通知)をご利用ください。
+`minimized` の設定を利用することで、よりコンパクトな形式の通知を利用することもできます。
+
+ステップ内のデータを通知として送りたい場合には、[notification meta](../metadata#通知)をご利用ください。ジョブごとに通知をカスタマイズすることもできます。
 
 #### 例: 複数Roomの設定
 
@@ -92,7 +94,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
                      - RUNNING
 ```
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/slack-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/slack-example>
 
 #### 例: 短縮した通知
 
@@ -123,4 +125,8 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
                 minimized: true
 ```
 
- ![Minimized Slack notification](../../../user-guide/assets/slack-minimized-notification.png)
+![Minimized Slack notification](../../../user-guide/assets/slack-minimized-notification.png)
+
+#### 例: Metadataを使用
+
+Metadataを使用してSlackメッセージを設定することもできます。これはジョブごとにカスタマイズできます。[Metadataページの通知](../metadata#Slack通知)を参照してください。

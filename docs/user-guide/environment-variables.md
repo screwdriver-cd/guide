@@ -9,10 +9,12 @@ toc:
       active: true
     - title: Build Specific
       url: "#build-specific"
-    - title: <span class="menu-indent">General</span>
+    - title: General
+      subitem: true
       url: "#general"
-    - title: <span class="menu-indent">User configurable</span>
+    - title: User configurable
       url: "#user-configurable"
+      subitem: true
     - title: Plugins
       url: "#plugins"
     - title: Directories
@@ -48,18 +50,20 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_PIPELINE_ID | The ID of the [pipeline](../about/appendix/domain#pipeline) |
 | SD_PIPELINE_NAME | The name of the pipeline (e.g.: `d2lam/myPipeline`) |
 | SD_PULL_REQUEST | Pull Request number (e.g.: `1`; blank if non-PR) |
+| SD_STEP_EXIT_CODE | Exit code from previously executed steps, only available at teardown steps (e.g.: `0` if all previous steps have passed, otherwise, the latest non-zero exit code) |
 | SD_TEMPLATE_FULLNAME | Full template name the job is using (e.g.: `d2lam/myTemplate`; blank if not using template) |
 | SD_TEMPLATE_NAME | Name of the template the job is using (e.g.: `myTemplate`; blank if not using template) |
 | SD_TEMPLATE_NAMESPACE | Namespace of the template the job is using (e.g.: `d2lam`; blank if not using template) |
 | SD_TEMPLATE_VERSION | Version of the template the job is using (blank if not using template) |
 | SD_TOKEN | JWT token for the build |
+| SD_SCHEDULED_BUILD | Whether the build is triggered by scheduler(true) or not(false) |
 
 ### User configurable
 
 | Name | Default Value | Description |
 |------|---------------|-------------|
 | SD_ZIP_ARTIFACTS | false | **Options:** (`true`/`false`) <br><br>Compresses and uploads artifacts in a single ZIP file.<br><br>**Use case:** If you're using Amazon S3 for your store, the zip file can be unzipped on the store end using AWS Lambda. Reduces upload time when your build has a lot of artifacts but there's an upper limit to the size and number of files in the zip file you upload, since the compute resources on Lambda are limited per build. If the upload fails, it's likely that you have more artifacts or that the zip is larger than Lambda can handle.<br><br>**Note:** Consult with your cluster admin to see if this option is available. |
-| USER_SHELL_BIN | sh | The user shell bin to run the build in. Can also be the full path such as `/bin/bash`. Example repo: https://github.com/screwdriver-cd-test/user-shell-example |
+| USER_SHELL_BIN | sh | The user shell bin to run the build in. Can also be the full path such as `/bin/bash`. Example repo: <https://github.com/screwdriver-cd-test/user-shell-example> |
 | GIT_SHALLOW_CLONE | true | **Options:** (`true`/`false`) <br><br>Shallow clones source repository. |
 | GIT_SHALLOW_CLONE_DEPTH | 50 | Shallow clone with a history truncated to the specified number of commits |
 | GIT_SHALLOW_CLONE_SINCE |  | Shallow clone with a history truncated starting from the specified datetime (inclusive). If set, this has priority over `GIT_SHALLOW_CLONE_DEPTH`.<br><br>This uses `--shallow-since` which accepts both absolute dates (e.g.: `2019-04-01`) and relative dates (e.g.: `4 weeks ago`). |
@@ -75,6 +79,9 @@ These environment variables may or may not be available depending on what plugin
 |------|-------|
 | SD_SONAR_AUTH_URL | Screwdriver API authentication URL that will return a Sonar access token |
 | SD_SONAR_HOST | Sonar host URL |
+| SD_SONAR_ENTERPRISE | Whether using Enterprise (true) or open source edition of SonarQube(false) |
+| SD_SONAR_PROJECT_KEY | Sonar project key (e.g.: `pipeline:123` or `job:456`) |
+| SD_SONAR_PROJECT_NAME | Sonar project name (e.g.: `d2lam/myPipeline` or `d2lam/myPipeline:main`) |
 
 ## Directories
 
@@ -109,7 +116,8 @@ Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['RE
 | GIT_URL | SCM URL that was checked out with .git appended (e.g.: `https://github.com/d2lam/myPipeline.git`) |
 | CONFIG_URL | SCM URL of the parent pipeline repository (only set for [child pipelines](./configuration/externalConfig)) |
 | GIT_BRANCH | Reference for PR or the branch (e.g.: `origin/refs/${PRREF}` or `origin/${BRANCH}`) |
-| PR_BRANCH_NAME | Branch name for PR (e.g.: `origin/${BRANCH}` or `upstream/${BRANCH}`) | 
+| PR_BASE_BRANCH_NAME | Base branch name the PR is opened against (e.g.: `${BRANCH}`) |
+| PR_BRANCH_NAME | Branch name of the PR (e.g.: `origin/${BRANCH}` or `upstream/${BRANCH}`) |
 | SD_BUILD_SHA | The Git commit SHA (e.g.: `b5a94cdabf23b21303a0e6d5be5e96bd6300847a`) |
 
 ## URLs

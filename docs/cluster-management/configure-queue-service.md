@@ -77,7 +77,7 @@ httpd:
 
 ### Configure Redis Queue
 
-Configure some settings about storing Build Artifacts.
+Configure some settings for setting up the Queue.
 
 | Key                | Required            |  Default              | Description       |
 |:-------------------|:---------------------|:---------------------|:-----------------------------|
@@ -87,6 +87,7 @@ Configure some settings about storing Build Artifacts.
 | REDIS_TLS_ENABLED   | No                   | false                | Redis tls enabled           |
 | REDIS_DB_NUMBER     | No                   | 0                    | Redis db number             |
 | REDIS_QUEUE_PREFIX  | No                   | ''                   | Redis queue prefix          |
+
 ```yaml
 # config/local.yaml
 queue:
@@ -99,3 +100,32 @@ queue:
     database: 0
   prefix: ''
 ```
+
+### Configure Blocked By Settings
+
+Configure some settings for [blockedBy](../user-guide/configuration/workflow#blocked-by).
+
+| Key                | Required            |  Default              | Description       |
+|:-------------------|:---------------------|:----------------------------------------------------|
+| PLUGIN_BLOCKEDBY_REENQUEUE_WAIT_TIME      | No                  | 1            | Minutes to wait before re-enqueuing if blocked                 |
+| PLUGIN_BLOCKEDBY_BLOCK_TIMEOUT   | No                   | 120                | Maximum minutes for a job to be blocked before timing out           |
+| PLUGIN_BLOCKEDBY_BLOCKED_BY_SELF     | No                   | true                    | Whether a job will be blocked by itself or not            |
+| PLUGIN_BLOCKEDBY_COLLAPSE  | No                   | true                   | Whether multiple builds run for the same job at the same time will collapse or not         |
+
+```yaml
+# config/local.yaml
+plugins:
+  blockedBy:
+    reenqueueWaitTime: 5
+    blockTimeout: 180
+    blockedBySelf: false
+    collapse: false
+```
+
+### Configure pushgateway
+
+Configure pushgateway to collect [build metrics](./collect-metrics#build-metrics).
+
+|Key                        | Required | Default | Description     |
+|:--------------------------|:---------|:--------|:----------------|
+|ECOSYSTEM_PUSHGATEWAY_URL  | No       |         | Pushgateway URL |

@@ -12,6 +12,8 @@ toc:
       url: "#advanced-logic"
     - title: Branch filtering
       url: "#branch-filtering"
+    - title: Tag/Release filtering
+      url: "#tagrelease-filtering"
     - title: Parallel and Join
       url: "#parallel-and-join"
     - title: Remote Triggers
@@ -24,6 +26,8 @@ toc:
       url: "#freeze-windows"
     - title: Detached Jobs and Pipelines
       url: "#detached-jobs-and-pipelines"
+    - title: Subscribed SCM notifications
+      url: "#subscribed-scm-notifications"
 ---
 # Workflow
 Workflow is the way that individual jobs are wired together to form a pipeline. This is done by using a `requires` keyword in your job definition with the list of jobs or events that should cause that job to run. Screwdriver defines four events for every pipeline that occur due to SCM events: `~pr`, `~commit`, `~tag` and `~release`.
@@ -62,7 +66,7 @@ jobs:
 
 To specify a job to run when a pull request is opened or updated, use `requires: [~pr]`. For jobs that should start after code is merged or pushed to the main branch, use `requires: [~commit]`.
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-sequential-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
 ## Advanced Logic
 ### Advanced Logic [_AND_]
@@ -138,7 +142,7 @@ is equivalent to the Boolean expression `A OR C OR E OR (B AND D AND F)`. Such a
 Branch filtering lets you listen to events happening beyond the pipeline's specified branch. To trigger jobs in your pipeline after a commit is made on a specific branch, you can use `requires: [~commit:branchName]`. To trigger jobs in your pipeline after a pull request is made against a specific branch, you can use `requires: [~pr:branchName]`. Branches may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. `~commit:/^feature-/`), although note that regex flags are not supported.
 
 ### Example
-In the following example, when a commit is made on branch `staging`, `staging-commit` and `all-commit` are triggered. Also, when a commit is made on branch `master`, `main` and `all-commit` are triggered. When a pull request is opened against branch `staging`, `staging-pr` is triggered.
+In the following example, when a commit is made on branch `staging`, both `staging-commit` job and `all-commit` job are triggered. Also, when a commit is made on branch `default`, both `main` job and `all-commit` job are triggered. When a pull request is opened against branch `staging`, `staging-pr` job is triggered.
 
 ```
 shared:
@@ -169,6 +173,31 @@ _Note: A PR against a branch will follow the workflow pattern indicated by that 
 
 See the [branch filtering example repo](https://github.com/screwdriver-cd-test/branch-filtering-example) for reference. To see how branch filtering works with pull requests, see our [example pull request](https://github.com/screwdriver-cd-test/branch-filtering-example/pull/2).
 
+## Tag/Release filtering
+You can use Tag/Release filtering to limit the listening for `~tag`/`~release` events to a specific tag or release name. To trigger a job in your pipeline after a tag with a specific name has been created, you can use `requires: [~tag:tagName]`. To trigger a job in your pipeline after a release with a specific name has been pushed, you can use `requires: [~release:releaseName]`. `tagName` and `releaseName` may also be specified by using a ([JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)) regular expression (e.g. ~release:/^feature-/), although note that regex flags are not supported.
+
+### Example
+In the following example, when `stable` release is pushed, `all-tag-and-release` and `stable-release` are triggered. When `v1.0` tag is created, `all-tag-and-release` and `v1-tag` are triggered. When `v2.0` tag is created, `all-tag-and-release` is triggered.
+
+```
+shared:
+    image: node:12
+
+jobs:
+    all-tag-and-release:
+        requires: [~tag, ~release]
+        steps:
+            - echo: echo all
+    v1-tag:
+        requires: [~tag:/^v1\.*/]
+        steps:
+            - echo: echo v1 tag
+    stable-release:
+        requires: [~release:stable]
+        steps:
+            - echo: echo stable release
+```
+
 ## Parallel and Join
 You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
 
@@ -198,7 +227,7 @@ jobs:
             - echo: echo join after A and B
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-parallel-join-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ## Remote Triggers
 To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`. `~pr`, `~commit`, and jobs with `~sd@pipelineID:jobName` format follow _OR_ logic.
@@ -215,7 +244,7 @@ jobs:
             - echo: echo hi
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-remote-requires-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## Remote Join
 You can also have remote join jobs. Please double check with your cluster admin whether it is supported. 
@@ -277,7 +306,7 @@ To have your job blocked by another job, you can use `blockedBy`. It has the sam
 
 Note:
 - Since everything is using OR syntax, you need a tilde (`~`) before each of your job names. We do not support AND logic for blockedBy.
-- To prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
+- By default, to prevent race conditions, a job is always blocked by itself. That means the same job cannot have 2 instances of builds running at the same time.
 - This feature is only available if your cluster admin configured to use `executor-queue`. Please double check with your cluster admin whether it is supported.
 - This feature does not apply to PR jobs.
 
@@ -298,7 +327,7 @@ jobs:
             - echo: echo bye
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-blockedby-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-blockedby-example>
 
 ## Freeze Windows
 You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value.
@@ -308,7 +337,7 @@ Before the job is started, it will check if the start time falls under any of th
 Note:
 - Different from `build_periodically`, `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
 - The combinations of day of week and day of month are usually invalid. Therefore only *one out of day of week and day of month can be specified*. The other field should be set to "?".
-- If multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window.
+- By default, if multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window. You can turn this feature off by setting the `screwdriver.cd/collapseBuilds` [annotation](./annotations) to `false`.
 
 #### Example
 In the following example, `job1` will be frozen during the month of March, `job2` will be frozen on weekends, and `job3` will be frozen from 10:00 PM to 10:59 AM.
@@ -351,4 +380,31 @@ jobs:
             - echo: echo im-a-detached-job
 ```
 
-Example repo: https://github.com/screwdriver-cd-test/workflow-detached-example
+Example repo: <https://github.com/screwdriver-cd-test/workflow-detached-example>
+
+## Subscribed SCM Notifications
+You can subscribe to external repositories so builds are triggered in your pipeline whenever there are changes in those external repositories. You can configure your pipeline to subscribe to webhook notifications for events such as `~pr`, `~commit`, `~tag` and `~release`. Each job needs to be independently configured to respond to the subscribed event(s).
+
+### Example
+In the following example, we can add repositories to subscribe to in the `scmUrls` sections of the `subscribe` object. Then we need to specify the events to subscribe to, which are `~commit` and `~pr` in this example. Note that webhooks are automatically registered to the repositories at the time of pipeline creation.
+
+```
+shared:
+    image: node:8
+
+subscribe: 
+    scmUrls:
+        - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
+```
+
+Now to configure specific jobs to respond to subscribed events:
+
+```
+jobs:
+    A:
+        steps:
+            - echo: echo test
+        requires: [~pr, ~commit, ~subscribe]
+```
+
+Here the `~subscribed` event tells the job to respond to external notifications. 

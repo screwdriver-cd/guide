@@ -7,6 +7,8 @@ toc:
     - title: Frequently Asked Questions
       url: "#frequently-asked-questions"
       active: true
+    - title: How do I skip a step?
+      url: "#how-do-i-skip-a-step"
     - title: How do I skip a build?
       url: "#how-do-i-skip-a-build"
     - title: How do I create a pipeline?
@@ -37,6 +39,8 @@ toc:
       url: "#what-shell-does-screwdriver-use"
     - title: How do I speed up time to upload artifacts?
       url: "#how-do-i-speed-up-time-to-upload-artifacts"
+    - title: How do I permalink pipeline jobs and artifacts?
+      url: "#how-do-i-permalink-pipeline-jobs-and-artifacts"
     - title: How do I disable shallow cloning?
       url: "#how-do-i-disable-shallow-cloning"
     - title: What are the minimum software requirements for a build image?
@@ -45,22 +49,42 @@ toc:
       url: "#how-do-i-integrate-with-saucelabs"
     - title: How do I run my pipeline when commits made from inside a build are pushed to my git repository?
       url: "#how-do-i-run-my-pipeline-when-commits-made-from-inside-a-build-are-pushed-to-my-git-repository"
+    - title: 'Why do my pull request builds fail with the error: "fatal: refusing to merge unrelated histories" in the sd-setup-scm step?'
+      url: "#why-do-my-pull-request-builds-fail-with-the-error-fatal-refusing-to-merge-unrelated-histories-in-the-sd-setup-scm-step"
+    - title: 'Why do I get "Not Found" when I try to start/delete my pipeline?'
+      url: "#why-do-i-get-not-found-when-i-try-to-start-or-delete-my-pipeline"
 
 ---
 
 # Frequently Asked Questions
 
+## How do I skip a step?
+
+You might want to use a template but without one of its steps.
+
+To do this, replace the unwanted step with any shell command that returns a successful status, such as `echo`, `true`, or even just `:`. Commands must be strings, so commands such as `true` or `:` should be quoted. Commands with backticks must be quoted too. Commands that return an unsuccessful status will abort the build.
+
+Partial example:
+
+```yaml
+steps:
+  - first: echo I am skipping step first
+  - second: 'true'
+  - third: ":"
+  - WRONG: "`exit 22`"
+```
+
 ## How do I skip a build?
 
 You might want to skip a build if you're only changing documentation.
 
- If you don't want Screwdriver to trigger a build when you're pushing to master, add `[ci skip]` or `[skip ci]` somewhere in the commit message. If you don't want Screwdriver to trigger a build when you merge a pull request, add `[ci skip]` or `[skip ci]` to the pull request title.
+If you don't want Screwdriver to trigger a build when you're pushing to your base branch, add `[ci skip]` or `[skip ci]` to the commit message on any of the commits off the pull request.
 
 _Note: Doesn't apply to pull request builds: a commit message containing `[skip ci]` or `[ci skip]` will still trigger a pre-commit job (a PR job will always run)._
 
 ## How do I create a pipeline?
 
-To create a pipeline, click the Create icon and paste a Git URL into the form. Followed by `#` and the branch name, if the branch is not `master`.
+To create a pipeline, click the Create icon and paste a Git URL into the form. Followed by `#` and the branch name, otherwise SCM default branch will be used.
 
 ![Create a pipeline](./assets/create-pipeline.png)
 
@@ -145,6 +169,29 @@ By default, step commands are evaluated with the Bourne shell (`/bin/sh`). You c
 ## How do I speed up time to upload artifacts?
 You can set the environment variable [`SD_ZIP_ARTIFACTS`](./environment-variables#user-configurable) to `true` which will zip artifacts before uploading, provided your cluster admin has set it up properly.
 
+## How do I permalink pipeline jobs and artifacts?
+You can follow the following conventions to permalink your jobs and artifacts for your pipelines with given [STATUS](./configuration/settings):
+
+```
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest?status={STATUS}
+
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts?status={STATUS}
+/pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/artifacts/file-path?status={STATUS}
+```
+
+
+Examples:
+
+```
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=SUCCESS
+https://cd.screwdriver.cd/pipelines/1/jobs/main/latest?status=FAILURE
+
+https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts?status=SUCCESS
+https://cd.screwdriver.cd/pipelines/1/jobs/main/artifacts/meta.json?status=SUCCESS
+```
+
 ## How do I disable shallow cloning?
 You can set the environment variable [`GIT_SHALLOW_CLONE`](./environment-variables#user-configurable) to `false` in order to disable shallow cloning.
 
@@ -160,8 +207,8 @@ Also, if the `image` is Alpine-based, an extra workaround is required in the for
 
 ## How do I integrate with Saucelabs?
 
-Read about it on our blog post: https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver
-See the example repo: https://github.com/screwdriver-cd-test/saucelabs-example
+Read about it on our blog post: <https://blog.screwdriver.cd/post/161515128762/sauce-labs-testing-with-screwdriver>
+See the example repo: <https://github.com/screwdriver-cd-test/saucelabs-example>
 
 ## How do I run my pipeline when commits made from inside a build are pushed to my git repository?
 
@@ -169,4 +216,14 @@ Screwdriver uses `sd_buildbot` as default [git user](https://github.com/screwdri
 
 This has implications for webhook processing. In order to prevent headless users from running your pipeline indefinitely, Screwdriver cluster admins can configure Screwdriver webhook processor to ignore commits made by headless users. This is done by setting [IGNORE_COMMITS_BY](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325) environment variable. Default git user `sd-buildbot` is usually added to this list.
 
-Users can override this behavior by using a different git user. For example `git config --global user.name my-buildbot`. With this, your `git` commits from a Screwdriver build will be associated with user `my-buildbot` and will run Screwdriver pipeline without getting ignored by webhook processor.
+Users can override this behavior by using a different git user. For example `git config --global user.name my-buildbot` and `git config --global user.email my-buildbot-email`. With this, your `git` commits from a Screwdriver build will be associated with user `my-buildbot` and will run Screwdriver pipeline without getting ignored by webhook processor.
+
+## Why do my pull request builds fail with the error: `fatal: refusing to merge unrelated histories` in the sd-setup-scm step?
+
+If your pull request branch has more than `$GIT_SHALLOW_CLONE_DEPTH` commits (default: 50), you may see pull request builds fail with this error. This message indicates that git cannot find a common shared ancestor between your feature branch and the main branch.
+
+To resolve this issue, you could disable or tune the shallow clone settings ([see them listed here](./environment-variables#user-configurable)) for your job, or reduce the number of commits on your feature branch (e.g. rebase and squash).
+
+## Why do I get `Not Found` when I try to start or delete my pipeline?
+
+Screwdriver pipelines have a 1:1 relation to the underlying SCM repository and this is validated by using not only the SCM repository name but also its unique repository ID. The `Not Found` error occurs when the SCM repository is deleted and re-created under same repository name (delete & re-fork has same effect). This action results in the new SCM repository getting a new ID and hence failing Screwdriver validations. If your pipeline is in this state, your only option is to re-create the pipeline and reach out Screwdriver cluster admin to remove the old pipeline.

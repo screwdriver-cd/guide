@@ -123,7 +123,7 @@ jobs:
     requires: [deploy-east]
 ```
 
-After the merge of a pull-request to master:
+After the merge of a pull-request to base branch:
 
  - `main` will run and trigger `publish`
  - `publish` will trigger `deploy-west` and `deploy-east` in parallel

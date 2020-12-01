@@ -29,7 +29,7 @@ Screwdriverは`scmUrls`リストに基づいて子パイプラインを作成、
 childPipelines:
   scmUrls:
     - git@github.com:minz1027/test.template.git
-    - git@github.com:minz1027/quickstart-generic.git#master
+    - git@github.com:minz1027/quickstart-generic.git#main
 
 jobs:
   main:
@@ -56,4 +56,4 @@ jobs:
 子パイプライン UI:
 ![External config child pipeline ](../../../user-guide/assets/external-config-child.png)
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/external-config-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/external-config-example>

@@ -11,6 +11,42 @@ toc:
       url: "#packages"
     - title: Configuration
       url: "#configuration"
+    - title: Authentication / Authorization
+      url: "#authentication--authorization"
+      subitem: true
+    - title: Build Variables
+      url: "#build-variables"
+      subitem: true
+    - title: Bookend Plugins
+      url: "#bookend-plugins"
+      subitem: true
+    - title: Serving
+      url: "#serving"
+      subitem: true
+    - title: Ecosystem
+      url: "#ecosystem"
+      subitem: true
+    - title: Data Store
+      url: "#datastore-plugin"
+      subitem: true
+    - title: Executors
+      url: "#executor-plugin"
+      subitem: true
+    - title: Notifications
+      url: "#notifications-plugin"
+      subitem: true
+    - title: Source Control
+      url: "#source-control-plugin"
+      subitem: true
+    - title: Webhooks
+      url: "#webhooks"
+      subitem: true
+    - title: Rate Limiting
+      url: "#rate-limiting"
+      subitem: true
+    - title: Canary Routing
+      url: "#canary-routing"
+      subitem: true
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
 ---
@@ -120,10 +156,13 @@ In order to use Sonar in your cluster, set up a Sonar server (see example at [ou
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | Yes      | Should be `sonar`     |
 | URI             | Yes      | Screwdriver API url   |
+| ECOSYSTEM_UI    | Yes      | Screwdriver UI url    |
 | COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
 | COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
+| COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise (true) or open source edition of SonarQube(false); default `false` |
+| COVERAGE_SONAR_GIT_APP_NAME | No | Github app name for Sonar pull request decoration; default `Screwdriver Sonar PR Checks`; This feature requires Sonar enterprise edition. Follow [instructions in the Sonar docs](https://docs.sonarqube.org/latest/analysis/pr-decoration) for details. |
 
-You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details.
+You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details. Using Enterprise edition of SonarQube will default to _pipeline_ scope for SonarQube project keys and names. Will also allow for usage of PR analysis and prevent creation of separate projects for each Screwdriver job. Using non-Enterprise SonarQube will default to _job_ scope for SonarQube project keys and names.
 
 ### Serving
 
@@ -158,7 +197,8 @@ Specify externally routable URLs for your UI, Artifact Store, and Badge service.
 | ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | URL for the User Interface                   |
 | ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | URL for the Artifact Store                   |
 | ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | URL with templates for status text and color |
-| ECOSYSTEM_QUEUE  | http://sdqueuesvc.screwdriver.svc.cluster.local                                          | Internal URL for the Queue Service to be used with queue plugin
+| ECOSYSTEM_QUEUE  | http://sdqueuesvc.screwdriver.svc.cluster.local             | Internal URL for the Queue Service to be used with queue plugin |
+
 ```yaml
 # config/local.yaml
 ecosystem:
@@ -169,7 +209,7 @@ ecosystem:
     # Badge service (needs to add a status and color)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
     # Internally routable FQDNS of the queue svc
-    queue: http://sdqueuesvc.screwdriver.svc.cluster.local 
+    queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
 
 ### Datastore Plugin
@@ -232,8 +272,8 @@ If you use this executor, builds will run in pods in Kubernetes.
 | K8S_MEMORY_TURBO   | 16            | Memory in GB for turbo                     |
 | K8S_BUILD_TIMEOUT  | 90            | Default build timeout for all builds in this cluster (in minutes) |
 | K8S_MAX_BUILD_TIMEOUT | 120        | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
-| K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
-| K8S_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+| K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
+| K8S_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
 | DOCKER_FEATURE_ENABLED | false | Flag to enable a Docker In Docker container in the build pod |
 
 
@@ -273,8 +313,8 @@ If you use the `k8s-vm` executor, builds will run in VMs in pods in Kubernetes.
 | K8S_MEMORY_TURBO   | 16            | Memory in GB for turbo                     |
 | K8S_VM_BUILD_TIMEOUT  | 90         | Default build timeout for all builds in this cluster (in minutes) |
 | K8S_VM_MAX_BUILD_TIMEOUT | 120     | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
-| K8S_VM_NODE_SELECTORS | `{}`       | K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node |
-| K8S_VM_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature |
+| K8S_VM_NODE_SELECTORS | `{}`       | K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
+| K8S_VM_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
 
 ```yaml
 # config/local.yaml
@@ -493,11 +533,20 @@ scms:
             email: dev-null@screwdriver.cd # [Optional] Email for code checkout
             commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] Token for writing PR comments in Github, needs "public_repo" scope
             privateRepo: false # [Optional] Set to true to support private repo; will need read and write access to public and private repos (https://developer.github.com/v3/oauth/#scopes)
+            autoDeployKeyGeneration: false # [Optional] Set to true to allow automatic generation of private and public deploy keys and add them to the build pipeline and Github for repo checkout, respectively
 ```
 
 If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
 
 In order to enable [meta PR comments](../user-guide/metadata), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
+
+###### Deploy Keys
+
+Deploy Keys are SSH keys that grant access to a single GitHub repository. This key is attached directly to the repository instead of to a personal user account, as opposed to Github personal access tokens. Github personal access tokens give user-wide access for all the repositories while deploy keys, on the other hand, give access to a single repository. Due to their limited access, deploy keys are preferred for private repositories.
+
+If users want to use deploy keys in their pipeline they have 2 options:
+* Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
+* Manually generate the public and private key pair using `openssl genrsa -out jwt.pem 2048` and `openssl rsa -in jwt.pem -pubout -out jwt.pub`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](../../user-guide/configuration/secrets) for adding secrets.
 
 
 ##### Bitbucket.org
@@ -529,6 +578,47 @@ webhooks:
     __name: IGNORE_COMMITS_BY
     __format: json
   restrictPR: RESTRICT_PR
+```
+
+### Rate Limiting
+
+Set these environment variables to configure rate limiting by authentication token:
+
+| Environment name     | Default Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| RATE_LIMIT_VARIABLES | `'{ "enabled": false, "limit": 300, "duration": 300000 }'` | JSON string configuration for rate limiting |
+
+Or override the default with the following `config/local.yaml` file.
+
+```yaml
+# config/local.yaml
+rateLimit:
+    enabled: true
+    # limit to max 60 requests in 1 minute
+    limit: 60
+    duration: 60000
+```
+
+### Canary Routing
+
+If your Screwdriver Kubernetes Cluster is using [nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary), then set this environment variable to have API server set a cookie for a limited duration such that subsequent API requests are served by same canary API pods.
+
+| Environment name     | Example Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| RELEASE_ENVIRONMENT_VARIABLES | `'{ "cookieName": "release", "cookieValue": "canary"}'` | JSON string configuration for release information |
+
+Or override the default with the following `config/local.yaml` file.
+
+```yaml
+# config/local.yaml
+# environment release information
+release:
+    mode: stable
+    cookieName: release
+    cookieValue: stable
+    cookieTimeout: 2 # in minutes
+    headerName: release
+    headerValue: stable
 ```
 
 ## Extending the Docker container

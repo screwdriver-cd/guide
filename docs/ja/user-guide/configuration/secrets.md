@@ -66,8 +66,9 @@ UIまたはAPIでSecretsを作成した際、`allowInPR` を有効にし、`main
 ![Secrets UI](../../../user-guide/assets/secrets.png)
 
 ### Secretsの作成
-
+パイプラインページのオプションタブをクリックし、
 グレーのテキストボックスにキーと値を入力し、Addボタンをクリックします。`allowInPR`のチェックボックスにチェックを入れると、プルリクエストジョブ内でSecretsの利用が可能になります。
+オプションで、目のアイコンをクリックすることで入力した内容を確認することができます。
 
 ### Secretsの更新
 

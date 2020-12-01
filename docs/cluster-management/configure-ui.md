@@ -11,6 +11,24 @@ toc:
       url: "#packages"
     - title: Configuration
       url: "#configuration"
+    - title: API Configuration
+      url: "#api-configuration"
+      subitem: true
+    - title: Store Configuration
+      url: "#store-configuration"
+      subitem: true
+    - title: Avatar Configuration
+      url: "#avatar-configuration"
+      subitem: true
+    - title:  Custom Documentation Link
+      url: "#custom-documentation-link"
+      subitem: true
+    - title:  Custom Slack Link
+      url: "#custom-slack-link"
+      subitem: true
+    - title: Canary Routing
+      url: "#canary-routing"
+      subitem: true          
 ---
 # Managing the User Interface
 
@@ -76,3 +94,22 @@ Example:
 ```bash
 $ docker run -d -p 8000:80 -e SDDOC_URL=https://mydocs.mysite.me screwdrivercd/ui:stable
 ```
+
+### Custom Slack Link
+Slack instance link can be customized via an environment variable `SLACK_URL`.
+
+Default: https://slack.screwdriver.cd/
+
+Example:
+```bash
+$ docker run -d -p 8000:80 -e SLACK_URL=https://slack.mydomain.com screwdrivercd/ui:stable
+```
+
+### Canary Routing
+
+If your Screwdriver Kubernetes Cluster is using [nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary), then set the following environment variables to have UI server set a cookie for a limited duration such that subsequent UI requests are served by same canary UI pods.
+
+| Environment name     | Default Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| CANARY_RELEASE | "" | Set to "true" to denote  that this UI server is serving Canary version of UI |
+| RELEASE_VERSION | "stable" | UI Release version displayed under help menu in header|

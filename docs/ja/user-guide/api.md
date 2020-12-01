@@ -15,8 +15,8 @@ toc:
   url: "#バッジ"
 - title: 設計思想
   url: "#設計思想"
-- title: Make Your Own
-  url: "#make-your-own"
+- title: 自作する
+  url: "#自作する"
 ---
 
 # API
@@ -60,9 +60,9 @@ Authorization: Bearer <YOUR_TOKEN_HERE>
 リクエストの例:
 ![Postman response](../../user-guide/assets/postman.png)
 
-### ユーザまたはパイプラインAPIトークンを利用して実行する
+### ユーザまたはパイプライントークンを利用して実行する
 
-APIを利用した簡単なスクリプトのためには、APIトークンを利用することを推奨します。
+APIを利用した簡単なスクリプトのためには、[トークン](./tokens)を利用することを推奨します。
 
 #### トークンを使用して認証する
 
@@ -95,9 +95,7 @@ start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, da
 * Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
 * ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。
 
-ScrewdriverのユーザAPIトークンは [Screwdriver's user settings page](https://cd.screwdriver.cd/user-settings) にて管理できます。パイプラインAPIトークンは、ScrewdriverのパイプラインのSecretsタブから管理できます。
-
-認可はSCMにより行われます。ScrewdriverはSCMトークンで以下を識別します。
+[認可](./authentication-authorization)はSCMにより行われます。ScrewdriverはSCMトークンで以下を識別します。
 
 - レポジトリへのread, write, adminアクセスを識別します。
     - read権限でpipelineを見ることができます。
@@ -135,7 +133,7 @@ ScrewdriverのAPIは次の三原則を念頭に設計されました。
 2. 意図がわかりやすく、人間が読みやすくするため、リソースはREST-fulであるべきで、操作は小さく区切るべき
 3. クライアントのコード自動生成を可能にするため、APIにはバージョンがあり自己文書化されているべき
 
-## Make Your Own
+## 自作する
 
 Swaggerドキュメントを作成したい場合は、次のJSONを参考にしてください:
  [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)

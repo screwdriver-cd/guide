@@ -8,7 +8,7 @@ toc:
       url: "#developing-locally"
       active: true
     - title: Developing locally with executor-queue
-      url: "#developing-locally-with-executor-queue"
+      url: "#developing-locally-with-executor-queue-and-queue-service"
 
 ---
 ## Developing Locally
@@ -182,11 +182,11 @@ While the UI, Screwdriver API, and Store apps are running, you can visit `http:/
 
 ## Developing locally with executor queue and queue service 
 
-Instead of using single docker executor, we can use redis queue to enable screwdriver to run more sophisticated [workflow](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
+Instead of using single Docker executor, we can use the Redis queue to enable Screwdriver to run more sophisticated [workflows](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
 
-### Step 1: Install redis server and client
+### Step 1: Install Redis server and client
 
-> We uses [brew](https://brew.sh/) as Package Manager for mac, you need to have `brew` installed locally prior to proceeding.
+> We uses [brew](https://brew.sh/) as a Package Manager for Mac, you need to have `brew` installed locally prior to proceeding.
 
 ```bash
 brew install redis
@@ -274,8 +274,6 @@ git clone git@github.com:screwdriver-cd/queue-service.git
  ecosystem:
     # Externally routable URL for the User Interface
     ui: http://sd.screwdriver.cd:4200
-    # Externally routable URL for the API
-    api: http://$YOUR_IP:9001
     # Externally routable URL for the Artifact Store
     store: http://$YOUR_IP:9002
     # Routable URI of the queue service
@@ -283,7 +281,17 @@ git clone git@github.com:screwdriver-cd/queue-service.git
 
  executor:
     plugin: queue # <- this step is essential in order to use queue
-    queue: ''
+    queue:
+        options:
+            # Configuration of the redis instance containing resque
+            redisConnection:
+                host: "127.0.0.1"
+                port: 6379
+                options:
+                    password: 'a-secure-password'
+                    tls: false
+                database: 0
+                prefix: ""
 ```
 
 Now, you start the screwdriver backend server and queue service to use redis queue. 

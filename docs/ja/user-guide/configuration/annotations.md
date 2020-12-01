@@ -54,9 +54,11 @@ jobs:
 | screwdriver.cd/ram | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用する場合、ユーザーは 1 GB (MICRO)、 2 GB (LOW)、12 GB (HIGH)、16 GB (TURBO) RAMの中から選択可能です。<br>k8s-vm executorを利用する場合は、1 GB (MICRO)、2 GB (LOW)、12 GB (HIGH)、 16 GB (TURBO) RAMの中から選択可能です。<br>いずれの場合もデフォルト値はLOWとなります。 |
 | screwdriver.cd/repoManifest | Git リポジトリのチェックアウト URL です。例: `https://github.com/org/repo.git/manifestFilePath.xml#branch` <br><br>1. チェックアウト URL: `https://github.com/org/repo.git` (必須）<br>2. マニフェストファイルのパス: `manifestFilePath.xml` (オプション, デフォルトは `default.xml`)<br>3. ブランチ名: `#branch` (オプション, デフォルトは `#master`) | [Repo](https://gerrit.googlesource.com/git-repo) は Git 上に構築されたリポジトリ管理ツールです。この値は repo マニフェスト `xml` ファイルを含む Git リポジトリのチェックアウト URL です。この値が指定されていると、Screwdriver は `xml` ファイルの設定に従ってソースコードをチェックアウトします。 |
 | screwdriver.cd/timeout | 時間(分) | ビルドがタイムアウトとなる時間(分)を指定できます。デフォルト値は90 分です。 |
-| screwdriver.cd/dockerEnabled | `true` / `false` | k8s executor利用時に`true`に設定するとビルドコンテナと一緒にdocker-in-dockerコンテナが起動し、DockerビルドやDockerイメージの起動が可能になります。このフラグをユーザーのyamlで設定するのに加え、クラスタ管理者がdocker in docker機能を有効にしている必要があります。 (cluster-managementのページをご覧ください) |
-| screwdriver.cd/dockerCpu | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてdockerが有効な場合、dockerコンテナで使用するCPU数を設定することができます。設定される値については`screwdriver.cd/cpu`の説明をご覧ください。 |
-| screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてdockerが有効な場合、dockerコンテナで使用するメモリ容量を設定することができます。設定される値については`screwdriver.cd/ram`の説明をご覧ください。 |
+| screwdriver.cd/dockerEnabled | `true` / `false` | k8s executor利用時に`true`に設定するとビルドコンテナと一緒にDocker-in-Dockerコンテナが起動し、DockerビルドやDockerイメージの起動が可能になります。このフラグをユーザーのyamlで設定するのに加え、クラスタ管理者がdocker in docker機能を有効にしている必要があります。 (cluster-managementのページをご覧ください) |
+| screwdriver.cd/dockerCpu | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するCPU数を設定することができます。設定される値については`screwdriver.cd/cpu`の説明をご覧ください。 |
+| screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するメモリ容量を設定することができます。設定される値については`screwdriver.cd/ram`の説明をご覧ください。 |
+| screwdriver.cd/coverageScope | `pipeline` / `job` | カバレッジプラグインを利用している場合に、プロジェクトを作成するスコープを設定できます。デフォルト値はクラスタの設定(e.g. `COVERAGE_SONAR_ENTERPRISE`)によるので、クラスタ管理者にご確認ください。 |
+| screwdriver.cd/displayName | パイプライングラフに表示するジョブ名 | パイプライングラフに表示するジョブ名を、yamlのユニーク制約に縛られない自由な名前にできます。 |
 
 ## パイプラインレベルのアノテーション
 
@@ -66,3 +68,4 @@ jobs:
  |------------|--------|-------------|
  | screwdriver.cd/restrictPR | `none` / `all` / `fork` / `branch` | PRジョブが実行されないように制限します。`none` の場合は制限なしを意味します。`all` の場合はすべてのPRジョブ実行を制限します。`fork` はフォークされたリポジトリからのPRを制限します。`branch` はブランチからのPRを制限します。 |
 | screwdriver.cd/chainPR    | `false` / `true` | デフォルトは`false`です。`false`の場合、PRは`requires`に`~pr`を設定しているジョブのみトリガーします。`true`を指定した場合、PRは`requires`に`~pr`を設定しているジョブだけでなく、その後続のジョブも順番にトリガーします。サンプルリポジトリ: https://github.com/screwdriver-cd-test/chain-pr-example |
+| screwdriver.cd/pipelineDescription | パイプラインの説明文 | パイプラインページに説明文を表示します。 |

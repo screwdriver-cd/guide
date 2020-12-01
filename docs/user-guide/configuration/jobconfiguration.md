@@ -49,7 +49,7 @@ Steps are the list of instructions you want to execute in your build. These shou
 
 You can also specify user teardown steps, which will be run regardless of whether the build succeeds or fails. These steps need to be at the end of the job and start with "teardown-".
 
-Example repo: https://github.com/screwdriver-cd-test/user-teardown-example
+Example repo: <https://github.com/screwdriver-cd-test/user-teardown-example>
 
 By default, instructions in steps are executed using the Bourne shell (`/bin/sh`). If you prefer your build to use a different shell, you can configure `USER_SHELL_BIN`. For instance, to use capabilities that Bash provides but the Bourne shell does not, specify `USER_SHELL_BIN: bash` in a job's environment.
 

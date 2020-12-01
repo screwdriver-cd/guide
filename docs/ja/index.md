@@ -5,15 +5,11 @@ category: Home
 menu: menu_ja
 is_homepage: 'true'
 ---
-
-
 <div class="top">
     <img src="/assets/Screwdriver_Icon_Full@1x.png">
     <h1>Screwdriverにようこそ</h1>
     <p>ドキュメントは3つの異なるセクションに分かれています</p>
 </div>
-
-
 
 <div class="row">
     <div class="col-xs-6 col-md-4 ug">
@@ -28,17 +24,6 @@ is_homepage: 'true'
         <h2>概要</h2>
         <p>Screwdriverについてのその他一般的な情報については<a href="http://docs.screwdriver.cd/ja/about">概要</a>セクションをご覧ください。.</p>
     </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="demo">
-      <h2>デモビデオ</h2>
-      <video controls>
-      <source src="https://s3-us-west-2.amazonaws.com/static.screwdriver.cd/videos/SD+Video+Demo.mp4" type="video/mp4">
-      </video>
-    <div>
-  </div>
 </div>
 
 <div class="row">

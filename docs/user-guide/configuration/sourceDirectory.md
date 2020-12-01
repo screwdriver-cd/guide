@@ -34,14 +34,14 @@ Given a repository with the file structure depicted below:
 ```
 
 ##### Create pipeline with source directory
-![Create UI](../../assets/source-directory-create.png)
+![Create UI](../assets/source-directory-create.png)
 
 ##### Update pipeline with source directory
-![Update UI](../../assets/source-directory-update.png)
+![Update UI](../assets/source-directory-update.png)
 
 In this example, jobs that `requires: [~commit, ~pr]` will be triggered if there are any changes to files under `myapp2`.
 
-Example repo: https://github.com/screwdriver-cd-test/monorepo-example
+Example repo: <https://github.com/screwdriver-cd-test/source-dir-example>
 
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
