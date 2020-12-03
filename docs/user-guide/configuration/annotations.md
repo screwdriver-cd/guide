@@ -56,7 +56,7 @@ The following annotations are supported by plugins maintained by Screwdriver.cd.
 | screwdriver.cd/coverageScope | `pipeline` / `job` | When using the coverage plugin, this will set the scope for project creation. Default behavior depends on cluster configuration (e.g. `COVERAGE_SONAR_ENTERPRISE`), please check with your cluster admin for that. |
 | screwdriver.cd/displayName | Job name to display in the pipeline graph | You can use any name you like for a job to appear in the pipeline graph, without being limited by the unique constraints of Yaml. |
 | screwdriver.cd/mergeSharedSteps | `true` / `false` | When using a template, set it to `true`, and allow the user to merge steps defined in shared and job. Default is `false`. |
-
+| screwdriver.cd/terminationGracePeriodSeconds | Number of seconds | This will allow the user to choose the number of seconds a build should wait before aborting to execute the teardown steps. Default is `'60'` minutes and Max is `'120'`. In most cases more than default will not be required. |
 ## Pipeline-Level Annotations
 
 Pipeline-level annotations are used to modify the properties of the entire pipeline. Pipeline-level annotations are under the same level as `shared` and `jobs`. Pull requests cannot change these annotations, they need to be in the SCM branch of the pipeline.
