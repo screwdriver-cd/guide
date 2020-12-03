@@ -10,6 +10,8 @@ toc:
       url: "#image"
     - title: Steps
       url: "#steps"
+    - title: Teardown
+      url: "#teardown"
     - title: Shared Configuration
       url: "#shared"
 ---
