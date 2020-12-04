@@ -274,7 +274,12 @@ If you use this executor, builds will run in pods in Kubernetes.
 | K8S_MAX_BUILD_TIMEOUT | 120        | Maximum user-configurable build timeout for all builds in this cluster (in minutes) |
 | K8S_NODE_SELECTORS | `{}`          | K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node> |
 | K8S_PREFERRED_NODE_SELECTORS | `{}`| K8s node selectors for pod scheduling (format `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature> |
-| DOCKER_FEATURE_ENABLED | false | Flag to enable a Docker In Docker container in the build pod |
+| K8S_POD_DNS_POLICY | ClusterFirst  | DNS Policy for build pod <https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy> |
+| K8S_POD_IMAGE_PULL_POLICY | Always | Build pod Image Pull policy <https://kubernetes.io/docs/concepts/containers/images/#updating-images> |
+| K8S_POD_LABELS | `{ app: 'screwdriver', tier: 'builds', sdbuild: buildContainerName }` | K8s pod labels for cluster settings (eg: { network-egress: 'restricted' } to execute builds where public internet access is blocked by default) |
+| K8S_IMAGE_PULL_SECRET_NAME | ''    | K8s image pull secret name (optional) <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret> |
+| DOCKER_FEATURE_ENABLED | false     | Flag to enable a Docker In Docker container in the build pod |
+| K8S_RUNTIME_CLASS | ''             | Runtime class |
 
 
 ```yaml
