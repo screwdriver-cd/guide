@@ -26,7 +26,7 @@
           url: "/user-guide/configuration/code-coverage"
         - title: "Secrets"
           url: "/user-guide/configuration/secrets"
-        - title: "Settings"
+        - title: "Notifications"
           url: "/user-guide/configuration/settings"
         - title: "Source Paths"
           url: "/user-guide/configuration/sourcePaths"

@@ -1,6 +1,6 @@
 ---
 layout: main
-title: Settings
+title: Notifications
 category: User Guide
 menu: menu
 toc:
@@ -10,6 +10,21 @@ toc:
       url: "#email"
     - title: Slack
       url: "#slack"
+    - title: "Multiple Rooms"
+      url: "#multiple-rooms"
+      subitem: true
+    - title: "Build statuses"
+      url: "#notify-on-build-statuses"
+      subitem: true
+    - title: "Minimized Notification"
+      url: "#minimized-notification"
+      subitem: true
+    - title: "Using Metadata"
+      url: "#using-metadata"
+      subitem: true
+    - title: "Separate channel for build failure"
+      url: "#notify-separate-channel-for-build-failure"
+      subitem: true
 ---
 # Settings
 Configurable settings for any additional build plugins added to Screwdriver.cd.
@@ -61,7 +76,7 @@ You may also choose whether to use the default notification format or a more com
 
 To send data in steps as a notification, [notification meta](../metadata#notifications) is available. You can also customize the notification per job.
 
-#### Example: Multiple Rooms
+#### Multiple Rooms
 
 The value of the `slack` setting can be an array of multiple channels.
 
@@ -70,7 +85,7 @@ The value of the `slack` setting can be an array of multiple channels.
             slack: [mychannel, my-other-channel]
 ```
 
-#### Example: Notify on build statuses
+#### Notify on build statuses
 
 This Slack setting will send Slack notifications to `mychannel` and `my-other-channel` on all build statuses:
 
@@ -90,7 +105,7 @@ This Slack setting will send Slack notifications to `mychannel` and `my-other-ch
 
 Example repo: <https://github.com/screwdriver-cd-test/slack-example>
 
-#### Example: Minimized notification
+#### Minimized notification
 
 The default notification format includes the job's status, a corresponding emoji, and a link to the pipeline. The notification's attachment will include a link to the build, up to 150 characters of the commit message, a link to the commit, and a description of what triggered the event.
 
@@ -121,6 +136,20 @@ However, if `minimized` is `true`, then the notification will use a format that 
 
 ![Minimized Slack notification](../assets/slack-minimized-notification.png)
 
-#### Example: Using Metadata
+#### Using Metadata
 
 You can also use metadata to set Slack messages. This can be customized for each job. See [notifications section in the metadata page](../metadata#slack-notifications).
+
+#### Notify separate channel for build failure
+
+While there is no inherent support for this feature, this can be achieved by a combination of using [teardown steps](./configuration/jobconfiguration#teardown) and [slack metadata](./metadata#job-based-slack-channel) to check for job exit status.
+
+```
+jobs:
+   main:
+     steps:
+       - teardown-notify: |
+            if [ "$SD_STEP_EXIT_CODE" -gt "0" ]; then
+               meta set notification.slack.${SD_JOB_NAME}.channels "my-error-channel"
+            fi
+```
