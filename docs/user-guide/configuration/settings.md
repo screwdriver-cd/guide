@@ -26,7 +26,7 @@ toc:
       url: "#notify-separate-channel-for-build-failure"
       subitem: true
 ---
-# Settings
+# Notifications
 Configurable settings for any additional build plugins added to Screwdriver.cd.
 
 The settings can be set in `shared`, to apply to all jobs, or in an individual job. A job-level setting will completely override the `shared` setting.
