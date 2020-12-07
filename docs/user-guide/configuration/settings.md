@@ -142,7 +142,7 @@ You can also use metadata to set Slack messages. This can be customized for each
 
 #### Notify separate channel for build failure
 
-While there is no inherent support for this feature, this can be achieved by a combination of using [teardown steps](./configuration/jobconfiguration#teardown) and [slack metadata](./metadata#job-based-slack-channel) to check for job exit status.
+While there is no inherent support for this feature, this can be achieved by a combination of using [teardown steps](../configuration/jobconfiguration#teardown) and [slack metadata](../metadata#job-based-slack-channel) to check for job exit status.
 
 ```
 jobs:
