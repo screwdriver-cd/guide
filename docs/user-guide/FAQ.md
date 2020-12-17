@@ -232,4 +232,20 @@ Screwdriver pipelines have a 1:1 relation to the underlying SCM repository and t
 
 ## How do I override freeze windows to start a build?
 
-To temporarily override [freeze windows](./configuration/workflow#freeze-windows) to manually start a build, add `[force start]` to the commit message of the build you want to start.
+To temporarily override [freeze windows](./configuration/workflow#freeze-windows) to manually start a build, you can use the UI or a commit or API.
+
+In the UI:
+1. Click on the frozen build bubble.
+1. Click "Start pipeline from here".
+1. Fill in the reason section in the confirmation window.
+1. Click Yes.
+
+![Freeze window graph](./assets/freeze-window-graph.png)
+
+![Freeze window force start](./assets/freeze-window-force-start.png)
+
+In a commit:
+Add `[force start]` to the commit message of the build you want to start and merge it.
+
+In the API:
+Add `[force start]` to the `causeMessage` of the build you want to start and use the `POST SCREWDRIVER_API/v4/events` endpoint to start.
