@@ -53,6 +53,8 @@ toc:
       url: "#why-do-my-pull-request-builds-fail-with-the-error-fatal-refusing-to-merge-unrelated-histories-in-the-sd-setup-scm-step"
     - title: 'Why do I get "Not Found" when I try to start/delete my pipeline?'
       url: "#why-do-i-get-not-found-when-i-try-to-start-or-delete-my-pipeline"
+    - title: 'How do I override freeze windows to start a build?'
+      url: "#how-do-i-override-freeze-windows-to-start-a-build"
 
 ---
 
@@ -227,3 +229,23 @@ To resolve this issue, you could disable or tune the shallow clone settings ([se
 ## Why do I get `Not Found` when I try to start or delete my pipeline?
 
 Screwdriver pipelines have a 1:1 relation to the underlying SCM repository and this is validated by using not only the SCM repository name but also its unique repository ID. The `Not Found` error occurs when the SCM repository is deleted and re-created under same repository name (delete & re-fork has same effect). This action results in the new SCM repository getting a new ID and hence failing Screwdriver validations. If your pipeline is in this state, your only option is to re-create the pipeline and reach out Screwdriver cluster admin to remove the old pipeline.
+
+## How do I override freeze windows to start a build?
+
+To temporarily override [freeze windows](./configuration/workflow#freeze-windows) to manually start a build, you can use the UI or a commit or API.
+
+In the UI:
+1. Click on the frozen build bubble.
+1. Click "Start pipeline from here".
+1. Fill in the reason section in the confirmation window.
+1. Click Yes.
+
+![Freeze window graph](./assets/freeze-window-graph.png)
+
+![Freeze window force start](./assets/freeze-window-force-start.png)
+
+In a commit:
+Add `[force start]` to the commit message of the build you want to start and merge it.
+
+In the API:
+Add `[force start]` to the `causeMessage` of the build you want to start and use the `POST SCREWDRIVER_API/v4/events` endpoint to start.
