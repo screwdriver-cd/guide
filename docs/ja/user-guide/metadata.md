@@ -12,20 +12,36 @@ toc:
   url: "#デフォルトMetadata"
 - title: Metadataの操作
   url: "#Metadataの操作"
-- title: <span class="menu-indent">同一パイプライン</span>
+- title: 同一パイプライン
   url: "#同一パイプライン"
-- title: <span class="menu-indent">外部パイプライン</span>
+  subitem: true
+- title: 外部パイプライン
   url: "#外部パイプライン"
-- title: <span class="menu-indent">プルリクエストコメント</span>
+  subitem: true
+- title: プルリクエストコメント
   url: "#プルリクエストコメント"
-- title: <span class="menu-indent">プルリクエストチェック</span>
+  subitem: true
+- title: プルリクエストチェック
   url: "#追加のプルリクエストチェック"
-- title: <span class="menu-indent">カバレッジとテスト結果</span>
+  subitem: true
+- title: カバレッジとテスト結果
   url: "#カバレッジとテスト結果"
-- title: <span class="menu-indent">イベントラベル</span>
+  subitem: true
+- title: イベントラベル
   url: "#イベントラベル"
-- title: <span class="menu-indent">Slack通知</span>
-  url: "#Slack通知"
+  subitem: true
+- title: Slack通知
+  url: "#slack通知"
+  subitem: true
+- title: ジョブベースのSlackメッセージ
+  url: "#ジョブベースのslackメッセージ"
+  subitem: level-2
+- title: ジョブベースのSlackチャンネル
+  url: "#ジョブベースのslackチャンネル"
+  subitem: level-2
+- title: ジョブベースで通知を最小化する設定
+  url: "#ジョブベースで通知を最小化する設定"
+  subitem: level-2      
 ---
 
 # Metadata
@@ -278,3 +294,30 @@ jobs:
           meta set notification.slack.component.channels "fail_channel, prod_channel"
 ```
 上記の例では、Slackの失敗通知のメッセージは`main_channel`へ送られる代わりに`fail_channel`と、`prod_channel`へ送られます。パイプラインの他のすべてのジョブは、`main_channel`へ通知します。
+
+#### ジョブベースで通知を最小化する設定
+ジョブベースのSlackの `minimized` メタの設定はデフォルトのSlack minimized設定を上書きします。
+
+メタ変数の構造は、 `notification.slack.<jobName>.minimized` です。 `<jobName>` をScrewdriverのジョブ名に置き換えてください。
+
+例えば、 `component` ジョブがスケジューラーによってトリガーされた場合に、最小化したSlackメッセージを投稿します:
+
+```yaml
+shared:
+    image: docker.ouroath.com:4443/x/y/z
+    
+    settings:
+        slack:
+            channels: [ main_channel ]
+            statuses: [ FAILURE ]
+            minimized: false
+jobs:
+   component:
+    steps:
+      - meta: |
+          if [[ $SD_SCHEDULED_BUILD == true ]]; then
+             meta set notification.slack.component.minimized true
+          fi
+```
+上記の例では、スケジューラーによってトリガーされた `component` ジョブでのSlack通知は `minimized` 形式で投稿されます。
+

@@ -407,4 +407,4 @@ jobs:
         requires: [~pr, ~commit, ~subscribe]
 ```
 
-Here the `~subscribed` event tells the job to respond to external notifications. 
+Here the `~subscribe` event tells the job to respond to external notifications. 

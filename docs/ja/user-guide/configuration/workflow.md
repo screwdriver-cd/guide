@@ -26,6 +26,8 @@ toc:
   url: "#ジョブの凍結"
 - title: 分離されたジョブ (Detached Jobs) とパイプライン
   url: "#分離されたジョブとパイプライン"
+- title: 購読(Subscribe)しているSCMからの通知
+  url: "#購読しているscmからの通知"
 ---
 
 # ワークフロー
@@ -419,3 +421,29 @@ jobs:
 ```
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-detached-example>
+
+## 購読しているSCMからの通知
+外部リポジトリを購読(Subscribe)することで、外部リポジトリに変更があったときにパイプラインのビルドが開始されるようにできます。`~pr`, `~commit`, `~tag`, `~release` などのイベントのwebhook通知を購読する設定が可能です。購読しているイベントで起動する各ジョブは独自で設定する必要があります。
+
+### 例
+次の例では、 `subscribe` オブジェクトの `scmUrls` セクションに、購読するリポジトリを追加します。また購読するイベントを指定する必要があり、この例では `~commit` と `~pr` のイベントを指定しています。パイプラインを作成した際に、webhookが自動的にリポジトリに登録されることに注意してください。
+
+```
+shared:
+    image: node:8
+subscribe: 
+    scmUrls:
+        - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
+```
+
+これで、購読しているイベントで起動するジョブを記述することができます:
+
+```
+jobs:
+    A:
+        steps:
+            - echo: echo test
+        requires: [~pr, ~commit, ~subscribe]
+```
+
+ここで指定した `~subscribe` イベントにより、外部からの通知をトリガーしてジョブを起動させます。

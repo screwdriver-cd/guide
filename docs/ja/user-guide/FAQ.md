@@ -55,8 +55,10 @@ toc:
       url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
     - title: 'sd-setup-scmステップで、プルリクエストのビルドが "fatal: refusing to merge unrelated histories"エラーで終了するのはなぜ？'
       url: "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
-    - title: パイプラインをスタートさせた時に`Not found`となるのはなぜ？
-      url: "#パイプラインをスタートさせた時に`Not found`となるのはなぜ？"
+    - title: パイプラインをスタート/削除した時に`Not found`となるのはなぜ？
+      url: "#パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？"
+    - title: '凍結したジョブを開始するには？'
+      url: "#凍結したジョブを開始するには？"
 
 ---
 
@@ -82,8 +84,7 @@ steps:
 
 README等ちょっとしたドキュメント修正のみの時など、screwdriverのビルドをスキップさせたい場合があると思います。
 
-ベースブランチにpushする際にビルドをスキップさせたい場合は、commitメッセージの中に`[ci skip]` または `[skip ci]`の文字列を追加してください。
-また、プルリクエストのマージ時にビルドをスキップさせたい場合は、プルリクエストのタイトル欄に `[ci skip]` または `[skip ci]`の文字列を追加してください。
+ベースブランチにpushする際にビルドをスキップさせたい場合は、プルリクエストのcommitメッセージのいずれかに`[ci skip]` または `[skip ci]`の文字列を追加してください。
 
 注意: プルリクエストビルドはスキップ出来ません。
 commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリクエスト時のビルドはスキップされません。（プルリクエストビルドは常に実行されます）
@@ -242,6 +243,26 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 (例: rebase, squashなど)  
 詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
 
-## パイプラインをスタートさせた時に`Not found`となるのはなぜ？
+## パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？
 
 Screwdriverのパイプラインは利用しているSCMのリポジトリと1対1の関係があり、この関係はSCMのリポジトリ名だけでなくリポジトリのユニークIDによって関係付けられています。`Not Found`エラーはSCMのリポジトリを削除して同じ名前で再作成した際に発生します（削除後に再度forkした場合も同じです）。この操作により新しいSCMのリポジトリは新しいIDで作成されるのでScrewdriverの検証で失敗します。もしパイプラインがこの状態になってしまったら、パイプラインを再作成してScrewdriverのクラスタ管理者へ連絡して古いパイプラインを削除してもらうしかありません。
+
+## 凍結したジョブを開始するには？
+
+一時的に[ジョブの凍結（freeze windows）](./configuration/workflow#ジョブの凍結)設定を上書きして手動でビルドを開始するには、UI、commit、APIを使用することができます。
+
+UIを使用する場合:
+1. 凍結しているビルドのアイコンをクリック
+1. "Start pipeline from here"をクリック
+1. 確認ウィンドウのReasonの部分に、開始する理由を記載
+1. Yesをクリック
+
+![Freeze window graph](../../user-guide/assets/freeze-window-graph.png)
+
+![Freeze window force start](../../user-guide/assets/freeze-window-force-start.png)
+
+commitを使用する場合:
+開始したいビルドのコミットメッセージを `[force start]` という文字列を含んだものにして、それをマージしてください。
+
+APIを使用する場合:
+開始したいビルドの `causeMessage` を `[force start]` という文字列を含んだものにして、 `POST SCREWDRIVER_API/v4/events` のAPIを使って開始してください。

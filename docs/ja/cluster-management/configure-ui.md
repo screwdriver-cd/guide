@@ -11,6 +11,24 @@ toc:
   url: "#パッケージ"
 - title: 設定
   url: "#設定"
+- title: API 設定
+  url: "#api-設定"
+  subitem: true
+- title: Store 設定
+  url: "#store-設定"
+  subitem: true
+- title: アバター設定
+  url: "#アバター設定"
+  subitem: true
+- title: カスタムドキュメントリンク
+  url: "#カスタムドキュメントリンク"
+  subitem: true
+- title: カスタムSlackリンク
+  url: "#カスタムslackリンク"
+  subitem: true
+- title: Canaryルーティング
+  url: "#canaryルーティング"
+  subitem: true   
 ---
 
 ## ユーザーインターフェースの管理
@@ -77,3 +95,22 @@ $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bi
 ```bash
 $ docker run -d -p 8000:80 -e SDDOC_URL=https://mydocs.mysite.me screwdrivercd/ui:stable
 ```
+
+### カスタムSlackリンク
+Slackのインスタンスリンクは環境変数 `SLACK_URL` でカスタマイズできます。
+
+デフォルト: https://slack.screwdriver.cd/
+
+例:
+```bash
+$ docker run -d -p 8000:80 -e SLACK_URL=https://slack.mydomain.com screwdrivercd/ui:stable
+```
+
+### Canaryルーティング
+
+ScrewdriverのKubernetesクラスタが[nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary)を利用している場合、この環境変数を設定することでUIサーバに一定期間だけCookieをセットさせ、後続のAPIリクエストが同じCanaryのUIポッドに割り振られるようにします。
+
+| Environment name     | Default Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| CANARY_RELEASE | "" | "true" に設定すると、このUIサーバがCanaryバージョンのUIを提供していることを示します |
+| RELEASE_VERSION | "stable" | UIのヘッダーのヘルプメニューの下に表示されるリリースバージョン |

@@ -1,18 +1,33 @@
 ---
 layout: main
-title: Settings
+title: 通知
 category: User Guide
 menu: menu_ja
 toc:
-- title: Settings
-  url: "#settings"
+- title: 通知
+  url: "#通知"
 - title: Email
   url: "#email"
 - title: Slack
   url: "#slack"
+- title: "複数Roomの設定"
+  url: "#複数roomの設定"
+  subitem: true
+- title: "ビルドステータスの通知"
+  url: "#ビルドステータスの通知"
+  subitem: true
+- title: "短縮した通知"
+  url: "#短縮した通知"
+  subitem: true
+- title: "Metadataを使用"
+  url: "#metadataを使用"
+  subitem: true
+- title: "ビルド失敗時に別チャンネルに通知"
+  url: "#ビルド失敗時に別チャンネルに通知"
+  subitem: true
 ---
 
-# Settings
+# 通知
 
 Screwdriver.cd に追加されているビルドプラグインで利用可能な settings です。
 
@@ -67,7 +82,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 ステップ内のデータを通知として送りたい場合には、[notification meta](../metadata#通知)をご利用ください。ジョブごとに通知をカスタマイズすることもできます。
 
-#### 例: 複数Roomの設定
+#### 複数Roomの設定
 
 `slack`の設定値には配列形式で複数のチャンネルを指定することができます。
 
@@ -76,7 +91,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
             slack: [mychannel, my-other-channel]
 ```
 
-#### 例: ビルドステータスの通知
+#### ビルドステータスの通知
 
 この Slack 設定では、全てのビルドステータスに応じて `mychannel` と `my-other-channel` に Slack 通知を送信します:
 
@@ -96,7 +111,7 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/slack-example>
 
-#### 例: 短縮した通知
+#### 短縮した通知
 
 デフォルトの通知形式はジョブのステータス、それに応じた絵文字、パイプラインへのリンクが含まれます。通知のアタッチメントにはビルドへのリンク、150字までのコミットメッセージ、コミットへのリンク、イベントのトリガーの説明が含まれます。
 
@@ -127,6 +142,20 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 ![Minimized Slack notification](../../../user-guide/assets/slack-minimized-notification.png)
 
-#### 例: Metadataを使用
+#### Metadataを使用
 
 Metadataを使用してSlackメッセージを設定することもできます。これはジョブごとにカスタマイズできます。[Metadataページの通知](../metadata#Slack通知)を参照してください。
+
+#### ビルド失敗時に別チャンネルに通知
+
+この機能はサポートの対象外ですが、[teardownステップ](../configuration/jobconfiguration#teardown)と[slack metadata](../metadata#ジョブベースのslackチャンネル)を組み合わせて、ジョブのexitステータスをチェックすることで実現できます。
+
+```
+jobs:
+   main:
+     steps:
+       - teardown-notify: |
+            if [ "$SD_STEP_EXIT_CODE" -gt "0" ]; then
+               meta set notification.slack.${SD_JOB_NAME}.channels "my-error-channel"
+            fi
+```

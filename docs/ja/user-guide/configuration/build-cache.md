@@ -61,7 +61,7 @@ jobs:
 
 上記の例では、パイプラインスコープの `.gradle` のキャッシュがパイプラインの全てのビルドから `gradle install` の時間を短縮するためにアクセスできます。イベントスコープのキャッシュでは、 `setnpmcache`ビルドのイベントスコープの下で `node_modules` フォルダーをキャッシュして、下流の `usenpmcache` ビルドが `npm install` の時間を節約できるようにします。ジョブスコープのキャッシュでは、`/tmp/test` ファイルをキャッシュして、同じジョブのその後のビルドで使用できるようにします。
 
-サンプルリポジトリ: https://github.com/screwdriver-cd-test/cache-example
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/cache-example>
 
 ## Notes
 - もしキャッシュが大きくてキャッシュ bookend がメモリオーバーとなるようでしたら、`screwdriver.cd/ram` [アノテーション]((./annotations))に `HIGH` を設定するとより多くのメモリがビルドで使用できるようになります。

@@ -288,7 +288,7 @@ In the above example a Slack notification failure message will be send to channe
 #### Job-based minimized setting
 Job-based Slack `minimized` meta setting will overwrite the default Slack minimized setting.
 
-Structure of meta variable is `notification.slack.<jobName>.minimized`, replacing `<jobname>` with the name of the Screwdriver job.
+Structure of meta variable is `notification.slack.<jobName>.minimized`, replacing `<jobName>` with the name of the Screwdriver job.
 
 Example screwdriver.yaml sending a minimized Slack message in case the `component` job was triggered by the scheduler:
 

@@ -9,10 +9,12 @@ toc:
   active: 'true'
 - title: ビルド固有
   url: "#ビルド固有"
-- title: <span class="menu-indent">全般</span>
+- title: 全般
+  subitem: true
   url: "#全般"
-- title: <span class="menu-indent">ユーザ設定</span>
+- title: ユーザ設定
   url: "#ユーザ設定"
+  subitem: true
 - title: プラグイン
   url: "#プラグイン"
 - title: ディレクトリ
@@ -55,13 +57,14 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空) |
 | SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空) |
 | SD_TOKEN | ビルド用の JWT トークン |
+| SD_SCHEDULED_BUILD | スケジューラーによってビルドを開始する(true)か、否(false)か |
 
 ### ユーザ設定
 
 | 環境変数名 | デフォルト値 | 説明 |
 |------|---------------|-------------|
 | SD_ZIP_ARTIFACTS | false | **オプション:** (`true`/`false`) <br><br>artifacts を単一の zip ファイルにしてアップロードします。<br><br>**ユースケース:** Amazon S3 を store に使用していて、AWS Lambda を使用して zip ファイルを store 上で unzip 出来る場合で、ビルドで大量の artifacts が生成される場合にアップロード時間を短縮できます。ただし、Lambda の計算資源はビルドごとに限られているため zip ファイルの内部に含めるファイルの数やサイズには上限があります。アップロードに失敗する場合、Lambda が扱える量を超えているのが原因かもしれません。<br><br>**注意:** このオプションが利用可能かどうかは、クラスタ管理者に問い合わせてください。 |
-| USER_SHELL_BIN | sh | ビルド内で実行されるシェルを指定します。`/bin/bash`のように、絶対パスでの指定もできます。サンプルリポジトリ: https://github.com/screwdriver-cd-test/user-shell-example |
+| USER_SHELL_BIN | sh | ビルド内で実行されるシェルを指定します。`/bin/bash`のように、絶対パスでの指定もできます。サンプルリポジトリ: <https://github.com/screwdriver-cd-test/user-shell-example> |
 | GIT_SHALLOW_CLONE | true | **オプション:** (`true`/`false`) <br><br>shallow clone します。|
 | GIT_SHALLOW_CLONE_DEPTH | 50 | shallow clone する際の履歴を指定されたコミット数までで切り捨てます。 |
 | GIT_SHALLOW_CLONE_SINCE |  | 指定した日時から始まる履歴の一部でShallow cloneします。設定されている場合、`GIT_SHALLOW_CLONE_DEPTH`よりも優先されます。<br><br>`--shallow-since`を利用しており、絶対年代(例: `2019-04-01`)と相対年代(例: `4 weeks ago`)が設定できます。 |
