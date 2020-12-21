@@ -108,7 +108,7 @@ $ docker run -d -p 8000:80 -e SLACK_URL=https://slack.mydomain.com screwdrivercd
 
 ### Canaryルーティング
 
-ScrewdriverのKubernetesクラスタが[nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary)を利用している場合、この環境変数を設定することでUIサーバに一定期間だけCookieをセットさせ、後続のAPIリクエストが同じCnaryのUIポッドに割り振られるようにします。
+ScrewdriverのKubernetesクラスタが[nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary)を利用している場合、この環境変数を設定することでUIサーバに一定期間だけCookieをセットさせ、後続のAPIリクエストが同じCanaryのUIポッドに割り振られるようにします。
 
 | Environment name     | Default Value | Description          |
 |:---------------------|:--------------|:---------------------|
