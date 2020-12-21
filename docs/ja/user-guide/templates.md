@@ -10,6 +10,18 @@ toc:
   url: "#テンプレートを検索する"
 - title: テンプレートを利用する
   url: "#テンプレートを利用する"
+- title: テンプレートのステップを上書き
+  url: "#テンプレートのステップを上書き"
+  subitem: true
+- title: ステップをラップ
+  url: "#ラップする"
+  subitem: level-2
+- title: ステップを置換
+  url: "#置換"
+  subitem: level-2
+- title: Merging with Shared Steps
+  url: "#merging-with-shared-steps"
+  subitem: level-2
 - title: テンプレートを作成する
   url: "#テンプレートを作成する"
 - title: テンプレートをテストする
@@ -90,6 +102,9 @@ jobs:
         secrets:
               - NPM_TOKEN
 ```
+## テンプレートのステップを上書き
+
+ジョブは既存のステップをラップや置換をすることで、テンプレートのステップを上書きできます。
 
 ### ラップする
 
@@ -140,6 +155,25 @@ jobs:
         template: nodejs/test@1.0.3
 ```
 
+### Merging with shared steps
+
+テンプレートのステップを上書きする場合、ジョブは `shared.steps` または `job.steps` のいずれかのステップ定義を使用し、 `jobs` セクションで定義した `steps` が優先されます。これはテンプレートを使用しない場合のステップ定義の優先順位と同じです。この挙動は[アノテーション](./configuration/annotations)の `screwdriver.cd/mergeSharedSteps: true` で変更することができます。テンプレートを使用している場合に `true` を設定すると、 `shared` セクションと `job` セクションのステップはマージされます。
+
+例
+```yaml
+shared:
+  annotations:
+    screwdriver.cd/mergeSharedSteps: true
+  steps:
+     - premotd: echo build
+jobs:
+    main:
+        template: python/package_rpm@latest
+        requires: [~pr, ~commit]
+        steps:
+         - preinit_os: echo replace
+```
+
 ## テンプレートを作成する
 
 テンプレートの作成と利用は、Screwdriverのパイプラインから実行する必要があります。
@@ -157,10 +191,10 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:6
-    latest-image: node:8
+    stable-image: node:12
+    latest-image: node:14
 config:
-    image: node:6
+    image: stable-image
     steps:
         - install: npm install
         - test: npm test
@@ -181,7 +215,7 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:6
+    stable-image: node:12
     latest-image: node:8
 ```
 
@@ -202,7 +236,7 @@ jobs:
 
 ```yaml
 config:
-    image: node:6
+    image: node:12
     steps:
         - preinstall: echo Installing
         - install: npm install
@@ -238,7 +272,7 @@ jobs:
 
 ```yaml
 shared:
-    image: node:6
+    image: node:12
 jobs:
     main:
         requires: [~pr, ~commit]

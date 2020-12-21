@@ -4,8 +4,8 @@ title: Notifications
 category: User Guide
 menu: menu
 toc:
-    - title: Settings
-      url: "#settings"
+    - title: Notifications
+      url: "#notifications"
     - title: Email
       url: "#email"
     - title: Slack

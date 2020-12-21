@@ -1,25 +1,19 @@
 ---
 layout: main
-title: ローカルで実行
+title: SD-in-a-Boxを使ってローカルでScrewdriverを実行
 category: Cluster Management
 menu: menu_ja
 toc:
-- title: ローカルで実行
-  url: "#ローカルで実行"
-  active: 'true'
 - title: SD-in-a-Box
   url: "#sd-in-a-box"
+  active: true
 - title: SD-in-a-Boxの設定
   url: "#sd-in-a-boxの設定"
 ---
 
-# ローカルで実行
-
-Screwdriver-in-a-box ツールを使用することで、Screwdriver をローカルで実行することができます。
-
 ## SD-in-a-Box
 
-このツールにより Screwdriver のすべてのインスタンス（UI、API、ログストア）がローカルで起動し、試すことができます。
+Screwdriver-in-a-box ツールを使用することで、Screwdriver をローカルで実行することができます。このツールにより Screwdriver のすべてのインスタンス（UI、API、ログストア）がローカルで起動し、試すことができます。
 
 [SD-in-a-box のドキュメント](https://github.com/screwdriver-cd/in-a-box#screwdriver-in-a-box)に従って実行してください。
 

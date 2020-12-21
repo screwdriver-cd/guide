@@ -149,7 +149,7 @@ UI が http://localhost:4200 で実行されたらログインします。
 
 # SD-in-a-Box で実行する
 
-[Running Locally docs](../../cluster-management/running-locally) を参考にしてください。
+[Running SD-in-a-Box docs](../../cluster-management/running-locally) を参考にしてください。
 
 [docker]: https://www.docker.com/products/docker
 [kubectl]: https://kubernetes.io/docs/user-guide/kubectl-overview/

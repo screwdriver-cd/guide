@@ -11,6 +11,42 @@ toc:
   url: "#パッケージ"
 - title: 設定
   url: "#設定"
+- title: 認証 / 認可
+  url: "#認証--認可"
+  subitem: true
+- title: ビルド変数
+  url: "#ビルド変数"
+  subitem: true
+- title: ブックエンドプラグイン
+  url: "#ブックエンドプラグイン"
+  subitem: true
+- title: 配信
+  url: "#配信"
+  subitem: true
+- title: エコシステム
+  url: "#エコシステム"
+  subitem: true
+- title: データストア
+  url: "#データストアプラグイン"
+  subitem: true
+- title: Executors
+  url: "#executorプラグイン"
+  subitem: true
+- title: 通知
+  url: "#通知プラグイン"
+  subitem: true
+- title: ソース管理
+  url: "#ソース管理プラグイン"
+  subitem: true
+- title: Webhooks
+  url: "#webhooks"
+  subitem: true
+- title: レートリミット
+  url: "#レートリミット"
+  subitem: true
+- title: Canaryルーティング
+  url: "#canaryルーティング"
+  subitem: true
 - title: Dockerコンテナの拡張
   url: "#dockerコンテナの拡張"
 ---
@@ -242,7 +278,12 @@ K8S_BUILD_TIMEOUT | 90 | クラスタ内の全てのビルドのデフォルト�
 K8S_MAX_BUILD_TIMEOUT | 120 | クラスタ内の全てのビルドでユーザが設定可能な最大のタイムアウト時間(分)
 K8S_NODE_SELECTORS | `{}` | pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#step-one-attach-label-to-the-node>
 K8S_PREFERRED_NODE_SELECTORS | `{}`|  pod のスケジューリング用の k8s の node selector (フォーマット `{ label: 'value' }`) <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature>
-DOCKER_FEATURE_ENABLED | false | ビルドポッド内でDocker In Dockerを有効にするフラグ |
+K8S_POD_DNS_POLICY | ClusterFirst  | ビルドポッドのDNSポリシー <https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy>
+K8S_POD_IMAGE_PULL_POLICY | Always | ビルドポッドイメージのPullポリシー <https://kubernetes.io/docs/concepts/containers/images/#updating-images>
+K8S_POD_LABELS | `{ app: 'screwdriver', tier: 'builds', sdbuild: buildContainerName }` | クラスタ設定のための k8s ポッドラベル (例: { network-egress: 'restricted' } とすると、デフォルトでパブリックなインターネットへのアクセスをブロックしてビルドを実行します。)
+K8S_IMAGE_PULL_SECRET_NAME | ''    | K8sのmagePullSecrets名 (オプション) <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret>
+DOCKER_FEATURE_ENABLED | false | ビルドポッド内でDocker In Dockerを有効にするフラグ
+K8S_RUNTIME_CLASS | ''             | ランタイムクラス
 
 
 ```yaml
@@ -572,6 +613,28 @@ rateLimit:
     # リクエスト回数を1分間で最大60回に制限する
     limit: 60
     duration: 60000
+```
+
+### Canaryルーティング
+
+ScrewdriverのKubernetesクラスタが[nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary)を利用している場合、この環境変数を設定することでAPIサーバに一定期間だけCookieをセットさせ、後続のAPIリクエストが同じCnaryのAPIポッドに割り振られるようにします。
+
+| Environment name     | Example Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| RELEASE_ENVIRONMENT_VARIABLES | `'{ "cookieName": "release", "cookieValue": "canary"}'` | リリース情報をJSON文字列で設定 |
+
+あるいは、以下の `config/local.yaml` でデフォルト値を上書きします。
+
+```yaml
+# config/local.yaml
+# environment release information
+release:
+    mode: stable
+    cookieName: release
+    cookieValue: stable
+    cookieTimeout: 2 # in minutes
+    headerName: release
+    headerValue: stable
 ```
 
 ## Dockerコンテナの拡張

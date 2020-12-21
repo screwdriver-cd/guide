@@ -45,7 +45,7 @@ jobs:
 | アノテーション | 値 | 説明 |
 |------------|--------|-------------|
 | screwdriver.cd/buildCluster | ビルドを実行するビルドクラスタ名 | 利用可能なビルドクラスタのリストは `<API URL>/v4/buildclusters` で確認できます。デフォルトでは `managedByScrewdriver: true` が設定されているクラスタにビルドがアサインされます。 あなたのリポジトリでの利用が許可されている任意のデフォルトクラスタや外部クラスタを選択することが可能です。（利用が許可されているリポジトリは`scmOrganizations`で設定されます）|
-| screwdriver.cd/buildPeriodically | CRON表記<br>例: `H 0 * * *` <br><br>**注意:** 共有リソースへ急激に負荷がかかることを避けるため、「分」のフィールドは常に'H'(ハッシュを表す)を指定します。(実行頻度は最高でも1時間に1回です)<br>CRON表記については以下で確認ができます。https://crontab.guru/ | cron表記にしたがって定期的にジョブを実行します。CRON表記のいずれの項目でも、`H` (あるいは`H/5`や`H(3-7)`のような値)を指定すると、ジョブidのハッシュに基づいて、システムが該当箇所の値を指定した範囲内のものに置き換えます。例えば、`H(3-5)`は3, 4, 5のいずれかに置き換えられます。 |
+| screwdriver.cd/buildPeriodically | CRON表記<br>例: `H 0 * * *` <br><br>**注意:** 共有リソースへ急激に負荷がかかることを避けるため、「分」のフィールドは常に'H'(ハッシュを表す)を指定します。(実行頻度は最高でも1時間に1回です)<br>CRON表記については以下で確認ができます。<https://crontab.guru/> | cron表記にしたがって定期的にジョブを実行します。CRON表記のいずれの項目でも、`H` (あるいは`H/5`や`H(3-7)`のような値)を指定すると、ジョブidのハッシュに基づいて、システムが該当箇所の値を指定した範囲内のものに置き換えます。例えば、`H(3-5)`は3, 4, 5のいずれかに置き換えられます。 |
 | screwdriver.cd/collapseBuilds | `true` / `false` | `true` に設定したジョブでは `BLOCKED` 状態のビルドが最新のものに集約されます。<br>パイプライン全体に適用したい場合は `shared` に設定してください。<br>デフォルトの挙動はクラスタ設定によるので、クラスタ管理者に確認してください。 |
 | screwdriver.cd/cpu | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用する場合、ユーザーは 0.5 (`MICRO`)、2 (`LOW`)、6 (`HIGH`) 、12 (`TURBO`) CPUの中から選択可能です。<br>k8s-vm executorを利用する場合は、1 (`MICRO`)、2 (`LOW`)、6 (`HIGH`)、12 (`TURBO`) CPU の中から選択可能です。<br>いずれの場合もデフォルト値は`LOW`となります。 |
 | screwdriver.cd/disk | クラスタ管理者にご確認ください | `k8s-vm` executorを利用する場合、ユーザーは20 GB (`LOW`) と50 GB (`HIGH`) と 100 GB (`TURBO`) からディスクスペースを選択可能です。デフォルトは `LOW` です。 |
@@ -59,6 +59,8 @@ jobs:
 | screwdriver.cd/dockerRam | `MICRO` / `LOW` / `HIGH` / `TURBO` | k8s executorを利用していてDockerが有効な場合、Dockerコンテナで使用するメモリ容量を設定することができます。設定される値については`screwdriver.cd/ram`の説明をご覧ください。 |
 | screwdriver.cd/coverageScope | `pipeline` / `job` | カバレッジプラグインを利用している場合に、プロジェクトを作成するスコープを設定できます。デフォルト値はクラスタの設定(e.g. `COVERAGE_SONAR_ENTERPRISE`)によるので、クラスタ管理者にご確認ください。 |
 | screwdriver.cd/displayName | パイプライングラフに表示するジョブ名 | パイプライングラフに表示するジョブ名を、yamlのユニーク制約に縛られない自由な名前にできます。 |
+| screwdriver.cd/mergeSharedSteps | `true` / `false` | テンプレートを利用している場合に、`true`に設定するとsharedとjobに定義したstepsをマージします。デフォルトは`false`です。 |
+| screwdriver.cd/terminationGracePeriodSeconds | 時間(秒) | ビルドが停止する前にteardownステップを実行するための猶予時間(秒)を設定できます。デフォルトは `'60'` 秒で、最大は `'120'` 秒です。殆どの場合、デフォルト以上の時間は必要ありません。 |
 
 ## パイプラインレベルのアノテーション
 
@@ -67,5 +69,5 @@ jobs:
  | アノテーション | 値 | 説明 |
  |------------|--------|-------------|
  | screwdriver.cd/restrictPR | `none` / `all` / `fork` / `branch` | PRジョブが実行されないように制限します。`none` の場合は制限なしを意味します。`all` の場合はすべてのPRジョブ実行を制限します。`fork` はフォークされたリポジトリからのPRを制限します。`branch` はブランチからのPRを制限します。 |
-| screwdriver.cd/chainPR    | `false` / `true` | デフォルトは`false`です。`false`の場合、PRは`requires`に`~pr`を設定しているジョブのみトリガーします。`true`を指定した場合、PRは`requires`に`~pr`を設定しているジョブだけでなく、その後続のジョブも順番にトリガーします。サンプルリポジトリ: https://github.com/screwdriver-cd-test/chain-pr-example |
+| screwdriver.cd/chainPR    | `false` / `true` | デフォルトは`false`です。`false`の場合、PRは`requires`に`~pr`を設定しているジョブのみトリガーします。`true`を指定した場合、PRは`requires`に`~pr`を設定しているジョブだけでなく、その後続のジョブも順番にトリガーします。サンプルリポジトリ: <https://github.com/screwdriver-cd-test/chain-pr-example> |
 | screwdriver.cd/pipelineDescription | パイプラインの説明文 | パイプラインページに説明文を表示します。 |
