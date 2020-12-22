@@ -19,8 +19,8 @@ toc:
 - title: ステップを置換
   url: "#置換"
   subitem: level-2
-- title: Merging with Shared Steps
-  url: "#merging-with-shared-steps"
+- title: sharedステップをマージ
+  url: "#sharedステップをマージ"
   subitem: level-2
 - title: テンプレートを作成する
   url: "#テンプレートを作成する"
@@ -155,7 +155,7 @@ jobs:
         template: nodejs/test@1.0.3
 ```
 
-### Merging with shared steps
+### sharedステップをマージ
 
 テンプレートのステップを上書きする場合、ジョブは `shared.steps` または `job.steps` のいずれかのステップ定義を使用し、 `jobs` セクションで定義した `steps` が優先されます。これはテンプレートを使用しない場合のステップ定義の優先順位と同じです。この挙動は[アノテーション](./configuration/annotations)の `screwdriver.cd/mergeSharedSteps: true` で変更することができます。テンプレートを使用している場合に `true` を設定すると、 `shared` セクションと `job` セクションのステップはマージされます。
 
