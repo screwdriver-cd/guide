@@ -683,19 +683,19 @@ Note:
 
 Screenshots of Exchanges, Queues page from Rabbitmq admin UI 
 
-Exchanges:
+#### Exchanges:
 ![Exchanges page](./assets/rabbitmq/exchanges.png)
 
-Queues:
+#### Queues:
 ![Queues page](./assets/rabbitmq/queues.png)
 
-Exchange (build) configuration:
+#### Exchange (build) configuration:
 ![build exchange detail page](./assets/rabbitmq/build_exchange.png)
 
-ClusterA queue configuration:
+#### ClusterA queue configuration:
 ![ClusterA queue detail page](./assets/rabbitmq/ClusterA_queue.png)
 
-ClusterAdlr queue configuration:
+#### ClusterAdlr queue configuration:
 ![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterAdlr_queue.png)
 
 Refer to `Connections` and `Channels` page to check connections with a username established by Screwdriver Queue Service (Producer) and Build Cluster Queue Worker (Consumer).
