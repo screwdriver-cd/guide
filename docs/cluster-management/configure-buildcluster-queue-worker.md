@@ -22,7 +22,7 @@ toc:
 
 # Managing the Build Cluster Queue Worker
 
-This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq.com/#getstarted) and Build Cluster Queue Worker.
+This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq.com/#getstarted) and [Build Cluster Queue Worker](https://github.com/screwdriver-cd/buildcluster-queue-worker). 
 
 ## Setup Build Cluster
 
