@@ -18,7 +18,7 @@ toc:
     - title: Build Cluster Schema Definition
       url: "#schema-definition"
 ---
-**Cluster admins responsibility to setup and configure Rabbitmq Message Broker and Build Cluster Queue Worker.**
+It is Cluster admins responsibility to setup and configure Rabbitmq Message Broker and Build Cluster Queue Worker.
 
 # Managing the Build Cluster Queue Worker
 
@@ -50,9 +50,9 @@ Cluster admin should create build cluster using [buildclusters API](https://api.
 ## Install RabbitMQ Message Broker
 
 As a prerequisite go through [Downloading and Installing Rabbitmq](https://www.rabbitmq.com/download.html) and [Rabbitmq Tutorials](https://www.rabbitmq.com/getstarted.html) documentation.
-Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability in Kubernetes cluster. Please note that this helm chart is deprecated and for new installation refer [bitnami helm charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq).
+Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability `version: 3.7.28 Erlang: 22.3.4.7` in Kubernetes cluster. Please note that this helm chart is deprecated and for new installation refer [bitnami helm charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq).
 
-Sample Rabbitmq helm chart values.tmpl file for your reference. Update and use it per your environment specifications.
+Rabbitmq helm chart values.tmpl file for your reference. Update and use it per your environment specifications.
 
 ``` yaml
 ## RabbitMQ application credentials
@@ -447,17 +447,7 @@ prometheus:
 
 ## Rabbitmq Configuration
 
-Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Import definitions** 
-Please find below a sample Rabbitmq definitions json file for your reference.
-
-Note: 
-1. Queues suffixed with dlr are deadletter queues. We use rabbitmq in-built deadletter queue mechanism for a retry with delay in case of errors. 
-   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)
-   in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
-   routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
-1. `build` is exchange.
-1. `ClusterA` and `ClusterB` are queues.
-1. `ClusterAdlr` and `ClusterBdlr` are deadletter queues for `ClusterA` and `ClusterB` queues respectively. 
+Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Import definitions**.
 
 ```json
 {
@@ -680,21 +670,33 @@ Note:
 }
 ```
 
+Note: 
+1. Queues suffixed with dlr are deadletter queues. We use rabbitmq in-built deadletter queue mechanism for a retry with delay in case of errors. 
+   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)
+   in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
+   routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
+1. `build` is exchange.
+1. `ClusterA` and `ClusterB` are queues.
+1. `ClusterAdlr` and `ClusterBdlr` are deadletter queues for `ClusterA` and `ClusterB` queues respectively. 
+
 ### User Interface
 
 Screenshots of Exchanges, Queues page from Rabbitmq admin UI 
 
 Exchanges:
-![Exchanges page](../assets/rabbitmq/exchanges.png)
+![Exchanges page](./assets/rabbitmq/exchanges.png)
 
 Queues:
-![Queues page](../assets/rabbitmq/queues.png)
+![Queues page](./assets/rabbitmq/queues.png)
 
-ClusterA queue:
-![ClusterA queue detail page](../assets/rabbitmq/ClusterA_queue.png)
+Exchange (build) configuration:
+![build exchange detail page](./assets/rabbitmq/build_exchange.png)
 
-ClusterAdlr queue:
-![ClusterAdlr queue detail page](../assets/rabbitmq/ClusterAdlr_queue.png)
+ClusterA queue configuration:
+![ClusterA queue detail page](./assets/rabbitmq/ClusterA_queue.png)
+
+ClusterAdlr queue configuration:
+![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterAdlr_queue.png)
 
 Refer to `Connections` and `Channels` page to check connections with a username established by Screwdriver Queue Service (Producer) and Build Cluster Queue Worker (Consumer).
 
