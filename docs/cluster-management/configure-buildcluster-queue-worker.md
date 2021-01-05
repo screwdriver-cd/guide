@@ -7,6 +7,8 @@ toc:
     - title: Managing the Build Cluster Queue Worker 
       url: "#manage-buildcluster-queue-worker"
       active: true
+    - title: Overview
+      url: "#overview"
     - title: Setup Build Cluster
       url: "#setup-buildcluster"
     - title: Install RabbitMQ Message Broker
@@ -23,6 +25,14 @@ It is Cluster admins responsibility to setup and configure Rabbitmq Message Brok
 # Managing the Build Cluster Queue Worker
 
 This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq.com/#getstarted) and [Build Cluster Queue Worker](https://github.com/screwdriver-cd/buildcluster-queue-worker). 
+
+## Overview
+
+Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257) or using 
+[environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369).
+When enabled Screwdriver [Queue Service](./configure-queue-service.md) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and 
+weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by 
+Build Cluster Queue Worker.  
 
 ## Setup Build Cluster
 
@@ -50,7 +60,8 @@ Cluster admin should create build cluster using [buildclusters API](https://api.
 ## Install RabbitMQ Message Broker
 
 As a prerequisite go through [Downloading and Installing Rabbitmq](https://www.rabbitmq.com/download.html) and [Rabbitmq Tutorials](https://www.rabbitmq.com/getstarted.html) documentation.
-Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability `version: 3.7.28 Erlang: 22.3.4.7` in Kubernetes cluster. Please note that this helm chart is deprecated and for new installation refer [bitnami helm charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq).
+Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability `version: 3.7.28 Erlang: 22.3.4.7` in Kubernetes cluster. 
+Please note that this helm chart is deprecated and for new installation refer [bitnami helm charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq).
 
 Rabbitmq helm chart values.tmpl file for your reference. Update and use it per your environment specifications.
 
@@ -705,25 +716,27 @@ To get rabbitmq message delivery and acknowledgement rates refer to `Message rat
 ## Setup Build Cluster Queue Worker
 
 Please refer to
-1. [Docker Image](https://hub.docker.com/r/screwdrivercd/buildcluster-queue-worker) for setup and installation. Our images are tagged with the version (eg. `v1.2.3`) as well as a floating tag `latest` and `stable`. Most installations should be using `stable` or the fixed version tags.
+1. [Docker Image](https://hub.docker.com/r/screwdrivercd/buildcluster-queue-worker) for setup and installation. Our images are tagged with the version (eg. `v1.2.3`) as well as
+   a floating tag `latest` and `stable`. Most installations should be using `stable` or the fixed version tags.
 1. [Repository](https://github.com/screwdriver-cd/buildcluster-queue-worker) for implementation.
 
 ## Configure Build Cluster Queue Worker
 
-Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236), but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348).
+Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236), 
+but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348).
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
-| protocol | RABBITMQ_PROTOCOL | Protocol to connect to rabbitmq. Use amqp for non-ssl and amqps for ssl |
+| protocol | RABBITMQ_PROTOCOL | Protocol to connect to rabbitmq. Use amqp for non-ssl and amqps for ssl. Default: amqp |
 | username | RABBITMQ_USERNAME | User to connect and authorized to consume from rabbitmq queues |
 | password | RABBITMQ_PASSWORD | password |
-| host | RABBITMQ_HOST | Rabbitmq cluster hostname |
-| port | RABBITMQ_PORT | Rabbitmq port (5672) |
-| vhost | RABBITMQ_VIRTUAL_HOST | Virtual host for queues |
-| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections | 
+| host | RABBITMQ_HOST | Rabbitmq cluster hostname. Default: 127.0.0.1 |
+| port | RABBITMQ_PORT | Rabbitmq port. Default: 5672 |
+| vhost | RABBITMQ_VIRTUAL_HOST | Virtual host for queues. Default: /screwdriver |
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
 | queue | RABBITMQ_QUEUE | queue to consume from |
-| prefetchCount | RABBITMQ_PREFETCH_COUNT | used to specify how many messages are sent at the same time |
-| messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | maximum number of retries in case of errors |
+| prefetchCount | RABBITMQ_PREFETCH_COUNT | used to specify how many messages are sent at the same time. Default: "20" |
+| messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | maximum number of retries in case of errors. Default: "3". If this is set > 0 build cluster queue worker will expect deadletter queue to retry. |
 
 
 ## Build Cluster Schema Definition
