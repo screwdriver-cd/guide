@@ -5,7 +5,7 @@ category: Cluster Management
 menu: menu
 toc:
     - title: Managing the Build Cluster Queue Worker 
-      url: "#manage-buildcluster-queue-worker"
+      url: "#managing-the-build-cluster-queue-worker"
       active: true
     - title: Overview
       url: "#overview"
