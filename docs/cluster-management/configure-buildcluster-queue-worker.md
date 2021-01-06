@@ -10,7 +10,7 @@ toc:
     - title: Overview
       url: "#overview"
     - title: Setup Build Cluster
-      url: "#setup-buildcluster"
+      url: "#setup-build-cluster"
     - title: Install RabbitMQ Message Broker
       url: "#install-rabbitmq"
     - title: RabbitMQ Configuration
