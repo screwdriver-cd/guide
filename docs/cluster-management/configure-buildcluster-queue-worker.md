@@ -32,7 +32,8 @@ Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag
 [environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369).
 When enabled Screwdriver [Queue Service](./configure-queue-service.md) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and 
 weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by 
-Build Cluster Queue Worker.  
+Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will 
+not impact when a build cluster is taken offline for maintenance as builds will be automatically routed to next available build cluster. 
 
 ***Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness. 
 So any updates to routing key, need to be cascaded to affected pipelines annotations and rabbitmq exchange bindings. Without this update, builds related to affected pipeline will error. 
