@@ -12,13 +12,13 @@ toc:
     - title: Setup Build Cluster
       url: "#setup-build-cluster"
     - title: Install RabbitMQ Message Broker
-      url: "#install-rabbitmq"
+      url: "#install-rabbitmq-message-broker"
     - title: RabbitMQ Configuration
-      url: "#configure-rabbitmq"
+      url: "#rabbitmq-configuration"
     - title: Configure Build Cluster Queue Worker
-      url: "#configure-buildcluster-queue-worker"
+      url: "#configure-build-cluster-queue-worker"
     - title: Build Cluster Schema Definition
-      url: "#schema-definition"
+      url: "#build-cluster-schema-definition"
 ---
 It is Cluster admins responsibility to setup and configure Rabbitmq Message Broker and Build Cluster Queue Worker.
 
