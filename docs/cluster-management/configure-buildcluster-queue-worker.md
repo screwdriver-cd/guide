@@ -34,6 +34,11 @@ When enabled Screwdriver [Queue Service](./configure-queue-service.md) will push
 weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by 
 Build Cluster Queue Worker.  
 
+***Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness. 
+So any updates to routing key, need to be cascaded to affected pipelines annotations and rabbitmq exchange bindings. Without this update, builds related to affected pipeline will error. 
+Another option is to create a new build cluster and disable old build cluster. In this case builds will auto route to new build cluster without any updates, but please keep in mind build cluster 
+stickiness will be lost.* 
+
 ## Setup Build Cluster
 
 Cluster admin should create build cluster using [buildclusters API](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)
@@ -744,3 +749,4 @@ but you can override defaults using environment variables in [rabbitmq section](
 1. [Build cluster schema definitions are defined here](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
 
 2. name and scmContext fields form a [unique constraint](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js) for a buildcluster. 
+
