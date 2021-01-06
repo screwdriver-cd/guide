@@ -61,7 +61,10 @@ Cluster admin should create build cluster using [buildclusters API](https://api.
 1. name should match the queue and routing key defined in rabbitmq configuration.
 1. set `managedByScrewdriver` to `true`, if build cluster is managed by internal Screwdriver team.
 1. set `isActive` to `true` or `false` to turn on/off a build cluster.
-1. set weightage 100 if you have single build cluster and for more than one cluster, distribute weightage accordingly.
+1. set weightage 100 if you have single build cluster and for more than one cluster, distribute the weightage accordingly.
+
+***Caution**: Build cluster scmContext is derived from API token of specific scm. In order to create build clusters with same name for multiple scm, repeat post 
+[/v4/buildClusters](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters) api for each scm account.*
 
 ## Install RabbitMQ Message Broker
 
