@@ -62,6 +62,8 @@
       url: "/cluster-management/configure-store"
     - title: "Configuring the Queue Service"
       url: "/cluster-management/configure-queue-service"
+    - title: "Configuring Build Cluster Queue Worker"
+      url: "/cluster-management/configure-buildcluster-queue-worker"
     - title: "Developing Locally"
       url: "/cluster-management/developing-locally"
     - title: "SD-in-a-Box"
