@@ -14,7 +14,20 @@ For more information about Screwdriver, check out our [homepage](http://screwdri
 Have a look at our guidelines, as well as pointers on where to start making changes, in our [contributing guide](http://docs.screwdriver.cd/about/contributing).
 
 
-The guide is powered by Jekyll. In order to install Jekyll you'll need Ruby, the Ruby package manager (RubyGems), and bundle to install and run Jekyll. You can check if you have these already installed like so:
+The guide is powered by Jekyll. There are two ways to run jekyll, via docker and by installing.
+
+### Running jekyll using docker
+
+1. Install [docker-desktop](https://www.docker.com/products/docker-desktop) if you haven't already.
+1. Ensure docker is running - `docker info` should give you info; if not, then on mac, you can launch easily via `open -a /Applications/Docker.app/` - launching on CLI (rather than double-clicking) has advantage of exporting your `$SSH_AUTH_SOCK` and `ssh-agent` will work properly, should you need it at some point. 
+1. Run the jekyll docker image with mount of `$PWD` to its serving location and with `-ti` so `^C` will kill it.
+   ```bash
+   docker run -v $PWD:/srv/jekyll:rw -p 4080:4000 -it jekyll/jekyll jekyll serve --source docs --destination _site
+   ```
+
+### Running jekyll by installing
+
+In order to install Jekyll you'll need Ruby, the Ruby package manager (RubyGems), and bundle to install and run Jekyll. You can check if you have these already installed like so:
 
 ```bash
 $ ruby --version
