@@ -343,7 +343,7 @@ meta lua -E 'meta.set("myNum", (tonumber(meta.get("myNum")) or 0) + 1)'
 #### atomically insert some json into an array and return its index
 
 One motivational use case is a job, which builds many things (like docker images) in parallel, and then in a later
-"publish" step, interrogates the array to do the pushes (do docker registry, e.g.).
+"publish" step, interrogates the array to do the pushes (to docker registry, e.g.).
 
 ```bash
 meta lua insert.lua myArray '{"foo": "baz"}'
@@ -371,13 +371,13 @@ assert(not err, tostring(err))
 -- Get the current array from meta using the key arg or, when nil, an empty table
 local array = meta.get(key) or {}
 
--- Index for meta purposes is 0 based so get size of array before insertion as the output value
+-- Index for meta.(get/set) purposes is 0 based so get size of array before insertion as the output value
 local index = #array
 
 -- table.insert without index does "append"
 table.insert(array, toInsert)
 
--- meta.set to save the value back after insertion 
+-- meta.set to save the value after insertion - Lua values are passed and converted to json for storage under the hood.
 meta.set(key, array)
 
 -- print the saved index as size before insertion
