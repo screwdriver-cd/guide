@@ -371,15 +371,13 @@ assert(not err, tostring(err))
 -- Get the current array from meta using the key arg or, when nil, an empty table
 local array = meta.get(key) or {}
 
--- Index for meta.(get/set) purposes is 0 based so get size of array before insertion as the output value
-local index = #array
-
 -- table.insert without index does "append"
 table.insert(array, toInsert)
 
 -- meta.set to save the value after insertion - Lua values are passed and converted to json for storage under the hood.
 meta.set(key, array)
 
--- print the saved index as size before insertion
-print(index)
+-- print the index
+-- NOTE: index for meta.(get/set) purposes is 0-based, so subtract 1 from the array size
+print(#array - 1)
 ```
