@@ -317,7 +317,7 @@ In the above example a Slack notification message will be send in `minimized` fo
 
 ### Using [Lua](https://www.lua.org/) for atomic updates
 
-the `meta` tool creates a lock file, and holds a [flock](https://linux.die.net/man/2/flock) around each of its
+The `meta` tool creates a lock file, and holds a [flock](https://linux.die.net/man/2/flock) around each of its
 operations so that it may be executed by parallel operations in your build (for instance a Makefile invoked with
 `make -j 4`)
 
@@ -332,12 +332,12 @@ Example use cases:
 meta lua -E 'meta.set("myNum", (tonumber(meta.get("myNum")) or 0) + 1)'
 ```
 
-| Lua code | explanation |
+| Lua code | Description |
 | ---  | ---  |
 | `meta.get("myNum")` | gets the previous value |
 | `tonumber(`<small>meta.get("myNum")</small>`)` | `tonumber` returns its arg if number, parses if string, and returns `nil` when unparseable or not a number or string. |
-| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0` Converts non-numbers to `0` so that arithmetic can be applied |
-| <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1` | `+ 1` of course this increments the previous value (normalized to `0`) |
+| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0` converts non-numbers to `0` so that arithmetic can be applied |
+| <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1` | `+ 1` increments the previous value (normalized to `0` in this example) by 1  |
 | `meta.set(`<small>"myNum", (tonumber(meta.get("myNum")) or 0) + 1</small>`)` | `meta.set` sets the value to the incremented value |
 
 #### atomically insert some json into an array and return its index
