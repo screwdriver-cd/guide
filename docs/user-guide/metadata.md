@@ -42,6 +42,9 @@ toc:
     - title: Job-based minimized setting
       url: "#job-based-minimized-setting"
       subitem: level-2      
+    - title: Using Lua for atomic updates
+      url: "#using-lua-for-atomic-updates"
+      subitem: true      
 ---
 # Metadata
 
@@ -312,3 +315,69 @@ jobs:
 ```
 In the above example a Slack notification message will be send in `minimized` format for the `component` job if it was triggered by the scheduler.
 
+### Using [Lua](https://www.lua.org/) for atomic updates
+
+The `meta` tool creates a lock file, and holds a [flock](https://linux.die.net/man/2/flock) around each of its
+operations so that it may be executed by parallel operations in your build (for instance a Makefile invoked with
+`make -j 4`)
+
+In addition to atomic get and set operations, should "update" be required, the meta commands may be invoked by an
+embedded [Lua](https://www.lua.org/) interpreter.
+
+Example use cases:
+
+#### atomically increment a number
+
+```bash
+meta lua -E 'meta.set("myNum", (tonumber(meta.get("myNum")) or 0) + 1)'
+```
+
+| Lua code | Description |
+| ---  | ---  |
+| `meta.get("myNum")` | gets the previous value |
+| `tonumber(`<small>meta.get("myNum")</small>`)` | `tonumber` returns its arg if number, parses if string, and returns `nil` when unparseable or not a number or string. |
+| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0` converts non-numbers to `0` so that arithmetic can be applied |
+| <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1` | `+ 1` increments the previous value (normalized to `0` in this example) by 1  |
+| `meta.set(`<small>"myNum", (tonumber(meta.get("myNum")) or 0) + 1</small>`)` | `meta.set` sets the value to the incremented value |
+
+#### atomically insert some json into an array and return its index
+
+One motivational use case is a job, which builds many things (like docker images) in parallel, and then in a later
+"publish" step, interrogates the array to do the pushes (to docker registry, e.g.).
+
+```bash
+meta lua insert.lua myArray '{"foo": "baz"}'
+```
+
+Explanation: Following the convention of the [lua](https://linux.die.net/man/1/lua) CLI, arguments are made available to
+Lua code in the global table `arg`. Without the `-E` flag, `arg[0]` will be run as a file.
+
+File `insert.lua`:
+
+```lua
+-- Ensure args are passed as expected
+assert(#arg >= 2, string.format("usage: %s key json_value", arg[0]))
+
+-- https://github.com/vadv/gopher-lua-libs is preloaded, so any of its modules may be required
+local json = require("json")
+local key = arg[1]
+
+-- This converts the json string argument to a Lua table, error
+local toInsert, err = json.decode(arg[2])
+
+-- Report errors, if any
+assert(not err, tostring(err))
+
+-- Get the current array from meta using the key arg or, when nil, an empty table
+local array = meta.get(key) or {}
+
+-- table.insert without index does "append"
+table.insert(array, toInsert)
+
+-- meta.set to save the value after insertion - Lua values are passed and converted to json for storage under the hood.
+meta.set(key, array)
+
+-- print the index
+-- NOTE: index for meta.(get/set) purposes is 0-based, so subtract 1 from the array size
+print(#array - 1)
+```
