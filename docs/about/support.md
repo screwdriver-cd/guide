@@ -9,10 +9,15 @@ toc:
       active: true
     - title: GitHub
       url: "#github"
+      subitem: true
     - title: Slack
       url: "#slack"
+      subitem: true
     - title: Stack Overflow
       url: "#stack-overflow"
+      subitem: true
+    - title: Security
+      url: "#reporting-security-issues"
 ---
 # Support
 
@@ -32,3 +37,6 @@ To sign up, use our [Slack inviter](http://slack.screwdriver.cd).
 We monitor Stack Overflow for any posts tagged with `screwdriver-cd`. If
 there aren't any existing questions that help with your problem, feel free to ask a new one!
 
+# Reporting Security Issues
+
+We takes security very seriously, but any complex software project is going to have some vulnerabilities. Please submit any security issues at <screwdriver-oss-security@verizonmedia.com>, please use [github](#github) issues or [slack](#slack) for non security issues.
