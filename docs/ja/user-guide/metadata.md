@@ -42,6 +42,9 @@ toc:
 - title: ジョブベースで通知を最小化する設定
   url: "#ジョブベースで通知を最小化する設定"
   subitem: level-2      
+- title: Using Lua for atomic updates
+  url: "#using-lua-for-atomic-updates"
+  subitem: true 
 ---
 
 # Metadata
@@ -321,3 +324,65 @@ jobs:
 ```
 上記の例では、スケジューラーによってトリガーされた `component` ジョブでのSlack通知は `minimized` 形式で投稿されます。
 
+### アトミックな処理のために[Lua](https://www.lua.org/)を使用
+
+`meta`ツールはロックファイルを作成し、各処理毎に[flock](https://linux.die.net/man/2/flock)を管理します。これはビルドを並列に実行できるようにするためです。（例えば、`make -j 4`で起動されたMakefileなど）
+
+アトミックな参照や書き込み処理に加えて、「更新」が必要な場合は、埋込み型の[Lua](https://www.lua.org/)インタプリタを使用してメタコマンドを呼び出すことができます。
+
+使用例:
+
+#### アトミックな数値のインクリメント
+
+```bash
+meta lua -E 'meta.set("myNum", (tonumber(meta.get("myNum")) or 0) + 1)'
+```
+
+| Lua code | Description |
+| ---  | ---  |
+| `meta.get("myNum")` | 前の値を取得 |
+| `tonumber(`<small>meta.get("myNum")</small>`)` | `tonumber`は数値の場合はその引数を返し、文字列の場合は解析し、解析不能な場合や数値や文字列でない場合は`nil`を返す |
+| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0` converts non-numbers to `0` so that arithmetic can be applied |
+| <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1` | `+1`は前の値（この例では初期値は`0`）に1をインクリメントする |
+| `meta.set(`<small>"myNum", (tonumber(meta.get("myNum")) or 0) + 1</small>`)` | `meta.set`はインクリメントした値をセットする |
+
+#### atomically insert some json into an array and return its index
+
+よくあるユースケースは、（Dockerイメージのような）多くのものを並行してビルドし、その後の"publish"ステップで（Dockerレジストリ等へ）pushするために配列に問い合わせを行います。
+
+```bash
+meta lua insert.lua myArray '{"foo": "baz"}'
+```
+
+[Lua](https://linux.die.net/man/1/lua) CLIの慣習に従い、Luaコードではグローバルテーブル`arg`で引数を利用できるようになっています。
+`-E`フラグを指定しない場合、`arg[0]`はファイルとして実行されます。
+
+`insert.lua`ファイルの中身:
+
+```lua
+-- Ensure args are passed as expected
+assert(#arg >= 2, string.format("usage: %s key json_value", arg[0]))
+
+-- https://github.com/vadv/gopher-lua-libs is preloaded, so any of its modules may be required
+local json = require("json")
+local key = arg[1]
+
+-- This converts the json string argument to a Lua table, error
+local toInsert, err = json.decode(arg[2])
+
+-- Report errors, if any
+assert(not err, tostring(err))
+
+-- Get the current array from meta using the key arg or, when nil, an empty table
+local array = meta.get(key) or {}
+
+-- table.insert without index does "append"
+table.insert(array, toInsert)
+
+-- meta.set to save the value after insertion - Lua values are passed and converted to json for storage under the hood.
+meta.set(key, array)
+
+-- print the index
+-- NOTE: index for meta.(get/set) purposes is 0-based, so subtract 1 from the array size
+print(#array - 1)
+```
