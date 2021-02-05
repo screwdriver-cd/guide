@@ -42,8 +42,8 @@ toc:
 - title: ジョブベースで通知を最小化する設定
   url: "#ジョブベースで通知を最小化する設定"
   subitem: level-2      
-- title: Using Lua for atomic updates
-  url: "#using-lua-for-atomic-updates"
+- title: アトミックな処理のためにLuaを使用
+  url: "#アトミックな処理のためにluaを使用"
   subitem: true 
 ---
 
