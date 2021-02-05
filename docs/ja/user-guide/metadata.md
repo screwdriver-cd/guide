@@ -342,7 +342,7 @@ meta lua -E 'meta.set("myNum", (tonumber(meta.get("myNum")) or 0) + 1)'
 | ---  | ---  |
 | `meta.get("myNum")` | 前の値を取得 |
 | `tonumber(`<small>meta.get("myNum")</small>`)` | `tonumber`は数値の場合はその引数を返し、文字列の場合は解析し、解析不能な場合や数値や文字列でない場合は`nil`を返す |
-| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0` converts non-numbers to `0` so that arithmetic can be applied |
+| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0`は非数値を`0`に変換して計算できるようにする |
 | <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1` | `+1`は前の値（この例では初期値は`0`）に1をインクリメントする |
 | `meta.set(`<small>"myNum", (tonumber(meta.get("myNum")) or 0) + 1</small>`)` | `meta.set`はインクリメントした値をセットする |
 
