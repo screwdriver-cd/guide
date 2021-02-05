@@ -20,7 +20,7 @@ toc:
       subitem: 1
 ---
 # Job Configuration
-Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`. It also defines trigger requirement for the job using `requires`. See [workflow](/user-guide/configuration/workflow) for detailed usage of `requires` to create pipeline workflow.
+Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`. It also defines trigger requirement for the job using `requires`. See [workflow](./workflow) for detailed usage of `requires` to create pipeline workflow.
 
 #### Example
 ```
@@ -173,9 +173,9 @@ jobs:
 
 
 ### See also:
-* [Annotations](/user-guide/configuration/annotations) - Freeform key/value store, often used to configure build execution settings
-* [Environment](/user-guide/configuration/environment) - Define environment variables for jobs
-* [Secrets](/user-guide/configuration/secrets) - Securely pass secrets as environment variables into the build
-* [Settings](/user-guide/configuration/settings) - Define configuration of build plugins
-* [Templates](/user-guide/templates) - Common, community supported job configurations
-* [Workflow](/user-guide/configuration/workflow) - Define the path of the pipeline
+* [Annotations](./annotations) - Freeform key/value store, often used to configure build execution settings
+* [Environment](./environment) - Define environment variables for jobs
+* [Secrets](./secrets) - Securely pass secrets as environment variables into the build
+* [Settings](./settings) - Define configuration of build plugins
+* [Templates](../templates) - Common, community supported job configurations
+* [Workflow](./workflow) - Define the path of the pipeline
