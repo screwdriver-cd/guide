@@ -24,9 +24,12 @@ toc:
     - title: Merging with Shared Steps
       url: "#merging-with-shared-steps"
       subitem: level-2
-    - title: Step order
-      url: "#step-order"
+    - title: Template Composition
+      url: "#template-composition"
       subitem: true
+    - title: Step Order
+      url: "#step-order"
+      subitem: level-2
     - title: Creating a template
       url: "#creating-a-template"
     - title: Testing a template
@@ -157,7 +160,8 @@ jobs:
 When overriding Template steps, a job can get the step definitions from either `shared.steps` or `job.steps` with precedence for `steps` defined in `job` section. This follows the same order of precedence for step definitions without using a template. Users can change this behavior using [annotation](./configuration/annotations) `screwdriver.cd/mergeSharedSteps: true`. When `true` steps in `shared` and `job` sections are merged when a Template is used.
 
 
-Example
+#### Example
+
 ```yaml
 shared:
   annotations:
@@ -173,8 +177,56 @@ jobs:
 
 ```
 
+#### Example
+The following example defines a merged shared configuration for `image` and `steps`, which is used by the main and main2 jobs.
+
+```yaml
+shared:
+    image: node:8
+    steps:
+        - init: npm install
+        - pretest: npm lint
+        - test: npm test
+
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: node:6
+    main2:
+        annotations:
+            screwdriver.cd/mergeSharedSteps: true
+        requires: [main]
+        steps:
+            - test: echo Skipping test
+```
+
+The above example would be equivalent to:
+
+```yaml
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: node:6
+        steps:
+             - init: npm install
+             - pretest: npm lint
+             - test: npm test
+    main2:
+        annotations:
+             screwdriver.cd/mergeSharedSteps: true
+        requires: [main]
+        image: node:8
+        steps:
+             - pretest: npm lint
+             - test: echo Skipping test
+
+```
+
+## Template Composition
+You can use a template in a template (`sd-template.yaml`) or in your normal configuration file (`screwdriver.yaml`).
+
 ### Step order
-When using a template in your `screwdriver.yaml`, you can pick and choose steps defined by the template and your own configuration with the `order` field. You can also use a template in an `sd-template.yaml`. Defined as an ordered array of step names.
+When using a template in your configuration, you can pick and choose steps defined by the template and your own configuration with the `order` field. This field is defined as an ordered array of step names.
 
 Caveats:
 - `order` can only be used when `template` is used.

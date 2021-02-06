@@ -15,8 +15,6 @@ toc:
       subitem: 1
     - title: Shared Configuration
       url: "#shared-configuration"
-    - title: Merge shared steps
-      url: "#merge-shared-steps"
       subitem: 1
 ---
 # Job Configuration
@@ -122,52 +120,6 @@ jobs:
         image: node:8
         steps:
             - test: echo Skipping test
-
-```
-
-## Merge shared steps
-You can choose to merge shared steps with the [annotation](./annotations) `screwdriver.cd/mergeSharedSteps: true`.
-
-#### Example
-The following example defines a merged shared configuration for `image` and `steps`, which is used by the main and main2 jobs.
-```
-shared:
-    image: node:8
-    steps:
-        - init: npm install
-        - pretest: npm lint
-        - test: npm test
-
-jobs:
-    main:
-        requires: [~pr, ~commit]
-        image: node:6
-    main2:
-        annotations:
-            screwdriver.cd/mergeSharedSteps: true
-        requires: [main]
-        steps:
-            - test: echo Skipping test
-```
-
-The above example would be equivalent to:
-```
-jobs:
-    main:
-        requires: [~pr, ~commit]
-        image: node:6
-        steps:
-             - init: npm install
-             - pretest: npm lint
-             - test: npm test
-    main2:
-        annotations:
-             screwdriver.cd/mergeSharedSteps: true
-        requires: [main]
-        image: node:8
-        steps:
-             - pretest: npm lint
-             - test: echo Skipping test
 
 ```
 
