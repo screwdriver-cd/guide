@@ -50,7 +50,7 @@ toc:
 
 ## What is Metadata?
 
-Metadata is a structured key/value storage of relevant information about a [build](../../about/appendix/domain#build). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../../about/appendix/domain#step).
+Metadata is a structured key/value storage of relevant information about a [build](../about/appendix/domain#build). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../about/appendix/domain#step).
 
 ## Default Metadata
 
