@@ -13,6 +13,9 @@ toc:
     - title: Teardown
       url: "#teardown"
       subitem: 1
+    - title: Template
+      url: "#template"
+      subitem: 1
     - title: Shared Configuration
       url: "#shared-configuration"
       subitem: 1
@@ -81,6 +84,9 @@ jobs:
 
 ### Teardown
 The teardown steps run a set of Screwdriver bookend steps after the build steps are completed or aborted or failed. These steps are implicitly added at the end of job and start with `sd-teardown-` or `teardown-`. The pod/container is removed after these steps are completed. In case of aborted builds, we can also configure the grace period of the pod before termination during which the teardown steps will be executed. See the `screwdriver.cd/terminationGracePeriodSeconds` [annotation](/user-guide/configuration/annotations) for detailed usage.
+
+### Template
+You can also use [templates](../templates) in a job configuration.
 
 # Shared Configuration
 The `shared` configuration is a special job configuration section that is applied to all jobs. Configuration that is specified in a job configuration will override the same configuration in `shared`.

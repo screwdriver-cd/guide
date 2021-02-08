@@ -12,6 +12,7 @@ toc:
       url: "#using-a-template"
     - title: "Version/Tag Semantics"
       url: "#versiontag-semantics"
+      subitem: true
     - title: Overriding Template Steps
       url: "#overriding-template-steps"
       subitem: true
@@ -32,6 +33,27 @@ toc:
       subitem: level-2
     - title: Creating a template
       url: "#creating-a-template"
+    - title: Writing a template yaml
+      url: "#writing-a-template-yaml"
+      subitem: true
+    - title: Template images
+      url: "template-images"
+      subitem: level-2
+    - title: Template steps
+      url: "#template-steps"
+      subitem: level-2
+    - title: Using a template
+      url: "#using-a-template"
+      subitem: level-2 
+    - title: Writing a screwdriver yaml
+      url: "#writing-a-screwdriveryaml"
+      subitem: true
+    - title: Validating templates
+      url: "#validating-templates"
+      subitem: level-2
+    - title: Tagging templates
+      url: "#tagging-templates"
+      subitem: level-2
     - title: Testing a template
       url: "#testing-a-template"
     - title: Using the build cache
@@ -235,7 +257,6 @@ Caveats:
 - Implicit wrapping of steps(pre/post) will not work with this field.
 - The priority in determining duplicate step definitions goes like this: job > template
 - When the annotation `screwdriver.cd/mergeSharedSteps: true`, priority will be: job > shared > template
-- If you use a `template` in an `sd-template.yaml`, the `images` field will also be merged.
 
 Example `sd-template.yaml`:
 ```yaml
@@ -360,7 +381,78 @@ jobs:
 ```
 It becomes unclear whether the user was trying to override `preinstall` or wrap `install`.
 
-### Writing a screwdriver.yaml for your template repo
+#### Using a template
+You can also use a template in the `config` section of an `sd-template.yaml` file.
+
+See [template composition](#template-composition) in using a template section.
+
+Caveats:
+- `order` can only be used when `template` is used.
+- Steps that cannot be found will be skipped.
+- User-defined `teardown-` steps will always be run after the rest of the steps are done.
+- Implicit wrapping of steps(pre/post) will not work with this field.
+- The priority in determining duplicate step definitions goes like this: current template > preexisting template
+- If you use a `template` in an `sd-template.yaml`, the `images` field will also be merged.
+
+Example preexisting `sd-template.yaml`:
+```yaml
+namespace: nodejs
+name: publish
+version: "2.0.1"
+description: 'Publish an npm package'
+maintainer: myname@foo.com
+images:
+  stable: node:8
+  latest: node:12
+config:
+  image: stable
+  steps:
+    - install: npm install
+    - publish: npm publish
+    - coverage: coverage test.js
+```
+
+Example `sd-template.yaml`:
+```yaml
+namespace: d2lam
+name: personal
+version: "1.0.2"
+description: 'Do some stuff'
+maintainer: d2lam@foo.com
+images:
+  test: node:18
+config:
+  template: nodejs/publish@2
+  order: [clone, install, doesnotexist, test, publish, coverage]
+  steps:
+    - test: npm test
+    - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+    - coverage: ./ci/coverage.sh
+```
+
+Result:
+```yaml
+namespace: d2lam
+name: personal
+version: "1.0.2"
+description: 'Do some stuff'
+maintainer: d2lam@foo.com
+images:
+  stable: node:8
+  latest: node:12
+  test: node:18
+config:
+  image: stable
+  steps:
+    - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+    - install: npm install
+    - test: npm test
+    - publish: npm publish
+    - coverage: ./ci/coverage.sh  # This step was overwritten by the d2lam/personal template
+```
+
+
+### Writing a screwdriver yaml for your template repo
 
 #### Validating templates
 
