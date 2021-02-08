@@ -19,7 +19,7 @@ toc:
 
 # ジョブの設定
 
-ジョブには、各ビルドでどのようなことを行うのか設定できます。ジョブの設定は一つの`image`とリストの`steps`、または`template`を含んでいる必要があります。また、`requires`を使用することで、ジョブのトリガーを指定することもできます。パイプラインワークフローを作成するための`requires`の詳しい使用方法は[workflow](/ja/user-guide/configuration/workflow)を参照してください。
+ジョブには、各ビルドでどのようなことを行うのか設定できます。ジョブの設定は一つの`image`とリストの`steps`、または`template`を含んでいる必要があります。また、`requires`を使用することで、ジョブのトリガーを指定することもできます。パイプラインワークフローを作成するための`requires`の詳しい使用方法は[workflow](./workflow)を参照してください。
 
 #### 例
 
@@ -133,9 +133,9 @@ jobs:
 
 ### 参考:
 
-- [Annotations](/ja/user-guide/configuration/annotations) - 主にビルドの実行の設定をする際に使用されるフリーフォームのキー/バリューストア
-- [Environment](/ja/user-guide/configuration/environment) - ジョブのための環境変数を設定する
-- [Secrets](/ja/user-guide/configuration/secrets) - ビルド中にsecretsを環境変数として安全に渡す
-- [Settings](/ja/user-guide/configuration/settings) - ビルドのプラグインを設定する
-- [Templates](/ja/user-guide/templates) - 共通で使用できるジョブの設定
-- [Workflow](/ja/user-guide/configuration/workflow) - パイプラインの構造を定義する
+- [Annotations](./annotations) - 主にビルドの実行の設定をする際に使用されるフリーフォームのキー/バリューストア
+- [Environment](./environment) - ジョブのための環境変数を設定する
+- [Secrets](./secrets) - ビルド中にsecretsを環境変数として安全に渡す
+- [Settings](./settings) - ビルドのプラグインを設定する
+- [Templates](../templates) - 共通で使用できるジョブの設定
+- [Workflow](./workflow) - パイプラインの構造を定義する
