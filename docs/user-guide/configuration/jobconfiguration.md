@@ -14,7 +14,8 @@ toc:
       url: "#teardown"
       subitem: 1
     - title: Shared Configuration
-      url: "#shared"
+      url: "#shared-configuration"
+      subitem: 1
 ---
 # Job Configuration
 Jobs are how you define what happens in every build. Every job configuration must consist of an `image` and a list of `steps`, or a `template`. It also defines trigger requirement for the job using `requires`. See [workflow](./workflow) for detailed usage of `requires` to create pipeline workflow.
@@ -50,7 +51,7 @@ jobs:
 Steps are the list of instructions you want to execute in your build. These should be defined as:
 `step_name: step_command`. Steps will be executed in the order they are defined. Current working directory and environment variables are passed between steps.
 
-You can also specify user teardown steps, which will be run regardless of whether the build succeeds or fails. These steps need to be at the end of the job and start with "teardown-".
+You can also specify user teardown steps, which will be run regardless of whether the build succeeds or fails. These steps need to be at the end of the job and should be prefixed with `teardown-`.
 
 Example repo: <https://github.com/screwdriver-cd-test/user-teardown-example>
 
@@ -81,7 +82,7 @@ jobs:
 ### Teardown
 The teardown steps run a set of Screwdriver bookend steps after the build steps are completed or aborted or failed. These steps are implicitly added at the end of job and start with `sd-teardown-` or `teardown-`. The pod/container is removed after these steps are completed. In case of aborted builds, we can also configure the grace period of the pod before termination during which the teardown steps will be executed. See the `screwdriver.cd/terminationGracePeriodSeconds` [annotation](/user-guide/configuration/annotations) for detailed usage.
 
-# Shared
+# Shared Configuration
 The `shared` configuration is a special job configuration section that is applied to all jobs. Configuration that is specified in a job configuration will override the same configuration in `shared`.
 
 #### Example
@@ -91,6 +92,7 @@ shared:
     image: node:8
     steps:
         - init: npm install
+        - pretest: npm lint
         - test: npm test
 
 jobs:
@@ -100,7 +102,7 @@ jobs:
     main2:
         requires: [main]
         steps:
-            - greet: echo hello
+            - test: echo Skipping test
 ```
 
 The above example would be equivalent to:
@@ -111,14 +113,16 @@ jobs:
         image: node:6
         steps:
             - init: npm install
+            - pretest: npm lint
             - test: npm test
     main2:
         requires: [main]
         image: node:8
         steps:
-            - greet: echo hello
+            - test: echo Skipping test
 
 ```
+
 
 ### See also:
 * [Annotations](./annotations) - Freeform key/value store, often used to configure build execution settings

@@ -10,6 +10,8 @@ toc:
       url: "#finding-templates"
     - title: Using a template
       url: "#using-a-template"
+    - title: "Version/Tag Semantics"
+      url: "#versiontag-semantics"
     - title: Overriding Template Steps
       url: "#overriding-template-steps"
       subitem: true
@@ -21,6 +23,12 @@ toc:
       subitem: level-2
     - title: Merging with Shared Steps
       url: "#merging-with-shared-steps"
+      subitem: level-2
+    - title: Template Composition
+      url: "#template-composition"
+      subitem: true
+    - title: Step Order
+      url: "#step-order"
       subitem: level-2
     - title: Creating a template
       url: "#creating-a-template"
@@ -75,7 +83,7 @@ Template versions can be referenced in a variety of ways that express users' tra
 * `nodejs/test@1.0` - this will use the most recent version of `nodejs/test` than is less than 1.1.0. This is essentially the `latest` tag without crossing a minor version boundary.
 * `nodejs/test@1.0.4` - this is the most predictable way to specify a pipeline's behavior and is not affected by future changes to the template.
 
-## Example
+#### Example
 
 For this configuration:
 ```yaml
@@ -152,7 +160,8 @@ jobs:
 When overriding Template steps, a job can get the step definitions from either `shared.steps` or `job.steps` with precedence for `steps` defined in `job` section. This follows the same order of precedence for step definitions without using a template. Users can change this behavior using [annotation](./configuration/annotations) `screwdriver.cd/mergeSharedSteps: true`. When `true` steps in `shared` and `job` sections are merged when a Template is used.
 
 
-Example
+#### Example
+
 ```yaml
 shared:
   annotations:
@@ -168,6 +177,111 @@ jobs:
 
 ```
 
+#### Example
+The following example defines a merged shared configuration for `image` and `steps`, which is used by the main and main2 jobs.
+
+```yaml
+shared:
+    image: node:8
+    steps:
+        - init: npm install
+        - pretest: npm lint
+        - test: npm test
+
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: node:6
+    main2:
+        annotations:
+            screwdriver.cd/mergeSharedSteps: true
+        requires: [main]
+        steps:
+            - test: echo Skipping test
+```
+
+The above example would be equivalent to:
+
+```yaml
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: node:6
+        steps:
+             - init: npm install
+             - pretest: npm lint
+             - test: npm test
+    main2:
+        annotations:
+             screwdriver.cd/mergeSharedSteps: true
+        requires: [main]
+        image: node:8
+        steps:
+             - pretest: npm lint
+             - test: echo Skipping test
+
+```
+
+## Template Composition
+You can use a template in a template (`sd-template.yaml`) or in your normal configuration file (`screwdriver.yaml`).
+
+### Step order
+When using a template in your configuration, you can pick and choose steps defined by the template and your own configuration with the `order` field. This field is defined as an ordered array of step names.
+
+Caveats:
+- `order` can only be used when `template` is used.
+- Steps that cannot be found will be skipped.
+- User-defined `teardown-` steps will always be run after the rest of the steps are done.
+- Implicit wrapping of steps(pre/post) will not work with this field.
+- The priority in determining duplicate step definitions goes like this: job > template
+- When the annotation `screwdriver.cd/mergeSharedSteps: true`, priority will be: job > shared > template
+- If you use a `template` in an `sd-template.yaml`, the `images` field will also be merged.
+
+Example `sd-template.yaml`:
+```yaml
+namespace: nodejs
+name: publish
+version: "2.0.1"
+description: 'Publish an npm package'
+maintainer: myname@foo.com
+images:
+  stable: node:8
+  latest: node:12
+config:
+  image: stable
+  steps:
+    - install: npm install
+    - publish: npm publish
+    - coverage: coverage test.js
+```
+
+Example `screwdriver.yaml`:
+```yaml
+jobs:
+  main:
+    requires: [~commit]
+    image: stable
+    template: nodejs/publish@2
+    order: [clone, install, doesnotexist, test, publish, coverage]
+    steps:
+      - test: npm test
+      - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+      - coverage: ./ci/coverage.sh
+```
+
+Result:
+```yaml
+jobs:
+  main:
+    requires: [~commit]
+    image: node:8
+    steps:
+      - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+      - install: npm install
+      - test: npm test
+      - publish: npm publish
+      - coverage: ./ci/coverage.sh  # This step was overwritten by the job
+```
 
 ## Creating a template
 
@@ -248,9 +362,13 @@ It becomes unclear whether the user was trying to override `preinstall` or wrap 
 
 ### Writing a screwdriver.yaml for your template repo
 
+#### Validating templates
+
 To validate your template, run the `template-validate` script from the `screwdriver-template-main` npm module in your `main` job to validate your template. This means the build image must have NodeJS and NPM properly installed to use it. To publish your template, run the `template-publish` script from the same module in a separate job.
 
 By default, the file at `./sd-template.yaml` will be read. However, a user can specify a custom path using the env variable: `SD_TEMPLATE_PATH`.
+
+You can also validate your `sd-template.yaml` and `screwdriver.yaml` through the UI by copy pasting it at `<YOUR_UI_URL>/validator`.
 
 #### Tagging templates
 You can optionally tag a specific template version by running the `template-tag` script from the `screwdriver-template-main` npm package. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: template name and tag. You can optionally specify a version; the version needs to be an exact version (see `tag` step). If the version is omitted, the most recent version will be tagged (see `autotag` step).

@@ -44,11 +44,13 @@ You can access information about properties by hovering over the property name.
         <a href="#steps"><span class="key">steps</span>:
     - <span class="key">init</span>: <span class="value">npm install</span>
     - <span class="key">test</span>: <span class="value">npm test</span></a>
-    <a href="#jobs"><span class="key">publish</span>:
-    <span class="key">requires</span>: <span class="value">main</span>
-    <span class="key">image</span>: <span class="value">node:6</span>
-    <span class="key">steps</span>:
-        - <span class="key">publish</span>: <span class="value">npm publish</span></a>
+    <span class="key">publish</span>:
+      <a href="#requires"><span class="key">requires</span>: <span class="value">[main]</span></a>
+      <a href="#template"><span class="key">template</span>: <span class="value">node/publish@4.3.1</span></a>
+      <a href="#order"><span class="key">order</span>: <span class="value">[init, publish, teardown-save-results]</span></a>
+      <span class="key">steps</span>:
+  - <span class="key">publish</span>: <span class="value">npm install</span>
+  - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
     <span class="key">requires</span>: <span class="value">publish</span>
     <span class="key">image</span>: <span class="value">node:6</span>
@@ -111,7 +113,7 @@ You can access information about properties by hovering over the property name.
         </div>
         <div id="email" class="hidden">
             <h4>Email</h4>
-            <p>Emails addresses to send notifications to and statuses to send notifications for.</p>
+            <p>Email addresses to send notifications to and statuses to send notifications for.</p>
         </div>
         <div id="parameters" class="hidden">
             <h4>Parameters</h4>
@@ -128,6 +130,18 @@ You can access information about properties by hovering over the property name.
         <div id="steps" class="hidden">
             <h4>Steps</h4>
             <p>Defines the explicit list of commands that are executed in the build, just as if they were entered on the command line. Environment variables will be passed between steps, within the same job. Step definitions are required for all jobs. Step names cannot start with `sd-`, as those steps are reserved for Screwdriver steps. In essence, Screwdriver runs `/bin/sh` in your terminal then executes all the steps; in rare cases, different terminal/shell setups may have unexpected behavior.</p>
+        </div>
+        <div id="template" class="hidden">
+            <h4>Template</h4>
+            <p>A predefined job; generally consists of a Docker image and steps.</p>
+        </div>
+        <div id="order" class="hidden">
+            <h4>Order</h4>
+            <p>Can only be used when "template" is defined. Step names that should be run in a particular order. Will select steps from Template and Steps, with priority given to Steps defined in the job.</p>
+        </div>
+        <div id="teardown" class="hidden">
+            <h4>Teardown</h4>
+            <p>User-defined steps that will always run at the end of a build (even if the previous steps fail or the build is aborted). Step name always starts with "teardown-".</p>
         </div>
     </div>
 </div>
