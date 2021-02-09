@@ -26,7 +26,7 @@ toc:
       url: "#merging-with-shared-steps"
       subitem: level-2
     - title: Order
-      url: "#step-order"
+      url: "#order"
       subitem: level-2
     - title: Creating a template
       url: "#creating-a-template"
@@ -34,7 +34,7 @@ toc:
       url: "#writing-a-template-yaml"
       subitem: true
     - title: Template images
-      url: "template-images"
+      url: "#template-images"
       subitem: level-2
     - title: Template steps
       url: "#template-steps"
@@ -378,8 +378,6 @@ It becomes unclear whether the user was trying to override `preinstall` or wrap 
 ### Template Composition
 You can also use a template in the `config` section of an `sd-template.yaml` file.
 
-See [template composition](#template-composition) in using a template section.
-
 Caveats:
 - `order` can only be used when `template` is used.
 - Steps that cannot be found will be skipped.
@@ -417,6 +415,7 @@ images:
   test: node:18
 config:
   template: nodejs/publish@2
+  image: stable
   order: [clone, install, doesnotexist, test, publish, coverage]
   steps:
     - test: npm test
