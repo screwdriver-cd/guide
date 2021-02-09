@@ -25,10 +25,7 @@ toc:
     - title: Merging with Shared Steps
       url: "#merging-with-shared-steps"
       subitem: level-2
-    - title: Template Composition
-      url: "#template-composition"
-      subitem: true
-    - title: Step Order
+    - title: Order
       url: "#step-order"
       subitem: level-2
     - title: Creating a template
@@ -42,9 +39,9 @@ toc:
     - title: Template steps
       url: "#template-steps"
       subitem: level-2
-    - title: Using a template
-      url: "#using-a-template"
-      subitem: level-2 
+    - title: Template composition
+      url: "#template-composition"
+      subitem: true 
     - title: Writing a screwdriver yaml
       url: "#writing-a-screwdriveryaml"
       subitem: true
@@ -244,10 +241,7 @@ jobs:
 
 ```
 
-## Template Composition
-You can use a template in a template (`sd-template.yaml`) or in your normal configuration file (`screwdriver.yaml`).
-
-### Step order
+### Order
 When using a template in your configuration, you can pick and choose steps defined by the template and your own configuration with the `order` field. This field is defined as an ordered array of step names.
 
 Caveats:
@@ -381,7 +375,7 @@ jobs:
 ```
 It becomes unclear whether the user was trying to override `preinstall` or wrap `install`.
 
-#### Using a template
+### Template Composition
 You can also use a template in the `config` section of an `sd-template.yaml` file.
 
 See [template composition](#template-composition) in using a template section.
