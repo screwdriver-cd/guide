@@ -43,7 +43,7 @@ toc:
       url: "#template-composition"
       subitem: true 
     - title: Writing a screwdriver yaml
-      url: "#writing-a-screwdriveryaml"
+      url: "#writing-a-screwdriveryaml-for-your-template-repo"
       subitem: true
     - title: Validating templates
       url: "#validating-templates"
@@ -244,7 +244,7 @@ jobs:
 ### Order
 When using a template in your configuration, you can pick and choose steps defined by the template and your own configuration with the `order` field. This field is defined as an ordered array of step names.
 
-Caveats:
+Caveats when using `order`:
 - `order` can only be used when `template` is used.
 - Steps that cannot be found will be skipped.
 - User-defined `teardown-` steps will always be run after the rest of the steps are done.
