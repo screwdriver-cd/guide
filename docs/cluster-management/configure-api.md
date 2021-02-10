@@ -101,6 +101,20 @@ auth:
         - github:batman
 ```
 
+### Multibuild Cluster
+
+By default, the [build cluster feature](../configure-buildcluster-queue-worker) is turned off.
+
+| Key | Default| Description |
+|:----|:-------|:------------|
+| MULTI_BUILD_CLUSTER_ENABLED | `false` | Whether build cluster is on or off. Options: `true` or `false` |
+
+```yaml
+# config/local.yaml
+multiBuildCluster:
+    enabled: true
+```
+
 ### Build Variables
 
 #### Environment
@@ -155,11 +169,12 @@ In order to use Sonar in your cluster, set up a Sonar server (see example at [ou
 | Key             | Required | Description           |
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | Yes      | Should be `sonar`     |
+| COVERAGE_PLUGIN_DEFAULT_ENABLED | No | Whether coverage-bookend will execute coverage scanning as default or not; default `true` |
 | URI             | Yes      | Screwdriver API url   |
 | ECOSYSTEM_UI    | Yes      | Screwdriver UI url    |
 | COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
 | COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
-| COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise (true) or open source edition of SonarQube(false); default `false` |
+| COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise(true) or open source edition of SonarQube(false); default `false` |
 | COVERAGE_SONAR_GIT_APP_NAME | No | Github app name for Sonar pull request decoration; default `Screwdriver Sonar PR Checks`; This feature requires Sonar enterprise edition. Follow [instructions in the Sonar docs](https://docs.sonarqube.org/latest/analysis/pr-decoration) for details. |
 
 You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details. Using Enterprise edition of SonarQube will default to _pipeline_ scope for SonarQube project keys and names. Will also allow for usage of PR analysis and prevent creation of separate projects for each Screwdriver job. Using non-Enterprise SonarQube will default to _job_ scope for SonarQube project keys and names.
@@ -440,6 +455,12 @@ executor:
 ### Notifications Plugin
 We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email) and [Slack notifications](https://github.com/screwdriver-cd/notifications-slack).
 
+Set these environment variables:
+
+| Environment name   | Required | Default Value | Description                   |
+|:-------------------|:---------|:--------------|:------------------------------|
+| NOTIFICATIONS      | No      | {}             | JSON object with notifications settings |
+
 #### Email Notifications
 
 Configure the SMTP server and sender address that email notifications will be sent from.
@@ -497,6 +518,23 @@ notifications:
             foo: bar
             abc: 123
         scopedPackage: '@scope/screwdriver-notifications-your-notification'
+```
+
+#### Notifications Options
+Any overarching notifications options will go in this section.
+
+```yaml
+#config/local.yaml
+notifications:
+    options:
+        throwValidationErr: false # default true; boolean to throw error when validation fails or not
+    slack:
+        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+    email:
+        host: smtp.yourhost.com
+        port: 25
+        from: example@email.com
+
 ```
 
 ### Source Control Plugin
