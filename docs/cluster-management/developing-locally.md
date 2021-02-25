@@ -180,7 +180,7 @@ npm install && npm run start
 
 While the UI, Screwdriver API, and Store apps are running, you can visit `http://sd.screwdriver.cd:4200` in your browser to interact with your local Screwdriver.
 
-## Developing locally with executor queue and queue service 
+## Developing locally with executor queue and queue service
 
 Instead of using single Docker executor, we can use the Redis queue to enable Screwdriver to run more sophisticated [workflows](https://docs.screwdriver.cd/user-guide/configuration/workflow) such as: `build_periodically ` and `freezeWindow`.
 
@@ -225,15 +225,32 @@ brew uninstall redis
 rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
 ```
 
-### Step 2: Clone repository [queue-service](https://github.com/screwdriver-cd/queue-service) and modify default.yaml
+### Step 2: Clone repository [queue-service](https://github.com/screwdriver-cd/queue-service) and add local.yaml
 
 ```bash
 git clone git@github.com:screwdriver-cd/queue-service.git
 ```
 
-### queue-service/config/default.yaml
+#### Create queue-service/config/local.yaml
+
+Create this file for storing local configuration.
+
+* Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
+    ```bash
+    openssl genrsa -out jwt-qs.pem 2048
+    openssl rsa -in jwt-qs.pem -pubout -out jwt-qs.pub
+    ```
 
 ```yaml
+
+auth:
+  jwtPrivateKey: |
+    # paste jwt-qs.pem from previous step
+  jwtPublicKey: |
+    # paste  jwt-qs.pub from previous step
+  # The public key used for verifying the signature of token from SD api
+  jwtSDApiPublicKey: |
+    # API Public Key generated in earlier step
 
  httpd:
   port: 9003
@@ -247,7 +264,7 @@ git clone git@github.com:screwdriver-cd/queue-service.git
       options:
         docker:
             socketPath: "/var/run/docker.sock"
-           
+
  ecosystem:
     # Externally routable URL for the User Interface
     ui: http://sd.screwdriver.cd:4200
@@ -255,22 +272,27 @@ git clone git@github.com:screwdriver-cd/queue-service.git
     api: http://$YOUR_IP:9001
     # Externally routable URL for the Artifact Store
     store: http://$YOUR_IP:9002
-    
+
  queue:
     # Configuration of the redis instance containing resque
     redisConnection:
         host: "127.0.0.1"
         port: 6379
         options:
-            password: 'a-secure-password'
+            password: ''
             tls: false
         database: 0
         prefix: ""
 ```
 
-### Step 3: Modify screwdriver/config/local.yaml, change executor configuration and add queue uri 
+### Step 3: Modify screwdriver/config/local.yaml, change executor configuration and add queue uri
 
 ```yaml
+
+ auth:
+    jwtQueueServicePublicKey: |
+      # paste jwt-qs.pub from previous step
+
  ecosystem:
     # Externally routable URL for the User Interface
     ui: http://sd.screwdriver.cd:4200
@@ -288,13 +310,13 @@ git clone git@github.com:screwdriver-cd/queue-service.git
                 host: "127.0.0.1"
                 port: 6379
                 options:
-                    password: 'a-secure-password'
+                    password: ''
                     tls: false
                 database: 0
                 prefix: ""
 ```
 
-Now, you start the screwdriver backend server and queue service to use redis queue. 
+Now, you start the screwdriver backend server and queue service to use redis queue.
 
 
 ```bash
