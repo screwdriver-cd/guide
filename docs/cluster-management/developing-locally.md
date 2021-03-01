@@ -9,6 +9,8 @@ toc:
       active: true
     - title: Developing locally with executor-queue
       url: "#developing-locally-with-executor-queue-and-queue-service"
+    - title: Developing locally with custom launcher
+      url: "#developing-locally-with-a-custom-launcher-image
 
 ---
 ## Developing Locally
@@ -321,4 +323,31 @@ Now, you start the screwdriver backend server and queue service to use redis que
 
 ```bash
 npm install && npm run start
+```
+
+## Developing locally with a custom launcher image
+
+### Build your own launcher binary and image
+```bash
+git clone git@github.com:screwdriver-cd/launcher.git
+cd launcher
+env GOOS=linux GOARCH=arm go build .
+docker build . -f Dockerfile.local
+# let x be the IMAGE ID. You need to be signed in to your Docker account in Docker app
+docker tag X jithine/launcher:dev
+docker push jithine/launcher:dev
+
+```
+
+### Modify API locl.yaml to use your local launcher
+```yaml
+ executor:
+    plugin: docker
+    docker:
+      enabled: true
+      options:
+        launchImage: jithine/launcher
+        launchVersion: dev
+        docker:
+            socketPath: "/var/run/docker.sock"
 ```
