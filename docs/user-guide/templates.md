@@ -39,6 +39,9 @@ toc:
     - title: Template steps
       url: "#template-steps"
       subitem: level-2
+    - title: Template locked steps
+      url: "#template-locked-steps"
+      subitem: level-2
     - title: Template composition
       url: "#template-composition"
       subitem: true 
@@ -163,7 +166,9 @@ jobs:
 
 This will run the command `echo skip installing` for the `install` step.
 
-You can also replace the image defined in the template. Some template steps might rely on commands or environment invariants that your image may not have, so be careful when replacement.
+Note: You cannot replace a [locked step](#template-locked-steps).
+
+You can also replace the image defined in the template. Some template steps might rely on commands or environment invariants that your image may not have, so be careful when replacing.
 
 Example:
 ```yaml
@@ -374,6 +379,22 @@ jobs:
           - preinstall: echo foo
 ```
 It becomes unclear whether the user was trying to override `preinstall` or wrap `install`.
+
+#### Template Locked Steps
+You can specify steps that cannot be overwritten and must be included when using `order` by adding a `locked` key to your steps. It expects a boolean value (`true`/`false`; default is `false`).
+This flag applies to any template or job that uses this template. All templates using a template with a `locked` step will also have the same locked step.
+
+```yaml
+config:
+    image: node:12
+    steps:
+        - preinstall: echo Installing
+        - install: npm install
+        - test:
+            command: npm test
+            locked: true 
+```
+
 
 ### Template Composition
 You can also use a template in the `config` section of an `sd-template.yaml` file.
