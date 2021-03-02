@@ -10,7 +10,7 @@ toc:
     - title: Developing locally with executor-queue
       url: "#developing-locally-with-executor-queue-and-queue-service"
     - title: Developing locally with custom launcher
-      url: "#developing-locally-with-a-custom-launcher-image
+      url: "#developing-locally-with-a-custom-launcher-image"
 
 ---
 ## Developing Locally
