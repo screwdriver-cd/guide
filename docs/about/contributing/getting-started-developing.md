@@ -332,7 +332,7 @@ auth:
                 prefix: ""
 ```
 
-Now, you start the screwdriver backend server and queue service to use redis queue.
+Now, start the Screwdriver backend server and queue service to use Redis queue.
 
 
 ```bash
