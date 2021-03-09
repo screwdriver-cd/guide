@@ -24,6 +24,11 @@ See [Developing locally docs](#developing-locally).
 
 ## Developing Locally
 
+### Prerequisites
+
+- [Node](https://nodejs.org/) v12.0.0 or higher
+- [Docker](https://www.docker.com/products/docker-desktop)
+
 ### Step 1: Map domain name sd.screwdriver.cd to your ip in hosts file
 * Append this line to your /etc/hosts file:
 
