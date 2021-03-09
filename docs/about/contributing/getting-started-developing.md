@@ -202,7 +202,7 @@ Instead of using single Docker executor, we can use the Redis queue to enable Sc
 
 ### Step 1: Install Redis server and client
 
-> We uses [brew](https://brew.sh/) as a Package Manager for Mac, you need to have `brew` installed locally prior to proceeding.
+> We use [brew](https://brew.sh/) as a Package Manager for Mac, you need to have `brew` installed locally prior to proceeding.
 
 ```bash
 brew install redis
