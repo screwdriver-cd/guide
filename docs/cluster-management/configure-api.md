@@ -295,6 +295,7 @@ If you use this executor, builds will run in pods in Kubernetes.
 | K8S_IMAGE_PULL_SECRET_NAME | ''    | K8s image pull secret name (optional) <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret> |
 | DOCKER_FEATURE_ENABLED | false     | Flag to enable a Docker In Docker container in the build pod |
 | K8S_RUNTIME_CLASS | ''             | Runtime class |
+| TERMINATION_GRACE_PERIOD_SECONDS | 60             | Termination Grace period before build pod  |
 
 
 ```yaml

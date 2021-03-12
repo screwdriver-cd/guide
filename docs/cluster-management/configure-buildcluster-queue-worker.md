@@ -17,6 +17,18 @@ toc:
       url: "#rabbitmq-configuration"
     - title: Configure Build Cluster Queue Worker
       url: "#configure-build-cluster-queue-worker"
+    - title: RabbitMQ
+      url: "#rabbitmq"
+      subitem: true
+    - title: Executors
+      url: "#executors"
+      subitem: true
+    - title: Ecosystem
+      url: "#ecosystem"
+      subitem: true
+    - title: HTTP
+      url: "#http"
+      subitem: true
     - title: Build Cluster Schema Definition
       url: "#build-cluster-schema-definition"
 ---
@@ -35,7 +47,7 @@ weightage defined in buildClusters table. Rabbitmq exchange will route build mes
 Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will 
 not impact when a build cluster is taken offline for maintenance as builds will be automatically routed to next available build cluster. 
 
-***Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness. 
+**Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness. 
 So any updates to routing key, need to be cascaded to affected pipelines annotations and rabbitmq exchange bindings. Without this update, builds related to affected pipeline will error. 
 Another option is to create a new build cluster and disable old build cluster. In this case builds will auto route to new build cluster without any updates, but please keep in mind build cluster 
 stickiness will be lost.* 
@@ -731,6 +743,8 @@ Please refer to
 
 ## Configure Build Cluster Queue Worker
 
+### RabbitMQ
+
 Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236), 
 but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348).
 
@@ -747,6 +761,31 @@ but you can override defaults using environment variables in [rabbitmq section](
 | prefetchCount | RABBITMQ_PREFETCH_COUNT | used to specify how many messages are sent at the same time. Default: "20" |
 | messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | maximum number of retries in case of errors. Default: "3". If this is set > 0 build cluster queue worker will expect deadletter queue to retry. |
 
+### Executors
+
+Executor configuration settings are exactly same as the [settings configuration](./configure-api#executor-plugin) for API.
+
+### Ecosystem
+
+Cache settigs are used for queue messages which deals with cleaning up disk based cache.
+
+| Key              | Default                                                     | Description                                  |
+|:-----------------|:------------------------------------------------------------|:---------------------------------------------|
+| ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | URL for the User Interface                   |
+| ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | URL for the Artifact Store                   |
+| ECOSYSTEM_API    | https://api.screwdriver.cd | URL for API |
+| ECOSYSTEM_PUSHGATEWAY_URL| "" | URL for Prometheus Push Gateway|
+| CACHE_STRATEGY | "s3" | Buld cache strategy |
+| CACHE_PATH | "/" | Disk based cache setting. |
+| CACHE_COMPRESS | false | Disk based cache setting. |
+| CACHE_MD5CHECK | false | Disk based cache setting. |
+| CACHE_MAX_SIZE_MB | 0 | Disk based cache setting. |
+| CACHE_MAX_GO_THREADS | 10000 | Disk based cache setting. |
+
+
+### HTTP
+
+This is used for liveness checks. [See](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L350-L355)
 
 ## Build Cluster Schema Definition
 
