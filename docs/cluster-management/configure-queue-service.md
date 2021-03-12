@@ -155,7 +155,7 @@ Configure pushgateway to collect [build metrics](./collect-metrics#build-metrics
 
 When Scheduler is enabled, Queue Service passes on build to a RabbitMQ Build Cluster queue, which will be processed by [Build Cluster Queue Worker](./configure-buildcluster-queue-worker).
 
-| Key                   | environment variable | Description                                                                                           |
+| Key                   | Environment Variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
 | enabled | |SCHEDULER_ENABLED | If `true` build will be sent to RabbitMQ build cluster queue for further processing |
 | protocol | RABBITMQ_PROTOCOL | Protocol to connect to rabbitmq. Use amqp for non-ssl and amqps for ssl. Default: amqp |
