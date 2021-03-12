@@ -151,7 +151,7 @@ Configure pushgateway to collect [build metrics](./collect-metrics#build-metrics
 |:--------------------------|:---------|:--------|:----------------|
 |ECOSYSTEM_PUSHGATEWAY_URL  | No       |         | Pushgateway URL |
 
-## Scheduler
+### Scheduler
 
 When Scheduler is enabled, Queue Service passes on build to a RabbitMQ Build Cluster queue, which will be processed by [Build Cluster Queue Worker](./configure-buildcluster-queue-worker).
 
