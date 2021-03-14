@@ -11,6 +11,27 @@ toc:
       url: "#packages"
     - title: Configuration
       url: "#configuration"
+    - title: Authentication
+      url: "#authentication"
+      subitem: true
+    - title: Serving
+      url: "#serving"
+      subitem: true
+    - title: Redis
+      url: "#configure-redis-queue"
+      subitem: true
+    - title: Blocked By
+      url: "#configure-blocked-by-settings"
+      subitem: true
+    - title: Push Gateway
+      url: "#configure-pushgateway"
+      subitem: true
+    - title: Scheduler
+      url: "#scheduler"
+      subitem: true
+    - title: Executors
+      url: "#executors"
+      subitem: true
 ---
 # Managing the Queue Service
 
@@ -33,7 +54,7 @@ Screwdriver already [defaults most configuration](https://github.com/screwdriver
 
 Configure the validation of incoming JWTs from the API.
 
-| Key                   | Required | Description                                                                                           |
+| Environment Variable                   | Required | Description                                                                                           |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------------|
 | JWT_ENVIRONMENT | No      | Environment to generate the JWT for. Ex: `prod`, `beta`. If you want the JWT to not contain `environment`, don't set this environment variable (do not set it to `''`). |
 | SECRET_JWT_PRIVATE_KEY | Yes      | A private key uses for signing jwt tokens. Generate one by running `$ openssl genrsa -out jwtqs.pem 2048`                   |
@@ -55,7 +76,7 @@ auth:
 
 Configure the how the service is listening for traffic.
 
-| Key       | Default             | Description                                                                                                                                                                                                |
+| Environment Variable       | Default             | Description                                                                                                                                                                                                |
 |:----------|:--------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | PORT      | 80                  | Port to listen on                                                                                                                                                                                          |
 | HOST      | 0.0.0.0             | Host to listen on (set to localhost to only accept connections from this machine)                                                                                                                          |
@@ -79,7 +100,7 @@ httpd:
 
 Configure some settings for setting up the Queue.
 
-| Key                | Required            |  Default              | Description       |
+| Environment Variable                | Required            |  Default              | Description       |
 |:-------------------|:---------------------|:---------------------|:-----------------------------|
 | REDIS_HOST          | Yes                  | 127.0.0.1            | Redis host                  |
 | REDIS_PORT          | Yes                  | 6379                 | Redis port                  |
@@ -105,7 +126,7 @@ queue:
 
 Configure some settings for [blockedBy](../user-guide/configuration/workflow#blocked-by).
 
-| Key                | Required            |  Default              | Description       |
+| Environment Variable                | Required            |  Default              | Description       |
 |:-------------------|:---------------------|:----------------------------------------------------|
 | PLUGIN_BLOCKEDBY_REENQUEUE_WAIT_TIME      | No                  | 1            | Minutes to wait before re-enqueuing if blocked                 |
 | PLUGIN_BLOCKEDBY_BLOCK_TIMEOUT   | No                   | 120                | Maximum minutes for a job to be blocked before timing out           |
@@ -126,6 +147,25 @@ plugins:
 
 Configure pushgateway to collect [build metrics](./collect-metrics#build-metrics).
 
-|Key                        | Required | Default | Description     |
+| Environment Variable                        | Required | Default | Description     |
 |:--------------------------|:---------|:--------|:----------------|
 |ECOSYSTEM_PUSHGATEWAY_URL  | No       |         | Pushgateway URL |
+
+### Scheduler
+
+When Scheduler is enabled, Queue Service passes on build to a RabbitMQ Build Cluster queue, which will be processed by [Build Cluster Queue Worker](./configure-buildcluster-queue-worker).
+
+| Key                   | Environment Variable | Description                                                                                           |
+|:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
+| enabled | |SCHEDULER_ENABLED | If `true` build will be sent to RabbitMQ build cluster queue for further processing |
+| protocol | RABBITMQ_PROTOCOL | Protocol to connect to rabbitmq. Use amqp for non-ssl and amqps for ssl. Default: amqp |
+| username | RABBITMQ_USERNAME | User to connect and authorized to consume from rabbitmq queues |
+| password | RABBITMQ_PASSWORD | password |
+| host | RABBITMQ_HOST | Rabbitmq cluster hostname. Default: 127.0.0.1 |
+| port | RABBITMQ_PORT | Rabbitmq port. Default: 5672 |
+| vhost | RABBITMQ_VIRTUAL_HOST | Virtual host for queues. Default: /screwdriver |
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
+
+### Executors
+
+Queue Service can directly invoke an executor if RabbitMQ Scheduler is not used. Configuration settings are exactly same as the [settings configuration](./configure-api#executor-plugin) for API.
