@@ -46,7 +46,7 @@ Go to Settings > Developer settings > OAuth Apps, click `New OAuth App` button a
 
 See screenshot below
 
-![developing-locally-ouath](./assets/developing-locally-ouath.png)
+![developing-locally-ouath](../../cluster-management/assets/developing-locally-ouath.png)
 
 > Take note of the client ID and the client Secret, you'll need them in the following step
 
