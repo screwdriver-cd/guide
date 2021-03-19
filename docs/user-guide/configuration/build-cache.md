@@ -96,6 +96,17 @@ jobs:
         cache: false
 ```
 
+## Update Cache from parallel jobs
+
+Please be cautious when specifying same event or pipeline level cache path in screwdriver.yaml having parallel jobs. 
+When jobs run in parallel there is no guarantee which job will succeed first in writing cache, therefore the 
+same cache folder might get overwritten or lost.
+
+How to handle above scenario? 
+1. Use the store-cli set command explicitly in a job where you need to cache.
+2. Specify different cache folders from each job that you want to cache and use them accordingly. 
+3. Do write a cache from single job and then run jobs in parallel. 
+
 ## Clearing the Cache
 In order to clear the cache, you can go to the Options tab for your pipeline in the Screwdriver UI and click on the Trash icon under the Cache section.
 
