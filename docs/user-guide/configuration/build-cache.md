@@ -99,8 +99,8 @@ jobs:
 ## Update Cache from parallel jobs
 
 Please be cautious when specifying same cache path at an event or pipeline level in screwdriver.yaml having parallel jobs. 
-When jobs run in parallel there is no guarantee which job will succeed first in writing cache, therefore the 
-same cache folder might get overwritten or lost.
+When jobs run in parallel there is no guarantee which job will succeed first in writing cache, therefore the same cache path 
+might get overwritten or lost.
 
 How to handle above scenario? 
 1. Use the store-cli set command explicitly in a job where you need to cache.
