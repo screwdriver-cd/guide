@@ -102,7 +102,7 @@ Please be cautious when specifying same cache path at an event or pipeline level
 When jobs run in parallel there is no guarantee which job will succeed first in writing cache, therefore the same cache path 
 might get overwritten or lost.
 
-How to handle above scenario? 
+How to handle the above scenario? 
 1. Use the store-cli set command explicitly in a job where you need to cache.
 2. Specify different cache folders from each job that you want to cache and use them accordingly. 
 3. Do write cache from single job and then run jobs in parallel. 
