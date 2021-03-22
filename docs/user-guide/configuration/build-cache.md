@@ -12,6 +12,8 @@ toc:
       url: "#notes"
     - title: Disable Cache for a Specific Job
       url: "#disable-cache-for-a-specific-job"
+    - title: Update Cache from Parallel jobs
+      url: "#update-cache-from-paralel-jobs"
     - title: Clearing the Cache
       url: "#clearing-the-cache"
 ---
@@ -96,13 +98,13 @@ jobs:
         cache: false
 ```
 
-## Update Cache from parallel jobs
+## Update Cache from Parallel jobs
 
 Please be cautious when specifying same cache path at an event or pipeline level in screwdriver.yaml having parallel jobs. 
 When jobs run in parallel there is no guarantee which job will succeed first in writing cache, therefore the same cache path 
 might get overwritten or lost.
 
-How to handle above scenario? 
+How to handle the above scenario? 
 1. Use the store-cli set command explicitly in a job where you need to cache.
 2. Specify different cache folders from each job that you want to cache and use them accordingly. 
 3. Do write cache from single job and then run jobs in parallel. 
