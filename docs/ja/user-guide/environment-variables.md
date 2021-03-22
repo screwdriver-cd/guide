@@ -58,6 +58,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空) |
 | SD_TOKEN | ビルド用の JWT トークン |
 | SD_SCHEDULED_BUILD | スケジューラーによってビルドを開始する(true)か、否(false)か |
+| CONTAINER_IMAGE | ビルドコンテナイメージ ビルド[エグゼキューター](../cluster-management/configure-api#executor-plugin)としてKubernetesを使用している場合に利用可能|
 
 ### ユーザ設定
 
