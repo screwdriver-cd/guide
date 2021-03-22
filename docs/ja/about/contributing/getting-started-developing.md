@@ -45,7 +45,7 @@ Screwdriver をローカルで実行してテストするために、ローカ�
 *  Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
 以下のスクリーンショットをご覧ください。  
-![developing-locally-ouath](../../cluster-management/assets/developing-locally-ouath.png)  
+![developing-locally-ouath](../../../cluster-management/assets/developing-locally-ouath.png)  
 
 > 次のステップで必要になるため、client IDとclient Secretをメモしておいてください。
 
@@ -62,7 +62,7 @@ git clone https://github.com/screwdriver-cd/store.git
 git clone https://github.com/screwdriver-cd/queue-service.git
 ```
 
-### ステップ4: 以下3つのリポジトリのローカル設定ファイルを追加
+### ステップ4: 以下3つのリポジトリにローカル設定ファイルを追加
 `ui/config`に`local.js`, `screwdriver/config`に`local.yaml`, `queue-service/config`と`store/config`のフォルダに`local.yaml`ファイルを作成します。  
 
 #### ui/config/local.js
