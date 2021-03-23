@@ -169,4 +169,4 @@ Schedulerが有効な場合、Queue ServiceはビルドをRabbitMQ Build Cluster
 
 ### Executors
 
-RabbitMQ Schedulerが使用されていない場合、Queue Serviceは直接executorを呼び出すことができます。設定内容は、APIの[設定構成](./configure-api#executor-plugin)と同じです。  
+RabbitMQ Schedulerが使用されていない場合、Queue Serviceは直接executorを呼び出すことができます。設定内容は、APIの[設定構成](./configure-api#executorプラグイン)と同じです。  
