@@ -289,7 +289,7 @@ jobs:
       - install: npm install
       - test: npm test
       - publish: npm publish
-      - coverage: ./ci/coverage.sh  # This step was overwritten by the job
+      - coverage: ./ci/coverage.sh  #  このステップは、ジョブによって上書きされました
 ```
 ## テンプレートを作成する
 
@@ -454,7 +454,7 @@ config:
     - install: npm install
     - test: npm test
     - publish: npm publish
-    - coverage: ./ci/coverage.sh  # This step was overwritten by the d2lam/personal template
+    - coverage: ./ci/coverage.sh  # このステップは、d2lam/personalテンプレートによって上書きされました
 ```
 
 ### テンプレートリポジトリ用の screwdriver.yaml を書く

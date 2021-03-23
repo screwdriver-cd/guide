@@ -216,13 +216,13 @@ ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュー�
 ```yaml
 # config/local.yaml
 ecosystem:
-    # Externally routable URL for the User Interface
+    # 外部からルーティング可能なUI用URL
     ui: https://cd.screwdriver.cd
-    # Externally routable URL for the Artifact Store
+    # 外部からルーティング可能なArtifact Store用URL
     store: https://store.screwdriver.cd
-    # Badge service (needs to add a status and color)
+    # バッジサービス (ステータスと色を追加する必要があります)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
-    # Internally routable FQDNS of the queue svc
+    # 内部でルーティング可能な、キューsvcのFQDNS
     queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
 
@@ -533,7 +533,7 @@ notifications:
 #config/local.yaml
 notifications:
     options:
-        throwValidationErr: false # default true; boolean to throw error when validation fails or not
+      throwValidationErr: false # デフォルト: true, バリデーションに失敗したときにエラーを出すかどうかの真偽値値
     slack:
         token: 'YOUR-SLACK-USER-TOKEN-HERE'
     email:

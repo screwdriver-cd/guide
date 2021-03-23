@@ -106,18 +106,18 @@ auth:
 
 ```
 httpd:
-  # Port to listen on
+  # 待ち受けポート
   port: 9001
-  # Host to listen on (set to localhost to only accept connections from this machine)
+  # 待ち受けホスト (このマシンからの接続のみを受け付ける場合は、localhostを設定します)
   host: 0.0.0.0
 
-  # Externally routable URI (usually your load balancer or CNAME)
-  # This requires to be a routable IP inside docker for executor, see
+  # 外部からルーティング可能なURI (通常はロードバランサーまたはCNAME)
+  # Docker for executor内でルーティング可能なIPである必要があります。詳細は以下
   # https://github.com/screwdriver-cd/screwdriver/blob/095eaf03e053991443abcbde91c62cfe06a28cba/lib/server.js#L141
   uri: http://YOUR_IP:9001
 
   ecosystem:
-    # Externally routable URL for the User Interface
+    # 外部からルーティング可能なUI用URL
     ui: http://sd.screwdriver.cd:4200
     allowCors: ['http://sd.screwdriver.cd', 'http://YOUR_IP:9001']
     executor:
@@ -153,7 +153,7 @@ datastore:
 
 ```
 auth:
-    # A public key for verifying JWTs signed by api.screwdriver.cd
+    # api.screwdriver.cdで署名されたJWTを検証するための公開鍵
     jwtPublicKey: |
         -----BEGIN PUBLIC KEY-----
         ******SOME KEYS HERE******
@@ -170,9 +170,9 @@ httpd:
     port: 9002
 
 ecosystem:
-    # Externally routable URL for the User Interface
+    # 外部からルーティング可能なUI用URL
     ui: http://sd.screwdriver.cd:4200
-    # Externally routable URL for the Artifact Store
+    # 外部からルーティング可能なArtifact StoreのURL
     api: http://sd.screwdriver.cd:9001
     allowCors: ['http://sd.screwdriver.cd']
 ```
@@ -248,12 +248,12 @@ git clone git@github.com:screwdriver-cd/queue-service.git
 ```yaml
 auth:
   jwtPrivateKey: |
-    # paste jwt-qs.pem from previous step
+    # 前の手順で作成したjwt-qs.pemを貼り付けます。
   jwtPublicKey: |
-    # paste  jwt-qs.pub from previous step
-  # The public key used for verifying the signature of token from SD api
+    # 前の手順で作成したjwt-qs.pubを貼り付けます。
+  # SD apiからのトークン署名を確認するために使用される公開鍵
   jwtSDApiPublicKey: |
-    # API Public Key generated in earlier step
+    # 前の手順で生成したAPI公開鍵
  httpd:
   port: 9003
   host: 0.0.0.0
@@ -266,14 +266,14 @@ auth:
         docker:
             socketPath: "/var/run/docker.sock"
  ecosystem:
-    # Externally routable URL for the User Interface
+    # 外部からルーティング可能なUI用URL
     ui: http://sd.screwdriver.cd:4200
-    # Externally routable URL for the API
+    # 外部からルーティング可能なAPI用URL
     api: http://$YOUR_IP:9001
-    # Externally routable URL for the Artifact Store
+    # 外部からルーティング可能なArtifact Store用URL
     store: http://$YOUR_IP:9002
  queue:
-    # Configuration of the redis instance containing resque
+    # resqueを含むredisインスタンスの設定
     redisConnection:
         host: "127.0.0.1"
         port: 6379
@@ -289,19 +289,19 @@ auth:
 ```yaml
  auth:
     jwtQueueServicePublicKey: |
-      # paste jwt-qs.pub from previous step
+      # 前の手順で作成したjwt-qs.pubを貼り付けます。
  ecosystem:
-    # Externally routable URL for the User Interface
+    # 外部からルーティング可能なUI用URL
     ui: http://sd.screwdriver.cd:4200
-    # Externally routable URL for the Artifact Store
+    # 外部からルーティング可能なArtifact Store用URL
     store: http://$YOUR_IP:9002
-    # Routable URI of the queue service
+    # ルーティング可能なqueue-serviceのURL
     queue: http://$YOUR_IP:9003
  executor:
-    plugin: queue # <- this step is essential in order to use queue
+    plugin: queue # <- このステップは、キューを使用するために必要です。
     queue:
         options:
-            # Configuration of the redis instance containing resque
+            # resqueを含むredisインスタンスの設定
             redisConnection:
                 host: "127.0.0.1"
                 port: 6379
@@ -327,7 +327,7 @@ git clone git@github.com:screwdriver-cd/launcher.git
 cd launcher
 env GOOS=linux GOARCH=arm go build .
 docker build . -f Dockerfile.local
-# let x be the IMAGE ID. You need to be signed in to your Docker account in Docker app
+# xをIMAGE IDとします。DockerアプリでDockerアカウントにサインインしている必要があります。
 docker tag X jithine/launcher:dev
 docker push jithine/launcher:dev
 ```
