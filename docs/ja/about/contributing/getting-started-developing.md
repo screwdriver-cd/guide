@@ -7,22 +7,22 @@ toc:
     - title: 開発を開始する
       url: "#開発を開始する"
       active: true
-    - title: ローカル開発
-      url: "#ローカル開発"
-    - title: executor-queueによるローカル開発
-      url: "#executor-queueとqueue-serviceを使ったローカル開発"
-    - title: カスタムlauncherによるローカル開発
-      url: "#カスタムlauncherイメージでローカル開発"
+    - title: ローカル環境に構築
+      url: "#ローカル環境に構築"
+    - title: ローカル環境でexecutor-queueを使う
+      url: "#ローカル環境でexecutor-queueを使う"
+    - title: launcherイメージを作成してローカル環境で使う
+      url: "#launcherイメージを作成してローカル環境で使う"
 ---
 # 開発を開始する
 
 Screwdriver をローカルで実行してテストするために、ローカルの開発環境を構築するための方法が2つあります。
 
 1. **Screwdriver の API と UI をローカルで起動させる** - npmパッケージの依存関係をテストしたり、ローカルでビルドを実行するのに最適です。
-[ローカル開発](#ローカル開発)をご覧ください。
+[ローカル開発](#ローカル環境に構築)をご覧ください。
 2. **SD-in-a-box を起動させる** - 手動設定なしでビルドを実行するのに最適です。[SD-in-a-boxのドキュメント](../../cluster-management/running-locally)をご覧ください。
 
-## ローカル開発
+## ローカル環境に構築
 
 ### 事前準備
 
@@ -72,6 +72,7 @@ let SDSTORE_HOSTNAME;
 
 SDAPI_HOSTNAME = 'http://sd.screwdriver.cd:9001';
 SDSTORE_HOSTNAME = 'http://sd.screwdriver.cd:9002';
+
 module.exports = {
   SDAPI_HOSTNAME,
   SDSTORE_HOSTNAME
@@ -184,7 +185,7 @@ npm install && npm run start
 ```
 UI、Screwdriver API、およびStoreアプリが動作している間に、ブラウザで`http://sd.screwdriver.cd:4200`にアクセスすることで、ローカルのScrewdriverとやり取りすることができます。  
 
-## executor-queueとqueue-serviceを使ったローカル開発
+## ローカル環境でexecutor-queueを使う
 
 単一のDockerエグゼキュータを使用する代わりに、Redisキューを使用することで、Screwdriverがより洗練された[ワークフロー](https://docs.screwdriver.cd/ja/user-guide/configuration/workflow)を実行できるようになります。例えば、`build_periodically`や`freezeWindow`などです。  
 
@@ -317,7 +318,7 @@ auth:
 npm install && npm run start
 ```
 
-## カスタムlauncherイメージでローカル開発
+## launcherイメージを作成してローカル環境で使う
 
 ### 独自のlauncherバイナリとイメージの作成
 
