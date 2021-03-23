@@ -41,7 +41,7 @@ Screwdriver をローカルで実行してテストするために、ローカ�
 
 * Application Name: (自分で選んでください)
 * Homepage URL: `http://sd.screwdriver.cd:4200`
-* Application description: (自分で選んでください)
+* Application description: (任意の値)
 *  Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
 以下のスクリーンショットをご覧ください。  
