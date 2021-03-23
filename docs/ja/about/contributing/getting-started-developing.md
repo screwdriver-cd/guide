@@ -186,7 +186,7 @@ UI、Screwdriver API、およびStoreアプリが動作している間に、ブ�
 
 ## executor-queueとqueue-serviceを使ったローカル開発
 
-単一のDockerエグゼキュータを使用する代わりに、Redisキューを使用することで、Screwdriverがより洗練された[ワークフロー](https://docs.screwdriver.cd/user-guide/configuration/workflow)を実行できるようになります。例えば、`build_periodically`や`freezeWindow`などです。  
+単一のDockerエグゼキュータを使用する代わりに、Redisキューを使用することで、Screwdriverがより洗練された[ワークフロー](https://docs.screwdriver.cd/ja/user-guide/configuration/workflow)を実行できるようになります。例えば、`build_periodically`や`freezeWindow`などです。  
 
 ### ステップ1: Redis サーバーとクライアントのインストール
 
@@ -343,4 +343,3 @@ docker push jithine/launcher:dev
         docker:
             socketPath: "/var/run/docker.sock"
 ```
-
