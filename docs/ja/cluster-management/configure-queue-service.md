@@ -11,6 +11,27 @@ toc:
       url: "#パッケージ"
     - title: 構成
       url: "#構成"
+    - title: 認証
+      url: "#認証"
+      subitem: true
+    - title: サービス
+      url: "#サービス"
+      subitem: true
+    - title: Redis
+      url: "#redisキューの設定"
+      subitem: true
+    - title: Blocked By
+      url: "#Blocked Byの設定"
+      subitem: true
+    - title: Push Gateway
+      url: "#Pushgatewayの設定"
+      subitem: true
+    - title: Scheduler
+      url: "#scheduler"
+      subitem: true
+    - title: Executors
+      url: "#executors"
+      subitem: true
 ---
 
 # キューサービスの管理
@@ -35,7 +56,7 @@ Screwdriver.cdは既に[ほとんどの設定をデフォルト](https://github.
 
 APIから受信するJWTのバリデーションを設定します。
 
-| キー | 必須 | 説明                                                                                           |
+| 環境変数 | 必須 | 説明                                                                                           |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------------|
 | JWT_ENVIRONMENT | いいえ      | JWT を生成する環境です。例えば prod や beta などを指定します。JWT に環境変数を含めたくないのであれば、この環境変数は設定しないでください。(`''`のような設定もしないでください)|
 | SECRET_JWT_PRIVATE_KEY | はい      | JWTに署名するための秘密鍵です。次のコマンドにより生成できます。<br /> `$ openssl genrsa -out jwt.pem 2048`|
@@ -56,7 +77,7 @@ auth:
 ### サービス
 サービスがどのようにトラフィックをlistenしているかを設定します。
 
-| キー       | デフォルト          | 説明 |
+|  環境変数       | デフォルト          | 説明 |
 |:----------|:--------------------|:--------------------------------------------------------------------------------------|
 | PORT      | 80                  | サービスが受けているポート |
 | HOST      | 0.0.0.0             | サービスが立ち上がるホスト  (このマシンからの接続のみを受け入れるように localhost に設定)|
@@ -82,7 +103,7 @@ httpd:
 キューを構成するための設定を行います。  
 
 
-| キー                 | 必須 |  デフォルト | 説明|
+| 環境変数                 | 必須 |  デフォルト | 説明|
 |:--------------------|:---------------------|:----------------------|:------------------------------|
 | REDIS_HOST          | はい                  | 127.0.0.1            | Redis ホスト                  |
 | REDIS_PORT          | はい                 | 6379                 | Redis ポート                 |
@@ -108,7 +129,7 @@ queue:
 
 [blockedBy](../user-guide/configuration/workflow#blocked-by)のための設定を行います。
 
-| Key                | Required            |  Default              | Description       |
+| 環境変数                | 必須            |  デフォルト              | 説明       |
 |:-------------------|:---------------------|:----------------------------------------------------|
 | PLUGIN_BLOCKEDBY_REENQUEUE_WAIT_TIME | いいえ           | 1            | ブロックされている場合に再エンキューする前に待機する時間（分）   |
 | PLUGIN_BLOCKEDBY_BLOCK_TIMEOUT       | いいえ           | 120          | ジョブのブロックによりタイムアウトとなるまでの最大時間（分)        |
@@ -127,6 +148,25 @@ plugins:
 ### Pushgatewayの設定
 [ビルドメトリクス](./collect-metrics#build-metrics)を取得する場合はPushgatewayの設定を追加する必要があります。
 
-|Key                        | Required | Default | Description     |
+|環境変数                        | 必須 | デフォルト | 説明     |
 |:--------------------------|:---------|:--------|:----------------|
 |ECOSYSTEM_PUSHGATEWAY_URL  | いいえ   |         | Pushgateway URL |
+
+### Scheduler
+
+Schedulerが有効な場合、Queue ServiceはビルドをRabbitMQ Build Clusterキューに渡し、[Build Cluster Queue Worker](./configure-buildcluster-queue-worker)で処理されます。  
+
+| キー                   | 環境変数 | 説明                                                                                           |
+|:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
+| enabled | |SCHEDULER_ENABLED | `true` の場合、ビルドはRabbitMQのビルドクラスターキューに送られ、処理が行われます。 |
+| protocol | RABBITMQ_PROTOCOL | RabbitMQに接続するためのプロトコル。非sslの場合はamqp、sslの場合はamqpsを使用します。デフォルト: amqp  |
+| username | RABBITMQ_USERNAME | RabbitMQのキューを利用することを許可された、接続するユーザー  |
+| password | RABBITMQ_PASSWORD | パスワード |
+| host | RABBITMQ_HOST | RabbitMQクラスタのホスト名 デフォルト: 127.0.0.1 |
+| port | RABBITMQ_PORT | RabbitMQのポート デフォルト: 5672 |
+| vhost | RABBITMQ_VIRTUAL_HOST | キュー用の仮装ホスト デフォルト: /screwdriver |
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | オプションを使用して、heartbeatチェックを設定し、接続が切れた場合に時間内に再接続することができます。デフォルト: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' |
+
+### Executors
+
+RabbitMQ Schedulerが使用されていない場合、Queue Serviceは直接executorを呼び出すことができます。設定内容は、APIの[設定構成](./configure-api#executorプラグイン)と同じです。  

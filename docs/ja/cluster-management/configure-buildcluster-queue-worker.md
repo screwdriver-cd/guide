@@ -17,6 +17,18 @@ toc:
       url: "#rabbitmqの設定"
     - title: ビルドクラスターキューワーカーの設定
       url: "#ビルドクラスターキューワーカーの設定"
+    - title: RabbitMQ
+      url: "#rabbitmq"
+      subitem: true
+    - title: Executors
+      url: "#executors"
+      subitem: true
+    - title: Ecosystem
+      url: "#ecosystem"
+      subitem: true
+    - title: HTTP
+      url: "#http"
+      subitem: true
     - title: ビルドクラスターのスキーマ定義
       url: "#ビルドクラスターのスキーマ定義"
 ---
@@ -63,7 +75,7 @@ Stickinessについてですが、パイプラインの最初のビルドが実�
 1. `isActive`を`true`または`false`に設定することでビルドクラスターの有効/無効を切り替えられます。
 1. `weightage`にはビルドクラスターが1つの場合は100を設定し、2つ以上のビルドクラスターがある場合は重みを配分して下さい。
 
-***注意**: ビルドクラスターのscmContextは、scm毎のAPIトークンから派生します。
+**注意**: ビルドクラスターのscmContextは、scm毎のAPIトークンから派生します。
 複数のscmに対して同名のビルドクラスターを作成するには、scmアカウント毎に[/v4/buildClusters](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)APIへのPOSTを繰り返して下さい*
 
 ## RabbitMQメッセージブローカーのインストール
@@ -727,6 +739,8 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 
 ## ビルドクラスターキューワーカーの設定
 
+### RabbitMQ
+
 ビルドクラスターキューワーカーは、すでに[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236)ですべての設定をデフォルトにしていますが、[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348)の環境変数を使ってオーバーライドすることができます。
 
 | Key                   | environment variable | Description                                                                                           |
@@ -742,6 +756,29 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 | prefetchCount | RABBITMQ_PREFETCH_COUNT | 同時に取得するメッセージ数。デフォルト: "20" |
 | messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | エラーが発生した場合の最大試行回数。デフォルト: "3"。これが0より大きい値に設定されている場合、ビルドクラスターキューワーカーはデッドレターキューによりリトライされる事を期待します。 |
 
+### Executors
+
+エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executor-plugin)と全く同じです。
+
+### Ecosystem
+
+キャッシュ設定は、ディスクベースのキャッシュのクリーンアップを扱うキューメッセージに使用されます。
+
+| キー              | デフォルト                                                     | 説明                                  |
+|:-----------------|:------------------------------------------------------------|:---------------------------------------------|
+| ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | UIのURL                     |
+| ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | Artifact StoreのURL                     |
+| ECOSYSTEM_API    | https://api.screwdriver.cd | APIのURL |
+| ECOSYSTEM_PUSHGATEWAY_URL| "" | Prometheus Push GatewayのURL |
+| CACHE_STRATEGY | "s3" | キャッシュ戦略の構築 |
+| CACHE_PATH | "/" | ディスクベースのキャッシュ設定|
+| CACHE_COMPRESS | false | ディスクベースのキャッシュ設定 |
+| CACHE_MD5CHECK | false | ディスクベースのキャッシュ設定 |
+| CACHE_MAX_SIZE_MB | 0 | ディスクベースのキャッシュ設定 |
+| CACHE_MAX_GO_THREADS | 10000 | ディスクベースのキャッシュ設定 |
+
+### HTTP
+これはlivenessチェックに使用されます。[参照](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L350-L355)
 
 ## ビルドクラスターのスキーマ定義
 

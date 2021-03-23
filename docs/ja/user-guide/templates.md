@@ -10,6 +10,8 @@ toc:
   url: "#テンプレートを検索する"
 - title: テンプレートを利用する
   url: "#テンプレートを利用する"
+- title: セマンティック"Version/Tag"
+  url: "セマンティック"Version/Tag"
 - title: テンプレートのステップを上書き
   url: "#テンプレートのステップを上書き"
   subitem: true
@@ -22,8 +24,35 @@ toc:
 - title: sharedステップをマージ
   url: "#sharedステップをマージ"
   subitem: level-2
+- title: 順序
+  url: "#順序"
+  subitem: level-2
 - title: テンプレートを作成する
   url: "#テンプレートを作成する"
+- title: テンプレート yaml を書く
+  url: "#テンプレート yaml を書く"
+  subitem: true
+- title: テンプレートのイメージ
+  url: "#テンプレートのイメージ"
+  subitem: level-2
+- title: テンプレートのステップ
+  url: "#テンプレートのステップ"
+  subitem: level-2
+- title ロックされたテンプレートステップ
+  url: "#ロックされたテンプレートステップ"
+  subitem: level-2
+- title: テンプレート合成
+  url: "#テンプレート合成"
+  subitem: true 
+- title: screwdriver.yamlの書き方
+  url: "#テンプレートリポジトリ用の screwdriver.yaml を書く"
+  subitem: true
+- title: テンプレートの検証
+  url: "#テンプレートの検証"
+  subitem: level-2
+- title: テンプレートのタグ付け
+  url: "#テンプレートのタグ付け"
+  subitem: level-2
 - title: テンプレートをテストする
   url: "#テンプレートをテストする"
 - title: ビルドキャッシュを利用する
@@ -77,7 +106,7 @@ jobs:
 * `nodejs/test@1.0` - これは1.1.0未満の最新バージョンの`nodejs/test`を使用します。本質的には指定されたマイナーバージョンを超えない`latest`タグということです。
 * `nodejs/test@1.0.4` - これはパイプラインの振る舞いを固定する最も確実な方法であり、将来的なテンプレートの変更に対して影響を受けません。
 
-## 例
+#### 例
 
 このような設定があったとします。
 ```yaml
@@ -143,9 +172,11 @@ jobs:
 
 この例では、`echo skip installing` が `install` ステップで実行されます。
 
+注意：[ロックされたステップ](#ロックされたテンプレートステップ)の置き換えはできません。
+
 テンプレートで定義済みのイメージを置換することも出来ます。テンプレートのステップは、置換された後のイメージが持っていないコマンドや環境変数に依存しているかもしれないので、イメージの置換を行う際は注意してください。
 
-例:
+#### 例
 
 ```yaml
 jobs:
@@ -159,21 +190,107 @@ jobs:
 
 テンプレートのステップを上書きする場合、ジョブは `shared.steps` または `job.steps` のいずれかのステップ定義を使用し、 `jobs` セクションで定義した `steps` が優先されます。これはテンプレートを使用しない場合のステップ定義の優先順位と同じです。この挙動は[アノテーション](./configuration/annotations)の `screwdriver.cd/mergeSharedSteps: true` で変更することができます。テンプレートを使用している場合に `true` を設定すると、 `shared` セクションと `job` セクションのステップはマージされます。
 
-例
+#### 例
+次の例では、`image`と`steps`のマージされた構成を定義し、それをmainとmain2のジョブが使用します。
+
+
 ```yaml
 shared:
-  annotations:
-    screwdriver.cd/mergeSharedSteps: true
-  steps:
-     - premotd: echo build
+    image: node:8
+    steps:
+        - init: npm install
+        - pretest: npm lint
+        - test: npm test
 jobs:
     main:
-        template: python/package_rpm@latest
         requires: [~pr, ~commit]
+        image: node:6
+    main2:
+        annotations:
+            screwdriver.cd/mergeSharedSteps: true
+        requires: [main]
         steps:
-         - preinit_os: echo replace
+            - test: echo Skipping test
 ```
 
+上記の例では、次のようになります。  
+
+```yaml
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: node:6
+        steps:
+             - init: npm install
+             - pretest: npm lint
+             - test: npm test
+    main2:
+        annotations:
+             screwdriver.cd/mergeSharedSteps: true
+        requires: [main]
+        image: node:8
+        steps:
+             - pretest: npm lint
+             - test: echo Skipping test
+```
+
+### 順序
+設定でテンプレートを使用する場合、テンプレートで定義されたステップと自分の設定で定義されたステップを `order` フィールドで選択することができます。  
+このフィールドは、ステップ名の順序付き配列として定義されます。  
+
+`order`を使用する際の注意点:
+- `order`は、`template`が使用されているときにのみ使用できます。
+- 見つからないステップはスキップされます。
+- ユーザー定義の `teardown-` ステップは常に残りのステップが終了した後に実行されます。
+- このフィールドでは、ステップの暗黙のラッピング（pre/post）は機能しません。
+- 重複するステップの定義を決定する際の優先順位は次のようになります： job > template
+- Annotation `screwdriver.cd/mergeSharedSteps: true` を設定すると、優先順位は job > shared > template となります。
+
+例 `sd-template.yaml`:  
+```yaml
+namespace: nodejs
+name: publish
+version: "2.0.1"
+description: 'Publish an npm package'
+maintainer: myname@foo.com
+images:
+  stable: node:8
+  latest: node:12
+config:
+  image: stable
+  steps:
+    - install: npm install
+    - publish: npm publish
+    - coverage: coverage test.js
+```
+
+例 `screwdriver.yaml`:  
+```yaml
+jobs:
+  main:
+    requires: [~commit]
+    image: stable
+    template: nodejs/publish@2
+    order: [clone, install, doesnotexist, test, publish, coverage]
+    steps:
+      - test: npm test
+      - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+      - coverage: ./ci/coverage.sh
+```
+
+結果:  
+```yaml
+jobs:
+  main:
+    requires: [~commit]
+    image: node:8
+    steps:
+      - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+      - install: npm install
+      - test: npm test
+      - publish: npm publish
+      - coverage: ./ci/coverage.sh  #  このステップは、ジョブによって上書きされました
+```
 ## テンプレートを作成する
 
 テンプレートの作成と利用は、Screwdriverのパイプラインから実行する必要があります。
@@ -255,12 +372,101 @@ jobs:
 
 この場合、利用者が`preinstall`を上書きしようとしているのか、`install`を補強しようとしているのかわからなくなります。
 
+#### ロックされたテンプレートステップ
+ステップに `locked` キーを追加することで、上書きできず、`order` を使用する際に必ず含まれるステップを指定することができます。  
+このキーにはブール値（`true`/`false`、デフォルトは`false`）を指定します。  
+このフラグは、このテンプレートを使用するすべてのテンプレートやジョブに適用されます。  
+ロックされたステップを持つテンプレートを使用するすべてのテンプレートは、同じロックされたステップを持つことになります。  
+
+```yaml
+config:
+    image: node:12
+    steps:
+        - preinstall: echo Installing
+        - install: npm install
+        - test:
+            command: npm test
+            locked: true 
+```
+
+### テンプレート合成
+`sd-template.yaml`ファイルの`config`セクションでテンプレートを使用することもできます。
+
+注意事項:
+- `order`は、`template`が使用されている場合にのみ使用することができます。
+- 見つからないステップはスキップされます。
+- ユーザー定義の `teardown-` ステップは、常に残りのステップが終了した後に実行されます。
+- このフィールドでは、ステップ（pre／post）の暗黙のラッピングは機能しません。
+- 重複するステップの定義を決定する際の優先順位は、現在のテンプレート＞既存のテンプレートです。
+- また、`sd-template.yaml`で`template`を使用すると、`images`フィールドもマージされます。
+
+既存の例 `sd-template.yaml`:  
+```yaml
+namespace: nodejs
+name: publish
+version: "2.0.1"
+description: 'Publish an npm package'
+maintainer: myname@foo.com
+images:
+  stable: node:8
+  latest: node:12
+config:
+  image: stable
+  steps:
+    - install: npm install
+    - publish: npm publish
+    - coverage: coverage test.js
+```
+例 `sd-template.yaml`:  
+```yaml
+namespace: d2lam
+name: personal
+version: "1.0.2"
+description: 'Do some stuff'
+maintainer: d2lam@foo.com
+images:
+  test: node:18
+config:
+  template: nodejs/publish@2
+  image: stable
+  order: [clone, install, doesnotexist, test, publish, coverage]
+  steps:
+    - test: npm test
+    - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+    - coverage: ./ci/coverage.sh
+```
+
+結果:  
+```yaml
+namespace: d2lam
+name: personal
+version: "1.0.2"
+description: 'Do some stuff'
+maintainer: d2lam@foo.com
+images:
+  stable: node:8
+  latest: node:12
+  test: node:18
+config:
+  image: stable
+  steps:
+    - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
+    - install: npm install
+    - test: npm test
+    - publish: npm publish
+    - coverage: ./ci/coverage.sh  # このステップは、d2lam/personalテンプレートによって上書きされました
+```
+
 ### テンプレートリポジトリ用の screwdriver.yaml を書く
+
+#### テンプレートの検証
 
 テンプレートをバリデートするために、`template-validate` という npm モジュールを  `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている
 `template-publish` を別のジョブで実行します。
 
-デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。
+デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。  
+
+また、<YOUR_UI_URL>/validator>にコピーペーストすることで、UIを通して`sd-template.yaml`と`screwdriver.yaml`を検証することができます。  
 
 #### テンプレートのタグ付け
 

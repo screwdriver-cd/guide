@@ -102,6 +102,18 @@ auth:
     admins:
         - github:batman
 ```
+### マルチビルドクラスター
+デフォルトでは、[build cluster機能](../configure-buildcluster-queue-worker)はオフになっています。
+
+| キー | デフォルト | 説明 |
+|:----|:-------|:------------|
+| MULTI_BUILD_CLUSTER_ENABLED | `false` | ビルドクラスターがオンかオフか。 オプション: `true` または `false` |
+
+```yaml
+# config/local.yaml
+multiBuildCluster:
+    enabled: true
+```
 
 ### ビルド変数
 
@@ -156,11 +168,12 @@ bookends:
 | キー | 必須 | 説明 |
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | はい | `sonar` としてください |
+| COVERAGE_PLUGIN_DEFAULT_ENABLED | いいえ | coverage-bookend がカバレッジスキャンをデフォルトで実行するかどうか。 デフォルト `true` |
 | URI | はい | Screwdriver の API の URI |
 | ECOSYSTEM_UI | はい | Screwdriver の UI の URL |
 | COVERAGE_SONAR_HOST | はい | Sonar の host の URL |
 | COVERAGE_SONAR_ADMIN_TOKEN | はい | Sonar の admin token |
-| COVERAGE_SONAR_ENTERPRISE | いいえ | SonarQube を Enterprise 版で利用している（true）か、OpenSourceEdition で利用している(false）か。デフォルト値は `false` |
+| COVERAGE_SONAR_ENTERPRISE | いいえ | SonarQube を Enterprise 版で利用している(true)か、OpenSourceEdition で利用している(false）か。デフォルト値は `false` |
 | COVERAGE_SONAR_GIT_APP_NAME | いいえ | SonarのPull Request DecorationのためのGithub app名。デフォルト値は `Screwdriver Sonar PR Checks` です。この機能にはSonar Enterprise Editionが必要です。詳細は[Sonarのドキュメント](https://docs.sonarqube.org/latest/analysis/pr-decoration)をご覧ください。
 
 更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。SonarQube の Enterprise 版を利用している場合には、 SonarQube のプロジェクトキーや名前はデフォルトでは _パイプライン_ スコープになります。これにより、 PR 解析が使えるようになったり、 Screwdriver のジョブ毎に個別のプロジェクトが作成されることを防げます。Enterprise 版の SonarQube を使用していない場合、SonarQube のプロジェクトキーや名前はデフォルトでは _ジョブ_ スコープになります。
@@ -203,13 +216,13 @@ ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュー�
 ```yaml
 # config/local.yaml
 ecosystem:
-    # Externally routable URL for the User Interface
+    # 外部からルーティング可能なUI用URL
     ui: https://cd.screwdriver.cd
-    # Externally routable URL for the Artifact Store
+    # 外部からルーティング可能なArtifact Store用URL
     store: https://store.screwdriver.cd
-    # Badge service (needs to add a status and color)
+    # バッジサービス (ステータスと色を追加する必要があります)
     badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
-    # Internally routable FQDNS of the queue svc
+    # 内部でルーティング可能な、キューsvcのFQDNS
     queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
 
@@ -284,6 +297,7 @@ K8S_POD_LABELS | `{ app: 'screwdriver', tier: 'builds', sdbuild: buildContainerN
 K8S_IMAGE_PULL_SECRET_NAME | ''    | K8sのimagePullSecrets名 (オプション) <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret>
 DOCKER_FEATURE_ENABLED | false | ビルドポッド内でDocker In Dockerを有効にするフラグ
 K8S_RUNTIME_CLASS | ''             | ランタイムクラス
+TERMINATION_GRACE_PERIOD_SECONDS | 60             | ビルドポッドが削除されるまでの猶予時間
 
 
 ```yaml
@@ -447,6 +461,13 @@ executor:
 
 現在、[Email 通知](https://github.com/screwdriver-cd/notifications-email)と [Slack 通知](https://github.com/screwdriver-cd/notifications-slack)をサポートしています。
 
+これらの環境変数を設定します。  
+
+| 環境変数名 | 必須 | デフォルト値 | 説明                   |
+|:-------------------|:---------|:--------------|:------------------------------|
+| NOTIFICATIONS      | いいえ      | {}             | 通知の設定を含むJSONオブジェクト |
+
+
 #### Email 通知
 
 SMTPサーバとEmail通知を行う送信者のアドレスを設定します。
@@ -503,6 +524,22 @@ notifications:
             foo: bar
             abc: 123
         scopedPackage: '@scope/screwdriver-notifications-your-notification'
+```
+
+#### 通知オプション
+包括的な通知オプションがあれば、このセクションで設定します。
+
+```yaml
+#config/local.yaml
+notifications:
+    options:
+      throwValidationErr: false # デフォルト: true, バリデーションに失敗したときにエラーを出すかどうかの真偽値値
+    slack:
+        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+    email:
+        host: smtp.yourhost.com
+        port: 25
+        from: example@email.com
 ```
 
 ### ソース管理プラグイン

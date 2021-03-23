@@ -60,6 +60,7 @@ jobs:
 | screwdriver.cd/coverageScope | `pipeline` / `job` | カバレッジプラグインを利用している場合に、プロジェクトを作成するスコープを設定できます。デフォルト値はクラスタの設定(e.g. `COVERAGE_SONAR_ENTERPRISE`)によるので、クラスタ管理者にご確認ください。 |
 | screwdriver.cd/displayName | パイプライングラフに表示するジョブ名 | パイプライングラフに表示するジョブ名を、yamlのユニーク制約に縛られない自由な名前にできます。 |
 | screwdriver.cd/mergeSharedSteps | `true` / `false` | テンプレートを利用している場合に、`true`に設定するとsharedとjobに定義したstepsをマージします。デフォルトは`false`です。 |
+| screwdriver.cd/manualStartEnabled | `true` / `false` | これが`false`に設定されていると、UIでジョブを起動することができません。デフォルトは`true` です。|
 | screwdriver.cd/terminationGracePeriodSeconds | 時間(秒) | ビルドが停止する前にteardownステップを実行するための猶予時間(秒)を設定できます。デフォルトは `'60'` 秒で、最大は `'120'` 秒です。殆どの場合、デフォルト以上の時間は必要ありません。 |
 
 ## パイプラインレベルのアノテーション

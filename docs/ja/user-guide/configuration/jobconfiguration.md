@@ -12,9 +12,11 @@ toc:
   url: "#steps"
 - title: Teardown
   url: "#teardown"
+- title: Template
+  url: "#template"
   subitem: 1
 - title: Shared
-  url: "#shared"
+  url: "#shared設定"
 ---
 
 # ジョブの設定
@@ -56,7 +58,7 @@ jobs:
 
 ステップはビルド中で実行したいコマンドのリストです。`step_name: step_command`のように設定できます。ステップは設定した順番に実行されます。作業ディレクトリと環境変数はステップ間で共有されます。
 
-また、ビルドが成功しても失敗しても実行されるteardownステップも設定することができます。teardownステップは他のステップよりも後に定義し、ステップ名を"teardown-"で始める必要があります。
+また、ビルドが成功しても失敗しても実行されるteardownステップも設定することができます。teardownステップは他のステップよりも後に定義し、ステップ名を`teardown-`で始める必要があります。
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/user-teardown-example>
 
@@ -88,7 +90,11 @@ jobs:
 ### Teardown
 teardownステップは、ビルドステップが完了や中断または失敗した後にScrewdriverのbookendステップの一式を実行します。これらのステップはジョブの最後に暗黙的に追加され、名称は `sd-teardown-` または `teardown-` で始まります。ポッド/コンテナはこれらのステップが完了すると削除されます。ビルドが中断されたケースのおいてポッドが終了する前に、teardownステップを実行するための猶予期間を設定することもできます。詳しい使用方法は[annotation](/ja/user-guide/configuration/annotations)の `screwdriver.cd/terminationGracePeriodSeconds` を参照してください。
 
-# Shared
+### Template
+
+また、ジョブの設定で[templates](../templates)を使用することもできます。
+
+# Shared設定
 
 `shared`の設定は全てのジョブに適用される特殊なジョブの設定です。各ジョブの設定で項目を設定すると、`shared`で設定されている項目を上書きすることができます。
 
@@ -101,6 +107,7 @@ shared:
     image: node:8
     steps:
         - init: npm install
+        - pretest: npm lint
         - test: npm test
 
 jobs:
@@ -110,7 +117,7 @@ jobs:
     main2:
         requires: [main]
         steps:
-            - greet: echo hello
+            - test: echo Skipping test
 ```
 
 上の例は次の例と同じものになります:
@@ -122,12 +129,13 @@ jobs:
         image: node:6
         steps:
             - init: npm install
+            - pretest: npm lint
             - test: npm test
     main2:
         requires: [main]
         image: node:8
         steps:
-            - greet: echo hello
+            - test: echo Skipping test
 
 ```
 
