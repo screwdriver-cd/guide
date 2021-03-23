@@ -26,7 +26,7 @@ Screwdriver をローカルで実行してテストするために、ローカ�
 
 ### 事前準備
 
-- [Node](https://nodejs.org/) v12.0.0またはそれ以上
+- [Node](https://nodejs.org/) v12.0.0以上
 - [Docker](https://www.docker.com/products/docker-desktop)
 
 ### ステップ1: hostsファイルでドメイン名sd.screwdriver.cdとあなたのipを関連付けます
