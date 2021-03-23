@@ -39,7 +39,7 @@ Screwdriver をローカルで実行してテストするために、ローカ�
 ### ステップ2: GitHub OAuth アプリケーションの新規作成
 設定 > 開発者設定 > OAuth Apps を開き　`New OAuth App` ボタンをクリックして以下のように設定します。  
 
-* Application Name: (自分で選んでください)
+* Application Name: (任意の値)
 * Homepage URL: `http://sd.screwdriver.cd:4200`
 * Application description: (任意の値)
 *  Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
