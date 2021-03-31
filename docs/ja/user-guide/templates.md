@@ -38,7 +38,7 @@ toc:
 - title: テンプレートのステップ
   url: "#テンプレートのステップ"
   subitem: level-2
-- title ロックされたテンプレートステップ
+- title: ロックされたテンプレートステップ
   url: "#ロックされたテンプレートステップ"
   subitem: level-2
 - title: テンプレート合成
