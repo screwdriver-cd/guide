@@ -10,8 +10,8 @@ toc:
   url: "#テンプレートを検索する"
 - title: テンプレートを利用する
   url: "#テンプレートを利用する"
-- title: セマンティック"Version/Tag"
-  url: "セマンティック"Version/Tag"
+- title: バージョン/タグの意味
+  url: "バージョン/タグの意味"
 - title: テンプレートのステップを上書き
   url: "#テンプレートのステップを上書き"
   subitem: true
