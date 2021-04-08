@@ -3,7 +3,7 @@ layout: main
 title: Configuring the UI
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Managing the User Interface
       url: "#managing-the-user-interface"
       active: true
@@ -28,7 +28,7 @@ toc:
       subitem: true
     - title: Canary Routing
       url: "#canary-routing"
-      subitem: true          
+      subitem: true
 ---
 # Managing the User Interface
 
@@ -113,3 +113,4 @@ If your Screwdriver Kubernetes Cluster is using [nginx Canary ingress](https://k
 |:---------------------|:--------------|:---------------------|
 | CANARY_RELEASE | "" | Set to "true" to denote  that this UI server is serving Canary version of UI |
 | RELEASE_VERSION | "stable" | UI Release version displayed under help menu in header|
+| SHOW_AVATARS | true | **Options:** (`true`/`false`) <br>Show user's avatar in build details page. |
