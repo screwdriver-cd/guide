@@ -85,6 +85,17 @@ Example:
 $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bitbucket.org/account/*/avatar/*" screwdrivercd/ui:stable
 ```
 
+
+#### Show/Hide User Avatar
+
+You can choose to enable or disable loading user's avatar on build detail pages by setting environment variable `SHOW_AVATARS`.
+
+Default: `true`
+
+| Environment name     | Default Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| SHOW_AVATARS | true | **Options:** (`true`/`false`) <br>Show user's avatar in build details page. |
+
 ### Custom Documentation Link
 Documentation link can be customized via an environment variable `SDDOC_URL`.
 
@@ -113,4 +124,3 @@ If your Screwdriver Kubernetes Cluster is using [nginx Canary ingress](https://k
 |:---------------------|:--------------|:---------------------|
 | CANARY_RELEASE | "" | Set to "true" to denote  that this UI server is serving Canary version of UI |
 | RELEASE_VERSION | "stable" | UI Release version displayed under help menu in header|
-| SHOW_AVATARS | true | **Options:** (`true`/`false`) <br>Show user's avatar in build details page. |
