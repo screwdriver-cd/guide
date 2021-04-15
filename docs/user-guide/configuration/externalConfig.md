@@ -27,6 +27,8 @@ childPipelines:
    scmUrls:
       - git@github.com:minz1027/test.template.git
       - git@github.com:minz1027/quickstart-generic.git#main
+      # can have child pipeline with source dir not at checkout root by adding :<sourceDir> at the end of the scmUrl
+      - git@github.com:minz1027/quickstart-generic.git#main:path/to/subdir
 
 jobs:
     main:
