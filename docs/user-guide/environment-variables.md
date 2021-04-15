@@ -17,6 +17,9 @@ toc:
       subitem: true
     - title: Plugins
       url: "#plugins"
+    - title: Coverage (Sonar)
+      url: "#coverage-sonar"
+      subitem: true
     - title: Directories
       url: "#directories"
     - title: Environment Variables
