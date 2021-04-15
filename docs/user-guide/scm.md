@@ -15,6 +15,7 @@ toc:
 Screwdriver is compatible with three different Source Code Management options: GitHub, GitLab, and Bitbucket, with varying levels of feature support.
 
 ## Feature Support
+
 | Feature                                            | scm-github | scm-gitlab | scm-bitbucket |
 |----------------------------------------------------|------------|------------|---------------|
 | [source paths][source-paths]                       |     ✅     |            |               |
