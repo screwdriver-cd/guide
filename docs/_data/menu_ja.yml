@@ -10,6 +10,8 @@
       url: "/ja/user-guide/api"
     - title: "認証と認可"
       url: "/ja/user-guide/authentication-authorization"
+    - title: "SCM"
+      url: "/ja/user-guide/scm"
     - title: "設定"
       subcategories:
         - title: "全体"
