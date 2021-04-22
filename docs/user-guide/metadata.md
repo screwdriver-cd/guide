@@ -171,8 +171,8 @@ The fields you can set:
 
 | Key | Default | Description |
 | --- | ------- | ----------- |
-| status (String) | `SUCCESS` | Status of the check, can be one of `SUCCESS`, `FAILURE`, `PENDING` |
-| message (String) | `fieldName check succeeded` | Description for the check |
+| status (String) | `PENDING` | Status of the check, can be one of `SUCCESS`, `FAILURE`, `PENDING` |
+| message (String) | `fieldName check pending` | Description for the check |
 | url (String) | build link | URL for the check to link to |
 
 For example, to add two additional checks for `findbugs` and `coverage`, your screwdriver.yaml should look something like below:
