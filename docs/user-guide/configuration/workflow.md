@@ -13,6 +13,9 @@ toc:
     - title: Join/Fan-in
       url: "#advanced-logic-and"
       subitem: true
+    - title: Join/OR
+      url: "#advanced-logic-or"
+      subitem: true
     - title: Branch filtering
       url: "#branch-filtering"
     - title: Tag/Release filtering
@@ -75,7 +78,7 @@ Example repo: <https://github.com/screwdriver-cd-test/workflow-sequential-exampl
 ### Advanced Logic [_AND_]
 You can specify a job to start when all of its `requires` jobs are successful [_AND_]. This is also often called a join or fan-in.
 
-### Example
+#### Example
 In the following example, the `last` job will only trigger when `first` _AND_ `second` complete successfully in the same triggering event.
 
 ```
@@ -96,6 +99,28 @@ jobs:
 
     last:
         requires: [first, second]
+```
+
+### Advanced Logic [_OR_]
+You can specify a job to to start when any of its `requires` jobs are successful [_OR_] by adding a tilde (`~`) prefix to the jobs it requires.
+
+#### Example
+In the following example, the `last` job will trigger once after either `first` _OR_ `second` completes successfully.
+
+```
+shared:
+    image: node:6
+    steps:
+        - greet: echo hello
+jobs:
+    main:
+        requires: [~pr, ~commit]
+    first:
+        requires: [main]
+    second:
+        requires: [main]
+    last:
+        requires: [~first, ~second]
 ```
 
 ## Branch filtering
