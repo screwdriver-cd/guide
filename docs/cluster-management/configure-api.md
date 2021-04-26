@@ -47,6 +47,9 @@ toc:
     - title: Canary Routing
       url: "#canary-routing"
       subitem: true
+    - title: Configure Redis Lock
+      url: "#configure-redis-Lock"
+      subitem: true
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
 ---
@@ -663,6 +666,46 @@ release:
     cookieTimeout: 2 # in minutes
     headerName: release
     headerValue: stable
+```
+
+### Configure Redis Lock
+Set these environment variables to configure redis lock used by screwdriver api:
+
+| Environment Variable                | Required            |  Default              | Description       |
+|:-------------------------|:---------------------|:---------------------|:-----------------------------|
+| REDLOCK_ENABLED          | Yes                  | false                | Enable Redis lock            |
+| REDLOCK_RETRY_COUNT      | Yes                  | 200                  | Maximum retry limit to obtain lock                  |
+| REDLOCK_DRIFT_FACTOR     | No                   | 0.01                 | The expected clock drift     |
+| REDLOCK_RETRY_DELAY      | No                   | 500                  | The time in milliseconds between retry attempts            |
+| REDLOCK_RETRY_JITTER     | No                   | 200                  | The maximum time in milliseconds randomly added to retries             |
+| REDLOCK_REDIS_HOST       | Yes                  | 127.0.0.1            | Redis host                   |
+| REDLOCK_REDIS_PORT       | Yes                  | 9999                 | Redis port                   |
+| REDLOCK_REDIS_PASSWORD   | No                   | THIS-IS-A-PASSWORD   | Redis password               |
+| REDLOCK_REDIS_TLS_ENABLED| No                   | false                | Redis tls enabled            |
+| REDLOCK_REDIS_DATABASE   | No                   | 0                    | Redis db number              |
+```yaml
+# config/local.yaml
+redisLock:
+  # set true to enable redis lock
+  enabled: true
+  options:
+    # maximum retry limit to obtain lock
+    retryCount: 200 
+    # the expected clock drift
+    driftFactor: 0.01
+    # the time in milliseconds between retry attempts
+    retryDelay: 500
+    # the maximum time in milliseconds randomly added to retries
+    retryJitter: 200
+    # Configuration of the redis instance
+    redisConnection:
+        host: "127.0.0.1"
+        port: 6379
+        options:
+            password: '123'
+            tls: false
+        database: 0
+        prefix: ""
 ```
 
 ## Extending the Docker container
