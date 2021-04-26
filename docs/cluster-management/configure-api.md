@@ -669,7 +669,7 @@ release:
 ```
 
 ### Configure Redis Lock
-Set these environment variables to configure redis lock used by screwdriver api:
+Set these environment variables to configure Redis lock used by Screwdriver API:
 
 | Environment Variable                | Required            |  Default              | Description       |
 |:-------------------------|:---------------------|:---------------------|:-----------------------------|
