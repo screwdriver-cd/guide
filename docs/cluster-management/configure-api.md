@@ -669,7 +669,7 @@ release:
 ```
 
 ### Configure Redis Lock
-Redis lock was used by Screwdriver api to force sequential build update, leaving it disabled could result in data loss during build update and builds that never start.
+Redis lock is used by Screwdriver api to force sequential build update, leaving it disabled could result in data loss during build update and builds that never start.
 
 Set these environment variables to configure Redis lock:
 
