@@ -208,13 +208,12 @@ httpd:
 
 ### Ecosystem
 
-Specify externally routable URLs for your UI, Artifact Store, and Badge service.
+Specify externally routable URLs for your UI and Artifact Store service.
 
 | Key              | Default                                                     | Description                                  |
 |:-----------------|:------------------------------------------------------------|:---------------------------------------------|
 | ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | URL for the User Interface                   |
 | ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | URL for the Artifact Store                   |
-| ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | URL with templates for status text and color |
 | ECOSYSTEM_QUEUE  | http://sdqueuesvc.screwdriver.svc.cluster.local             | Internal URL for the Queue Service to be used with queue plugin |
 
 ```yaml
@@ -224,8 +223,6 @@ ecosystem:
     ui: https://cd.screwdriver.cd
     # Externally routable URL for the Artifact Store
     store: https://store.screwdriver.cd
-    # Badge service (needs to add a status and color)
-    badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
     # Internally routable FQDNS of the queue svc
     queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
