@@ -8,20 +8,18 @@ toc:
       url: "#workflow"
     - title: Defining Workflow Order
       url: "#defining-workflow-order"
-    - title: Advanced Workflow Logic
-      url: "#advanced-logic"
+    - title: Parallel with Join/OR
+      url: "#parallel-and-join"
     - title: Join/Fan-in
-      url: "#advanced-logic-and"
+      url: "#join-example"
       subitem: true
-    - title: Join/OR
-      url: "#advanced-logic-or"
+    - title: OR Workflow
+      url: "#or-workflow"
       subitem: true
     - title: Branch filtering
       url: "#branch-filtering"
     - title: Tag/Release filtering
       url: "#tagrelease-filtering"
-    - title: Parallel and Join
-      url: "#parallel-and-join"
     - title: Remote Triggers
       url: "#remote-triggers"
     - title: Remote Join
@@ -74,35 +72,40 @@ To specify a job to run when a pull request is opened or updated, use `requires:
 
 Example repo: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
-## Advanced Logic
-### Advanced Logic [_AND_]
-You can specify a job to start when all of its `requires` jobs are successful [_AND_]. This is also often called a join or fan-in.
 
-#### Example
-In the following example, the `last` job will only trigger when `first` _AND_ `second` complete successfully in the same triggering event.
+## Parallel and Join
+You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
+
+#### Join Example
+In the following example, where `A` and `B` requires `main`. This will cause `A` and `B` to execute in parallel after `main` is successful. Also in this example, job `C` runs only after both `A` _and_ `B` are successful in the same triggering event.
 
 ```
 shared:
     image: node:14
-    steps:
-        - greet: echo hello
 
 jobs:
     main:
         requires: [~pr, ~commit]
-
-    first:
+        steps:
+            - echo: echo hi
+    A:
         requires: [main]
-
-    second:
+        steps:
+            - echo: echo in parallel
+    B:
         requires: [main]
-
-    last:
-        requires: [first, second]
+        steps:
+            - echo: echo in parallel
+    C:
+        requires: [A, B]
+        steps:
+            - echo: echo join after A and B
 ```
 
-### Advanced Logic [_OR_]
-You can specify a job to to start when any of its `requires` jobs are successful [_OR_] by adding a tilde (`~`) prefix to the jobs it requires.
+Example repo: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
+
+### OR Workflow
+Similar to Join, but job will start when any of its `requires` jobs are successful [_OR_]. This is achieved by adding a tilde (`~`) prefix to the jobs it requires.
 
 #### Example
 In the following example, the `last` job will trigger once after either `first` _OR_ `second` completes successfully.
@@ -182,37 +185,6 @@ jobs:
         steps:
             - echo: echo stable release
 ```
-
-## Parallel and Join
-You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
-
-#### Example
-In the following example, where `A` and `B` requires `main`. This will cause `A` and `B` to execute in parallel after `main` is successful. Also in this example, job `C` runs only after both `A` _and_ `B` are successful in the same triggering event.
-
-```
-shared:
-    image: node:14
-
-jobs:
-    main:
-        requires: [~pr, ~commit]
-        steps:
-            - echo: echo hi
-    A:
-        requires: [main]
-        steps:
-            - echo: echo in parallel
-    B:
-        requires: [main]
-        steps:
-            - echo: echo in parallel
-    C:
-        requires: [A, B]
-        steps:
-            - echo: echo join after A and B
-```
-
-Example repo: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ## Remote Triggers
 To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`. `~pr`, `~commit`, and jobs with `~sd@pipelineID:jobName` format follow _OR_ logic.
