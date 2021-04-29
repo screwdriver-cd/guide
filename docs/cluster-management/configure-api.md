@@ -47,6 +47,9 @@ toc:
     - title: Canary Routing
       url: "#canary-routing"
       subitem: true
+    - title: Configure Redis Lock
+      url: "#configure-redis-Lock"
+      subitem: true
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
 ---
@@ -99,6 +102,20 @@ auth:
         - github:robin
     admins:
         - github:batman
+```
+
+### Multibuild Cluster
+
+By default, the [build cluster feature](../configure-buildcluster-queue-worker) is turned off.
+
+| Key | Default| Description |
+|:----|:-------|:------------|
+| MULTI_BUILD_CLUSTER_ENABLED | `false` | Whether build cluster is on or off. Options: `true` or `false` |
+
+```yaml
+# config/local.yaml
+multiBuildCluster:
+    enabled: true
 ```
 
 ### Build Variables
@@ -155,11 +172,12 @@ In order to use Sonar in your cluster, set up a Sonar server (see example at [ou
 | Key             | Required | Description           |
 |:----------------|:---------|:----------------------|
 | COVERAGE_PLUGIN | Yes      | Should be `sonar`     |
+| COVERAGE_PLUGIN_DEFAULT_ENABLED | No | Whether coverage-bookend will execute coverage scanning as default or not; default `true` |
 | URI             | Yes      | Screwdriver API url   |
 | ECOSYSTEM_UI    | Yes      | Screwdriver UI url    |
 | COVERAGE_SONAR_HOST | Yes  | Sonar host URL        |
 | COVERAGE_SONAR_ADMIN_TOKEN | Yes | Sonar admin token |
-| COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise (true) or open source edition of SonarQube(false); default `false` |
+| COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise(true) or open source edition of SonarQube(false); default `false` |
 | COVERAGE_SONAR_GIT_APP_NAME | No | Github app name for Sonar pull request decoration; default `Screwdriver Sonar PR Checks`; This feature requires Sonar enterprise edition. Follow [instructions in the Sonar docs](https://docs.sonarqube.org/latest/analysis/pr-decoration) for details. |
 
 You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details. Using Enterprise edition of SonarQube will default to _pipeline_ scope for SonarQube project keys and names. Will also allow for usage of PR analysis and prevent creation of separate projects for each Screwdriver job. Using non-Enterprise SonarQube will default to _job_ scope for SonarQube project keys and names.
@@ -190,13 +208,12 @@ httpd:
 
 ### Ecosystem
 
-Specify externally routable URLs for your UI, Artifact Store, and Badge service.
+Specify externally routable URLs for your UI and Artifact Store service.
 
 | Key              | Default                                                     | Description                                  |
 |:-----------------|:------------------------------------------------------------|:---------------------------------------------|
 | ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | URL for the User Interface                   |
 | ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | URL for the Artifact Store                   |
-| ECOSYSTEM_BADGES | https://img.shields.io/badge/build-{{status}}-{{color}}.svg | URL with templates for status text and color |
 | ECOSYSTEM_QUEUE  | http://sdqueuesvc.screwdriver.svc.cluster.local             | Internal URL for the Queue Service to be used with queue plugin |
 
 ```yaml
@@ -206,8 +223,6 @@ ecosystem:
     ui: https://cd.screwdriver.cd
     # Externally routable URL for the Artifact Store
     store: https://store.screwdriver.cd
-    # Badge service (needs to add a status and color)
-    badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
     # Internally routable FQDNS of the queue svc
     queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
@@ -280,6 +295,7 @@ If you use this executor, builds will run in pods in Kubernetes.
 | K8S_IMAGE_PULL_SECRET_NAME | ''    | K8s image pull secret name (optional) <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret> |
 | DOCKER_FEATURE_ENABLED | false     | Flag to enable a Docker In Docker container in the build pod |
 | K8S_RUNTIME_CLASS | ''             | Runtime class |
+| TERMINATION_GRACE_PERIOD_SECONDS | 60             | Termination Grace period before build pod  |
 
 
 ```yaml
@@ -440,6 +456,12 @@ executor:
 ### Notifications Plugin
 We currently support [Email notifications](https://github.com/screwdriver-cd/notifications-email) and [Slack notifications](https://github.com/screwdriver-cd/notifications-slack).
 
+Set these environment variables:
+
+| Environment name   | Required | Default Value | Description                   |
+|:-------------------|:---------|:--------------|:------------------------------|
+| NOTIFICATIONS      | No      | {}             | JSON object with notifications settings |
+
 #### Email Notifications
 
 Configure the SMTP server and sender address that email notifications will be sent from.
@@ -497,6 +519,23 @@ notifications:
             foo: bar
             abc: 123
         scopedPackage: '@scope/screwdriver-notifications-your-notification'
+```
+
+#### Notifications Options
+Any overarching notifications options will go in this section.
+
+```yaml
+#config/local.yaml
+notifications:
+    options:
+        throwValidationErr: false # default true; boolean to throw error when validation fails or not
+    slack:
+        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+    email:
+        host: smtp.yourhost.com
+        port: 25
+        from: example@email.com
+
 ```
 
 ### Source Control Plugin
@@ -624,6 +663,48 @@ release:
     cookieTimeout: 2 # in minutes
     headerName: release
     headerValue: stable
+```
+
+### Configure Redis Lock
+Redis lock is used by Screwdriver api to force sequential build update, leaving it disabled could result in data loss during build update and builds that never start.
+
+Set these environment variables to configure Redis lock:
+
+| Environment Variable                | Required            |  Default              | Description       |
+|:-------------------------|:---------------------|:---------------------|:-----------------------------|
+| REDLOCK_ENABLED          | Yes                  | false                | Enable Redis lock            |
+| REDLOCK_RETRY_COUNT      | Yes                  | 200                  | Maximum retry limit to obtain lock                  |
+| REDLOCK_DRIFT_FACTOR     | No                   | 0.01                 | The expected clock drift     |
+| REDLOCK_RETRY_DELAY      | No                   | 500                  | The time in milliseconds between retry attempts            |
+| REDLOCK_RETRY_JITTER     | No                   | 200                  | The maximum time in milliseconds randomly added to retries             |
+| REDLOCK_REDIS_HOST       | Yes                  | 127.0.0.1            | Redis host                   |
+| REDLOCK_REDIS_PORT       | Yes                  | 9999                 | Redis port                   |
+| REDLOCK_REDIS_PASSWORD   | No                   | THIS-IS-A-PASSWORD   | Redis password               |
+| REDLOCK_REDIS_TLS_ENABLED| No                   | false                | Redis tls enabled            |
+| REDLOCK_REDIS_DATABASE   | No                   | 0                    | Redis db number              |
+```yaml
+# config/local.yaml
+redisLock:
+  # set true to enable redis lock
+  enabled: true
+  options:
+    # maximum retry limit to obtain lock
+    retryCount: 200 
+    # the expected clock drift
+    driftFactor: 0.01
+    # the time in milliseconds between retry attempts
+    retryDelay: 500
+    # the maximum time in milliseconds randomly added to retries
+    retryJitter: 200
+    # Configuration of the redis instance
+    redisConnection:
+        host: "127.0.0.1"
+        port: 6379
+        options:
+            password: '123'
+            tls: false
+        database: 0
+        prefix: ""
 ```
 
 ## Extending the Docker container

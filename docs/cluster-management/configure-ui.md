@@ -3,7 +3,7 @@ layout: main
 title: Configuring the UI
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Managing the User Interface
       url: "#managing-the-user-interface"
       active: true
@@ -28,7 +28,7 @@ toc:
       subitem: true
     - title: Canary Routing
       url: "#canary-routing"
-      subitem: true          
+      subitem: true
 ---
 # Managing the User Interface
 
@@ -84,6 +84,17 @@ Example:
 ```bash
 $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bitbucket.org/account/*/avatar/*" screwdrivercd/ui:stable
 ```
+
+
+#### Show/Hide User Avatar
+
+You can choose to enable or disable loading user's avatar on build detail pages by setting environment variable `SHOW_AVATARS`.
+
+Default: `true`
+
+| Environment name     | Default Value | Description          |
+|:---------------------|:--------------|:---------------------|
+| SHOW_AVATARS | true | **Options:** (`true`/`false`) <br>Show user's avatar in build details page. |
 
 ### Custom Documentation Link
 Documentation link can be customized via an environment variable `SDDOC_URL`.

@@ -14,6 +14,7 @@ A set of key/value pairs for environment variables that need to available in a b
 
 ## Limitations
 - Nested environment variables do not work under the `environment` section.
+- Environment variables are evaluated in the order in which they are defined under the same `environment` section.
 - Environment variables are evaluated in the order in which they were declared: `template` > `shared` > `jobs`.
 
 #### Example

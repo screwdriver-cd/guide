@@ -10,6 +10,9 @@ toc:
   url: "#ワークフローの順序を定義する"
 - title: 論理式を用いたワークフロー定義 (Advanced Logic)
   url: "#論理式を用いたワークフロー定義"
+- title: Join結合
+  url: "and-条件-advanced-logic-and"
+  subitem: true
 - title: ブランチフィルター
   url: "#ブランチフィルター"
 - title: タグフィルターとリリースフィルター
@@ -59,13 +62,13 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 ```
 jobs:
     main:
-        image: node:6
+        image: node:14
         requires: [~pr, ~commit]
         steps:
             - echo: echo hi
 
     second:
-        image: node:6
+        image: node:14
         requires: [main]
         steps:
             - echo: echo bye
@@ -87,7 +90,7 @@ jobs:
 
 ```
 shared:
-    image: node:6
+    image: node:14
     steps:
         - greet: echo hello
 
@@ -104,53 +107,6 @@ jobs:
     last:
         requires: [first, second]
 ```
-
-### OR 条件 (Advanced Logic [*OR*])
-
-チルダ (`~`) をジョブ名の前に付けることで、 `requires` に含まれるジョブのいずれかが成功した場合に開始するジョブを定義することができます。`~sd@pipelineID:jobName` のようなフォーマットである必要があります。
-
-### 例
-
-以下の例では、`last`ジョブは `first` *または* `second` ジョブのどちらかが成功した場合に実行されます。
-
-```
-shared:
-    image: node:6
-    steps:
-        - greet: echo hello
-
-jobs:
-    main:
-        requires: [~pr, ~commit]
-
-    first:
-        requires: [main]
-
-    second:
-        requires: [main]
-
-    last:
-        requires: [~sd@123:first, ~sd@123:second]
-```
-
-### AND 条件と OR 条件の併用 (Advanced Logic [*Combined*])
-
-以下の例のような複数のパイプラインをまたいだケースを実現するために、*AND* と *OR* のロジックを併用することができます。
-この例では、`first` ジョブ *と* `second` ジョブが成功した、*または* `third` ジョブが成功した場合にジョブが実行されます。
-
-```
-    last:
-        requires: [first, second, ~sd@123:third]
-```
-
-`requires` のジョブ名の前にチルダがついていた場合、チルダのついているジョブのいずれかが成功した場合 *または* チルダのついていないジョブの全てが成功した場合にジョブが実行されます。例えば、以下のようなちょっと変な例を考えてみます:
-
-```
-    main:
-        requires: [~sd@123:A, B, ~sd@123:C, D, ~sd@123:E, F]
-```
-
-これは `A OR C OR E OR (B AND D AND F)` という論理式と等価になります。このような複雑な `requires` は実際のワークフローではコードスメルとみなされるでしょう。
 
 ## ブランチフィルター
 ブランチフィルターは、パイプラインの特定のブランチのイベントをトリガーにすることができます。特定のブランチに対してコミットされた後にパイプラインでジョブをトリガーするには、 `[ ~commit：branchName ]` を使用します。特定のブランチに対してプルリクエストが作成された後にパイプラインでジョブをトリガーするには、`[ ~pr：branchName] `を使用します。ブランチは([JavaScript仕様の](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions))正規表現を用いて指定することもできます（例: `~commit：/^feature-/`）。正規表現のフラグはサポートしていません。
@@ -223,7 +179,7 @@ jobs:
 
 ```
 shared:
-    image: node:6
+    image: node:14
 
 jobs:
     main:
@@ -257,7 +213,7 @@ jobs:
 ```
 jobs:
     main:
-        image: node:6
+        image: node:14
         requires: [~pr, ~commit, ~sd@456:publish]
         steps:
             - echo: echo hi
@@ -336,7 +292,7 @@ jobs:
 
 ```
 shared:
-    image: node:6
+    image: node:14
 jobs:
     job1:
         requires: [~commit, ~pr]
@@ -366,7 +322,7 @@ jobs:
 
 ```
 shared:
-    image: node:6
+    image: node:14
 jobs:
   job1:
     freezeWindows: ['* * ? 3 *']

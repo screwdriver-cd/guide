@@ -33,6 +33,7 @@ sd-local実行には以下のコマンドが必要になります
 ```bash
 $ mv sd-local_*_amd64 /usr/local/bin/sd-local
 $ chmod +x /usr/local/bin/sd-local
+$ xattr -d com.apple.quarantine /usr/local/bin/sd-local #MacでのAppleの未検証の開発者に関する警告を削除
 ```
 
 ## アップデート方法
