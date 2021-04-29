@@ -55,6 +55,8 @@ toc:
       url: "#why-do-i-get-not-found-when-i-try-to-start-or-delete-my-pipeline"
     - title: 'How do I override freeze windows to start a build?'
       url: "#how-do-i-override-freeze-windows-to-start-a-build"
+    - title: 'How do I stop a build with FROZEN status?'
+      url: "#how-do-i-stop-a-build-with-frozen-status"
 
 ---
 
@@ -249,3 +251,13 @@ Add `[force start]` to the commit message of the build you want to start and mer
 
 In the API:
 Add `[force start]` to the `causeMessage` of the build you want to start and use the `POST SCREWDRIVER_API/v4/events` endpoint to start.
+
+## How do I stop a build with FROZEN status?
+
+In the UI:
+1. Click on the frozen build bubble.
+1. Click "Stop frozen build".
+
+![Stop frozen build](./assets/stop-frozen-build.png)
+![Aborted frozen build](./assets/stopped-frozen-build-view.png)
+![Aborted frozen build page](./assets/stopped-frozen-build.png)
