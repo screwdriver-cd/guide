@@ -52,8 +52,7 @@ Screwdriver の全ての issue は、[screwdriver repo][api-issues-url] にあ�
 | Scope | コミットの範囲を特定するもの。空白や関連する issue 番号、`*` でも構いません。 |
 | Subject | コミットの説明 |
 
-**重要:** メジャーバージョンを更新する必要のある**破壊的変更**の際には、`BREAKING CHANGE` をコミットメッセージのどこかに入れてください。
-
+**重要:** メジャーバージョンを更新する必要のある**破壊的変更**の際には、`BREAKING CHANGE:MESSAGE` をコミットメッセージのどこかに入れてください。コミットタイプは `feat` でなければなりません。
 **コミットメッセージの例:**
 * バグ修正の場合: `fix: Remove extra space`
 * 破壊的変更の場合: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`

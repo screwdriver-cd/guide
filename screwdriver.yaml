@@ -35,7 +35,7 @@ jobs:
           DOCKER_REPO: screwdrivercd/guide
           K8S_CONTAINER: guide
           K8S_IMAGE: screwdrivercd/guide
-          K8S_HOST: kubernetes
+          K8S_HOST: kubernetes.default.svc
           K8S_DEPLOYMENT: sdguide
       secrets:
           - K8S_TOKEN

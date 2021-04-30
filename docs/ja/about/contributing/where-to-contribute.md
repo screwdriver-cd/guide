@@ -156,7 +156,7 @@ Screwdriver のリポジトリを新しく作成する際の手助けとなる�
 [scm-base-repo]: https://github.com/screwdriver-cd/scm-base
 [scm-bitbucket-repo]: https://github.com/screwdriver-cd/scm-bitbucket
 [scm-github-repo]: https://github.com/screwdriver-cd/scm-github
-[scm-gitlab-repo]: https://github.com/bdangit/scm-gitlab
+[scm-gitlab-repo]: https://github.com/screwdriver-cd/scm-gitlab
 [screwdriver-cd-test-org]: https://github.com/screwdriver-cd-test
 [sd-cmd-repo]: https://github.com/screwdriver-cd/sd-cmd
 [sd-step-repo]: https://github.com/screwdriver-cd/sd-step

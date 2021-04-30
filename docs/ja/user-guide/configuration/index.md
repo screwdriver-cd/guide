@@ -44,11 +44,13 @@ toc:
         <a href="#steps"><span class="key">steps</span>:
     - <span class="key">init</span>: <span class="value">npm install</span>
     - <span class="key">test</span>: <span class="value">npm test</span></a>
-    <a href="#jobs"><span class="key">publish</span>:
-    <span class="key">requires</span>: <span class="value">main</span>
-    <span class="key">image</span>: <span class="value">node:6</span>
-    <span class="key">steps</span>:
-        - <span class="key">publish</span>: <span class="value">npm publish</span></a>
+      <span class="key">publish</span>:
+          <a href="#requires"><span class="key">requires</span>: <span class="value">[main]</span></a>
+          <a href="#template"><span class="key">template</span>: <span class="value">node/publish@4.3.1</span></a>
+          <a href="#order"><span class="key">order</span>: <span class="value">[init, publish, teardown-save-results]</span></a>
+          <span class="key">steps</span>:
+ - <span class="key">publish</span>: <span class="value">npm install</span>
+ - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
     <span class="key">requires</span>: <span class="value">publish</span>
     <span class="key">image</span>: <span class="value">node:6</span>
@@ -128,6 +130,18 @@ toc:
         <div id="steps" class="hidden">
             <h4>Steps</h4>
             <p>コマンドラインで入力するように、ビルドで実行されるコマンドのリストを定義します。同じジョブ内では、環境変数はステップ間で受け渡されます。ステップの定義は全てのジョブに必須です。Screwdriverのステップとして予約語になっているため、ステップ名を'sd-'で始めることはできません。Screwdriverは'/bin/sh'をステップ実行のために使用するため、異なるターミナルやシェルを使用すると予期せぬ振る舞いをするかもしれません。</p>
+        </div>
+        <div id="template" class="hidden">
+            <h4>Template</h4>
+            <p>あらかじめ定義されたジョブで、通常はDockerイメージとステップで構成されています。</p>
+        </div>
+        <div id="order" class="hidden">
+            <h4>Order</h4>
+            <p>templateが定義されている場合のみ使用できます。特定の順序で実行する必要のあるステップ名です。templateとstepの中から、ジョブで定義されているstepを優先して選択します。</p>
+        </div>
+        <div id="teardown" class="hidden">
+            <h4>Teardown</h4>
+            <p>ビルドの最後に必ず実行されるユーザー定義のステップ（前のステップが失敗したり、ビルドが中止された場合でも実行される）ステップ名は常に "teardown-"で始まります。</p>
         </div>
     </div>
 </div>

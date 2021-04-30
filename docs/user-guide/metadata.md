@@ -50,7 +50,7 @@ toc:
 
 ## What is Metadata?
 
-Metadata is a structured key/value storage of relevant information about a [build](../../about/appendix/domain#build). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../../about/appendix/domain#step).
+Metadata is a structured key/value storage of relevant information about a [build](../about/appendix/domain#build). It can be updated or retrieved throughout the build by using the built-in [meta CLI](https://github.com/screwdriver-cd/meta-cli) in the [steps](../about/appendix/domain#step).
 
 ## Default Metadata
 
@@ -169,11 +169,11 @@ To additional checks to a pull request, you just need to set `meta.status.<check
 
 The fields you can set:
 
-| Key | Description |
-| --- | ----------- |
-| status (String) | Status of the check, can be one of: (`SUCCESS`, `FAILURE`) |
-| message (String) | Description for the check |
-| url (String) | Url for the check to link to (default: build link)
+| Key | Default | Description |
+| --- | ------- | ----------- |
+| status (String) | `PENDING` | Status of the check, can be one of `SUCCESS`, `FAILURE`, `PENDING` |
+| message (String) | `fieldName check pending` | Description for the check |
+| url (String) | build link | URL for the check to link to |
 
 For example, to add two additional checks for `findbugs` and `coverage`, your screwdriver.yaml should look something like below:
 

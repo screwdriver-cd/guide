@@ -1,22 +1,22 @@
 ---
 layout: main
-title: Configuring Build Cluster Queue Worker
+title: ビルドクラスターキューワーカーの設定
 category: Cluster Management
-menu: menu
+menu: menu_ja
 toc:
-    - title: Managing the Build Cluster Queue Worker 
-      url: "#managing-the-build-cluster-queue-worker"
+    - title: ビルドクラスターキューワーカーの管理
+      url: "#ビルドクラスターキューワーカーの管理"
       active: true
     - title: Overview
       url: "#overview"
-    - title: Setup Build Cluster
-      url: "#setup-build-cluster"
-    - title: Install RabbitMQ Message Broker
-      url: "#install-rabbitmq-message-broker"
-    - title: RabbitMQ Configuration
-      url: "#rabbitmq-configuration"
-    - title: Configure Build Cluster Queue Worker
-      url: "#configure-build-cluster-queue-worker"
+    - title: ビルドクラスターのセットアップ
+      url: "#ビルドクラスターのセットアップ"
+    - title: RabbitMQメッセージブローカーのインストール
+      url: "#rabbitmqメッセージブローカーのインストール"
+    - title: RabbitMQの設定
+      url: "#rabbitmqの設定"
+    - title: ビルドクラスターキューワーカーの設定
+      url: "#ビルドクラスターキューワーカーの設定"
     - title: RabbitMQ
       url: "#rabbitmq"
       subitem: true
@@ -29,32 +29,32 @@ toc:
     - title: HTTP
       url: "#http"
       subitem: true
-    - title: Build Cluster Schema Definition
-      url: "#build-cluster-schema-definition"
+    - title: ビルドクラスターのスキーマ定義
+      url: "#ビルドクラスターのスキーマ定義"
 ---
-It is Cluster admins responsibility to setup and configure Rabbitmq Message Broker and Build Cluster Queue Worker.
+RabbitMQメッセージブローカーとビルドクラスターキューワーカーを構成してセットアップするのはクラスター管理者の仕事です。
 
-# Managing the Build Cluster Queue Worker
+# ビルドクラスターキューワーカーの管理
 
-This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq.com/#getstarted) and [Build Cluster Queue Worker](https://github.com/screwdriver-cd/buildcluster-queue-worker). 
+このページでは、[RabbitMQメッセージブローカー](https://www.rabbitmq.com/#getstarted)と[ビルドクラスターキューワーカー](https://github.com/screwdriver-cd/buildcluster-queue-worker)のセットアップ方法について説明します。
 
 ## Overview
 
-Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257) or using 
-[environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369).
-When enabled Screwdriver [Queue Service](./configure-queue-service.md) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and 
-weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by 
-Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will 
-not impact when a build cluster is taken offline for maintenance as builds will be automatically routed to next available build cluster. 
+ビルドクラスター機能は、[multiBuildClusterのフラグ](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257)または[環境変数](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369)で有効/無効を切り替えることができます。
+有効にすると、Screwdriverの[キューサービス](./configure-queue-service.md)は、ビルドメッセージをRabbitMQにプッシュします。
+ビルドメッセージのヘッダーには、buildClustersテーブルに設定されているisActiveフラグとweightageの重み付けに基づいて、ルーティングキー設定されます。
+RabbitMQはメッセージのヘッダーに設定されたルーティングキーに基づいてビルドメッセージをキューにルーティングし、
+ビルドメッセージはビルドクラスターキューワーカーによって消費・処理されます。
+Stickinessについてですが、パイプラインの最初のビルドが実行されると、パイプラインのannotationsにビルドクラスターのルーティングキーを保存し、そのパイプラインでは毎回同じビルドクラスターが割り振られるようになります。
+ビルドは自動的に利用可能な他のビルドクラスターにルーティングされるため、ビルドクラスターがメンテナンスのためにオフラインになったとしても影響はありません。
 
-**Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness. 
-So any updates to routing key, need to be cascaded to affected pipelines annotations and rabbitmq exchange bindings. Without this update, builds related to affected pipeline will error. 
-Another option is to create a new build cluster and disable old build cluster. In this case builds will auto route to new build cluster without any updates, but please keep in mind build cluster 
-stickiness will be lost.* 
+***注意**: ビルドクラスターのルーティングキーを作成する際には注意し、慎重に作成して、ルーティングキーの更新は控えて下さい。ルーティングキーは、ビルドクラスターのStickinessのためにパイプラインannotationsに保存されています。
+そのためルーティングキーを更新すると、影響を受けるパイプラインのannotationsとRabbitMQの結びつきを正しく設定し直す必要があります。この更新がないと、影響を受けるパイプラインに関連するビルドはエラーになります。
+別の方法は、新しいビルドクラスターを作成し、古いビルドクラスターを無効にすることです。この場合、ビルドは更新無しで新しいビルドクラスターに自動的にルーティングされますが、ビルドクラスターのStickinessは失われることに注意して下さい。*
 
-## Setup Build Cluster
+## ビルドクラスターのセットアップ
 
-Cluster admin should create build cluster using [buildclusters API](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)
+クラスター管理者は、[buildclusters API](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)を使用してビルドクラスターを作成する必要があります。
 
 ```json
 {
@@ -70,21 +70,21 @@ Cluster admin should create build cluster using [buildclusters API](https://api.
 }
 ```
 
-1. name should match the queue and routing key defined in rabbitmq configuration.
-1. set `managedByScrewdriver` to `true`, if build cluster is managed by internal Screwdriver team.
-1. set `isActive` to `true` or `false` to turn on/off a build cluster.
-1. set weightage 100 if you have single build cluster and for more than one cluster, distribute the weightage accordingly.
+1. nameはRabbitMQの設定で定義しているqueueとrouting_keyに一致させる必要があります。
+1. ビルドクラスターが組織内のScrewdriverチームによって管理されている場合、`managedByScrewdriver`を`true`に設定します。
+1. `isActive`を`true`または`false`に設定することでビルドクラスターの有効/無効を切り替えられます。
+1. `weightage`にはビルドクラスターが1つの場合は100を設定し、2つ以上のビルドクラスターがある場合は重みを配分して下さい。
 
-***Caution**: Build cluster scmContext is derived from API token of specific scm. In order to create build clusters with same name for multiple scm, repeat post 
-[/v4/buildClusters](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters) api for each scm account.*
+**注意**: ビルドクラスターのscmContextは、scm毎のAPIトークンから派生します。
+複数のscmに対して同名のビルドクラスターを作成するには、scmアカウント毎に[/v4/buildClusters](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)APIへのPOSTを繰り返して下さい*
 
-## Install RabbitMQ Message Broker
+## RabbitMQメッセージブローカーのインストール
 
-As a prerequisite go through [Downloading and Installing Rabbitmq](https://www.rabbitmq.com/download.html) and [Rabbitmq Tutorials](https://www.rabbitmq.com/getstarted.html) documentation.
-Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability `version: 3.7.28 Erlang: 22.3.4.7` in Kubernetes cluster. 
-Please note that this helm chart is deprecated and for new installation refer [bitnami helm charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq).
+前提条件として、[RabbitMQのダウンロードとインストール](https://www.rabbitmq.com/download.html)と[RabbitMQチュートリアル](https://www.rabbitmq.com/getstarted.html)を参照して下さい。
+Screwdriverは[Helm Charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha)を使用して、High-Availability構成のRabbitMQ `version: 3.7.28 Erlang: 22.3.4.7`をKubernetesクラスターにインストールします。
+このHelm Chartは非推奨なので注意して下さい。新規でのインストールは[bitnami Helm Charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq)を参照して下さい。
 
-Rabbitmq helm chart values.tmpl file for your reference. Update and use it per your environment specifications.
+参考に、RabbitMQのHelm Chartのvalues.tmplファイルを掲載します。環境仕様にあわせて変更して使用して下さい。
 
 ``` yaml
 ## RabbitMQ application credentials
@@ -477,9 +477,9 @@ prometheus:
         prometheus: kube-prometheus
 ```
 
-## Rabbitmq Configuration
+## RabbitMQの設定
 
-Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Import definitions**.
+RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**手動で**するか、**definitionsのインポート**を使用します。
 
 ```json
 {
@@ -702,94 +702,87 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
 }
 ```
 
-Note: 
-1. Queues suffixed with dlr are deadletter queues. We use rabbitmq in-built deadletter queue mechanism for a retry with delay in case of errors. 
-   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)
-   in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
-   routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
-1. `build` is exchange.
-1. `ClusterA` and `ClusterB` are queues.
-1. `ClusterAdlr` and `ClusterBdlr` are deadletter queues for `ClusterA` and `ClusterB` queues respectively. 
+メモ:
+1. dlrで終わる名称のキューはデッドレターキューです。エラーが発生した場合のリトライには、RabbitMQに内蔵されているデッドレターキューの仕組みを利用しています。デッドレターキューは、メッセージを消費してビルド処理をKubernetesクラスタにプッシュする際に[エラー](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)が発生すると利用されます。メッセージは`nack`されると、デッドレタールーティングキューの設定に従いdlrキューに移動し、5秒（後述の設定による）遅延した後に元のキューに再プッシュされます。
+1. `build`はExchangeです。
+1. `ClusterA`と`ClusterB`はキューです
+1. `ClusterAdlr`と`ClusterBdlr`はそれぞれ`ClusterA`と`ClusterB`のデッドレターキューです。
 
-### User Interface
+### ユーザーインターフェース
 
-Screenshots of Exchanges, Queues page from Rabbitmq admin UI 
+RabbitMQ管理UIのExchangesページとQueuesページのスクリーンショット
 
-#### Exchanges:
-![Exchanges page](./assets/rabbitmq/exchanges.png)
+#### Exchangesページ:
+![Exchanges page](../../cluster-management/assets/rabbitmq/exchanges.png)
 
-#### Queues:
-![Queues page](./assets/rabbitmq/queues.png)
+#### Queuesページ:
+![Queues page](../../cluster-management/assets/rabbitmq/queues.png)
 
-#### Exchange (build) configuration:
-![build exchange detail page](./assets/rabbitmq/build_exchange.png)
+#### Exchange (build)の設定ページ:
+![build exchange detail page](../../cluster-management/assets/rabbitmq/build_exchange.png)
 
-#### ClusterA queue configuration:
-![ClusterA queue detail page](./assets/rabbitmq/ClusterA_queue.png)
+#### ClusterA キューの設定ページ:
+![ClusterA queue detail page](../../cluster-management/assets/rabbitmq/ClusterA_queue.png)
 
-#### ClusterAdlr queue configuration:
-![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterAdlr_queue.png)
+#### ClusterAdlr キューの設定ページ:
+![ClusterAdlr queue detail page](../../cluster-management/assets/rabbitmq/ClusterAdlr_queue.png)
 
-Refer to `Connections` and `Channels` page to check connections with a username established by Screwdriver Queue Service (Producer) and Build Cluster Queue Worker (Consumer).
+Screwdriverのキューサービス(Producer)とビルドクラスターキューワーカー(Consumer)で確立している接続を確認するには、`Connections`と`Channels`ページを参照して下さい。
 
-To get rabbitmq message delivery and acknowledgement rates refer to `Message rates` of each queue in `Queues` page.
+RabbitMQのメッセージのdelivery率とacknowledgement率については、`Queues`ページの各キューの`Message rates`を確認して下さい。
 
-## Setup Build Cluster Queue Worker
+## ビルドクラスターキューワーカーのセットアップ
 
-Please refer to
-1. [Docker Image](https://hub.docker.com/r/screwdrivercd/buildcluster-queue-worker) for setup and installation. Our images are tagged with the version (eg. `v1.2.3`) as well as
-   a floating tag `latest` and `stable`. Most installations should be using `stable` or the fixed version tags.
-1. [Repository](https://github.com/screwdriver-cd/buildcluster-queue-worker) for implementation.
+以下を参考にしてください。
+1. セットアップとインストールのための[Docker Image](https://hub.docker.com/r/screwdrivercd/buildcluster-queue-worker)には、バージョン（例: `v1.2.3`）及び、`latest`と`stable`のフローティングタグが付けられています。ほとんどの場合、`stable`か固定のバージョンを使用すべきです。
+1. 実装のための[Repository](https://github.com/screwdriver-cd/buildcluster-queue-worker)。
 
-## Configure Build Cluster Queue Worker
+## ビルドクラスターキューワーカーの設定
 
 ### RabbitMQ
 
-Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236), 
-but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348).
+ビルドクラスターキューワーカーは、すでに[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236)ですべての設定をデフォルトにしていますが、[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348)の環境変数を使ってオーバーライドすることができます。
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
-| protocol | RABBITMQ_PROTOCOL | Protocol to connect to rabbitmq. Use amqp for non-ssl and amqps for ssl. Default: amqp |
-| username | RABBITMQ_USERNAME | User to connect and authorized to consume from rabbitmq queues |
-| password | RABBITMQ_PASSWORD | password |
-| host | RABBITMQ_HOST | Rabbitmq cluster hostname. Default: 127.0.0.1 |
-| port | RABBITMQ_PORT | Rabbitmq port. Default: 5672 |
-| vhost | RABBITMQ_VIRTUAL_HOST | Virtual host for queues. Default: /screwdriver |
-| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
-| queue | RABBITMQ_QUEUE | queue to consume from |
-| prefetchCount | RABBITMQ_PREFETCH_COUNT | used to specify how many messages are sent at the same time. Default: "20" |
-| messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | maximum number of retries in case of errors. Default: "3". If this is set > 0 build cluster queue worker will expect deadletter queue to retry. |
+| protocol | RABBITMQ_PROTOCOL | RabbitMQに接続するためのプロトコル。非SSLにはamqpを使用し、SSLにはamqpsを使用します。デフォルト: amqp |
+| username | RABBITMQ_USERNAME | RabbitMQに接続してキューの消化を許可されたユーザー |
+| password | RABBITMQ_PASSWORD | パスワード |
+| host | RABBITMQ_HOST | RabbitMQ cluster hostname. Default: 127.0.0.1 |
+| port | RABBITMQ_PORT | RabbitMQのポート。デフォルト: 5672 |
+| vhost | RABBITMQ_VIRTUAL_HOST | キューのVirtual host。デフォルト: /screwdriver |
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | オプションを使用し、接続が切れた場合に時間内にハートビートチェックと再接続を行う設定。デフォルト: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
+| queue | RABBITMQ_QUEUE | 使用するキュー |
+| prefetchCount | RABBITMQ_PREFETCH_COUNT | 同時に取得するメッセージ数。デフォルト: "20" |
+| messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | エラーが発生した場合の最大試行回数。デフォルト: "3"。これが0より大きい値に設定されている場合、ビルドクラスターキューワーカーはデッドレターキューによりリトライされる事を期待します。 |
 
 ### Executors
 
-Executor configuration settings are exactly same as the [settings configuration](./configure-api#executor-plugin) for API.
+エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executor-plugin)と全く同じです。
 
 ### Ecosystem
 
-Cache settigs are used for queue messages which deals with cleaning up disk based cache.
+キャッシュ設定は、ディスクベースのキャッシュのクリーンアップを扱うキューメッセージに使用されます。
 
-| Key              | Default                                                     | Description                                  |
+| キー              | デフォルト                                                     | 説明                                  |
 |:-----------------|:------------------------------------------------------------|:---------------------------------------------|
-| ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | URL for the User Interface                   |
-| ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | URL for the Artifact Store                   |
-| ECOSYSTEM_API    | https://api.screwdriver.cd | URL for API |
-| ECOSYSTEM_PUSHGATEWAY_URL| "" | URL for Prometheus Push Gateway|
-| CACHE_STRATEGY | "s3" | Buld cache strategy |
-| CACHE_PATH | "/" | Disk based cache setting. |
-| CACHE_COMPRESS | false | Disk based cache setting. |
-| CACHE_MD5CHECK | false | Disk based cache setting. |
-| CACHE_MAX_SIZE_MB | 0 | Disk based cache setting. |
-| CACHE_MAX_GO_THREADS | 10000 | Disk based cache setting. |
-
+| ECOSYSTEM_UI     | https://cd.screwdriver.cd                                   | UIのURL                     |
+| ECOSYSTEM_STORE  | https://store.screwdriver.cd                                | Artifact StoreのURL                     |
+| ECOSYSTEM_API    | https://api.screwdriver.cd | APIのURL |
+| ECOSYSTEM_PUSHGATEWAY_URL| "" | Prometheus Push GatewayのURL |
+| CACHE_STRATEGY | "s3" | キャッシュ戦略の構築 |
+| CACHE_PATH | "/" | ディスクベースのキャッシュ設定|
+| CACHE_COMPRESS | false | ディスクベースのキャッシュ設定 |
+| CACHE_MD5CHECK | false | ディスクベースのキャッシュ設定 |
+| CACHE_MAX_SIZE_MB | 0 | ディスクベースのキャッシュ設定 |
+| CACHE_MAX_GO_THREADS | 10000 | ディスクベースのキャッシュ設定 |
 
 ### HTTP
+これはlivenessチェックに使用されます。[参照](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L350-L355)
 
-This is used for liveness checks. [See](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L350-L355)
+## ビルドクラスターのスキーマ定義
 
-## Build Cluster Schema Definition
+1. [ビルドクラスターのスキーマ定義はここに定義してあります。](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
 
-1. [Build cluster schema definitions are defined here](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
-
-2. name and scmContext fields form a [unique constraint](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js) for a buildcluster. 
+2. nameとscmContextのフィールドはビルドクラスターのために[ユニーク制約](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js)となります。
 
