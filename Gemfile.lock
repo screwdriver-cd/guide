@@ -48,7 +48,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rouge (3.21.0)
     safe_yaml (1.0.5)
     sassc (2.4.0)
@@ -60,7 +60,7 @@ GEM
 PLATFORMS
   ruby
   x86_64-linux
-  x86_64-linux-musl
+  x86_64-linux
 
 DEPENDENCIES
   jekyll (= 4.0.0)
