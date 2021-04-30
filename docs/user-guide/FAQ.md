@@ -56,7 +56,7 @@ toc:
     - title: 'How do I override freeze windows to start a build?'
       url: "#how-do-i-override-freeze-windows-to-start-a-build"
     - title: 'How do I cancel a freeze window and prevent a future scheduled build?'
-      url: "#how-do-i-cancel-a-freeze-window-and-prevent-a-future-scheduled-build?"
+      url: "#how-do-i-cancel-a-freeze-window-and-prevent-a-future-scheduled-build"
 
 ---
 
