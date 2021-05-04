@@ -9,6 +9,15 @@ toc:
       active: true
     - title: Using the API
       url: "#using-the-api"
+    - title: With Swagger
+      url: "#with-swagger"
+      subitem: true
+    - title: With a REST Client
+      url: "#with-a-rest-client"
+      subitem: true
+    - title: With User or Pipeline tokens
+      url: "#with-user-or-pipeline-tokens"
+      subitem: true
     - title: Authentication and Authorization
       url: "#authentication-and-authorization"
     - title: Badges
