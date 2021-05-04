@@ -61,7 +61,7 @@ Let Screwdriver API be `https://api.screwdriver.cd`, and let Screwdriver Store b
 
 ## Create user API token
 sd-local uses an user API token to communicate with Screwdriver API and Store.  
-Please create an user API token with reference to [Authentication and Authorization](api#authentication-and-authorization).
+Please create an user API token with reference to [Tokens](tokens#user-access-tokens).
 
 
 ## Get repository for build
@@ -206,7 +206,7 @@ You must set `api-url`, `store-url`, and `token` in order to execute builds.
 |---|---|
 |api-url|The Screwdriver API URL of the cluster you are using|
 |store-url|The Screwdriver Store URL of the cluster you are using|
-|token|An [API token](api#authentication-and-authorization) for the Screwdriver API of the cluster you are using|
+|token|An [API token](tokens#user-access-tokens) for the Screwdriver API of the cluster you are using|
 |launcher-image|The launcher image (default: `screwdrivercd/launcher`)|
 |launcher-version|The launcher version (default: `stable`)|
 
