@@ -55,7 +55,7 @@ Swagger model:
 ![Swagger model](./assets/swagger-model.png)
 
 ### Get a Bearer Token
-1. After login to screwdriver ui, you can go to [https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token) or your `<API URL>/v4/auth/token` to get a Bearer Token:
+1. After login to Screwdriver UI, you can go to [https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token) or your `<API URL>/v4/auth/token` to get a Bearer Token:
 ![Swagger Get Bearer Token](./assets/swagger-get-bearer-token.jpg)
 
 2. Now go back [API documentation](https://api.screwdriver.cd/v4/documentation) or yours `<API URL>/v4/documentation`, click on the 🔒 icon to the enter the Bearer Token, like the following:
