@@ -36,6 +36,15 @@ Screwdriver APIs and the data models around them are documented via [Swagger]. T
 Our API documentation can be found at [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation). To see yours, go to `<API URL>/v4/documentation`.
 
 ## Using the API
+
+### Get a Bearer Token
+1. After login to screwdriver ui, you can go to [https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token) or your `<API URL>/v4/auth/token` to get a Bearer Token:
+![Swagger Get Bearer Token](./assets/swagger-get-bearer-token.jpg)
+
+2. Now go back [API documentation](https://api.screwdriver.cd/v4/documentation) or yours `<API URL>/v4/documentation`, click on the 🔒 icon to the enter the Bearer Token, like the following:
+
+![Swagger Use bearer token](./assets/swagger-use-bearer-token.png)
+
 ### With Swagger
 Swagger documentation includes examples and editable parameters to play around with. Visit the `/v4/documentation` page and use the interactive `Try it out!` buttons to make calls to our API.
 
