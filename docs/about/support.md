@@ -39,4 +39,4 @@ there aren't any existing questions that help with your problem, feel free to as
 
 # Reporting Security Issues
 
-Instructions [here.](security#reporting-security-issues)
+Please follow instructions [here.](security#reporting-vulnerabilities)
