@@ -39,4 +39,4 @@ there aren't any existing questions that help with your problem, feel free to as
 
 # Reporting Security Issues
 
-We take security very seriously, but any complex software project is going to have some vulnerabilities. Please submit any security issues at <screwdriver-oss-security@verizonmedia.com>; use [github](#github) issues or [slack](#slack) for non security issues.
+Instructions [here.](security#reporting-security-issues)
