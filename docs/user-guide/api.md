@@ -14,7 +14,7 @@ toc:
       subitem: true
     - title: Get a Bearer Token
       url: "#get-a-bearer-token"
-      subitem: true
+      subitem: level-2
     - title: With a REST Client
       url: "#with-a-rest-client"
       subitem: true
