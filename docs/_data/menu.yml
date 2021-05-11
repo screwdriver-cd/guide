@@ -100,5 +100,7 @@
           url: "/about/contributing/index"
     - title: "Support"
       url: "/about/support"
+    - title: "Security"
+      url: "/about/security"
     - title: "Announcements"
       url: "/about/announcements"
