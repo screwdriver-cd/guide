@@ -9,7 +9,7 @@ toc:
 - title: ワークフローの順序を定義する
   url: "#ワークフローの順序を定義する"
 - title: 論理式を用いたワークフロー定義 (Advanced Logic)
-  url: "#論理式を用いたワークフロー定義"
+  url: "#論理式を用いたワークフロー定義-advanced-logic"
 - title: Join結合
   url: "and-条件-advanced-logic-and"
   subitem: true
@@ -28,7 +28,7 @@ toc:
 - title: ジョブの凍結
   url: "#ジョブの凍結"
 - title: 分離されたジョブ (Detached Jobs) とパイプライン
-  url: "#分離されたジョブとパイプライン"
+  url: "#分離されたジョブ-detached-jobs-とパイプライン"
 - title: 購読(Subscribe)しているSCMからの通知
   url: "#購読しているscmからの通知"
 ---
@@ -347,33 +347,16 @@ jobs:
 
 ### 例
 
-以下の例では、`detached-main` ジョブが分離されています。
+以下の例では、`detached` ジョブが分離されています。
 
 ```
 shared:
     image: node:8
 
 jobs:
-      detached-main:
+      detached:
             steps:
-                - echo: echo detached hi
-      main:
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
-```
-
-もし単一のジョブしか存在しない場合は、空の `requires` を設定することで、分離されたジョブとなります。
-
-```
-shared:
-    image: node:8
-
-jobs:
-      detached-main:
-            requires: []
-            steps:
-                - echo: echo detached hi
+                - echo: echo im-a-detached-job
 ```
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-detached-example>
