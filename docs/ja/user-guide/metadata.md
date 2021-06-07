@@ -177,11 +177,11 @@ _注意: ビルドを複数実行すると、Gitの同じコメントを編集�
 
 設定できるフィールドは以下の通りです。
 
-| Key | Description |
-| --- | ----------- |
-| status (String) | チェックのステータス。次から一つ選びます (`SUCCESS`, `FAILURE`) |
-| message (String) | チェックの説明 |
-| url (String) | チェックのリンクのURL（デフォルトはビルドのリンク） |
+| Key | Default | Description |
+| --- | ------- | ----------- |
+| status (String) | `SUCCESS` | チェックのステータス 次から一つ選びます。 `SUCCESS`, `FAILURE`, `PENDING` |
+| message (String) | `fieldName check failed` | チェックの説明 |
+| url (String) | ビルドのリンク | チェックのリンクのURL|
 
 例として、`findbugs`と`coverage`の2つの追加のチェックを加える場合、screwdriver.yamlは次のようになります。
 

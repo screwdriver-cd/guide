@@ -59,7 +59,7 @@ sd-localでビルドを実行するまでの流れを説明します。
 
 ## ユーザAPIトークンの作成
 sd-localでは、Screwdriver API, Storeとやり取りするためにユーザAPIトークンを利用します。  
-[認証と認可](api#認証と認可)を参考に、ユーザAPIトークンを作成してください。
+[認証と認可](tokens#ユーザーアクセストークン)を参考に、ユーザAPIトークンを作成してください。
 
 ## ビルド対象のリポジトリを取得
 ビルド対象のソースコードと `screwdriver.yaml` を取得します。ここでは[quickstart-generic](https://github.com/screwdriver-cd-test/quickstart-generic.git)を使います。
@@ -195,7 +195,7 @@ $ sd-local config view
 |---|---|
 |api-url|利用しているScrewdriver APIのURLを指定してください|
 |store-url|利用しているScrewdriver StoreのURLを指定してください|
-|token|[APIトークン](api#認証と認可)を指定してください|
+|token|[APIトークン](tokens#ユーザーアクセストークン)を指定してください|
 |launcher-image|launcherイメージを指定してください（デフォルトは `screwdrivercd/launcher`）|
 |launcher-version|launcherバージョンを指定してください（デフォルトは `stable`）|
 

@@ -9,6 +9,18 @@ toc:
   active: 'true'
 - title: APIを使用する
   url: "#APIを使用する"
+- title: Swagger経由で使用する
+  url: "#Swagger経由で使用する"
+  subitem: true
+- title: Bearer Tokenの取得
+  url: "#Bearer Tokenの取得"
+  subitem: level-2
+- title: RESTクライアント経由で実行する
+  url: "#RESTクライアント経由で実行する"
+  subitem: true
+- title: ユーザまたはパイプライントークンを利用して実行する
+  url: "#ユーザまたはパイプライントークンを利用して実行する"
+  subitem: true
 - title: 認証と認可
   url: "#認証と認可"
 - title: バッジ
@@ -46,6 +58,12 @@ Swaggerページ:
 Swaggerモデル:
 ![Swagger model](../../user-guide/assets/swagger-model.png)
 
+### Bearer Tokenの取得
+1. Screwdriver UIにログインした後、[https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token)またはあなたの`<API URL>/v4/auth/token`にアクセスしてBearer Tokenを取得します。  
+![Swagger Get Bearer Token](../../user-guide/assets/swagger-get-bearer-token.jpg)
+
+2. 次に、[API documentation](https://api.screwdriver.cd/v4/documentation)またはあなたの `<API URL>/v4/documentation` に戻り、🔒アイコンをクリックして、以下のようにBearer Tokenを入力します。  
+![Swagger Use bearer token](../../user-guide/assets/swagger-use-bearer-token.png)
 ### RESTクライアント経由で実行する
 
 [Postman](https://www.getpostman.com/)のようなRESTクライアントをAPIリクエストに使用します。その際、認証トークンが必要です。認証トークンを取得するためには、`/v4/auth/login`からログインし、リダイレクト先の`/v4/auth/token`からトークンをコピーしてください。詳しくは[認証と認可](#認証と認可)をご覧ください。

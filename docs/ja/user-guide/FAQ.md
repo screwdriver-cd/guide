@@ -59,6 +59,8 @@ toc:
       url: "#パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？"
     - title: '凍結したジョブを開始するには？'
       url: "#凍結したジョブを開始するには？"
+    - title: '凍結したジョブをキャンセルして今後予定されているビルドをを行わないようにするには？'
+      url: "#凍結したジョブをキャンセルして今後予定されているビルドをを行わないようにするには？"
 
 ---
 
@@ -266,3 +268,17 @@ commitを使用する場合:
 
 APIを使用する場合:
 開始したいビルドの `causeMessage` を `[force start]` という文字列を含んだものにして、 `POST SCREWDRIVER_API/v4/events` のAPIを使って開始してください。
+
+## 凍結したジョブをキャンセルして今後予定されているスケージュールビルドをを行わないようにするには？
+
+凍結したジョブは、[freeze windows](./configuration/workflow#freeze windows)の期間の終わりに実行されるようにスケジュールされます。場合によっては、ユーザーは screwdriver.yaml の設定を変更せずにスケジュールをキャンセルして、今後予定されているスケジュールビルドが実行されないようにしたいことがあります。その場合は、以下の手順でキャンセルすることができます。
+
+UIでは
+1. フリーズしたビルドバブルをクリックします。
+1. "Stop frozen build"をクリックします。
+
+これにより、ビルドのステータスが「FROZEN」から「ABORTED」に設定され、今後予定されている実行のための設定が削除されます。
+
+![Stop frozen build](../../user-guide/assets/stop-frozen-build.png)
+![Aborted frozen build](../../user-guide/assets/stopped-frozen-build-view.png)
+![Aborted frozen build page](../../user-guide/assets/stopped-frozen-build.png)

@@ -43,7 +43,6 @@ toc:
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/source-dir-example>
 
 ### 注意点
-- この機能は現在は[Github SCM](https://github.com/screwdriver-cd/scm-github)を利用の場合のみ利用可能です。
 - `ソースパス`とカスタムソースディレクトリを同時に使う場合には、`ソースパス`のスコープをソースディレクトリに限定してください。***Note*** `ソースパス`のパスはリポジトリのルートからの相対パスであり、ソースディレクトリではありません。
    - 例えば、`main.js`と`screwdriver.yaml`の変更を検知するためにソースパスを追加する場合以下のように設定します:
 ```
