@@ -48,7 +48,7 @@ toc:
   url: "#canaryルーティング"
   subitem: true
 - title: Redisロックの設定
-  url: "#Redisロックの設定"
+  url: "#edisロックの設定"
   subitem: true
 - title: Dockerコンテナの拡張
   url: "#dockerコンテナの拡張"
