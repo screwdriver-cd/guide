@@ -28,7 +28,7 @@ toc:
   subitem: true
 - title: Canaryルーティング
   url: "#canaryルーティング"
-  subitem: true   
+  subitem: true
 ---
 
 ## ユーザーインターフェースの管理
@@ -69,7 +69,7 @@ $ docker run -d -p 8000:80 -e ECOSYSTEM_STORE=http://localhost:9001 screwdriverc
 ### アバター設定
 UI の Docker イメージにコンテンツセキュリティ保護ヘッダが追加されたので、アバターなどの外部ソースから読み込まれる画像はこれらのヘッダーで設定する必要があります。これは環境変数 `AVATAR_HOSTNAME` を通して設定されます。
 
-Example:
+例:
 ```bash
 $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com" screwdrivercd/ui:stable
 ```
@@ -85,6 +85,13 @@ $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com" s
 ```bash
 $ docker run -d -p 8000:80 -e AVATAR_HOSTNAME="avatars*.githubusercontent.com bitbucket.org/account/*/avatar/*" screwdrivercd/ui:stable
 ```
+
+### ユーザーアバターの表示/非表示
+ビルドの詳細画面でユーザーアバターを表示するかしないかは環境変数`SHOW_AVATARS`で設定できます。デフォルトだと値は`true`になっていてユーザーアバターは表示されます。
+
+| 環境変数名     | デフォルト値 | 説明          |
+|:---------------------|:--------------|:---------------------|
+| SHOW_AVATARS | "true" | ユーザーアバターを表示するなら"true"に表示しないなら"false"に設定します |
 
 ### カスタムドキュメントリンク
 環境変数 `SDDOC_URL` を通して、ドキュメントのリンクを設定することができます。
@@ -110,7 +117,7 @@ $ docker run -d -p 8000:80 -e SLACK_URL=https://slack.mydomain.com screwdrivercd
 
 ScrewdriverのKubernetesクラスタが[nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary)を利用している場合、この環境変数を設定することでUIサーバに一定期間だけCookieをセットさせ、後続のAPIリクエストが同じCanaryのUIポッドに割り振られるようにします。
 
-| Environment name     | Default Value | Description          |
+| 環境変数名     | デフォルト値 | 説明          |
 |:---------------------|:--------------|:---------------------|
 | CANARY_RELEASE | "" | "true" に設定すると、このUIサーバがCanaryバージョンのUIを提供していることを示します |
 | RELEASE_VERSION | "stable" | UIのヘッダーのヘルプメニューの下に表示されるリリースバージョン |

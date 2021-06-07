@@ -17,6 +17,9 @@ toc:
   subitem: true
 - title: プラグイン
   url: "#プラグイン"
+- title: カバレッジ(Sonar)
+  url: "#カバレッジ"
+  subitem: true
 - title: ディレクトリ
   url: "#ディレクトリ"
 - title: 環境変数
@@ -58,6 +61,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空) |
 | SD_TOKEN | ビルド用の JWT トークン |
 | SD_SCHEDULED_BUILD | スケジューラーによってビルドを開始する(true)か、否(false)か |
+| SD_DIND_SHARE_PATH | Docker-in-Docker機能が有効な場合に使われる。ビルドコンテナとDinDコンテナの共有ディレクトリへのパス |
 | CONTAINER_IMAGE | ビルドコンテナイメージ ビルド[エグゼキューター](../cluster-management/configure-api#executorプラグイン)としてKubernetesを使用している場合に利用可能|
 
 ### ユーザ設定

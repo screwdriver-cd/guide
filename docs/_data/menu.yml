@@ -10,6 +10,8 @@
       url: "/user-guide/api"
     - title: "Authentication and Authorization"
       url: "/user-guide/authentication-authorization"
+    - title: "SCM"
+      url: "/user-guide/scm"
     - title: "Configuration"
       subcategories:
         - title: "Overall"
@@ -98,5 +100,7 @@
           url: "/about/contributing/index"
     - title: "Support"
       url: "/about/support"
+    - title: "Security"
+      url: "/about/security"
     - title: "Announcements"
       url: "/about/announcements"

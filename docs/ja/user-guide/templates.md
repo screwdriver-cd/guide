@@ -10,8 +10,8 @@ toc:
   url: "#テンプレートを検索する"
 - title: テンプレートを利用する
   url: "#テンプレートを利用する"
-- title: セマンティック"Version/Tag"
-  url: "セマンティック"Version/Tag"
+- title: バージョン/タグの意味
+  url: "バージョン/タグの意味"
 - title: テンプレートのステップを上書き
   url: "#テンプレートのステップを上書き"
   subitem: true
@@ -29,8 +29,8 @@ toc:
   subitem: level-2
 - title: テンプレートを作成する
   url: "#テンプレートを作成する"
-- title: テンプレート yaml を書く
-  url: "#テンプレート yaml を書く"
+- title: テンプレートyamlを書く
+  url: "#テンプレートyamlを書く"
   subitem: true
 - title: テンプレートのイメージ
   url: "#テンプレートのイメージ"
@@ -38,14 +38,14 @@ toc:
 - title: テンプレートのステップ
   url: "#テンプレートのステップ"
   subitem: level-2
-- title ロックされたテンプレートステップ
+- title: ロックされたテンプレートステップ
   url: "#ロックされたテンプレートステップ"
   subitem: level-2
 - title: テンプレート合成
   url: "#テンプレート合成"
   subitem: true 
 - title: screwdriver.yamlの書き方
-  url: "#テンプレートリポジトリ用の screwdriver.yaml を書く"
+  url: "#テンプレートリポジトリ用のscrewdriver.yamlを書く"
   subitem: true
 - title: テンプレートの検証
   url: "#テンプレートの検証"
@@ -295,7 +295,7 @@ jobs:
 
 テンプレートの作成と利用は、Screwdriverのパイプラインから実行する必要があります。
 
-### テンプレート yaml を書く
+### テンプレートyamlを書く
 
 テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートのネームスペース、名前、バージョン、説明、管理者のメールアドレス、使用するイメージと実行するステップの設定が必要です。ネームスペースが指定されていない場合、`default` のネームスペースが適用されます。オプションとして、`images`キーワードでサポートされてるイメージをラベル付きのリストで定義することもできます。基本的な例は[screwdriver-cd-test/template-example repo](https://github.com/screwdriver-cd-test/template-example)にあります。
 
@@ -457,7 +457,7 @@ config:
     - coverage: ./ci/coverage.sh  # このステップは、d2lam/personalテンプレートによって上書きされました
 ```
 
-### テンプレートリポジトリ用の screwdriver.yaml を書く
+### テンプレートリポジトリ用のscrewdriver.yamlを書く
 
 #### テンプレートの検証
 
