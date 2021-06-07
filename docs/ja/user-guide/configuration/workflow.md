@@ -11,7 +11,7 @@ toc:
 - title: 並列実行とJoin/OR
   url: "#並列実行と結合"
 - title: Join結合
-  url: "#Joinの例"
+  url: "#joinの例"
   subitem: true
 - title: OR ワークフロー
   url: "#or-ワークフロー"
