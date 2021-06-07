@@ -23,8 +23,8 @@ ScrewdriverはGitHub、GitLab、Bitbucketの3つのSCMに対応しています�
 | [Deploy Keys][deploy-keys]                           |     ✅     |            |               |
 | [プライベートレポジトリ][private-repo]                   |     ✅     |            |               |
 | [タグフィルターとリリースフィルター][tag-release-filtering]|     ✅     |            |               |
-| [パイプラインの親子設定][external-config]                |     ✅     |            |      ✅       |
-| [ソースディレクトリ][source-directory]                  |     ✅     |            |      ✅       |
+| [パイプラインの親子設定][external-config]                |     ✅     |     ✅    |      ✅       |
+| [ソースディレクトリ][source-directory]                  |     ✅     |     ✅     |      ✅       |
 | [prトリガー][pull-requests]                            |     ✅     |            |      ✅       |
 | [ブランチフィルター][branch-filtering]                  |     ✅     |     ✅     |      ✅       |
 | [外部リポジトリからの通知][subscribe-notifications]      |     ✅     |     ✅     |      ✅       |
