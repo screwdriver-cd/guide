@@ -8,15 +8,15 @@ toc:
   url: "#api"
   active: 'true'
 - title: APIを使用する
-  url: "#APIを使用する"
+  url: "#apiを使用する"
 - title: Swagger経由で使用する
-  url: "#Swagger経由で使用する"
+  url: "#swagger経由で使用する"
   subitem: true
 - title: Bearer Tokenの取得
-  url: "#Bearer Tokenの取得"
+  url: "#bearer-tokenの取得"
   subitem: level-2
 - title: RESTクライアント経由で実行する
-  url: "#RESTクライアント経由で実行する"
+  url: "#restクライアント経由で実行する"
   subitem: true
 - title: ユーザまたはパイプライントークンを利用して実行する
   url: "#ユーザまたはパイプライントークンを利用して実行する"
