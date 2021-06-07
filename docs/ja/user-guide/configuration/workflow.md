@@ -14,7 +14,7 @@ toc:
   url: "#Joinの例"
   subitem: true
 - title: OR ワークフロー
-  url: "#OR ワークフロー"
+  url: "#or-ワークフロー"
 - title: ブランチフィルター
   url: "#ブランチフィルター"
 - title: タグフィルターとリリースフィルター
