@@ -113,7 +113,7 @@ jobs:
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ### OR ワークフロー
-Joinに似ていますが、[_OR_]は`requires`のジョブのいずれかが成功すると開始します。これは、必要なジョブにチルダ (`~`) プレフィックスを追加することで実現されます。
+Joinに似ていますが、_OR_は`requires`のジョブのいずれかが成功すると開始します。これは、必要なジョブにチルダ (`~`) プレフィックスを追加することで実現されます。
 
 #### 例
 次の例では、`first` _OR_ `second` のいずれかが正常に完了した後、`last` のジョブが一度だけ起動します。
