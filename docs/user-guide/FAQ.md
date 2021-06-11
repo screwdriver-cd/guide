@@ -107,6 +107,8 @@ If you want to update your pipeline repo and branch, modify the checkout URL in 
 
 ![Update a pipeline](./assets/update-pipeline.png)
 
+If you transferred or renamed your repo, you can simply [Sync your pipeline](#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline) and refresh the page.
+
 ## How do I disable/enable a job temporarily?
 
 To temporarily disable/enable a job to quickly stop the line, toggle the switch to disable/enable for a particular job under the Options tab on your pipeline page. You can also optionally provide a reason for disabling/enabling the job.
