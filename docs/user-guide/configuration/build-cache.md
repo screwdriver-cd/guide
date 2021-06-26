@@ -13,7 +13,7 @@ toc:
     - title: Disable Cache for a Specific Job
       url: "#disable-cache-for-a-specific-job"
     - title: Update Cache from Parallel jobs
-      url: "#update-cache-from-paralel-jobs"
+      url: "#update-cache-from-parallel-jobs"
     - title: Clearing the Cache
       url: "#clearing-the-cache"
 ---

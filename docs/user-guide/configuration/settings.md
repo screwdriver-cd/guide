@@ -74,7 +74,7 @@ You can also configure when to send a Slack notification, e.g. when the build st
 
 You may also choose whether to use the default notification format or a more compact one using the `minimized` setting.
 
-To send data in steps as a notification, [notification meta](../metadata#notifications) is available. You can also customize the notification per job.
+To send data in steps as a notification, [notification meta](../metadata#slack-notifications) is available. You can also customize the notification per job.
 
 #### Multiple Rooms
 

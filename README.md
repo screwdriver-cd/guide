@@ -7,7 +7,7 @@ Screwdriver is a self-contained, pluggable service to help you build, test, and 
 
 ## To start using Screwdriver
 
-For more information about Screwdriver, check out our [homepage](http://screwdriver.cd).
+For more information about Screwdriver, check out our [homepage](https://screwdriver.cd).
 
 ## To start contributing to Screwdriver
 
@@ -19,7 +19,7 @@ The guide is powered by Jekyll. There are two ways to run Jekyll: via Docker and
 ### Running Jekyll using Docker
 
 1. Install [docker-desktop](https://www.docker.com/products/docker-desktop) if you haven't already.
-1. Ensure Docker is running with `docker info`; if not, then on Mac, you can launch easily using `open -a /Applications/Docker.app/`. Launching on CLI (rather than double-clicking) has advantage of exporting your `$SSH_AUTH_SOCK` and `ssh-agent` will work properly, should you need it at some point. 
+1. Ensure Docker is running with `docker info`; if not, then on Mac, you can launch easily using `open -a /Applications/Docker.app/`. Launching on CLI (rather than double-clicking) has advantage of exporting your `$SSH_AUTH_SOCK` and `ssh-agent` will work properly, should you need it at some point.
 1. Run the Jekyll Docker image with mount of `$PWD` to its serving location and with `-ti` so `^C` will kill it.
    ```bash
    docker run -v $PWD:/srv/jekyll:rw -p 4080:4000 -it jekyll/jekyll jekyll serve --source docs --destination _site

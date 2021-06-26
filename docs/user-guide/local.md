@@ -5,7 +5,7 @@ category: User Guide
 menu: menu
 toc:
 - title: What is sd-local ?
-  url: "#what-is-sd-local-?"
+  url: "#what-is-sd-local-"
 - title: Installing sd-local
   url: "#installing-sd-local"
 - title: Quick start
