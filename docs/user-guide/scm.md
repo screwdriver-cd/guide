@@ -24,6 +24,7 @@ Screwdriver is compatible with three different Source Code Management options: G
 | [private repo][private-repo]                       |     ✅     |            |               |
 | [tag/release filtering][tag-release-filtering]     |     ✅     |            |               |
 | [external config][external-config]                 |     ✅     |     ✅     |      ✅       |
+| [read-only SCM][read-only]                         |     ✅     |     ✅     |      ✅       |
 | [source directory][source-directory]               |     ✅     |     ✅     |      ✅       |
 | [pull requests (~pr)][pull-requests]               |     ✅     |            |      ✅       |
 | [branch filtering][branch-filtering]               |     ✅     |     ✅     |      ✅       |
@@ -39,6 +40,7 @@ Screwdriver is compatible with three different Source Code Management options: G
 [ignore-commits-by]: ../cluster-management/configure-api#webhooks
 [private-repo]: ../cluster-management/configure-api#source-control-plugin
 [pull-requests]: ./configuration/workflow#workflow
+[read-only]: ../cluster-management/configure-api#source-control-plugin
 [source-directory]: ./configuration/sourceDirectory
 [source-paths]: ./configuration/sourcePaths
 [subscribe-notifications]: ./configuration/workflow#subscribed-scm-notifications

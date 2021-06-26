@@ -35,7 +35,7 @@ toc:
     - title: Notifications
       url: "#notifications-plugin"
       subitem: true
-    - title: Source Control
+    - title: Source Control Management (SCM)
       url: "#source-control-plugin"
       subitem: true
     - title: Webhooks
@@ -540,15 +540,20 @@ notifications:
 
 ### Source Control Plugin
 
-We currently support [Github and Github Enterprise](https://github.com/screwdriver-cd/scm-github), [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket), and [Gitlab](https://github.com/bdangit/scm-gitlab).
+We currently support [GitHub and GitHub Enterprise](https://github.com/screwdriver-cd/scm-github), [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket), and [GitLab](https://github.com/screwdriver-cd/scm-gitlab). Check the [SCM chart](../user-guide/scm) for a breakdown of feature support.
 
 #### Step 1: Set up your OAuth Application
 You will need to set up an OAuth Application and retrieve your OAuth Client ID and Secret.
 
-##### Github:
-1. Navigate to the [Github OAuth applications](https://github.com/settings/developers) page.
+##### GitHub:
+1. Navigate to the [GitHub OAuth applications](https://github.com/settings/developers) page.
 2. Click on the application you created to get your OAuth Client ID and Secret.
 3. Fill out the `Homepage URL` and `Authorization callback URL` to be the IP address of where your API is running.
+
+##### GitLab:
+1. Navigate to the [GitLab applications](https://gitlab.com/-/profile/applications) page.
+2. Fill out the form with `Redirect URI` as `https://YOUR_IP/v4/auth/login/gitlab:gitlab.com/web`.
+3. Click `Save Application`.
 
 ##### Bitbucket.org:
 1. Navigate to the Bitbucket OAuth applications: [https://bitbucket.org/account/user/{your-username}/api](https://bitbucket.org/account/user/{your-username}/api)
@@ -562,46 +567,91 @@ Set these environment variables:
 |:-------------------|:---------|:--------------|:------------------------------|
 | SCM_SETTINGS       | Yes      | {}            | JSON object with SCM settings |
 
-##### Github:
+##### GitHub example
 ```yaml
 # config/local.yaml
 scms:
     github:
         plugin: github
         config:
-            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # The client id used for OAuth with github. GitHub OAuth (https://developer.github.com/v3/oauth/)
-            oauthClientSecret: AGAIN-SOMETHING-HERE-IS-USEFUL # The client secret used for OAuth with github
+            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # The client id used for OAuth with GitHub. GitHub OAuth (https://developer.github.com/v3/oauth/)
+            oauthClientSecret: AGAIN-SOMETHING-HERE-IS-USEFUL # The client secret used for OAuth with GitHub
             secret: SUPER-SECRET-SIGNING-THING # Secret to add to GitHub webhooks so that we can validate them
             gheHost: github.screwdriver.cd # [Optional] GitHub enterprise host
             username: sd-buildbot # [Optional] Username for code checkout
             email: dev-null@screwdriver.cd # [Optional] Email for code checkout
-            commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] Token for writing PR comments in Github, needs "public_repo" scope
+            https: false # [Optional] Is the Screwdriver API running over HTTPS, default false
+            commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] Token for writing PR comments in GitHub, needs "public_repo" scope
             privateRepo: false # [Optional] Set to true to support private repo; will need read and write access to public and private repos (https://developer.github.com/v3/oauth/#scopes)
             autoDeployKeyGeneration: false # [Optional] Set to true to allow automatic generation of private and public deploy keys and add them to the build pipeline and Github for repo checkout, respectively
+    ...
 ```
 
+###### Private Repo
 If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
 
+###### Meta PR Comments
 In order to enable [meta PR comments](../user-guide/metadata), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
 
 ###### Deploy Keys
-
 Deploy Keys are SSH keys that grant access to a single GitHub repository. This key is attached directly to the repository instead of to a personal user account, as opposed to Github personal access tokens. Github personal access tokens give user-wide access for all the repositories while deploy keys, on the other hand, give access to a single repository. Due to their limited access, deploy keys are preferred for private repositories.
 
 If users want to use deploy keys in their pipeline they have 2 options:
 * Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
 * Manually generate the public and private key pair using `openssl genrsa -out jwt.pem 2048` and `openssl rsa -in jwt.pem -pubout -out jwt.pub`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](../../user-guide/configuration/secrets) for adding secrets.
 
+###### Read-only SCM
+Sometimes you might want to have a SCM with read-only access. Users will be able to indirectly create pipelines for an SCM by listing them as a [child pipeline](../user-guide/configuration/externalConfig). Below is an example of an SCM configuration you would add to your SCMs for a read-only one. Users cannot login to the SCM in the UI.
 
-##### Bitbucket.org
+1. Create a headless user in your read-only SCM. Create a personal access token for the user.
+2. Set up your read-only SCM config (as shown in the example below).
+3. Add the new build cluster with the corresponding `scmContext` to `POST https://YOUR_IP/v4/buildclusters`. See [API](../user-guide/api) for more information. The payload would look something like this:
+```json
+{
+    "name": "readOnlyScm",
+    "managedByScrewdriver": true,
+    "maintainer": "foo@bar.com",
+    "description": "Read-only open source mirror",
+    "scmContext": "gitlab:gitlab.screwdriver.cd",
+    "scmOrganizations": [],
+    "isActive": true,
+    "weightage": 100
+}
+```
+
+##### GitLab example
+```yaml
+# config/local.yaml
+scms:
+    ...
+    # Below is read-only SCM example
+    gitlab:
+        plugin: gitlab
+        config:
+            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # The client id used for OAuth with GitLab.
+            oauthClientSecret: AGAIN-SOMETHING-HERE-IS-USEFUL # The client secret used for OAuth with GitLab
+            gitlabHost: gitlab.screwdriver.cd # [Optional] GitLab enterprise host
+            commentUserToken: A_BOT_GITLAB_PERSONAL_ACCESS_TOKEN # [Optional] Token for writing PR comments in GitLab
+            https: false # [Optional] Is the Screwdriver API running over HTTPS, default false
+            readOnly: # [Optional] Block for read-only SCM
+                enabled: true # Set to true to enable read-only mode
+                username: sd-buildbot # Headless username
+                accessToken: GITLAB-TOKEN # Headless GitLab token with read-only access to repos and ability to add webhooks
+                cloneType: https # [Optional] Set to ssh or https; default https
+```
+
+##### Bitbucket.org example
 ```yaml
 # config/local.yaml
 scms:
     bitbucket:
         plugin: bitbucket
         config:
-            oauthClientId: YOUR-APP-KEY
-            oauthClientSecret: YOUR-APP-SECRET
+            oauthClientId: YOUR-APP-KEY # The client id used for OAuth with Bitbucket.
+            oauthClientSecret: YOUR-APP-SECRET # The client secret used for OAuth with Bitbucket
+            https: true # [Optional] Is the Screwdriver API running over HTTPS, default false
+            username: sd-buildbot # [Optional] Username for code checkout
+            email: dev-null@screwdriver.cd # [Optional] Email for code checkout
 ```
 
 ### Webhooks
