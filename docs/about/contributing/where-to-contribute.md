@@ -237,7 +237,7 @@ The organization **[screwdriver-cd-test][screwdriver-cd-test-org]** contains var
 [gitversion-repo]: https://github.com/screwdriver-cd/gitversion
 [guide-repo]: https://github.com/screwdriver-cd/guide
 [homepage-repo]: https://github.com/screwdriver-cd/homepage
-[homepage]: http://screwdriver.cd
+[homepage]: https://screwdriver.cd
 [hyperctl-image-repo]: https://github.com/screwdriver-cd/hyperctl-image
 [in-a-box-repo]: https://github.com/screwdriver-cd/in-a-box
 [junit-reports-repo]: https://github.com/screwdriver-cd/junit-reports

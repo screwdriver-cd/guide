@@ -46,7 +46,7 @@ toc:
       url: "#template-composition"
       subitem: true 
     - title: Writing a screwdriver yaml
-      url: "#writing-a-screwdriveryaml-for-your-template-repo"
+      url: "#writing-a-screwdriver-yaml-for-your-template-repo"
       subitem: true
     - title: Validating templates
       url: "#validating-templates"

@@ -48,7 +48,7 @@ toc:
       url: "#canary-routing"
       subitem: true
     - title: Configure Redis Lock
-      url: "#configure-redis-Lock"
+      url: "#configure-redis-lock"
       subitem: true
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
@@ -106,7 +106,7 @@ auth:
 
 ### Multibuild Cluster
 
-By default, the [build cluster feature](../configure-buildcluster-queue-worker) is turned off.
+By default, the [build cluster feature](configure-buildcluster-queue-worker) is turned off.
 
 | Key | Default| Description |
 |:----|:-------|:------------|

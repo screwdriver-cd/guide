@@ -4,8 +4,8 @@ title: Configuring the Store
 category: Cluster Management
 menu: menu
 toc: 
-    - title: Managing the User Interface
-      url: "#managing-the-user-interface"
+    - title: Managing the Store
+      url: "#managing-the-store"
       active: true
     - title: Packages
       url: "#packages"

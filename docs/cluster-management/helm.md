@@ -5,7 +5,7 @@ category: Cluster Management
 menu: menu
 toc:
     - title: Setting Up a Screwdriver Cluster using Kubernetes Helm Chart
-      url: "#setting-up-a-screwdriver-cluster-on-aws-using-kubernetes"
+      url: "#setting-up-a-screwdriver-cluster-using-kubernetes-helm-chart"
       active: true
 
 ---

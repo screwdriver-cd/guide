@@ -42,7 +42,7 @@ This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq
 
 Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257) or using 
 [environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369).
-When enabled Screwdriver [Queue Service](./configure-queue-service.md) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and 
+When enabled Screwdriver [Queue Service](configure-queue-service) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and 
 weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by 
 Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will 
 not impact when a build cluster is taken offline for maintenance as builds will be automatically routed to next available build cluster. 
@@ -792,4 +792,3 @@ This is used for liveness checks. [See](https://github.com/screwdriver-cd/buildc
 1. [Build cluster schema definitions are defined here](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
 
 2. name and scmContext fields form a [unique constraint](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js) for a buildcluster. 
-

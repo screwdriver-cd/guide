@@ -143,7 +143,7 @@ Screwdriver のリポジトリを新しく作成する際の手助けとなる�
 [guide-repo]: https://github.com/screwdriver-cd/guide
 [hashr-repo]: https://github.com/screwdriver-cd/hashr
 [homepage-repo]: https://github.com/screwdriver-cd/homepage
-[homepage]: http://screwdriver.cd/
+[homepage]: https://screwdriver.cd/
 [job-tools-repo]: https://github.com/screwdriver-cd/job-tools
 [keymbinatorial-repo]: https://github.com/screwdriver-cd/keymbinatorial
 [launcher-repo]: https://github.com/screwdriver-cd/launcher
