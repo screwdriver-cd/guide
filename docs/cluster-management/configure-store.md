@@ -5,7 +5,7 @@ category: Cluster Management
 menu: menu
 toc: 
     - title: Managing the User Interface
-      url: "#managing-the-user-interface"
+      url: "#managing-the-store"
       active: true
     - title: Packages
       url: "#packages"

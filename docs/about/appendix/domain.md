@@ -65,7 +65,7 @@ Pull requests are run separately from existing pipeline jobs. They will only exe
 
 ### Build
 
-A build is an instance of a running [job]. All builds are assigned a unique build number. Each build is associated with an [event]. With a basic job configuration, only one build of a job will be running at any given time. If a [job matrix] is configured, then there can be multiple builds running in parallel.
+A build is an instance of a running [job]. All builds are assigned a unique build number. Each build is associated with an [event]. With a basic job configuration, only one build of a job will be running at any given time. If a job matrix is configured, then there can be multiple builds running in parallel.
 
 A build can be in one of five different states:
 
@@ -139,7 +139,7 @@ A pipeline represents a collection of [jobs] that share the same [source code]. 
 [job]: #job
 [jobs]: #job
 [metadata]: #metadata
-[builds]: #builds
+[builds]: #build
 [build]: #build
 [event]: #event
 [pipeline]: #pipeline
@@ -147,4 +147,3 @@ A pipeline represents a collection of [jobs] that share the same [source code]. 
 [containers]: #container
 [workflow]: #workflow
 [source code]: #source-code
-[job matrix]: #parallelization

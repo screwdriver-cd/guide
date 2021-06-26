@@ -46,7 +46,7 @@ Workflow is the way that individual jobs are wired together to form a pipeline. 
 See the [tag and release trigger example repo](https://github.com/screwdriver-cd-test/tag-trigger-example) for reference.
 
 ## Defining Workflow Order
-To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate [advanced logic](#advanced-logic).
+To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate advanced logic.
 
 #### Example
 In the following example, the job, `main`, will start after any SCM pull-request, _or_ commit event. The job, `second`, will run after `main` is successful.
