@@ -580,9 +580,9 @@ scms:
             autoDeployKeyGeneration: false # [Optional] Set to true to allow automatic generation of private and public deploy keys and add them to the build pipeline and Github for repo checkout, respectively
 ```
 
-If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](../../user-guide/configuration/secrets) in their `screwdriver.yaml`.
+If users want to use private repo, they also need to set up `SCM_USERNAME` and `SCM_ACCESS_TOKEN` as [secrets](/user-guide/configuration/secrets) in their `screwdriver.yaml`.
 
-In order to enable [meta PR comments](../user-guide/metadata), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
+In order to enable [meta PR comments](/user-guide/metadata), you’ll need to create a bot user in Git with a personal access token with the `public_repo` scope. In Github, create a new user. Follow instructions to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line), set the scope as `public_repo`. Copy this token and set it as `commentUserToken` in your `scms` settings in your [API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269).
 
 ###### Deploy Keys
 
@@ -590,7 +590,7 @@ Deploy Keys are SSH keys that grant access to a single GitHub repository. This k
 
 If users want to use deploy keys in their pipeline they have 2 options:
 * Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
-* Manually generate the public and private key pair using `openssl genrsa -out jwt.pem 2048` and `openssl rsa -in jwt.pem -pubout -out jwt.pub`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](../../user-guide/configuration/secrets) for adding secrets.
+* Manually generate the public and private key pair using `openssl genrsa -out jwt.pem 2048` and `openssl rsa -in jwt.pem -pubout -out jwt.pub`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](/user-guide/configuration/secrets) for adding secrets.
 
 
 ##### Bitbucket.org
@@ -689,7 +689,7 @@ redisLock:
   enabled: true
   options:
     # maximum retry limit to obtain lock
-    retryCount: 200 
+    retryCount: 200
     # the expected clock drift
     driftFactor: 0.01
     # the time in milliseconds between retry attempts
