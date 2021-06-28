@@ -49,8 +49,8 @@ toc:
       subitem: true
     - title: Adding a New Screwdriver Repo
       url: "#adding-a-new-screwdriver-repo"
-    - title: Screwdriver.cd Tests and Examples
-      url: "#screwdriver.cd-tests-and-examples"
+    - title: Tests and Examples
+      url: "#tests-and-examples"
 ---
 # Where to Contribute
 
@@ -201,9 +201,9 @@ We have some tools to help start out new repos for Screwdriver:
 
 If you create a new repo, please come back and edit [this page][contributing-docs] so that others can know where your repo fits in.
 
-## Screwdriver.cd Tests and Examples
+## Tests and Examples
 
-The organization **[screwdriver-cd-test][screwdriver-cd-test-org]** contains various example repos/screwdriver.yamls and acceptance tests for Screwdriver.cd.
+The organization **[screwdriver-cd-test][screwdriver-cd-test-org]** contains various example repos/screwdriver.yamls and acceptance tests for [Screwdriver.cd](https://cd.screwdriver.cd).
 
 [api-issues-image]: https://img.shields.io/github/issues/screwdriver-cd/screwdriver.svg
 [api-issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
