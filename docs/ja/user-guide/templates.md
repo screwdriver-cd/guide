@@ -43,7 +43,7 @@ toc:
   subitem: level-2
 - title: テンプレート合成
   url: "#テンプレート合成"
-  subitem: true 
+  subitem: true
 - title: screwdriver.yamlの書き方
   url: "#テンプレートリポジトリ用のscrewdriver.yamlを書く"
   subitem: true
@@ -213,7 +213,7 @@ jobs:
             - test: echo Skipping test
 ```
 
-上記の例では、次のようになります。  
+上記の例では、次のようになります。
 
 ```yaml
 jobs:
@@ -235,8 +235,8 @@ jobs:
 ```
 
 ### 順序
-設定でテンプレートを使用する場合、テンプレートで定義されたステップと自分の設定で定義されたステップを `order` フィールドで選択することができます。  
-このフィールドは、ステップ名の順序付き配列として定義されます。  
+設定でテンプレートを使用する場合、テンプレートで定義されたステップと自分の設定で定義されたステップを `order` フィールドで選択することができます。
+このフィールドは、ステップ名の順序付き配列として定義されます。
 
 `order`を使用する際の注意点:
 - `order`は、`template`が使用されているときにのみ使用できます。
@@ -246,7 +246,7 @@ jobs:
 - 重複するステップの定義を決定する際の優先順位は次のようになります： job > template
 - Annotation `screwdriver.cd/mergeSharedSteps: true` を設定すると、優先順位は job > shared > template となります。
 
-例 `sd-template.yaml`:  
+例 `sd-template.yaml`:
 ```yaml
 namespace: nodejs
 name: publish
@@ -264,7 +264,7 @@ config:
     - coverage: coverage test.js
 ```
 
-例 `screwdriver.yaml`:  
+例 `screwdriver.yaml`:
 ```yaml
 jobs:
   main:
@@ -278,7 +278,7 @@ jobs:
       - coverage: ./ci/coverage.sh
 ```
 
-結果:  
+結果:
 ```yaml
 jobs:
   main:
@@ -373,10 +373,10 @@ jobs:
 この場合、利用者が`preinstall`を上書きしようとしているのか、`install`を補強しようとしているのかわからなくなります。
 
 #### ロックされたテンプレートステップ
-ステップに `locked` キーを追加することで、上書きできず、`order` を使用する際に必ず含まれるステップを指定することができます。  
-このキーにはブール値（`true`/`false`、デフォルトは`false`）を指定します。  
-このフラグは、このテンプレートを使用するすべてのテンプレートやジョブに適用されます。  
-ロックされたステップを持つテンプレートを使用するすべてのテンプレートは、同じロックされたステップを持つことになります。  
+ステップに `locked` キーを追加することで、上書きできず、`order` を使用する際に必ず含まれるステップを指定することができます。
+このキーにはブール値（`true`/`false`、デフォルトは`false`）を指定します。
+このフラグは、このテンプレートを使用するすべてのテンプレートやジョブに適用されます。
+ロックされたステップを持つテンプレートを使用するすべてのテンプレートは、同じロックされたステップを持つことになります。
 
 ```yaml
 config:
@@ -386,7 +386,7 @@ config:
         - install: npm install
         - test:
             command: npm test
-            locked: true 
+            locked: true
 ```
 
 ### テンプレート合成
@@ -400,7 +400,7 @@ config:
 - 重複するステップの定義を決定する際の優先順位は、現在のテンプレート＞既存のテンプレートです。
 - また、`sd-template.yaml`で`template`を使用すると、`images`フィールドもマージされます。
 
-既存の例 `sd-template.yaml`:  
+既存の例 `sd-template.yaml`:
 ```yaml
 namespace: nodejs
 name: publish
@@ -417,7 +417,7 @@ config:
     - publish: npm publish
     - coverage: coverage test.js
 ```
-例 `sd-template.yaml`:  
+例 `sd-template.yaml`:
 ```yaml
 namespace: d2lam
 name: personal
@@ -436,7 +436,7 @@ config:
     - coverage: ./ci/coverage.sh
 ```
 
-結果:  
+結果:
 ```yaml
 namespace: d2lam
 name: personal
@@ -464,9 +464,9 @@ config:
 テンプレートをバリデートするために、`template-validate` という npm モジュールを  `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている
 `template-publish` を別のジョブで実行します。
 
-デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。  
+デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。
 
-また、<YOUR_UI_URL>/validator>にコピーペーストすることで、UIを通して`sd-template.yaml`と`screwdriver.yaml`を検証することができます。  
+また、<YOUR_UI_URL>/validator>にコピーペーストすることで、UIを通して`sd-template.yaml`と`screwdriver.yaml`を検証することができます。
 
 #### テンプレートのタグ付け
 

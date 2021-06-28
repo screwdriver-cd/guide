@@ -204,7 +204,7 @@ jobs:
 Example repo: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## Remote Join
-You can also have remote join jobs. Please double check with your cluster admin whether it is supported. 
+You can also have remote join jobs. Please double check with your cluster admin whether it is supported.
 
 #### Example
 In the following example, this pipeline 3 will start the `join_job` job after successful completion of: internal_fork, external_fork in pipeline 2, _and_ external_fork in pipeline 4.
@@ -349,7 +349,7 @@ In the following example, we can add repositories to subscribe to in the `scmUrl
 shared:
     image: node:8
 
-subscribe: 
+subscribe:
     scmUrls:
         - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
 ```
@@ -364,4 +364,4 @@ jobs:
         requires: [~pr, ~commit, ~subscribe]
 ```
 
-Here the `~subscribe` event tells the job to respond to external notifications. 
+Here the `~subscribe` event tells the job to respond to external notifications.

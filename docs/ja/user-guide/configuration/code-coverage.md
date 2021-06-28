@@ -7,7 +7,7 @@ toc:
     - title: コードカバレッジ
       url: "#コードカバレッジ"
     - title: SonarQube
-      url: "#sonarqube"    
+      url: "#sonarqube"
     - title: GitHub PR decoration
       url: "#github-pull-request-decoration"
       subitem: true

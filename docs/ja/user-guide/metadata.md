@@ -41,10 +41,10 @@ toc:
   subitem: level-2
 - title: ジョブベースで通知を最小化する設定
   url: "#ジョブベースで通知を最小化する設定"
-  subitem: level-2      
+  subitem: level-2
 - title: アトミックな処理のためにLuaを使用
   url: "#アトミックな処理のためにluaを使用"
-  subitem: true 
+  subitem: true
 ---
 
 # Metadata
@@ -258,7 +258,7 @@ Result:
 
 *注意* ジョブベースのSlack通知のメタデータは基本的な通知メッセージを上書きします。
 
-メタ変数の構造は、`notification.slack.<jobname>.message`です。  
+メタ変数の構造は、`notification.slack.<jobname>.message`です。
 `<jobname>`をScrewdriver.cdのジョブ名に置き換えます。
 
 特定のジョブをSlackメッセージで通知する例:
@@ -285,7 +285,7 @@ Result:
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
-    
+
     settings:
         slack:
             channels: [ main_channel ]
@@ -308,7 +308,7 @@ jobs:
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
-    
+
     settings:
         slack:
             channels: [ main_channel ]

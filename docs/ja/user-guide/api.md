@@ -45,7 +45,7 @@ APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v
 
 ### Swagger経由で使用する
 
-Swaggerのドキュメントは例とお試しのための編集可能なパラメータを含んでいます。`/v4/documentation`にアクセスし、APIを呼び出すための`Try it out!`ボタンをお試しください。 
+Swaggerのドキュメントは例とお試しのための編集可能なパラメータを含んでいます。`/v4/documentation`にアクセスし、APIを呼び出すための`Try it out!`ボタンをお試しください。
 
 Swaggerページ:
 ![Swagger page](../../user-guide/assets/swagger-page.png)
@@ -59,10 +59,10 @@ Swaggerモデル:
 ![Swagger model](../../user-guide/assets/swagger-model.png)
 
 ### Bearer Tokenの取得
-1. Screwdriver UIにログインした後、[https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token)またはあなたの`<API URL>/v4/auth/token`にアクセスしてBearer Tokenを取得します。  
+1. Screwdriver UIにログインした後、[https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token)またはあなたの`<API URL>/v4/auth/token`にアクセスしてBearer Tokenを取得します。
 ![Swagger Get Bearer Token](../../user-guide/assets/swagger-get-bearer-token.jpg)
 
-2. 次に、[API documentation](https://api.screwdriver.cd/v4/documentation)またはあなたの `<API URL>/v4/documentation` に戻り、🔒アイコンをクリックして、以下のようにBearer Tokenを入力します。  
+2. 次に、[API documentation](https://api.screwdriver.cd/v4/documentation)またはあなたの `<API URL>/v4/documentation` に戻り、🔒アイコンをクリックして、以下のようにBearer Tokenを入力します。
 ![Swagger Use bearer token](../../user-guide/assets/swagger-use-bearer-token.png)
 ### RESTクライアント経由で実行する
 
@@ -128,7 +128,7 @@ start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, da
 
 ## バッジ
 
-`<your_UI_URL>/pipelines/<your_pipelineId>/badge`のURLを利用して、特定のパイプラインに対する現在のビルドステータスを表す画像を取得できます。  
+`<your_UI_URL>/pipelines/<your_pipelineId>/badge`のURLを利用して、特定のパイプラインに対する現在のビルドステータスを表す画像を取得できます。
 ジョブのステータスを表す画像は`<your_UI_URL>/pipelines/<your_pipelineId>/<jobName>/badge`を利用することで取得できます。
 
 [![Pipeline Status](https://cd.screwdriver.cd/pipelines/1/badge)](https://cd.screwdriver.cd/pipelines/1) [![Job Status](https://cd.screwdriver.cd/pipelines/1/main/badge)](https://cd.screwdriver.cd/pipelines/1/main)

@@ -14,7 +14,7 @@ toc:
 ---
 
 # Collect metrics
-Screwdriver.cdでは、[Prometheus](https://prometheus.io)で利用できるメトリクスを提供しています。  
+Screwdriver.cdでは、[Prometheus](https://prometheus.io)で利用できるメトリクスを提供しています。
 設定を追加することでこれらのメトリクスを収集することができます。
 
 ## APIメトリクス
