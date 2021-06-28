@@ -3,7 +3,7 @@ layout: main
 title: Kubernetes
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Setting Up a Screwdriver Cluster on AWS using Kubernetes
       url: "#setting-up-a-screwdriver-cluster-on-aws-using-kubernetes"
       active: true
@@ -158,7 +158,7 @@ You can check out the `api.yaml` in the [Screwdriver config examples repo](https
 A Kubernetes Service is an abstraction which defines a set of Pods and is assigned a unique IP address which persists.
 Follow instructions in [Creating a Service](http://kubernetes.io/docs/user-guide/connecting-applications/#creating-a-service) to set up your `service.yaml`.
 
-It should look like the Service in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/kubernetes/api.yaml).
+It should look like the Service in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/services/api.yaml).
 
 To create your service, run the `kubectl create` command on your `service.yaml` file:
 ```bash
@@ -193,7 +193,7 @@ $ kubectl describe services sdapi
 ### Create a Deployment
 A Deployment makes sure a specified number of pod “replicas” are running at any one time. If there are too many, it will kill some; if there are too few, it will start more. Follow instructions on the [Deploying Applications](http://kubernetes.io/docs/user-guide/deploying-applications/) page to create your `deployment.yaml`.
 
-It should look like the Deployment in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/kubernetes/api.yaml).
+It should look like the Deployment in [api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/services/api.yaml).
 
 ### Deploy
 For a fresh deployment, run the `kubectl create` command on your `deployment.yaml` file:

@@ -167,4 +167,3 @@ _注意: 誰がコマンドを削除する権限を持っているか判断す�
 - [設計仕様書](https://github.com/screwdriver-cd/screwdriver/blob/master/design/commands.md)*
 
 _*古くなっている可能性があります。_
-

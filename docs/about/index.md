@@ -3,7 +3,7 @@ layout: main
 title: What is Screwdriver?
 category: About
 menu: menu
-toc: 
+toc:
     - title: What is Screwdriver?
       url: "#what-is-screwdriver"
       active: true

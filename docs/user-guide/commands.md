@@ -30,7 +30,7 @@ Example commands page:
 
 ## Using a command
 
-To use a command, define a `screwdriver.yaml` that uses the `sd-cmd` cli in a step with the format: `sd-cmd exec <namespace>/<name>@<version> <arguments>`. 
+To use a command, define a `screwdriver.yaml` that uses the `sd-cmd` cli in a step with the format: `sd-cmd exec <namespace>/<name>@<version> <arguments>`.
 
 __Input:__
 

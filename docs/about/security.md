@@ -15,7 +15,7 @@ toc:
 ---
 # Security
 
-We take security very seriously, but any complex software project is going to have some vulnerabilities. We work with core maintainers of the project to evaluate and address security vulnerabilities in a timely manner. 
+We take security very seriously, but any complex software project is going to have some vulnerabilities. We work with core maintainers of the project to evaluate and address security vulnerabilities in a timely manner.
 
 
 ## Reporting Vulnerabilities

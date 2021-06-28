@@ -3,7 +3,7 @@ layout: main
 title: キューサービスの設定
 category: Cluster Management
 menu: menu_ja
-toc: 
+toc:
     - title: キューサービスの管理
       url: "#キューサービスの管理"
       active: true
@@ -44,12 +44,12 @@ $ docker run -d -p 9003:80 screwdrivercd/queue-service:latest
 $ open http://localhost:9003
 ```
 
-私たちのDockerImageには、バージョン(例: `v1.2.3`)とフローティングタグ`latest`, `stable`タグがついています。  
+私たちのDockerImageには、バージョン(例: `v1.2.3`)とフローティングタグ`latest`, `stable`タグがついています。
 特に理由がなければ`stable`または固定のバージョンタグを利用してください。
 
 ## 構成
-Screwdriver.cdは既に[ほとんどの設定をデフォルト](https://github.com/screwdriver-cd/queue-service/blob/master/config/default.yaml)にしています。  
-環境変数を変更または `config/local.yaml`を作成することでデフォルトを上書きすることができます。  
+Screwdriver.cdは既に[ほとんどの設定をデフォルト](https://github.com/screwdriver-cd/queue-service/blob/master/config/default.yaml)にしています。
+環境変数を変更または `config/local.yaml`を作成することでデフォルトを上書きすることができます。
 環境変数はすべて[ここ](https://github.com/screwdriver-cd/queue-service/blob/master/config/custom-environment-variables.yaml)に定義してあります。
 
 ### 認証
@@ -100,7 +100,7 @@ httpd:
 
 ### Redisキューの設定
 
-キューを構成するための設定を行います。  
+キューを構成するための設定を行います。
 
 
 | 環境変数                 | 必須 |  デフォルト | 説明|
@@ -154,7 +154,7 @@ plugins:
 
 ### Scheduler
 
-Schedulerが有効な場合、Queue ServiceはビルドをRabbitMQ Build Clusterキューに渡し、[Build Cluster Queue Worker](./configure-buildcluster-queue-worker)で処理されます。  
+Schedulerが有効な場合、Queue ServiceはビルドをRabbitMQ Build Clusterキューに渡し、[Build Cluster Queue Worker](./configure-buildcluster-queue-worker)で処理されます。
 
 | キー                   | 環境変数 | 説明                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
@@ -169,4 +169,4 @@ Schedulerが有効な場合、Queue ServiceはビルドをRabbitMQ Build Cluster
 
 ### Executors
 
-RabbitMQ Schedulerが使用されていない場合、Queue Serviceは直接executorを呼び出すことができます。設定内容は、APIの[設定構成](./configure-api#executorプラグイン)と同じです。  
+RabbitMQ Schedulerが使用されていない場合、Queue Serviceは直接executorを呼び出すことができます。設定内容は、APIの[設定構成](./configure-api#executorプラグイン)と同じです。

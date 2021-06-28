@@ -400,7 +400,7 @@ EXECUTOR_PLUGIN | k8s | `docker` を指定します
 LAUNCH_VERSION | stable | 使用する Launcher のバージョン
 EXECUTOR_DOCKER_ENABLED | true | Docker executor を利用可能にするフラグ
 EXECUTOR_DOCKER_DOCKER | `{}` | [Dockerode の設定](https://www.npmjs.com/package/dockerode#getting-started) (JSONオブジェクト)
-EXECUTOR_PREFIX | なし | Pod 名につけられる prefix 
+EXECUTOR_PREFIX | なし | Pod 名につけられる prefix
 
 ```yaml
 # config/local.yaml
@@ -461,7 +461,7 @@ executor:
 
 現在、[Email 通知](https://github.com/screwdriver-cd/notifications-email)と [Slack 通知](https://github.com/screwdriver-cd/notifications-slack)をサポートしています。
 
-これらの環境変数を設定します。  
+これらの環境変数を設定します。
 
 | 環境変数名 | 必須 | デフォルト値 | 説明                   |
 |:-------------------|:---------|:--------------|:------------------------------|
@@ -698,7 +698,7 @@ redisLock:
   enabled: true
   options:
     # ロック取得までの最大リトライ回数
-    retryCount: 200 
+    retryCount: 200
     # 予想されるクロックドリフト
     driftFactor: 0.01
     # 再試行するまでの時間（ミリ秒)

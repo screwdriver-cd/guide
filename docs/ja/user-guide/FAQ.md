@@ -99,11 +99,11 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ## パイプラインを手動で開始するには？
 
-ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックします。  
-または、ビルドを選択後ドロップダウンメニューで「Start pipeline from here」を選択します、次に「Yes」をクリックするとビルドが起動します。  
-パイプラインを開始すると`~commit`をトリガーにもつ全てのジョブのビルドが開始します。  
+ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックします。
+または、ビルドを選択後ドロップダウンメニューで「Start pipeline from here」を選択します、次に「Yes」をクリックするとビルドが起動します。
+パイプラインを開始すると`~commit`をトリガーにもつ全てのジョブのビルドが開始します。
 
-スタートボタンをクリック：  
+スタートボタンをクリック：
 ![Start a pipeline](../../user-guide/assets/start-pipeline.png)
 
 2番目のオプションについては、*ビルドを再実行、Detached Jobをスタートするには？*を参照してください。
@@ -116,7 +116,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ## ジョブの disable/enable を一時的に切り替えるには？
 
-一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるトグルボタンをクリックして切り替えを行ってください。  
+一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるトグルボタンをクリックして切り替えを行ってください。
 オプションで、ジョブをdisable/enableにする理由を指定することもできます。
 
 ![Disable a pipeline](../../user-guide/assets/disable-pipeline.png)
@@ -239,10 +239,10 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 
 ## sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？
 
-プルリクエストを出しているブランチに、 `$GIT_SHALLOW_CLONE_DEPTH`コミット (デフォルト:50)以上のコミットがある場合エラーで失敗することがあります。  
-このメッセージは、gitがfeatureブランチとmainブランチの間に共通の祖先が見つけられないことを示しています。  
+プルリクエストを出しているブランチに、 `$GIT_SHALLOW_CLONE_DEPTH`コミット (デフォルト:50)以上のコミットがある場合エラーで失敗することがあります。
+このメッセージは、gitがfeatureブランチとmainブランチの間に共通の祖先が見つけられないことを示しています。
 この問題を解決するには、`$GIT_SHALLOW_CLONE`を無効にする、大きな数に調整するまたは、featureブランチのコミット数を減らしてください。
-(例: rebase, squashなど)  
+(例: rebase, squashなど)
 詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
 
 ## パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？

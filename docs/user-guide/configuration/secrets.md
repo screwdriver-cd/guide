@@ -3,7 +3,7 @@ layout: main
 title: Secrets
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Build Secrets
       url: "#build-secrets"
       active: true

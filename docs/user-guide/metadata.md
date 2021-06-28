@@ -41,10 +41,10 @@ toc:
       subitem: level-2
     - title: Job-based minimized setting
       url: "#job-based-minimized-setting"
-      subitem: level-2      
+      subitem: level-2
     - title: Using Lua for atomic updates
       url: "#using-lua-for-atomic-updates"
-      subitem: true      
+      subitem: true
 ---
 # Metadata
 
@@ -274,7 +274,7 @@ Example screwdriver.yaml notifying different Slack channels upon job failure for
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
-    
+
     settings:
         slack:
             channels: [ main_channel ]
@@ -298,7 +298,7 @@ Example screwdriver.yaml sending a minimized Slack message in case the `componen
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
-    
+
     settings:
         slack:
             channels: [ main_channel ]

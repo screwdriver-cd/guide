@@ -18,7 +18,7 @@ toc:
 
 There's two different ways to set up your dev environment locally in order to run and test Screwdriver locally:
 
-1. **Run the Screwdriver API and UI locally** - ideal for testing out npm package dependencies and run build locally. 
+1. **Run the Screwdriver API and UI locally** - ideal for testing out npm package dependencies and run build locally.
 See [Developing locally docs](#developing-locally).
 2. **Run SD-in-a-box** - ideal for running builds without manual configuration. See [Running SD-in-a-Box docs](../../cluster-management/running-locally).
 
