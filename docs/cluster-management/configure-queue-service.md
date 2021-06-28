@@ -3,7 +3,7 @@ layout: main
 title: Configuring the Queue Service
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Managing the Queue Service
       url: "#managing-the-queue-service"
       active: true
@@ -164,7 +164,7 @@ When Scheduler is enabled, Queue Service passes on build to a RabbitMQ Build Clu
 | host | RABBITMQ_HOST | Rabbitmq cluster hostname. Default: 127.0.0.1 |
 | port | RABBITMQ_PORT | Rabbitmq port. Default: 5672 |
 | vhost | RABBITMQ_VIRTUAL_HOST | Virtual host for queues. Default: /screwdriver |
-| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' |
 
 ### Executors
 

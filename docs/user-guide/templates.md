@@ -44,7 +44,7 @@ toc:
       subitem: level-2
     - title: Template composition
       url: "#template-composition"
-      subitem: true 
+      subitem: true
     - title: Writing a screwdriver yaml
       url: "#writing-a-screwdriver-yaml-for-your-template-repo"
       subitem: true
@@ -392,7 +392,7 @@ config:
         - install: npm install
         - test:
             command: npm test
-            locked: true 
+            locked: true
 ```
 
 

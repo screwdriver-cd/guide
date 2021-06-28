@@ -146,11 +146,11 @@ footer .container > div:last-child {
 .container .content h1::before,
 .container .content h2::before,
 .container .content h3::before {
-  display: block; 
-  content: " "; 
-  margin-top: -150px; 
-  height: 150px; 
-  visibility: hidden; 
+  display: block;
+  content: " ";
+  margin-top: -150px;
+  height: 150px;
+  visibility: hidden;
   pointer-events: none;
 }
 

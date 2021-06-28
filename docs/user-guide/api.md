@@ -126,7 +126,7 @@ For more information, see the [GitHub OAuth] documentation.
 
 ## Badges
 
-To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`. To get it for job, you can use `<your_UI_URL>/pipelines/<your_pipelineId>/<jobName>/badge`. 
+To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`. To get it for job, you can use `<your_UI_URL>/pipelines/<your_pipelineId>/<jobName>/badge`.
 
 [![Pipeline Status][status-image]][status-url] [![Job Status][job-status-image]][status-url]
 

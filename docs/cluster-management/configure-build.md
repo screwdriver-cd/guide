@@ -3,14 +3,14 @@ layout: main
 title: Configure build
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Configure build
       url: "#configure-build"
       active: true
 ---
-## Configure Build 
+## Configure Build
 
-Configure Screwdriver and Store api timeouts and max retry attempts. These environment variables need to be set by executors and should be available inside build.  
+Configure Screwdriver and Store api timeouts and max retry attempts. These environment variables need to be set by executors and should be available inside build.
 
 | Name | Description |
 |------|-------|

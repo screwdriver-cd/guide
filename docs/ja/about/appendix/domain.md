@@ -123,7 +123,7 @@ jobs:
   validate-west:
     requires: [deploy-west]
   validate-east:
-    requires: [deploy-east]                
+    requires: [deploy-east]
 ```
 
 pull-requestがベースブランチにマージされると次のように動作します。
