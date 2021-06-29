@@ -90,7 +90,7 @@ An SCM implementation is used as the interface between the API and an SCM. There
 * **[scm-gitlab][scm-gitlab-repo]**: GitLab implementation
 * **[sd-repo][sd-repo-repo]**: A Go-based tool for executing the Repo workflow for `getCheckoutCommand` in [scm-github][scm-github-repo]
 
-The [scm-router][scm-router-repo] is a generic scm plugin that routes builds to a specified scm.
+The **[scm-router][scm-router-repo]** is a generic scm plugin that routes builds to a specified scm.
 
 #### Notifications
 The API can also send notifications to users.
@@ -258,6 +258,7 @@ The organization **[screwdriver-cd-test][screwdriver-cd-test-org]** contains var
 [scm-bitbucket-repo]: https://github.com/screwdriver-cd/scm-bitbucket
 [scm-github-repo]: https://github.com/screwdriver-cd/scm-github
 [scm-gitlab-repo]: https://github.com/screwdriver-cd/scm-gitlab
+[scm-router-repo]: https://github.com/screwdriver-cd/scm-router
 [screwdriver-cd-test-org]: https://github.com/screwdriver-cd-test
 [screwdriver-chart-repo]: https://github.com/screwdriver-cd/screwdriver-chart
 [sd-cmd-repo]: https://github.com/screwdriver-cd/sd-cmd
