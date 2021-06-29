@@ -11,6 +11,18 @@ toc:
       url: "#packages"
     - title: Configuration
       url: "#configuration"
+    - title: Authentication
+      url: "#authentication"
+      subitem: true
+    - title: Serving
+      url: "#serving"
+      subitem: true
+    - title: Build Artifacts
+      url: "#build-artifacts"
+      subitem: true
+    - title:  Storage
+      url: "#storage"
+      subitem: true
 ---
 # Managing the Store
 
