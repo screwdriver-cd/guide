@@ -1,13 +1,12 @@
 shared:
-  image: ruby:2
+  image: jekyll/builder:4
 
 jobs:
   main:
     requires: [~pr, ~commit]
     steps:
-        - bundle_install: bundle install
-        - build: bundle exec jekyll build --source docs --destination _site
-        - proof: bundle exec htmlproofer --assume-extension --allow-hash-href --empty-alt-ignore --file-ignore '/\/ja\//' --url-ignore '/bitbucket/,/gitlab/,/api\.screwdriver\.cd/' --http-status-ignore 429 _site
+        - build: jekyll build --source docs --destination _site
+        - proof: /usr/gem/bin/htmlproofer --assume-extension --allow-hash-href --empty-alt-ignore --file-ignore '/\/ja\//' --url-ignore '/bitbucket/,/gitlab/,/api\.screwdriver\.cd/' --http-status-ignore 429 _site
 
   publish:
       requires: [main]
@@ -20,8 +19,7 @@ jobs:
           - GITHUB_TOKEN
       steps:
           - setup-ci: git clone https://github.com/screwdriver-cd/toolbox.git ci
-          - install: bundle install
-          - build: bundle exec jekyll build --source docs --destination _site
+          - build: jekyll build --source docs --destination _site
           - package: tar -C _site -cvzf $RELEASE_FILE .
           - tag: ./ci/git-tag.sh
           - publish: ./ci/git-release.sh
