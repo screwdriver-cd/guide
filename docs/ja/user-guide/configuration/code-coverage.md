@@ -66,7 +66,7 @@ jobs:
 - [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript)
 - [Examples from the SonarQube website](https://github.com/SonarSource/sonar-scanning-examples)
 - [SonarQube docs](https://docs.sonarqube.org/display/SCAN)
-- [SonarQube environment variables](../environment-variables#coverage-sonar)
+- [SonarQube environment variables](../environment-variables#カバレッジsonar)
 
 ### GitHub pull request decoration
 ScrewdriverのクラスタがSonar Enterpriseを利用している場合、GitHubでのチェックに[Pull Request decoration](https://docs.sonarqube.org/7.8/analysis/pull-request/)を利用することができます。この機能が有効な場合、リポジトリにSonar PR Checks用のGitHub appを追加することで利用することが出来ます。サポート状況の詳細はScrewdriverクラスタ管理者に確認してください。

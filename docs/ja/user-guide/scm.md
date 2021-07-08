@@ -8,7 +8,7 @@ toc:
       url: "#scm"
       active: true
     - title: サポートしている機能
-      url: "#feature-support"
+      url: "#サポートしている機能"
 ---
 # SCM
 

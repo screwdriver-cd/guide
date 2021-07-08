@@ -106,7 +106,7 @@ auth:
         - github:batman
 ```
 ### マルチビルドクラスター
-デフォルトでは、[build cluster機能](../configure-buildcluster-queue-worker)はオフになっています。
+デフォルトでは、[build cluster機能](configure-buildcluster-queue-worker)はオフになっています。
 
 | キー | デフォルト | 説明 |
 |:----|:-------|:------------|
@@ -145,7 +145,7 @@ build:
 
 ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
 
-もしご自身で開発したブックエンドを使用したい場合は[こちら](#extending-the-docker-container)をご覧ください。
+もしご自身で開発したブックエンドを使用したい場合は[こちら](#dockerコンテナの拡張)をご覧ください。
 
 キー | デフォルト | 説明
 --- | --- | ---
@@ -211,9 +211,9 @@ httpd:
 
 キー | デフォルト | 説明
 --- | --- | ---
-ECOSYSTEM_UI | <https://cd.screwdriver.cd> | ユーザーインターフェースのURL
-ECOSYSTEM_STORE | <https://store.screwdriver.cd> | アーティファクトストアURL
-ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュープラグインで使用されるキューサービスの内部URL
+ECOSYSTEM_UI | https://cd.screwdriver.cd | ユーザーインターフェースのURL
+ECOSYSTEM_STORE | https://store.screwdriver.cd | アーティファクトストアURL
+ECOSYSTEM_QUEUE | http://sdqueuesvc.screwdriver.svc.cluster.local | キュープラグインで使用されるキューサービスの内部URL
 
 ```yaml
 # config/local.yaml

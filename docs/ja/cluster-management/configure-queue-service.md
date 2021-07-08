@@ -21,10 +21,10 @@ toc:
       url: "#redisキューの設定"
       subitem: true
     - title: Blocked By
-      url: "#Blocked Byの設定"
+      url: "#blocked-byの設定"
       subitem: true
     - title: Push Gateway
-      url: "#Pushgatewayの設定"
+      url: "#pushgatewayの設定"
       subitem: true
     - title: Scheduler
       url: "#scheduler"
@@ -146,7 +146,7 @@ plugins:
     collapse: false
 ```
 ### Pushgatewayの設定
-[ビルドメトリクス](./collect-metrics#build-metrics)を取得する場合はPushgatewayの設定を追加する必要があります。
+[ビルドメトリクス](./collect-metrics#ビルドメトリクス)を取得する場合はPushgatewayの設定を追加する必要があります。
 
 |環境変数                        | 必須 | デフォルト | 説明     |
 |:--------------------------|:---------|:--------|:----------------|

@@ -41,7 +41,7 @@ RabbitMQメッセージブローカーとビルドクラスターキューワー
 ## Overview
 
 ビルドクラスター機能は、[multiBuildClusterのフラグ](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257)または[環境変数](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369)で有効/無効を切り替えることができます。
-有効にすると、Screwdriverの[キューサービス](./configure-queue-service.md)は、ビルドメッセージをRabbitMQにプッシュします。
+有効にすると、Screwdriverの[キューサービス](./configure-queue-service)は、ビルドメッセージをRabbitMQにプッシュします。
 ビルドメッセージのヘッダーには、buildClustersテーブルに設定されているisActiveフラグとweightageの重み付けに基づいて、ルーティングキー設定されます。
 RabbitMQはメッセージのヘッダーに設定されたルーティングキーに基づいてビルドメッセージをキューにルーティングし、
 ビルドメッセージはビルドクラスターキューワーカーによって消費・処理されます。
@@ -758,7 +758,7 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 
 ### Executors
 
-エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executor-plugin)と全く同じです。
+エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executorプラグイン)と全く同じです。
 
 ### Ecosystem
 

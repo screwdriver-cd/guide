@@ -5,7 +5,7 @@ category: User Guide
 menu: menu_ja
 toc:
 - title: sd-localとは？
-  url: "#sd-localとは？"
+  url: "#sd-localとは"
 - title: sd-localのインストール
   url: "#sd-localのインストール"
 - title: クイックスタート
@@ -109,7 +109,7 @@ $ ls ./sd-artifacts
 builds.log       environment.json steps.json
 ```
 
-# config コマンド
+# configコマンド
 configコマンドでは、sd-local自体の設定を行います。設定内容は、環境ごとに複数保持することができます。
 設定内容は `~/.sdlocal/config` 以下の形式で保存されます。
 

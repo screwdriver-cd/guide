@@ -11,7 +11,7 @@ toc:
 - title: テンプレートを利用する
   url: "#テンプレートを利用する"
 - title: バージョン/タグの意味
-  url: "バージョン/タグの意味"
+  url: "#バージョンタグの意味"
 - title: テンプレートのステップを上書き
   url: "#テンプレートのステップを上書き"
   subitem: true
@@ -45,7 +45,7 @@ toc:
   url: "#テンプレート合成"
   subitem: true
 - title: screwdriver.yamlの書き方
-  url: "#テンプレートリポジトリ用のscrewdriver.yamlを書く"
+  url: "#テンプレートリポジトリ用のscrewdriveryamlを書く"
   subitem: true
 - title: テンプレートの検証
   url: "#テンプレートの検証"
