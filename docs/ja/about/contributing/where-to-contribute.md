@@ -117,7 +117,7 @@ Screwdriver のリポジトリを新しく作成する際の手助けとなる�
 [api-issues-image]: https://img.shields.io/github/issues/screwdriver-cd/screwdriver.svg
 [api-issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
 [api-repo]: https://github.com/screwdriver-cd/screwdriver
-[arch-diagram]: ../../cluster-management/#overall-architecture
+[arch-diagram]: ../../cluster-management/#全体の構成
 [artifact-bookend-repo]: https://github.com/screwdriver-cd/artifact-bookend
 [build-bookend-repo]: https://github.com/screwdriver-cd/build-bookend
 [circuit-fuses-repo]: https://github.com/screwdriver-cd/circuit-fuses

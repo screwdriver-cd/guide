@@ -7,11 +7,11 @@ toc:
 - title: Metadata
   url: "#metadata"
 - title: Metadataとは?
-  url: "#Metadataとは"
+  url: "#metadataとは"
 - title: デフォルトMetadata
-  url: "#デフォルトMetadata"
+  url: "#デフォルトmetadata"
 - title: Metadataの操作
-  url: "#Metadataの操作"
+  url: "#metadataの操作"
 - title: 同一パイプライン
   url: "#同一パイプライン"
   subitem: true
@@ -223,7 +223,7 @@ jobs:
 
 ### イベントラベル
 
-metaのキーに`label`を指定するとイベントにラベルを付与することができます。このキーは[ロールバック](./FAQ.html#ビルドのロールバックを行うには？)するイベントの指定に役立ちます。
+metaのキーに`label`を指定するとイベントにラベルを付与することができます。このキーは[ロールバック](./FAQ.html#ビルドのロールバックを行うには)するイベントの指定に役立ちます。
 
 screwdriver.yamlの例:
 ```yaml

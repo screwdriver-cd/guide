@@ -31,12 +31,8 @@ toc:
       url: "#build-failed-to-startのエラーを修正するには"
     - title: ビルドのロールバックを行うには？
       url: "#ビルドのロールバックを行うには"
-    - title: 過去の成功時のビルドを再実行、Detached Jobをスタートするには？
-      url: "#過去の成功時のビルドを再実行detached-jobをスタートするには"
-    - title: 過去の成功時のビルドを再実行するには？
-      url: "#過去の成功時のビルドを再実行するには"
-    - title: ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
-      url: "#ロールバック用のジョブ通常のパイプラインからは独立したジョブを実行させるには"
+    - title: 過去のビルドを再実行、Detached Jobを実行するには？
+      url: "#過去のビルドを再実行detached-jobを実行するには"
     - title: ビルドをUNSTABLEの状態にするには？
       url: "#ビルドをunstableの状態にするには"
     - title: Screwdriverが使用しているシェルは？
@@ -46,7 +42,7 @@ toc:
     - title: パイプラインのジョブやArtifactsへのPermalinkは？
       url: "#パイプラインのジョブやartifactsへのpermalinkは"
     - title: shallow cloningを無効にするには？
-      url: "#shallow-cloningを無効にするには？"
+      url: "#shallow-cloningを無効にするには"
     - title: ビルドイメージの最小ソフトウェア要件は？
       url: "#ビルドイメージの最小ソフトウェア要件は"
     - title: Saucelabsとの連携は？
@@ -54,7 +50,7 @@ toc:
     - title: ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
       url: "#ビルド内からgitリポジトリにpushされたときにパイプラインを実行するには"
     - title: 'sd-setup-scmステップで、プルリクエストのビルドが "fatal: refusing to merge unrelated histories"エラーで終了するのはなぜ？'
-      url: "#sd-setup-scmステップでプルリクエストのビルドが fatal-refusing-to-merge-unrelated-historiesエラーで終了するのはなぜ"
+      url: "#sd-setup-scmステップでプルリクエストのビルドが-fatal-refusing-to-merge-unrelated-historiesエラーで終了するのはなぜ"
     - title: パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？
       url: "#パイプラインをスタートまたは削除した時にnot-foundとなるのはなぜ"
     - title: '凍結したジョブを開始するには？'
@@ -170,7 +166,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 ![Load event graph](../../user-guide/assets/re-run-select.png)
 ![Start new build for job](../../user-guide/assets/re-run-start.png)
 
-ロールバックするには[detached build](./configuration/workflow#分離されたジョブとパイプライン)で行います。
+ロールバックするには[detached build](./configuration/workflow#分離されたジョブ-detached-jobs-とパイプライン)で行います。
 [Metadata](./metadata)を使って最後のジョブ（下記の例ではジョブD）で`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetached）で`meta get` コマンドを使用して設定されたメタ情報を取得します。detachedジョブはジョブDで設定されたメタ情報にアクセスできます。
 
 
@@ -189,7 +185,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ### パイプラインのジョブやArtifactsへのPermalinkは？
 
-パイプラインのジョブやArtifactsを指定された[ステータス]((./configuration/settings))でパーマリンクするには、以下の形式で指定できます。
+パイプラインのジョブやArtifactsを指定された[ステータス](./configuration/settings)でパーマリンクするには、以下の形式で指定できます。
 
 ```
 /pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest
@@ -243,7 +239,7 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 このメッセージは、gitがfeatureブランチとmainブランチの間に共通の祖先が見つけられないことを示しています。
 この問題を解決するには、`$GIT_SHALLOW_CLONE`を無効にする、大きな数に調整するまたは、featureブランチのコミット数を減らしてください。
 (例: rebase, squashなど)
-詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
+詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
 
 ## パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？
 

@@ -10,7 +10,7 @@ toc:
 - title: セキュリティ
   url: "#セキュリティ"
 - title: Secretsをジョブで利用する設定
-  url: "#Secretsをジョブで利用する設定"
+  url: "#secretsをジョブで利用する設定"
 - title: ユーザインタフェース
   url: "#ユーザインタフェース"
 ---

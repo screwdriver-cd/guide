@@ -18,12 +18,12 @@ toc:
 - title: プラグイン
   url: "#プラグイン"
 - title: カバレッジ(Sonar)
-  url: "#カバレッジ"
+  url: "#カバレッジsonar"
   subitem: true
 - title: ディレクトリ
   url: "#ディレクトリ"
 - title: 環境変数
-  url: "#環境変数_1"
+  url: "#環境変数-1"
 - title: ソースコード
   url: "#ソースコード"
 - title: URLs

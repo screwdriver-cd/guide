@@ -8,12 +8,12 @@ toc:
       url: "#メトリクスの収集"
       active: true
     - title: APIメトリクス
-      url: "#APIメトリクス"
+      url: "#apiメトリクス"
     - title: ビルドメトリクス
       url: "#ビルドメトリクス"
 ---
 
-# Collect metrics
+# メトリクスの収集
 Screwdriver.cdでは、[Prometheus](https://prometheus.io)で利用できるメトリクスを提供しています。
 設定を追加することでこれらのメトリクスを収集することができます。
 
@@ -29,7 +29,7 @@ scrape_configs:
 ```
 
 ## ビルドメトリクス
-このメトリクスを利用したい場合は、[Pushgateway](https://github.com/prometheus/pushgateway)も必要になります。また、[キューサービスの設定](./configure-queue-service#configuration)を参照し、pushgatewayのURLを設定してください。
+このメトリクスを利用したい場合は、[Pushgateway](https://github.com/prometheus/pushgateway)も必要になります。また、[キューサービスの設定](./configure-queue-service#構成)を参照し、pushgatewayのURLを設定してください。
 
 `prometheus.yml`のファイル内の`scrape_configs`に以下のジョブ設定を追加してください。
 ```
