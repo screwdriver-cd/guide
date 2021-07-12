@@ -14,7 +14,7 @@ toc:
 ---
 
 # Collect metrics
-Screwdriver.cd exposes some metrics for Prometheus[Prometheus](https://prometheus.io).  
+Screwdriver.cd exposes some metrics for Prometheus[Prometheus](https://prometheus.io).
 You can collect these metrics if you add some settings to your Prometheus.
 
 ## API metrics

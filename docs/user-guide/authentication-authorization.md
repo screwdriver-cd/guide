@@ -3,7 +3,7 @@ layout: main
 title: Authentication and Authorization
 category: User Guide
 menu: menu
-toc: 
+toc:
     - title: Access Control
       url: "#access-control"
       active: true

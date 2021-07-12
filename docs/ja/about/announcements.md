@@ -12,7 +12,7 @@ toc:
     - title: Twitter
       url: "#twitter"
     - title: コミュニティ
-      url: "#コミュ二ティ"
+      url: "#コミュニティ"
 ---
 # アナウンス
 

@@ -46,7 +46,7 @@ Workflow is the way that individual jobs are wired together to form a pipeline. 
 See the [tag and release trigger example repo](https://github.com/screwdriver-cd-test/tag-trigger-example) for reference.
 
 ## Defining Workflow Order
-To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate [advanced logic](#advanced-logic).
+To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate advanced logic.
 
 #### Example
 In the following example, the job, `main`, will start after any SCM pull-request, _or_ commit event. The job, `second`, will run after `main` is successful.
@@ -204,7 +204,7 @@ jobs:
 Example repo: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## Remote Join
-You can also have remote join jobs. Please double check with your cluster admin whether it is supported. 
+You can also have remote join jobs. Please double check with your cluster admin whether it is supported.
 
 #### Example
 In the following example, this pipeline 3 will start the `join_job` job after successful completion of: internal_fork, external_fork in pipeline 2, _and_ external_fork in pipeline 4.
@@ -287,12 +287,12 @@ jobs:
 Example repo: <https://github.com/screwdriver-cd-test/workflow-blockedby-example>
 
 ## Freeze Windows
-You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value.
+You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value. Timezone is in UTC.
 
 Before the job is started, it will check if the start time falls under any of the provided cron windows, and freezes the job if so. The job will be unfrozen and run as soon as the current cron window ends.
 
 Note:
-- Different from `build_periodically`, `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
+- Different from [build_periodically](./annotations#job-level-annotations), `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
 - The combinations of day of week and day of month are usually invalid. Therefore only *one out of day of week and day of month can be specified*. The other field should be set to "?".
 - By default, if multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window. You can turn this feature off by setting the `screwdriver.cd/collapseBuilds` [annotation](./annotations) to `false`.
 
@@ -349,7 +349,7 @@ In the following example, we can add repositories to subscribe to in the `scmUrl
 shared:
     image: node:8
 
-subscribe: 
+subscribe:
     scmUrls:
         - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
 ```
@@ -364,4 +364,4 @@ jobs:
         requires: [~pr, ~commit, ~subscribe]
 ```
 
-Here the `~subscribe` event tells the job to respond to external notifications. 
+Here the `~subscribe` event tells the job to respond to external notifications.

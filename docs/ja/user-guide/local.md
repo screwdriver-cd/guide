@@ -5,7 +5,7 @@ category: User Guide
 menu: menu_ja
 toc:
 - title: sd-localとは？
-  url: "#sd-localとは？"
+  url: "#sd-localとは"
 - title: sd-localのインストール
   url: "#sd-localのインストール"
 - title: クイックスタート
@@ -58,8 +58,8 @@ sd-localでビルドを実行するまでの流れを説明します。
 ここでは、ScrewdriverのAPIを `https://api.screwdriver.cd`、 Storeを `https://store.screwdriver.cd` とします。
 
 ## ユーザAPIトークンの作成
-sd-localでは、Screwdriver API, Storeとやり取りするためにユーザAPIトークンを利用します。  
-[認証と認可](api#認証と認可)を参考に、ユーザAPIトークンを作成してください。
+sd-localでは、Screwdriver API, Storeとやり取りするためにユーザAPIトークンを利用します。
+[認証と認可](tokens#ユーザーアクセストークン)を参考に、ユーザAPIトークンを作成してください。
 
 ## ビルド対象のリポジトリを取得
 ビルド対象のソースコードと `screwdriver.yaml` を取得します。ここでは[quickstart-generic](https://github.com/screwdriver-cd-test/quickstart-generic.git)を使います。
@@ -109,8 +109,8 @@ $ ls ./sd-artifacts
 builds.log       environment.json steps.json
 ```
 
-# config コマンド
-configコマンドでは、sd-local自体の設定を行います。設定内容は、環境ごとに複数保持することができます。  
+# configコマンド
+configコマンドでは、sd-local自体の設定を行います。設定内容は、環境ごとに複数保持することができます。
 設定内容は `~/.sdlocal/config` 以下の形式で保存されます。
 
 ```
@@ -161,7 +161,7 @@ $ sd-local config use <name>
 ```
 
 ### setサブコマンド
-現在使用中の設定に対してkey/value形式で設定を行います。ビルドを実行するには`api-url`, `store-url`, `token`を設定する必要があります。  
+現在使用中の設定に対してkey/value形式で設定を行います。ビルドを実行するには`api-url`, `store-url`, `token`を設定する必要があります。
 利用できる設定内容については、[設定できるキーの一覧](#設定できるキーの一覧)を参照してください。
 
 ```bash
@@ -195,7 +195,7 @@ $ sd-local config view
 |---|---|
 |api-url|利用しているScrewdriver APIのURLを指定してください|
 |store-url|利用しているScrewdriver StoreのURLを指定してください|
-|token|[APIトークン](api#認証と認可)を指定してください|
+|token|[APIトークン](tokens#ユーザーアクセストークン)を指定してください|
 |launcher-image|launcherイメージを指定してください（デフォルトは `screwdrivercd/launcher`）|
 |launcher-version|launcherバージョンを指定してください（デフォルトは `stable`）|
 
@@ -208,7 +208,7 @@ $ sd-local config view
 $ sd-local build <job name>
 ```
 
-上記のコマンドではカレントディレクトリの `screwdriver.yaml` をもとにジョブを実行します。  
+上記のコマンドではカレントディレクトリの `screwdriver.yaml` をもとにジョブを実行します。
 また、ビルド成果物は`./sd-artifacts` ディレクトリ以下に保存されます。
 
 ## オプション
@@ -226,7 +226,7 @@ buildコマンドには以下のオプションを設定することができま
 |--src-url|ソースコードをリモートのSCMから取得します（`https` または `ssh` 形式のURLを渡せます）|
 |--sudo|Dockerランタイム実行時に`sudo`コマンドを付与します|
 
-注意：  
+注意：
 - `--env`, `--env-file` オプションで同じ環境変数が指定された場合、 `--env` で指定した環境変数が優先されます
 - `--meta`, `--meta-file` オプションを同時に指定することはできません
 - Dockerランタイムの実行権限がない場合、`--sudo`オプションを使ってください

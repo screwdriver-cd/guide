@@ -41,7 +41,7 @@ RabbitMQメッセージブローカーとビルドクラスターキューワー
 ## Overview
 
 ビルドクラスター機能は、[multiBuildClusterのフラグ](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257)または[環境変数](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369)で有効/無効を切り替えることができます。
-有効にすると、Screwdriverの[キューサービス](./configure-queue-service.md)は、ビルドメッセージをRabbitMQにプッシュします。
+有効にすると、Screwdriverの[キューサービス](./configure-queue-service)は、ビルドメッセージをRabbitMQにプッシュします。
 ビルドメッセージのヘッダーには、buildClustersテーブルに設定されているisActiveフラグとweightageの重み付けに基づいて、ルーティングキー設定されます。
 RabbitMQはメッセージのヘッダーに設定されたルーティングキーに基づいてビルドメッセージをキューにルーティングし、
 ビルドメッセージはビルドクラスターキューワーカーによって消費・処理されます。
@@ -751,14 +751,14 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 | host | RABBITMQ_HOST | RabbitMQ cluster hostname. Default: 127.0.0.1 |
 | port | RABBITMQ_PORT | RabbitMQのポート。デフォルト: 5672 |
 | vhost | RABBITMQ_VIRTUAL_HOST | キューのVirtual host。デフォルト: /screwdriver |
-| connectOptions | RABBITMQ_CONNECT_OPTIONS | オプションを使用し、接続が切れた場合に時間内にハートビートチェックと再接続を行う設定。デフォルト: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | オプションを使用し、接続が切れた場合に時間内にハートビートチェックと再接続を行う設定。デフォルト: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' |
 | queue | RABBITMQ_QUEUE | 使用するキュー |
 | prefetchCount | RABBITMQ_PREFETCH_COUNT | 同時に取得するメッセージ数。デフォルト: "20" |
 | messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | エラーが発生した場合の最大試行回数。デフォルト: "3"。これが0より大きい値に設定されている場合、ビルドクラスターキューワーカーはデッドレターキューによりリトライされる事を期待します。 |
 
 ### Executors
 
-エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executor-plugin)と全く同じです。
+エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executorプラグイン)と全く同じです。
 
 ### Ecosystem
 
@@ -785,4 +785,3 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 1. [ビルドクラスターのスキーマ定義はここに定義してあります。](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
 
 2. nameとscmContextのフィールドはビルドクラスターのために[ユニーク制約](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js)となります。
-

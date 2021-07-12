@@ -8,57 +8,55 @@ toc:
       url: "#よくある質問と回答"
       active: 'true'
     - title: ステップをスキップする方法は？
-      url: "#ステップをスキップする方法は？"
+      url: "#ステップをスキップする方法は"
     - title: ビルドをスキップする方法は？
-      url: "#ビルドをスキップする方法は？"
+      url: "#ビルドをスキップする方法は"
     - title: パイプラインの作り方は？
-      url: "#パイプラインの作り方は？"
+      url: "#パイプラインの作り方は"
     - title: パイプラインを手動で開始するには？
-      url: "#パイプラインを手動で開始するには？"
+      url: "#パイプラインを手動で開始するには"
     - title: パイプラインのリポジトリやブランチを変更したい場合は？
-      url: "#パイプラインのリポジトリやブランチを変更したい場合は？"
+      url: "#パイプラインのリポジトリやブランチを変更したい場合は"
     - title: ジョブのdisable/enableを一時的に切り替えるには？
-      url: "#ジョブのdisable/enableを一時的に切り替えるには？"
+      url: "#ジョブの-disableenable-を一時的に切り替えるには"
     - title: パイプラインがソースコードと正しく同期しているか確かめるには？
-      url: "#パイプラインがソースコードと正しく同期しているか確かめるには？"
+      url: "#パイプラインがソースコードと正しく同期しているか確かめるには"
     - title: パイプラインを削除するには？
-      url: "#パイプラインを削除するには？"
+      url: "#パイプラインを削除するには"
     - title: パイプラインメトリクスを表示するには？
-      url: "#パイプラインメトリクスを表示するには？"
+      url: "#パイプラインメトリクスを表示するには"
     - title: ビルドログの時間形式を切り替えるには？
-      url: "#ビルドログの時間形式を切り替えるには？"
+      url: "#ビルドログの時間形式を切り替えるには"
     - title: "「Build failed to start」のエラーを修正するには？"
-      url: "#「Build-failed-to-start」のエラーを修正するには？"
+      url: "#build-failed-to-startのエラーを修正するには"
     - title: ビルドのロールバックを行うには？
-      url: "#ビルドのロールバックを行うには？"
-    - title: 過去の成功時のビルドを再実行、Detached Jobをスタートするには？
-      url: "#過去の成功時のビルドを再実行、Detached Jobをスタートするには？"
-    - title: 過去の成功時のビルドを再実行するには？
-      url: "#過去の成功時のビルドを再実行するには？"
-    - title: ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？
-      url: "#ロールバック用のジョブ（通常のパイプラインからは独立したジョブ）を実行させるには？"
+      url: "#ビルドのロールバックを行うには"
+    - title: 過去のビルドを再実行、Detached Jobを実行するには？
+      url: "#過去のビルドを再実行detached-jobを実行するには"
     - title: ビルドをUNSTABLEの状態にするには？
-      url: "#ビルドをUNSTABLEの状態にするには？"
+      url: "#ビルドをunstableの状態にするには"
     - title: Screwdriverが使用しているシェルは？
-      url: "#Screwdriverが使用しているシェルは？"
+      url: "#screwdriverが使用しているシェルは"
     - title: Artifactsをアップロードする時間を短縮するには？
-      url: "#Artifactsをアップロードする時間を短縮するには？"
+      url: "#artifactsをアップロードする時間を短縮するには"
     - title: パイプラインのジョブやArtifactsへのPermalinkは？
-      url: "#パイプラインのジョブやArtifactsへのPermalinkは？"
+      url: "#パイプラインのジョブやartifactsへのpermalinkは"
     - title: shallow cloningを無効にするには？
-      url: "#shallow-cloningを無効にするには？"
+      url: "#shallow-cloningを無効にするには"
     - title: ビルドイメージの最小ソフトウェア要件は？
-      url: "#ビルドイメージの最小ソフトウェア要件は？"
+      url: "#ビルドイメージの最小ソフトウェア要件は"
     - title: Saucelabsとの連携は？
-      url: "#Saucelabsとの連携は？"
+      url: "#saucelabsとの連携は"
     - title: ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？
-      url: "#ビルド内からGitリポジトリにpushされたときにパイプラインを実行するには？"
+      url: "#ビルド内からgitリポジトリにpushされたときにパイプラインを実行するには"
     - title: 'sd-setup-scmステップで、プルリクエストのビルドが "fatal: refusing to merge unrelated histories"エラーで終了するのはなぜ？'
-      url: "#sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？"
-    - title: パイプラインをスタート/削除した時に`Not found`となるのはなぜ？
-      url: "#パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？"
+      url: "#sd-setup-scmステップでプルリクエストのビルドが-fatal-refusing-to-merge-unrelated-historiesエラーで終了するのはなぜ"
+    - title: パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？
+      url: "#パイプラインをスタートまたは削除した時にnot-foundとなるのはなぜ"
     - title: '凍結したジョブを開始するには？'
-      url: "#凍結したジョブを開始するには？"
+      url: "#凍結したジョブを開始するには"
+    - title: '凍結したジョブをキャンセルして予定されたビルドが行われないようにするには？'
+      url: "#凍結したジョブをキャンセルして予定されたビルドが行われないようにするには"
 
 ---
 
@@ -97,11 +95,11 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ## パイプラインを手動で開始するには？
 
-ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックします。  
-または、ビルドを選択後ドロップダウンメニューで「Start pipeline from here」を選択します、次に「Yes」をクリックするとビルドが起動します。  
-パイプラインを開始すると`~commit`をトリガーにもつ全てのジョブのビルドが開始します。  
+ビルドを手動で開始させたい場合は、パイプラインページにある「Start」ボタンをクリックします。
+または、ビルドを選択後ドロップダウンメニューで「Start pipeline from here」を選択します、次に「Yes」をクリックするとビルドが起動します。
+パイプラインを開始すると`~commit`をトリガーにもつ全てのジョブのビルドが開始します。
 
-スタートボタンをクリック：  
+スタートボタンをクリック：
 ![Start a pipeline](../../user-guide/assets/start-pipeline.png)
 
 2番目のオプションについては、*ビルドを再実行、Detached Jobをスタートするには？*を参照してください。
@@ -114,7 +112,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ## ジョブの disable/enable を一時的に切り替えるには？
 
-一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるトグルボタンをクリックして切り替えを行ってください。  
+一時的にジョブの disable/enable を切り替えるには、「Options」タブの画面で、切り替えたいジョブの横にあるトグルボタンをクリックして切り替えを行ってください。
 オプションで、ジョブをdisable/enableにする理由を指定することもできます。
 
 ![Disable a pipeline](../../user-guide/assets/disable-pipeline.png)
@@ -168,7 +166,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 ![Load event graph](../../user-guide/assets/re-run-select.png)
 ![Start new build for job](../../user-guide/assets/re-run-start.png)
 
-ロールバックするには[detached build](./configuration/workflow#分離されたジョブとパイプライン)で行います。
+ロールバックするには[detached build](./configuration/workflow#分離されたジョブ-detached-jobs-とパイプライン)で行います。
 [Metadata](./metadata)を使って最後のジョブ（下記の例ではジョブD）で`meta set`コマンドでイメージ名やバージョン情報のメタを設定し、ロールバック用のジョブ（下記の例ではdetached）で`meta get` コマンドを使用して設定されたメタ情報を取得します。detachedジョブはジョブDで設定されたメタ情報にアクセスできます。
 
 
@@ -187,7 +185,7 @@ commitメッセージに `[skip ci]` や `[ci skip]` を含めても、プルリ
 
 ### パイプラインのジョブやArtifactsへのPermalinkは？
 
-パイプラインのジョブやArtifactsを指定された[ステータス]((./configuration/settings))でパーマリンクするには、以下の形式で指定できます。
+パイプラインのジョブやArtifactsを指定された[ステータス](./configuration/settings)でパーマリンクするには、以下の形式で指定できます。
 
 ```
 /pipelines/{PIPELINE_ID}/jobs/{JOB_NAME}/latest
@@ -237,11 +235,11 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 
 ## sd-setup-scmステップで、プルリクエストのビルドが `fatal: refusing to merge unrelated histories`エラーで終了するのはなぜ？
 
-プルリクエストを出しているブランチに、 `$GIT_SHALLOW_CLONE_DEPTH`コミット (デフォルト:50)以上のコミットがある場合エラーで失敗することがあります。  
-このメッセージは、gitがfeatureブランチとmainブランチの間に共通の祖先が見つけられないことを示しています。  
+プルリクエストを出しているブランチに、 `$GIT_SHALLOW_CLONE_DEPTH`コミット (デフォルト:50)以上のコミットがある場合エラーで失敗することがあります。
+このメッセージは、gitがfeatureブランチとmainブランチの間に共通の祖先が見つけられないことを示しています。
 この問題を解決するには、`$GIT_SHALLOW_CLONE`を無効にする、大きな数に調整するまたは、featureブランチのコミット数を減らしてください。
-(例: rebase, squashなど)  
-詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
+(例: rebase, squashなど)
+詳しくは[こちら](./environment-variables#ユーザ設定)のドキュメントをご確認ください。
 
 ## パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？
 
@@ -266,3 +264,17 @@ commitを使用する場合:
 
 APIを使用する場合:
 開始したいビルドの `causeMessage` を `[force start]` という文字列を含んだものにして、 `POST SCREWDRIVER_API/v4/events` のAPIを使って開始してください。
+
+## 凍結したジョブをキャンセルして予定されたビルドが行われないようにするには？
+
+凍結したジョブは、[freeze windows](./configuration/workflow#ジョブの凍結)の期間の終わりに実行されるようにスケジュールされます。場合によっては、ユーザーは screwdriver.yaml の設定を変更せずにスケジュールをキャンセルして、今後予定されているスケジュールビルドが実行されないようにしたいことがあります。その場合は、以下の手順でキャンセルすることができます。
+
+UIでは
+1. フリーズしたビルドアイコンをクリックします。
+1. "Stop frozen build"をクリックします。
+
+これにより、ビルドのステータスが「FROZEN」から「ABORTED」に設定され、今後予定されている実行のための設定が削除されます。
+
+![Stop frozen build](../../user-guide/assets/stop-frozen-build.png)
+![Aborted frozen build](../../user-guide/assets/stopped-frozen-build-view.png)
+![Aborted frozen build page](../../user-guide/assets/stopped-frozen-build.png)

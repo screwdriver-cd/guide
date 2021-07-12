@@ -17,7 +17,7 @@ title: Screwdriver Guide
 description: > # this means to ignore newlines until "baseurl:"
   Screwdriver is a collection of services that facilitate the workflow for continuous delivery pipelines.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://docs.screwdriver.cd" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://docs.screwdriver.cd" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 markdown: kramdown
@@ -39,7 +39,7 @@ exclude:
   - deploy.sh
 
 site_name: Screwdriver Guide
-site_url: http://screwdriver.cd
+site_url: https://screwdriver.cd
 repo_url: https://github.com/screwdriver-cd/guide
 repo_name: GitHub
 site_description: All you need to know about Screwdriver and more

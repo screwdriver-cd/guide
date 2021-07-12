@@ -149,7 +149,7 @@ Screwdriver API を実行するための service と deployment の定義の例�
 KubernetesのServiceは一連のPodやユニークなIP割り振りなどが定義されたものという概念です。
 [Creating a Service](http://kubernetes.io/docs/user-guide/connecting-applications/#creating-a-service)ページの手順で`service.yaml`を準備します。
 
-[api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/kubernetes/api.yaml)のような構成になるはずです。
+[api.yaml](https://github.com/screwdriver-cd-test/config-examples/blob/master/service/api.yaml)のような構成になるはずです。
 
 Serviceを作成するには`service.yaml`ファイルに対して`kubectl create`を実行します。
 

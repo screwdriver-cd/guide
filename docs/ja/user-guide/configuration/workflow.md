@@ -8,17 +8,17 @@ toc:
   url: "#ワークフロー"
 - title: ワークフローの順序を定義する
   url: "#ワークフローの順序を定義する"
-- title: 論理式を用いたワークフロー定義 (Advanced Logic)
-  url: "#論理式を用いたワークフロー定義"
+- title: 並列実行とJoin/OR
+  url: "#並列実行と結合"
 - title: Join結合
-  url: "and-条件-advanced-logic-and"
+  url: "#joinの例"
   subitem: true
+- title: OR ワークフロー
+  url: "#or-ワークフロー"
 - title: ブランチフィルター
   url: "#ブランチフィルター"
 - title: タグフィルターとリリースフィルター
   url: "#タグフィルターとリリースフィルター"
-- title: 並列実行と結合 (Parallel and Join)
-  url: "#並列実行と結合"
 - title: 他のパイプラインからのトリガー
   url: "#他のパイプラインからのトリガー"
 - title: リモートジョイン
@@ -28,16 +28,16 @@ toc:
 - title: ジョブの凍結
   url: "#ジョブの凍結"
 - title: 分離されたジョブ (Detached Jobs) とパイプライン
-  url: "#分離されたジョブとパイプライン"
+  url: "#分離されたジョブ-detached-jobs-とパイプライン"
 - title: 購読(Subscribe)しているSCMからの通知
   url: "#購読しているscmからの通知"
 ---
 
 # ワークフロー
 
-ワークフローは個々のジョブをパイプラインという形で紐づけてまとめる方法です。ジョブ定義の中で `requires` というキーに、ジョブ実行のトリガーとなるジョブやイベントのリストを指定することで実現しています。  
-Screwdriver は全てのパイプラインに対し、SCM のイベントに対応する `~pr`, `~commit`, `~tag`, `~release` の4つのイベントを定義しています。  
-`~pr`イベントはプルリクエストがオープン・再オープン・更新された場合に、`~commit`イベントはパイプラインのブランチに対してコミットが行われた場合に発生します。  
+ワークフローは個々のジョブをパイプラインという形で紐づけてまとめる方法です。ジョブ定義の中で `requires` というキーに、ジョブ実行のトリガーとなるジョブやイベントのリストを指定することで実現しています。
+Screwdriver は全てのパイプラインに対し、SCM のイベントに対応する `~pr`, `~commit`, `~tag`, `~release` の4つのイベントを定義しています。
+`~pr`イベントはプルリクエストがオープン・再オープン・更新された場合に、`~commit`イベントはパイプラインのブランチに対してコミットが行われた場合に発生します。
 パイプラインを手動で開始した場合、`~commit`トリガーを持つ全てのジョブのビルドが開始します。
 
 |keyword|description|
@@ -51,7 +51,7 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 
 ## ワークフローの順序を定義する
 
-ワークフローの順序を示すために、ジョブ設定で `requires` をジョブ名の配列で定義します。ジョブ名にチルダのプレフィックスを付けることで、[論理式を用いたワークフロー定義 (Advanced Logic)](#論理式を用いたワークフロー定義)を定義することができます。
+ワークフローの順序を示すために、ジョブ設定で `requires` をジョブ名の配列で定義します。ジョブ名の前に、論理式を表すためのチルダのプレフィックスを付けることできます。
 
 #### 例
 
@@ -78,34 +78,60 @@ jobs:
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
-## 論理式を用いたワークフロー定義 (Advanced Logic)
 
-### AND 条件 (Advanced Logic [*AND*])
+## 並列実行と結合
 
-`requires` に含まれるジョブが全て成功した場合に開始するジョブを定義することができます。これはしばしば結合 (join) やファン・イン (fan-in) とも呼ばれます。
+1つのジョブを複数のジョブの`require`に指定すると複数のジョブを並列に実行できます。1つのジョブの`require`に並列に実行されるジョブを指定すると並列に実行されるジョブを結合することができます。
 
-### 例
+#### Joinの例
 
-以下の例では、`last`ジョブは同一のイベントにトリガーされた `first` ジョブ *と* `second` ジョブの両方が成功した場合のみ実行されます。
+以下の例では、`A` と `B` は `main` を requires に含んでいます。これは、`A` と `B` は `main` が成功した後に並列に実行されるということです。
+また、`C` は 同一のイベントにトリガーされた `A` *と* `B` の両方が成功した場合にのみ実行されます。
 
 ```
 shared:
     image: node:14
-    steps:
-        - greet: echo hello
 
 jobs:
     main:
         requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
+    A:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    B:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    C:
+        requires: [A, B]
+        steps:
+            - echo: echo join after A and B
+```
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
+### OR ワークフロー
+Joinに似ていますが、_OR_は`requires`のジョブのいずれかが成功すると開始します。これは、必要なジョブにチルダ (`~`) プレフィックスを追加することで実現されます。
+
+#### 例
+次の例では、`first` _OR_ `second` のいずれかが正常に完了した後、`last` のジョブが一度だけ起動します。
+
+```
+shared:
+    image: node:6
+    steps:
+        - greet: echo hello
+jobs:
+    main:
+        requires: [~pr, ~commit]
     first:
         requires: [main]
-
     second:
         requires: [main]
-
     last:
-        requires: [first, second]
+        requires: [~first, ~second]
 ```
 
 ## ブランチフィルター
@@ -167,40 +193,6 @@ jobs:
         steps:
             - echo: echo stable release
 ```
-
-## 並列実行と結合 (Parallel and Join)
-
-1つの require から2つ以上のジョブを並列に実行することができます。並列に実行したジョブを1つのジョブに結合するには、複数のジョブを `requires` に設定します。
-
-#### 例
-
-以下の例では、`A` と `B` は `main` を requires に含んでいます。これは、`A` と `B` は `main` が成功した後に並列に実行されるということです。
-また、`C` は 同一のイベントにトリガーされた `A` *と* `B` の両方が成功した場合にのみ実行されます。
-
-```
-shared:
-    image: node:14
-
-jobs:
-    main:
-        requires: [~pr, ~commit]
-        steps:
-            - echo: echo hi
-    A:
-        requires: [main]
-        steps:
-            - echo: echo in parallel
-    B:
-        requires: [main]
-        steps:
-            - echo: echo in parallel
-    C:
-        requires: [A, B]
-        steps:
-            - echo: echo join after A and B
-```
-
-サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
 
 ## 他のパイプラインからのトリガー
 
@@ -347,33 +339,16 @@ jobs:
 
 ### 例
 
-以下の例では、`detached-main` ジョブが分離されています。
+以下の例では、`detached` ジョブが分離されています。
 
 ```
 shared:
     image: node:8
 
 jobs:
-      detached-main:
+      detached:
             steps:
-                - echo: echo detached hi
-      main:
-            requires: [~pr, ~commit]
-            steps:
-                - echo: echo hi
-```
-
-もし単一のジョブしか存在しない場合は、空の `requires` を設定することで、分離されたジョブとなります。
-
-```
-shared:
-    image: node:8
-
-jobs:
-      detached-main:
-            requires: []
-            steps:
-                - echo: echo detached hi
+                - echo: echo im-a-detached-job
 ```
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/workflow-detached-example>
@@ -387,7 +362,7 @@ jobs:
 ```
 shared:
     image: node:8
-subscribe: 
+subscribe:
     scmUrls:
         - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
 ```

@@ -37,15 +37,15 @@ Screwdriver をローカルで実行してテストするために、ローカ�
 ```
 
 ### ステップ2: GitHub OAuth アプリケーションの新規作成
-設定 > 開発者設定 > OAuth Apps を開き　`New OAuth App` ボタンをクリックして以下のように設定します。  
+設定 > 開発者設定 > OAuth Apps を開き　`New OAuth App` ボタンをクリックして以下のように設定します。
 
 * Application Name: (任意の値)
 * Homepage URL: `http://sd.screwdriver.cd:4200`
 * Application description: (任意の値)
 *  Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
-以下のスクリーンショットをご覧ください。  
-![developing-locally-ouath](../../../cluster-management/assets/developing-locally-ouath.png)  
+以下のスクリーンショットをご覧ください。
+![developing-locally-ouath](../../../cluster-management/assets/developing-locally-ouath.png)
 
 > 次のステップで必要になるため、client IDとclient Secretをメモしておいてください。
 
@@ -63,7 +63,7 @@ git clone https://github.com/screwdriver-cd/queue-service.git
 ```
 
 ### ステップ4: 以下3つのリポジトリにローカル設定ファイルを追加
-`ui/config`に`local.js`, `screwdriver/config`に`local.yaml`, `queue-service/config`と`store/config`のフォルダに`local.yaml`ファイルを作成します。  
+`ui/config`に`local.js`, `screwdriver/config`に`local.yaml`, `queue-service/config`と`store/config`のフォルダに`local.yaml`ファイルを作成します。
 
 #### ui/config/local.js
 ```javascript
@@ -89,7 +89,7 @@ module.exports = {
     ```
 * `mkdir mw-data`と入力して、`mw-data`というフォルダをscrewdriverリポジトリ内に作成してください。
 * あなたのIP(YOUR_IP)を記入してください。まずは、`ifconfig`であなたのIPを調べてください。
-> IPが変更された場合、このIPを更新する必要があります。 
+> IPが変更された場合、このIPを更新する必要があります。
 
 ```
 ---
@@ -178,16 +178,16 @@ ecosystem:
 ```
 
 ### ステップ5: 依存関係をインストールして、準備は完了です
-各リポジトリ内で以下のコマンドを実行する必要があります。  
+各リポジトリ内で以下のコマンドを実行する必要があります。
 
 ```
 npm install && npm run start
 ```
-UI、Screwdriver API、およびStoreアプリが動作している間に、ブラウザで`http://sd.screwdriver.cd:4200`にアクセスすることで、ローカルのScrewdriverとやり取りすることができます。  
+UI、Screwdriver API、およびStoreアプリが動作している間に、ブラウザで`http://sd.screwdriver.cd:4200`にアクセスすることで、ローカルのScrewdriverとやり取りすることができます。
 
 ## ローカル環境でexecutor-queueを使う
 
-単一のDockerエグゼキュータを使用する代わりに、Redisキューを使用することで、Screwdriverがより洗練された[ワークフロー](https://docs.screwdriver.cd/ja/user-guide/configuration/workflow)を実行できるようになります。例えば、`build_periodically`や`freezeWindow`などです。  
+単一のDockerエグゼキュータを使用する代わりに、Redisキューを使用することで、Screwdriverがより洗練された[ワークフロー](https://docs.screwdriver.cd/ja/user-guide/configuration/workflow)を実行できるようになります。例えば、`build_periodically`や`freezeWindow`などです。
 
 ### ステップ1: Redis サーバーとクライアントのインストール
 
@@ -197,25 +197,25 @@ UI、Screwdriver API、およびStoreアプリが動作している間に、ブ�
 brew install redis
 ```
 
-起動するには、今すぐRedisを起動し、ログイン時に再起動します。  
+起動するには、今すぐRedisを起動し、ログイン時に再起動します。
 
 ```bash
 brew services start redis
 ```
 
-また、バックグラウンドのサービスを必要としない場合、そのまま実行することもできます。  
+また、バックグラウンドのサービスを必要としない場合、そのまま実行することもできます。
 
 ```bash
 redis-server /usr/local/etc/redis.conf
 ```
 
-Redisサーバーが稼働しているかどうかをテストします。  
+Redisサーバーが稼働しているかどうかをテストします。
 
 ```bash
 redis-cli ping
 ```
 
-`PONG`と返ってくればOKです。  
+`PONG`と返ってくればOKです。
 
 Redisの設定ファイルの場所です。パスワードを設定したい場合は"requirepass"を修正してください。
 
@@ -237,7 +237,7 @@ git clone git@github.com:screwdriver-cd/queue-service.git
 ```
 #### queue-service/config/local.yamlを作成します
 
-ローカルの設定を保存するためにこのファイルを作成します。  
+ローカルの設定を保存するためにこのファイルを作成します。
 
 * 独自の **jwtPrivateKey** (jwtPrivateKey) と **jwtPublicKey** (jwtPublicKey) を以下の方法で生成します。
     ```bash
@@ -312,7 +312,7 @@ auth:
                 prefix: ""
 ```
 
-ここで、Redisキューを使用するために、Screwdriverバックエンド・サーバーとキュー・サービスを起動します。  
+ここで、Redisキューを使用するために、Screwdriverバックエンド・サーバーとキュー・サービスを起動します。
 
 ```bash
 npm install && npm run start

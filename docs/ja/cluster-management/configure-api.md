@@ -47,6 +47,9 @@ toc:
 - title: Canaryルーティング
   url: "#canaryルーティング"
   subitem: true
+- title: Redisロックの設定
+  url: "#redisロックの設定"
+  subitem: true
 - title: Dockerコンテナの拡張
   url: "#dockerコンテナの拡張"
 ---
@@ -103,7 +106,7 @@ auth:
         - github:batman
 ```
 ### マルチビルドクラスター
-デフォルトでは、[build cluster機能](../configure-buildcluster-queue-worker)はオフになっています。
+デフォルトでは、[build cluster機能](configure-buildcluster-queue-worker)はオフになっています。
 
 | キー | デフォルト | 説明 |
 |:----|:-------|:------------|
@@ -142,7 +145,7 @@ build:
 
 ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
 
-もしご自身で開発したブックエンドを使用したい場合は[こちら](#extending-the-docker-container)をご覧ください。
+もしご自身で開発したブックエンドを使用したい場合は[こちら](#dockerコンテナの拡張)をご覧ください。
 
 キー | デフォルト | 説明
 --- | --- | ---
@@ -204,14 +207,13 @@ httpd:
 
 ### エコシステム
 
-外部からアクセス可能なUI、アーティファクトストア、バッジサービスのURLを指定します。
+外部からアクセス可能なUI、アーティファクトストアのURLを指定します。
 
 キー | デフォルト | 説明
 --- | --- | ---
-ECOSYSTEM_UI | <https://cd.screwdriver.cd> | ユーザーインターフェースのURL
-ECOSYSTEM_STORE | <https://store.screwdriver.cd> | アーティファクトストアURL
-ECOSYSTEM_BADGES | <https://img.shields.io/badge/build-{{status}}-{{color}}.svg> | ステータステキストと色をテンプレートにしたURL
-ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュープラグインで使用されるキューサービスの内部URL
+ECOSYSTEM_UI | https://cd.screwdriver.cd | ユーザーインターフェースのURL
+ECOSYSTEM_STORE | https://store.screwdriver.cd | アーティファクトストアURL
+ECOSYSTEM_QUEUE | http://sdqueuesvc.screwdriver.svc.cluster.local | キュープラグインで使用されるキューサービスの内部URL
 
 ```yaml
 # config/local.yaml
@@ -220,8 +222,6 @@ ecosystem:
     ui: https://cd.screwdriver.cd
     # 外部からルーティング可能なArtifact Store用URL
     store: https://store.screwdriver.cd
-    # バッジサービス (ステータスと色を追加する必要があります)
-    badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
     # 内部でルーティング可能な、キューsvcのFQDNS
     queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
@@ -400,7 +400,7 @@ EXECUTOR_PLUGIN | k8s | `docker` を指定します
 LAUNCH_VERSION | stable | 使用する Launcher のバージョン
 EXECUTOR_DOCKER_ENABLED | true | Docker executor を利用可能にするフラグ
 EXECUTOR_DOCKER_DOCKER | `{}` | [Dockerode の設定](https://www.npmjs.com/package/dockerode#getting-started) (JSONオブジェクト)
-EXECUTOR_PREFIX | なし | Pod 名につけられる prefix 
+EXECUTOR_PREFIX | なし | Pod 名につけられる prefix
 
 ```yaml
 # config/local.yaml
@@ -461,7 +461,7 @@ executor:
 
 現在、[Email 通知](https://github.com/screwdriver-cd/notifications-email)と [Slack 通知](https://github.com/screwdriver-cd/notifications-slack)をサポートしています。
 
-これらの環境変数を設定します。  
+これらの環境変数を設定します。
 
 | 環境変数名 | 必須 | デフォルト値 | 説明                   |
 |:-------------------|:---------|:--------------|:------------------------------|
@@ -672,6 +672,48 @@ release:
     cookieTimeout: 2 # in minutes
     headerName: release
     headerValue: stable
+```
+
+### Redisロックの設定
+RedisロックはScrewdriver apiで使用されており、ビルドの更新が連続的に行われることを保証します。これを無効にすると、ビルド更新中にデータが失われたり、ビルドが開始されないことがあります。
+
+Redisのロックを設定するために、これらの環境変数を設定します:
+
+| 環境変数               | 必須            |  デフォルト              | 説明       |
+|:-------------------------|:---------------------|:---------------------|:-----------------------------|
+| REDLOCK_ENABLED          | はい                  | false                | Redisロックの有効化            |
+| REDLOCK_RETRY_COUNT      | はい                 | 200                  | ロック取得までの最大リトライ回数                 |
+| REDLOCK_DRIFT_FACTOR     | いいえ                   | 0.01                 | 予想されるクロックドリフト     |
+| REDLOCK_RETRY_DELAY      | いいえ                   | 500                  | 再実行するまでの時間(ミリ秒)            |
+| REDLOCK_RETRY_JITTER     | いいえ                   | 200                  | 再実行時にランダムに加えられる最大時間(ミリ秒)             |
+| REDLOCK_REDIS_HOST       | はい                  | 127.0.0.1            | Redis ホスト                  |
+| REDLOCK_REDIS_PORT       | はい                 | 9999                 | Redis ポート                   |
+| REDLOCK_REDIS_PASSWORD   | いいえ                   | THIS-IS-A-PASSWORD   | Redis パスワード               |
+| REDLOCK_REDIS_TLS_ENABLED| いいえ                   | false                | Redis tls 有効             |
+| REDLOCK_REDIS_DATABASE   | いいえ                  | 0                    | Redis db番号              |
+```yaml
+# config/local.yaml
+redisLock:
+  # Redisロックを有効にするには、trueを設定します。
+  enabled: true
+  options:
+    # ロック取得までの最大リトライ回数
+    retryCount: 200
+    # 予想されるクロックドリフト
+    driftFactor: 0.01
+    # 再試行するまでの時間（ミリ秒)
+    retryDelay: 500
+    # 再試行回数にランダムに追加される最大時間（ミリ秒)
+    retryJitter: 200
+    # Redisインスタンスの設定
+    redisConnection:
+        host: "127.0.0.1"
+        port: 6379
+        options:
+            password: '123'
+            tls: false
+        database: 0
+        prefix: ""
 ```
 
 ## Dockerコンテナの拡張

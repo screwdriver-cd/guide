@@ -16,7 +16,7 @@ toc:
 - title: Screwdriverによるビルド
   url: "#screwdriverによるビルド"
 - title: "おめでとう！Screwdriverを利用して最初のアプリケーションをビルド・実行できました\U0001F389"
-  url: "#おめでとうScrewdriverを利用して最初のアプリケーションをビルド・実行できました"
+  url: "#おめでとうscrewdriverを利用して最初のアプリケーションをビルド実行できました"
 ---
 
 # Getting Started with Screwdriver
