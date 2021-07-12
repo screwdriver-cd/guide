@@ -52,6 +52,11 @@ So any updates to routing key, need to be cascaded to affected pipelines annotat
 Another option is to create a new build cluster and disable old build cluster. In this case builds will auto route to new build cluster without any updates, but please keep in mind build cluster 
 stickiness will be lost.* 
 
+### Retry queues
+Build clusters can be setup with retry queues to verify pod status and stop any rouge builds with image pull errors or config errors.
+This can be enabled by using a [active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352). It has a default value set to `true`. 
+When this is used messages which do not return successful (pod status Running) after first processing will be sent to the retry queue, where it will be dalyed and retried based on configuration until it gets the successful status or exhausts [reprocessing limit](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348)
+
 ## Setup Build Cluster
 
 Cluster admin should create build cluster using [buildclusters API](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)
@@ -523,9 +528,9 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
     {
       "user": "sdrw",
       "vhost": "screwdriver",
-      "configure": "^(build|clusterA|ClusterB)$",
-      "write": "^(build|ClusterA|ClusterB)$",
-      "read": "^(build|ClusterA|ClusterB)$"
+      "configure": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$",
+      "write": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$",
+      "read": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$"
     },
     {
       "user": "sdadmin",
@@ -575,7 +580,7 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
     {
       "vhost": "screwdriver",
       "name": "ha-screwdriver",
-      "pattern": "^(build|ClusterA|ClusterAdlr|ClusterB|ClusterBdlr|default)$",
+      "pattern": "^(build|ClusterA|ClusterAdlr|ClusterARetry|ClusterARetrydlr|ClusterB|ClusterBdlr|ClusterBRetry|ClusterBRetrydlr|default)$",
       "apply-to": "all",
       "definition": {
         "ha-mode": "exactly",
@@ -584,6 +589,16 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
         "ha-sync-mode": "automatic"
       },
       "priority": 0
+    },
+    {
+      "vhost": "screwdriver",
+      "name": "message-delay",
+      "pattern": "^(ClusterARetrydlr|ClusterBRetrydlr)$",
+      "apply-to": "queues",
+      "definition": {
+        "message-ttl": 60000
+      },
+      "priority": 1
     }
   ],
   "queues": [
@@ -644,6 +659,52 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
         "x-max-priority": 2,
         "x-message-ttl": 28800000
       }
+    },
+    {
+      "name": "ClusterARetry",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterARetrydlr",
+        "x-max-priority": 2,
+        "x-message-ttl": 28800000
+      }
+    },
+    {
+      "name": "ClusterARetrydlr",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterARetry",
+        "x-max-priority": 2
+      }
+    },
+    {
+      "name": "ClusterBRetry",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterBRetrydlr",
+        "x-max-priority": 2,
+        "x-message-ttl": 28800000
+      }
+    },
+    {
+      "name": "ClusterBRetrydlr",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterBRetry",
+        "x-max-priority": 2
+      }
     }
   ],
   "exchanges": [
@@ -697,6 +758,38 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
       "destination_type": "queue",
       "routing_key": "ClusterAdlr",
       "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterARetry",
+      "destination_type": "queue",
+      "routing_key": "ClusterARetry",
+      "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterBRetry",
+      "destination_type": "queue",
+      "routing_key": "ClusterBRetry",
+      "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterARetrydlr",
+      "destination_type": "queue",
+      "routing_key": "ClusterARetrydlr",
+      "arguments": {}
+    },
+     {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterBRetrydlr",
+      "destination_type": "queue",
+      "routing_key": "ClusterBRetrydlr",
+      "arguments": {}
     }
   ]
 }
@@ -704,12 +797,14 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
 
 Note: 
 1. Queues suffixed with dlr are deadletter queues. We use rabbitmq in-built deadletter queue mechanism for a retry with delay in case of errors. 
-   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)
+   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L116)
    in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
    routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
 1. `build` is exchange.
 1. `ClusterA` and `ClusterB` are queues.
 1. `ClusterAdlr` and `ClusterBdlr` are deadletter queues for `ClusterA` and `ClusterB` queues respectively. 
+1. `ClusterARetry` and `ClusterBRetry` are retry queues for `ClusterA` and `ClusterB` queues respectively which will receive messages if build pod status is not successful for start jobs. 
+1. `ClusterARetrydlr` and `ClusterBRetrydlr` are deadletter queues for `ClusterARetry` and `ClusterBRetry` queues respectively which will delay messages for 60s before re-enqueing them for processing. 
 
 ### User Interface
 
@@ -730,6 +825,11 @@ Screenshots of Exchanges, Queues page from Rabbitmq admin UI
 #### ClusterAdlr queue configuration:
 ![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterAdlr_queue.png)
 
+#### ClusterARetry queue configuration:
+![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterARetry_queue.png)
+#### ClusterARetrydlr queue configuration:
+![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterARetrydlr_queue.png)
+
 Refer to `Connections` and `Channels` page to check connections with a username established by Screwdriver Queue Service (Producer) and Build Cluster Queue Worker (Consumer).
 
 To get rabbitmq message delivery and acknowledgement rates refer to `Message rates` of each queue in `Queues` page.
@@ -745,8 +845,8 @@ Please refer to
 
 ### RabbitMQ
 
-Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236), 
-but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348).
+Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L242), 
+but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L354).
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
@@ -760,7 +860,9 @@ but you can override defaults using environment variables in [rabbitmq section](
 | queue | RABBITMQ_QUEUE | queue to consume from |
 | prefetchCount | RABBITMQ_PREFETCH_COUNT | used to specify how many messages are sent at the same time. Default: "20" |
 | messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | maximum number of retries in case of errors. Default: "3". If this is set > 0 build cluster queue worker will expect deadletter queue to retry. |
-
+| retryQueue | RABBITMQ_RETRYQUEUE | Queue name of the retry queue. |
+| retryQueueEnabled | RABBITMQ_RETRYQUEUE_ENABLED | retry queue enable/disable flag. |
+| exchange | RABBITMQ_EXCHANGE | Exchange / router name for rabbitmq to publish message. |
 ### Executors
 
 Executor configuration settings are exactly same as the [settings configuration](./configure-api#executor-plugin) for API.
