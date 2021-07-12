@@ -53,9 +53,9 @@ Another option is to create a new build cluster and disable old build cluster. I
 stickiness will be lost.*
 
 ### Retry queues
-Build clusters can be setup with retry queues to verify pod status and stop any rouge builds with image pull errors or config errors.
-This can be enabled by using a [active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352). It has a default value set to `true`. 
-When this is used messages which do not return successful (pod status Running) after first processing will be sent to the retry queue, where it will be dalyed and retried based on configuration until it gets the successful status or exhausts [reprocessing limit](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348)
+Build clusters can be setup with retry queues to verify pod status and stop any rogue builds with image pull errors or config errors.
+This can be enabled by using an [active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352). It has a default value set to `true`. 
+When this is used messages which do not return successful (pod status `Running`) after first processing will be sent to the retry queue, where it will be delayed and retried based on configuration until it gets the successful status or exhausts the [reprocessing limit](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348).
 
 ## Setup Build Cluster
 
