@@ -20,7 +20,7 @@ toc:
         <p>Screwdriverはあなたのビルドパイプライン上で継続的デリバリーを第一級オブジェクトとして扱います。プルリクエストからプロダクションまでの流れを簡単に定義します。</p>
     </div>
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/continuous_delivery.png" class="cd">
+        <img src="/assets/continuous_delivery.png" class="cd" alt="build publish deploy flowchart">
     </div>
 </div>
 
@@ -28,7 +28,7 @@ toc:
 
 <div class="row">
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/daily_habits.png" class="dh">
+        <img src="/assets/daily_habits.png" class="dh" alt="commit test release cycle">
     </div>
     <div class="col-xs-12 col-md-8">
         <h2>日常業務との統合</h2>
@@ -44,7 +44,7 @@ toc:
         <p>シンプルなYAMLファイルをコードに追加することでパイプラインを定義できます。パイプラインを扱う他の設定は無いため、他のコードと合わせてパイプラインの変更をレビューした上で投入できます。</p>
     </div>
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/pipeline_code.png" class="pc">
+        <img src="/assets/pipeline_code.png" class="pc" alt="Screwdriver.yaml screenshot">
     </div>
 </div>
 
@@ -52,7 +52,7 @@ toc:
 
 <div class="row">
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/3rd_party_services.png" class="party">
+        <img src="/assets/3rd_party_services.png" class="party" alt="third party services examples">
     </div>
     <div class="col-xs-12 col-md-8">
         <h2>あらゆる環境で動作</h2>
