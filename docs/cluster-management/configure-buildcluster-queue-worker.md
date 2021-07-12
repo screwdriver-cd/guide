@@ -795,8 +795,8 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
 }
 ```
 
-Note: 
-1. Queues suffixed with dlr are deadletter queues. We use rabbitmq in-built deadletter queue mechanism for a retry with delay in case of errors. 
+Note:
+1. Queues suffixed with `dlr` are deadletter queues. We use the built-in rabbitmq deadletter queue mechanism for a retry with delay in case of errors.
    Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L116)
    in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
    routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
