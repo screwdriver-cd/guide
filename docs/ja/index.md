@@ -6,7 +6,7 @@ menu: menu_ja
 is_homepage: 'true'
 ---
 <div class="top">
-    <img src="/assets/Screwdriver_Icon_Full@1x.png" alt="Screwdriver icon">
+    <img src="/assets/Screwdriver_Icon_Full@1x.png" alt="Screwdriverのアイコン">
     <h1>Screwdriverにようこそ</h1>
     <p>ドキュメントは3つの異なるセクションに分かれています</p>
 </div>
