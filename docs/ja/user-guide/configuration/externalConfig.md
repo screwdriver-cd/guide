@@ -32,6 +32,8 @@ childPipelines:
     - git@github.com:minz1027/quickstart-generic.git#main
     # ソースディレクトリがルートでないパイプラインもURLの後に:<ソースディレクトリ>を追加することで子パイプラインにできます
     - git@github.com:minz1027/quickstart-generic.git#main:path/to/subdir
+    # read-only SCM。このオプションが利用可能かどうかは、クラスタ管理者に問い合わせてください。
+    - https://sd.gitlab.com/screwdriver-cd/data-schema.git
 
 jobs:
   main:
