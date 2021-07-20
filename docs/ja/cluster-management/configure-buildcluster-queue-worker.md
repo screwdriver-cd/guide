@@ -800,7 +800,7 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
 1. `build`はExchangeです。
 1. `ClusterA`と`ClusterB`はキューです
 1. `ClusterAdlr`と`ClusterBdlr`はそれぞれ`ClusterA`と`ClusterB`のデッドレターキューです。
-1. `ClusterARetry`と`ClusterBRetry`は、それぞれ`ClusterA`と`ClusterB`のリトライキューで、開始ジョブのビルドポッドのステータスが成功シなかった場合にメッセージを受け取ります。
+1. `ClusterARetry`と`ClusterBRetry`は、それぞれ`ClusterA`と`ClusterB`のリトライキューで、開始ジョブのビルドポッドのステータスが成功しなかった場合にメッセージを受け取ります。
 1. `ClusterARetrydlr`と`ClusterBRetrydlr`は、それぞれ`ClusterARetry`と`ClusterBRetry`のデッドレターキューで、メッセージを60秒間遅延させてから処理のために再度エンキューします。
 
 ### ユーザーインターフェース
