@@ -115,7 +115,7 @@ Parsersは、Screwdriverの様々なフローを検証し、解析するのに�
 * **[template-validator][template-validator-repo]**: API によってジョブテンプレートを validate するのに使われるツール
 * **[tmpl-semantic-release][tmpl-semantic-release-repo]**: NPMベースのモジュールのセマンティックリリースを実行するテンプレート
 
-コマンドとは、あらかじめ定義されたコードの断片で、`screwdriver.yaml`のステップ定義を置き換えるために使用できます。コマンドは一連の定義済みのコマンドを含みます。
+コマンドとは、あらかじめ定義されたコードの断片で、`screwdriver.yaml`のステップ定義を置き換えるために使用できます。コマンドにはすでに定義したコマンドを含めることができます。
 
 * **[command-validator][command-validator-repo]**: APIがコマンドを検証するために使用するツール
 * **[cmd-install-node][cmd-install-node-repo]**: nvmを使ってnode.jsをインストールする共有コマンド
