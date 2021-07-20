@@ -88,7 +88,7 @@ SCM の実装は API と SCM の間のインターフェースとして使用さ
 * **[scm-base][scm-base-repo]**: 共通のインターフェース
 * **[scm-bitbucket][scm-bitbucket-repo]**: Bitbucket.org の実装
 * **[scm-github][scm-github-repo]**: GitHub の実装
-* **[scm-gitlab][scm-gitlab-repo]**: Git+ab の実装
+* **[scm-gitlab][scm-gitlab-repo]**: GitLab の実装
 * **[sd-repo][sd-repo-repo]**: [scm-github][scm-github-repo]の`getCheckoutCommand`のRepo workflowを実行するGoベースのツール
 
 **[scm-router][scm-router-repo]** は、指定されたscmにビルドをルーティングする汎用のscmプラグインです。
