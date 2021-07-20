@@ -101,7 +101,7 @@ APIは、ユーザーに通知を送ることもできます。
 * **[notifications-slack][notifications-slack-repo]**: Slack通知の実装
 
 #### Parsers
-Parsersは、Screwdriverの様々なフローを検証し、海先するのに役立ちます。
+Parsersは、Screwdriverの様々なフローを検証し、解析するのに役立ちます。
 
 * **[config-parser][config-parser-repo]**: ユーザーの`screwdriver.yaml`を検証、解析するnode module
 * **[workflow-parser][workflow-parser-repo]**: パイプラインの設定を解析してワークフローグラフに変換するnode module
