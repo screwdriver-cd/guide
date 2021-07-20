@@ -136,7 +136,7 @@ Parsersは、Screwdriverの様々なフローを検証し、解析するのに�
 **[queue-service][queue-service-repo]** は、Screwdriverがビルドをエンキューして処理するための、可用性の高いRESTベースのキューサービスです。
 これは、[Resque][node-resque-URL]を利用して、キューイングメカニズムを提供します。
 
-* **[buildcluster-queue-worker][buildcluster-queue-worker-repo]**: Rabbitmqのキューからジョブを消費するamqpコネクションマネージャの実装
+* **[buildcluster-queue-worker][buildcluster-queue-worker-repo]**: Rabbitmqのキューからジョブを取り出すamqpコネクションマネージャの実装
 
 #### Executors
 
