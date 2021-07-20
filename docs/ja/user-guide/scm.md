@@ -24,6 +24,7 @@ ScrewdriverはGitHub、GitLab、Bitbucketの3つのSCMに対応しています�
 | [プライベートレポジトリ][private-repo]                   |     ✅     |            |               |
 | [タグフィルターとリリースフィルター][tag-release-filtering]|     ✅     |            |               |
 | [パイプラインの親子設定][external-config]                |     ✅     |     ✅    |      ✅       |
+| [read-only SCM][read-only]                         |     ✅     |     ✅     |      ✅       |
 | [ソースディレクトリ][source-directory]                  |     ✅     |     ✅     |      ✅       |
 | [prトリガー][pull-requests]                            |     ✅     |            |      ✅       |
 | [ブランチフィルター][branch-filtering]                  |     ✅     |     ✅     |      ✅       |
@@ -39,6 +40,7 @@ ScrewdriverはGitHub、GitLab、Bitbucketの3つのSCMに対応しています�
 [ignore-commits-by]: ../cluster-management/configure-api#webhooks
 [private-repo]: ../cluster-management/configure-api#ソース管理プラグイン
 [pull-requests]: ./configuration/workflow#ワークフロー
+[read-only]: ../cluster-management/configure-api#ソース管理プラグイン
 [source-directory]: ./configuration/sourceDirectory
 [source-paths]: ./configuration/sourcePaths
 [subscribe-notifications]: ./configuration/workflow#購読しているscmからの通知
