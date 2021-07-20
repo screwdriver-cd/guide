@@ -117,7 +117,7 @@ Parsersは、Screwdriverの様々なフローを検証し、解析するのに�
 
 コマンドとは、あらかじめ定義されたコードの断片で、`screwdriver.yaml`のステップ定義を置き換えるために使用できます。コマンドは一連の定義済みのコマンドを含みます。
 
-* **[command-validator][command-validator-repo]**: APIがコマンドをバリデートするために使用するツール
+* **[command-validator][command-validator-repo]**: APIがコマンドを検証するために使用するツール
 * **[cmd-install-node][cmd-install-node-repo]**: nvmを使ってnode.jsをインストールする共有コマンド
 * **[cmd-docker-trigger][cmd-docker-trigger-repo]**: masterと指定されたタグのDockerビルドをトリガーするための共有コマンド
 * **[junit-reports][junit-reports-repo]**: Junitレポートを解析するための共有コマンド
