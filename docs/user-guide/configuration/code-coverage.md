@@ -34,7 +34,7 @@ sonar.sources=index.js
 sonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info
 ```
 
-The `reportPath` property depends on the language used. Check the [SonarQube documentation](https://docs.sonarqube.org/display/PLUG) to figure out the right syntax.
+The `reportPath` property depends on the language used. Check the [SonarQube documentation](https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix) to figure out the right syntax.
 
 ### $SD_SONAR_OPTS
 
@@ -61,11 +61,11 @@ jobs:
 - Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`; **you must set `sonar.sources` yourself**.
 
 #### Related links
-- [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
+- [SonarQube properties](https://docs.sonarqube.org/latest/analysis/analysis-parameters)
 - [Java example](https://github.com/screwdriver-cd-test/sonar-coverage-example-java)
 - [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript)
 - [Examples from the SonarQube website](https://github.com/SonarSource/sonar-scanning-examples)
-- [SonarQube docs](https://docs.sonarqube.org/display/SCAN)
+- [SonarQube docs](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
 - [SonarQube environment variables](../environment-variables#coverage-sonar)
 
 ### GitHub pull request decoration
