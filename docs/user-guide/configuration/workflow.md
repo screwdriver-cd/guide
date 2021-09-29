@@ -8,17 +8,18 @@ toc:
       url: "#workflow"
     - title: Defining Workflow Order
       url: "#defining-workflow-order"
-    - title: Advanced Workflow Logic
-      url: "#advanced-logic"
+    - title: Parallel with Join/OR
+      url: "#parallel-and-join"
     - title: Join/Fan-in
-      url: "#advanced-logic-and"
+      url: "#join-example"
+      subitem: true
+    - title: OR Workflow
+      url: "#or-workflow"
       subitem: true
     - title: Branch filtering
       url: "#branch-filtering"
     - title: Tag/Release filtering
       url: "#tagrelease-filtering"
-    - title: Parallel and Join
-      url: "#parallel-and-join"
     - title: Remote Triggers
       url: "#remote-triggers"
     - title: Remote Join
@@ -45,7 +46,7 @@ Workflow is the way that individual jobs are wired together to form a pipeline. 
 See the [tag and release trigger example repo](https://github.com/screwdriver-cd-test/tag-trigger-example) for reference.
 
 ## Defining Workflow Order
-To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate [advanced logic](#advanced-logic).
+To denote workflow order, use the `requires` keyword under a job with the job names as an array. Job names may be prefixed with a tilde to indicate advanced logic.
 
 #### Example
 In the following example, the job, `main`, will start after any SCM pull-request, _or_ commit event. The job, `second`, will run after `main` is successful.
@@ -71,31 +72,58 @@ To specify a job to run when a pull request is opened or updated, use `requires:
 
 Example repo: <https://github.com/screwdriver-cd-test/workflow-sequential-example>
 
-## Advanced Logic
-### Advanced Logic [_AND_]
-You can specify a job to start when all of its `requires` jobs are successful [_AND_]. This is also often called a join or fan-in.
 
-### Example
-In the following example, the `last` job will only trigger when `first` _AND_ `second` complete successfully in the same triggering event.
+## Parallel and Join
+You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
+
+#### Join Example
+In the following example, where `A` and `B` requires `main`. This will cause `A` and `B` to execute in parallel after `main` is successful. Also in this example, job `C` runs only after both `A` _and_ `B` are successful in the same triggering event.
 
 ```
 shared:
     image: node:14
-    steps:
-        - greet: echo hello
 
 jobs:
     main:
         requires: [~pr, ~commit]
+        steps:
+            - echo: echo hi
+    A:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    B:
+        requires: [main]
+        steps:
+            - echo: echo in parallel
+    C:
+        requires: [A, B]
+        steps:
+            - echo: echo join after A and B
+```
 
+Example repo: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
+
+### OR Workflow
+Similar to Join, but job will start when any of its `requires` jobs are successful [_OR_]. This is achieved by adding a tilde (`~`) prefix to the jobs it requires.
+
+#### Example
+In the following example, the `last` job will trigger once after either `first` _OR_ `second` completes successfully.
+
+```
+shared:
+    image: node:6
+    steps:
+        - greet: echo hello
+jobs:
+    main:
+        requires: [~pr, ~commit]
     first:
         requires: [main]
-
     second:
         requires: [main]
-
     last:
-        requires: [first, second]
+        requires: [~first, ~second]
 ```
 
 ## Branch filtering
@@ -158,37 +186,6 @@ jobs:
             - echo: echo stable release
 ```
 
-## Parallel and Join
-You can run jobs in parallel by requiring the same job in two or more jobs. To join multiple parallel jobs at a single job you can use the `requires` syntax to require multiple jobs.
-
-#### Example
-In the following example, where `A` and `B` requires `main`. This will cause `A` and `B` to execute in parallel after `main` is successful. Also in this example, job `C` runs only after both `A` _and_ `B` are successful in the same triggering event.
-
-```
-shared:
-    image: node:14
-
-jobs:
-    main:
-        requires: [~pr, ~commit]
-        steps:
-            - echo: echo hi
-    A:
-        requires: [main]
-        steps:
-            - echo: echo in parallel
-    B:
-        requires: [main]
-        steps:
-            - echo: echo in parallel
-    C:
-        requires: [A, B]
-        steps:
-            - echo: echo join after A and B
-```
-
-Example repo: <https://github.com/screwdriver-cd-test/workflow-parallel-join-example>
-
 ## Remote Triggers
 To trigger a job in your pipeline after a job in another pipeline is finished, you can use remote requires. The format is `~sd@pipelineID:jobName`. `~pr`, `~commit`, and jobs with `~sd@pipelineID:jobName` format follow _OR_ logic.
 
@@ -207,7 +204,7 @@ jobs:
 Example repo: <https://github.com/screwdriver-cd-test/workflow-remote-requires-example>
 
 ## Remote Join
-You can also have remote join jobs. Please double check with your cluster admin whether it is supported. 
+You can also have remote join jobs. Please double check with your cluster admin whether it is supported.
 
 #### Example
 In the following example, this pipeline 3 will start the `join_job` job after successful completion of: internal_fork, external_fork in pipeline 2, _and_ external_fork in pipeline 4.
@@ -290,12 +287,12 @@ jobs:
 Example repo: <https://github.com/screwdriver-cd-test/workflow-blockedby-example>
 
 ## Freeze Windows
-You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value.
+You can freeze your jobs and prevent them from running during specific time windows using `freezeWindows`. The setting takes a cron expression or a list of them as the value. Timezone is in UTC.
 
 Before the job is started, it will check if the start time falls under any of the provided cron windows, and freezes the job if so. The job will be unfrozen and run as soon as the current cron window ends.
 
 Note:
-- Different from `build_periodically`, `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
+- Different from [build_periodically](./annotations#job-level-annotations), `freezeWindows` should not use hashed time therefore *the symbol `H` for hash is disabled.*
 - The combinations of day of week and day of month are usually invalid. Therefore only *one out of day of week and day of month can be specified*. The other field should be set to "?".
 - By default, if multiple builds are triggered during the freeze window, they will be collapsed into one build which will run at the end of the freeze window with the latest commit inside the freeze window. You can turn this feature off by setting the `screwdriver.cd/collapseBuilds` [annotation](./annotations) to `false`.
 
@@ -352,7 +349,7 @@ In the following example, we can add repositories to subscribe to in the `scmUrl
 shared:
     image: node:8
 
-subscribe: 
+subscribe:
     scmUrls:
         - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']
 ```
@@ -367,4 +364,4 @@ jobs:
         requires: [~pr, ~commit, ~subscribe]
 ```
 
-Here the `~subscribe` event tells the job to respond to external notifications. 
+Here the `~subscribe` event tells the job to respond to external notifications.

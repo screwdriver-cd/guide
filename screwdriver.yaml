@@ -1,20 +1,21 @@
 shared:
-  image: ruby:2
-
+  environment:
+    DOCKER_REPO: screwdrivercd/guide
 jobs:
   main:
+    image: ruby:2
     requires: [~pr, ~commit]
     steps:
         - bundle_install: bundle install
         - build: bundle exec jekyll build --source docs --destination _site
+        - proof: bundle exec htmlproofer --assume-extension --allow-hash-href --url-ignore '/bitbucket/,/gitlab/,/api\.screwdriver\.cd/' --http-status-ignore 429 _site
 
   publish:
+      image: ruby:2
       requires: [main]
       environment:
-          DOCKER_REPO: screwdrivercd/guide
           RELEASE_FILE: guide.tgz
       secrets:
-          - DOCKER_TRIGGER
           - GIT_KEY
           - GITHUB_TOKEN
       steps:
@@ -24,15 +25,13 @@ jobs:
           - package: tar -C _site -cvzf $RELEASE_FILE .
           - tag: ./ci/git-tag.sh
           - publish: ./ci/git-release.sh
-          - docker: |
-              ./ci/git-latest.sh
-              export DOCKER_TAG=`cat VERSION`
-              ./ci/docker-trigger.sh
-
+  docker-publish:
+    requires: publish
+    template: sd/dind@latest
   deploy:
-      requires: [publish]
+      image: ruby:2
+      requires: [docker-publish]
       environment:
-          DOCKER_REPO: screwdrivercd/guide
           K8S_CONTAINER: guide
           K8S_IMAGE: screwdrivercd/guide
           K8S_HOST: kubernetes.default.svc

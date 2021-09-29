@@ -9,6 +9,18 @@ toc:
       active: true
     - title: Using the API
       url: "#using-the-api"
+    - title: With Swagger
+      url: "#with-swagger"
+      subitem: true
+    - title: Get a Bearer Token
+      url: "#get-a-bearer-token"
+      subitem: level-2
+    - title: With a REST Client
+      url: "#with-a-rest-client"
+      subitem: true
+    - title: With User or Pipeline tokens
+      url: "#with-user-or-pipeline-tokens"
+      subitem: true
     - title: Authentication and Authorization
       url: "#authentication-and-authorization"
     - title: Badges
@@ -27,6 +39,7 @@ Screwdriver APIs and the data models around them are documented via [Swagger]. T
 Our API documentation can be found at [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation). To see yours, go to `<API URL>/v4/documentation`.
 
 ## Using the API
+
 ### With Swagger
 Swagger documentation includes examples and editable parameters to play around with. Visit the `/v4/documentation` page and use the interactive `Try it out!` buttons to make calls to our API.
 
@@ -40,6 +53,15 @@ For more detailed documentation, click on the `Model` link.
 
 Swagger model:
 ![Swagger model](./assets/swagger-model.png)
+
+### Get a Bearer Token
+1. After login to Screwdriver UI, you can go to [https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token) or your `<API URL>/v4/auth/token` to get a Bearer Token:
+![Swagger Get Bearer Token](./assets/swagger-get-bearer-token.jpg)
+
+2. Now go back [API documentation](https://api.screwdriver.cd/v4/documentation) or yours `<API URL>/v4/documentation`, click on the 🔒 icon to the enter the Bearer Token, like the following:
+
+![Swagger Use bearer token](./assets/swagger-use-bearer-token.png)
+
 
 ### With a REST Client
 Use a REST client like [Postman] to make requests against the API. You will need an authorization token. To get an authorization token, login using `/v4/auth/login` and copy the token value when redirected to `/v4/auth/token`. See the [Authorization and Authentication](#authentication-and-authorization) section for more information.
@@ -104,7 +126,7 @@ For more information, see the [GitHub OAuth] documentation.
 
 ## Badges
 
-To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`. To get it for job, you can use `<your_UI_URL>/pipelines/<your_pipelineId>/<jobName>/badge`. 
+To get an image that displays the current build statuses for a particular pipeline, you can use the URL `<your_UI_URL>/pipelines/<your_pipelineId>/badge`. To get it for job, you can use `<your_UI_URL>/pipelines/<your_pipelineId>/<jobName>/badge`.
 
 [![Pipeline Status][status-image]][status-url] [![Job Status][job-status-image]][status-url]
 

@@ -3,7 +3,7 @@ layout: main
 title: ビルドの設定
 category: クラスター管理
 menu: menu_ja
-toc: 
+toc:
     - title: ビルドの設定
       url: "#ビルドの設定"
       active: true

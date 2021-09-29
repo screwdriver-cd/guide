@@ -3,7 +3,7 @@ layout: main
 title: Overall Architecture
 category: Cluster Management
 menu: menu
-toc: 
+toc:
     - title: Overall Architecture
       url: "#overall-architecture"
       active: true

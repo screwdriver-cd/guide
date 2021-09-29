@@ -4,7 +4,7 @@ title: Configuring Build Cluster Queue Worker
 category: Cluster Management
 menu: menu
 toc:
-    - title: Managing the Build Cluster Queue Worker 
+    - title: Managing the Build Cluster Queue Worker
       url: "#managing-the-build-cluster-queue-worker"
       active: true
     - title: Overview
@@ -36,21 +36,26 @@ It is Cluster admins responsibility to setup and configure Rabbitmq Message Brok
 
 # Managing the Build Cluster Queue Worker
 
-This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq.com/#getstarted) and [Build Cluster Queue Worker](https://github.com/screwdriver-cd/buildcluster-queue-worker). 
+This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq.com/#getstarted) and [Build Cluster Queue Worker](https://github.com/screwdriver-cd/buildcluster-queue-worker).
 
 ## Overview
 
-Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257) or using 
+Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257) or using
 [environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369).
-When enabled Screwdriver [Queue Service](./configure-queue-service.md) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and 
-weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by 
-Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will 
-not impact when a build cluster is taken offline for maintenance as builds will be automatically routed to next available build cluster. 
+When enabled Screwdriver [Queue Service](configure-queue-service) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and
+weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by
+Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will
+not impact when a build cluster is taken offline for maintenance as builds will be automatically routed to next available build cluster.
 
-**Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness. 
-So any updates to routing key, need to be cascaded to affected pipelines annotations and rabbitmq exchange bindings. Without this update, builds related to affected pipeline will error. 
-Another option is to create a new build cluster and disable old build cluster. In this case builds will auto route to new build cluster without any updates, but please keep in mind build cluster 
-stickiness will be lost.* 
+**Caution**: Please give attention when creating buildCluster routing keys and be cautious or refrain updating routing key. Routing key is added to pipeline annotations for build cluster stickiness.
+So any updates to routing key, need to be cascaded to affected pipelines annotations and rabbitmq exchange bindings. Without this update, builds related to affected pipeline will error.
+Another option is to create a new build cluster and disable old build cluster. In this case builds will auto route to new build cluster without any updates, but please keep in mind build cluster
+stickiness will be lost.*
+
+### Retry queues
+Build clusters can be setup with retry queues to verify pod status and stop any rogue builds with image pull errors or config errors.
+This can be enabled by using an [active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352). It has a default value set to `true`. 
+When this is used messages which do not return successful (pod status `Running`) after first processing will be sent to the retry queue, where it will be delayed and retried based on configuration until it gets the successful status or exhausts the [reprocessing limit](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348).
 
 ## Setup Build Cluster
 
@@ -75,13 +80,13 @@ Cluster admin should create build cluster using [buildclusters API](https://api.
 1. set `isActive` to `true` or `false` to turn on/off a build cluster.
 1. set weightage 100 if you have single build cluster and for more than one cluster, distribute the weightage accordingly.
 
-***Caution**: Build cluster scmContext is derived from API token of specific scm. In order to create build clusters with same name for multiple scm, repeat post 
+***Caution**: Build cluster scmContext is derived from API token of specific scm. In order to create build clusters with same name for multiple scm, repeat post
 [/v4/buildClusters](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters) api for each scm account.*
 
 ## Install RabbitMQ Message Broker
 
 As a prerequisite go through [Downloading and Installing Rabbitmq](https://www.rabbitmq.com/download.html) and [Rabbitmq Tutorials](https://www.rabbitmq.com/getstarted.html) documentation.
-Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability `version: 3.7.28 Erlang: 22.3.4.7` in Kubernetes cluster. 
+Screwdriver uses [helm charts](https://github.com/helm/charts/tree/master/stable/rabbitmq-ha) to install Rabbitmq high availability `version: 3.7.28 Erlang: 22.3.4.7` in Kubernetes cluster.
 Please note that this helm chart is deprecated and for new installation refer [bitnami helm charts](https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq).
 
 Rabbitmq helm chart values.tmpl file for your reference. Update and use it per your environment specifications.
@@ -523,9 +528,9 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
     {
       "user": "sdrw",
       "vhost": "screwdriver",
-      "configure": "^(build|clusterA|ClusterB)$",
-      "write": "^(build|ClusterA|ClusterB)$",
-      "read": "^(build|ClusterA|ClusterB)$"
+      "configure": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$",
+      "write": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$",
+      "read": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$"
     },
     {
       "user": "sdadmin",
@@ -575,7 +580,7 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
     {
       "vhost": "screwdriver",
       "name": "ha-screwdriver",
-      "pattern": "^(build|ClusterA|ClusterAdlr|ClusterB|ClusterBdlr|default)$",
+      "pattern": "^(build|ClusterA|ClusterAdlr|ClusterARetry|ClusterARetrydlr|ClusterB|ClusterBdlr|ClusterBRetry|ClusterBRetrydlr|default)$",
       "apply-to": "all",
       "definition": {
         "ha-mode": "exactly",
@@ -584,6 +589,16 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
         "ha-sync-mode": "automatic"
       },
       "priority": 0
+    },
+    {
+      "vhost": "screwdriver",
+      "name": "message-delay",
+      "pattern": "^(ClusterARetrydlr|ClusterBRetrydlr)$",
+      "apply-to": "queues",
+      "definition": {
+        "message-ttl": 60000
+      },
+      "priority": 1
     }
   ],
   "queues": [
@@ -644,6 +659,52 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
         "x-max-priority": 2,
         "x-message-ttl": 28800000
       }
+    },
+    {
+      "name": "ClusterARetry",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterARetrydlr",
+        "x-max-priority": 2,
+        "x-message-ttl": 28800000
+      }
+    },
+    {
+      "name": "ClusterARetrydlr",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterARetry",
+        "x-max-priority": 2
+      }
+    },
+    {
+      "name": "ClusterBRetry",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterBRetrydlr",
+        "x-max-priority": 2,
+        "x-message-ttl": 28800000
+      }
+    },
+    {
+      "name": "ClusterBRetrydlr",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterBRetry",
+        "x-max-priority": 2
+      }
     }
   ],
   "exchanges": [
@@ -697,23 +758,57 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
       "destination_type": "queue",
       "routing_key": "ClusterAdlr",
       "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterARetry",
+      "destination_type": "queue",
+      "routing_key": "ClusterARetry",
+      "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterBRetry",
+      "destination_type": "queue",
+      "routing_key": "ClusterBRetry",
+      "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterARetrydlr",
+      "destination_type": "queue",
+      "routing_key": "ClusterARetrydlr",
+      "arguments": {}
+    },
+     {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterBRetrydlr",
+      "destination_type": "queue",
+      "routing_key": "ClusterBRetrydlr",
+      "arguments": {}
     }
   ]
 }
 ```
 
-Note: 
-1. Queues suffixed with dlr are deadletter queues. We use rabbitmq in-built deadletter queue mechanism for a retry with delay in case of errors. 
-   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)
+Note:
+1. Queues suffixed with `dlr` are deadletter queues. We use the built-in rabbitmq deadletter queue mechanism for a retry with delay in case of errors.
+   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L116)
    in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
    routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
 1. `build` is exchange.
 1. `ClusterA` and `ClusterB` are queues.
 1. `ClusterAdlr` and `ClusterBdlr` are deadletter queues for `ClusterA` and `ClusterB` queues respectively. 
+1. `ClusterARetry` and `ClusterBRetry` are retry queues for `ClusterA` and `ClusterB` queues respectively which will receive messages if build pod status is not successful for start jobs. 
+1. `ClusterARetrydlr` and `ClusterBRetrydlr` are deadletter queues for `ClusterARetry` and `ClusterBRetry` queues respectively which will delay messages for 60s before re-enqueing them for processing. 
 
 ### User Interface
 
-Screenshots of Exchanges, Queues page from Rabbitmq admin UI 
+Screenshots of Exchanges, Queues page from Rabbitmq admin UI
 
 #### Exchanges:
 ![Exchanges page](./assets/rabbitmq/exchanges.png)
@@ -730,6 +825,11 @@ Screenshots of Exchanges, Queues page from Rabbitmq admin UI
 #### ClusterAdlr queue configuration:
 ![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterAdlr_queue.png)
 
+#### ClusterARetry queue configuration:
+![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterARetry_queue.png)
+#### ClusterARetrydlr queue configuration:
+![ClusterAdlr queue detail page](./assets/rabbitmq/ClusterARetrydlr_queue.png)
+
 Refer to `Connections` and `Channels` page to check connections with a username established by Screwdriver Queue Service (Producer) and Build Cluster Queue Worker (Consumer).
 
 To get rabbitmq message delivery and acknowledgement rates refer to `Message rates` of each queue in `Queues` page.
@@ -745,8 +845,8 @@ Please refer to
 
 ### RabbitMQ
 
-Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236), 
-but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348).
+Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L242), 
+but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L354).
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
@@ -756,11 +856,13 @@ but you can override defaults using environment variables in [rabbitmq section](
 | host | RABBITMQ_HOST | Rabbitmq cluster hostname. Default: 127.0.0.1 |
 | port | RABBITMQ_PORT | Rabbitmq port. Default: 5672 |
 | vhost | RABBITMQ_VIRTUAL_HOST | Virtual host for queues. Default: /screwdriver |
-| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | options to configure hearbeat check and reconnect in time in case of broken connections. Default: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' |
 | queue | RABBITMQ_QUEUE | queue to consume from |
 | prefetchCount | RABBITMQ_PREFETCH_COUNT | used to specify how many messages are sent at the same time. Default: "20" |
 | messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | maximum number of retries in case of errors. Default: "3". If this is set > 0 build cluster queue worker will expect deadletter queue to retry. |
-
+| retryQueue | RABBITMQ_RETRYQUEUE | Queue name of the retry queue. |
+| retryQueueEnabled | RABBITMQ_RETRYQUEUE_ENABLED | retry queue enable/disable flag. |
+| exchange | RABBITMQ_EXCHANGE | Exchange / router name for rabbitmq to publish message. |
 ### Executors
 
 Executor configuration settings are exactly same as the [settings configuration](./configure-api#executor-plugin) for API.
@@ -791,5 +893,4 @@ This is used for liveness checks. [See](https://github.com/screwdriver-cd/buildc
 
 1. [Build cluster schema definitions are defined here](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
 
-2. name and scmContext fields form a [unique constraint](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js) for a buildcluster. 
-
+2. name and scmContext fields form a [unique constraint](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js) for a buildcluster.

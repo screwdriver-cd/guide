@@ -7,7 +7,7 @@ toc:
     - title: コードカバレッジ
       url: "#コードカバレッジ"
     - title: SonarQube
-      url: "#sonarqube"    
+      url: "#sonarqube"
     - title: GitHub PR decoration
       url: "#github-pull-request-decoration"
       subitem: true
@@ -34,7 +34,7 @@ sonar.sources=index.js
 sonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info
 ```
 
-`reportPath` プロパティは使用する言語によって変わります。正しい指定の仕方は [SonarQube documentation](https://docs.sonarqube.org/display/PLUG) を確認してください。
+`reportPath` プロパティは使用する言語によって変わります。正しい指定の仕方は [SonarQube documentation](https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix) を確認してください。
 
 ### $SD_SONAR_OPTS
 
@@ -61,12 +61,12 @@ jobs:
 - Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。**`sonar.sources` は自分で設定する必要があります。**
 
 #### 関連リンク
-- [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
+- [SonarQube properties](https://docs.sonarqube.org/latest/analysis/analysis-parameters)
 - [Java example](https://github.com/screwdriver-cd-test/sonar-coverage-example-java)
 - [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript)
 - [Examples from the SonarQube website](https://github.com/SonarSource/sonar-scanning-examples)
-- [SonarQube docs](https://docs.sonarqube.org/display/SCAN)
-- [SonarQube environment variables](../environment-variables#coverage-sonar)
+- [SonarQube docs](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
+- [SonarQube environment variables](../environment-variables#カバレッジsonar)
 
 ### GitHub pull request decoration
 ScrewdriverのクラスタがSonar Enterpriseを利用している場合、GitHubでのチェックに[Pull Request decoration](https://docs.sonarqube.org/7.8/analysis/pull-request/)を利用することができます。この機能が有効な場合、リポジトリにSonar PR Checks用のGitHub appを追加することで利用することが出来ます。サポート状況の詳細はScrewdriverクラスタ管理者に確認してください。

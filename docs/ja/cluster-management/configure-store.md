@@ -13,12 +13,16 @@ toc:
   url: "#設定"
 - title: 認証
   url: "#認証"
+  subitem: true
 - title: 配信
   url: "#配信"
+  subitem: true
 - title: ビルドアーティファクト
   url: "#ビルドアーティファクト"
+  subitem: true
 - title: ストレージ
   url: "#ストレージ"
+  subitem: true
 ---
 
 ## Storeの管理

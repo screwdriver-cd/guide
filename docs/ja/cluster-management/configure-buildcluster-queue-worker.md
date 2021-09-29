@@ -41,7 +41,7 @@ RabbitMQメッセージブローカーとビルドクラスターキューワー
 ## Overview
 
 ビルドクラスター機能は、[multiBuildClusterのフラグ](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257)または[環境変数](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369)で有効/無効を切り替えることができます。
-有効にすると、Screwdriverの[キューサービス](./configure-queue-service.md)は、ビルドメッセージをRabbitMQにプッシュします。
+有効にすると、Screwdriverの[キューサービス](configure-queue-service)は、ビルドメッセージをRabbitMQにプッシュします。
 ビルドメッセージのヘッダーには、buildClustersテーブルに設定されているisActiveフラグとweightageの重み付けに基づいて、ルーティングキー設定されます。
 RabbitMQはメッセージのヘッダーに設定されたルーティングキーに基づいてビルドメッセージをキューにルーティングし、
 ビルドメッセージはビルドクラスターキューワーカーによって消費・処理されます。
@@ -51,6 +51,11 @@ Stickinessについてですが、パイプラインの最初のビルドが実�
 ***注意**: ビルドクラスターのルーティングキーを作成する際には注意し、慎重に作成して、ルーティングキーの更新は控えて下さい。ルーティングキーは、ビルドクラスターのStickinessのためにパイプラインannotationsに保存されています。
 そのためルーティングキーを更新すると、影響を受けるパイプラインのannotationsとRabbitMQの結びつきを正しく設定し直す必要があります。この更新がないと、影響を受けるパイプラインに関連するビルドはエラーになります。
 別の方法は、新しいビルドクラスターを作成し、古いビルドクラスターを無効にすることです。この場合、ビルドは更新無しで新しいビルドクラスターに自動的にルーティングされますが、ビルドクラスターのStickinessは失われることに注意して下さい。*
+
+### Retry queues
+ビルドクラスタにリトライキューを設定することで、ポッドの状態を確認し、イメージPullエラーや設定エラーが発生した場合に不正なビルドを停止させることができます。
+この機能を有効にするには、[active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352)を使用します。デフォルトは`true`です。
+この機能を使用すると、最初の処理で成功(ポッドステータスが`Running`)とならなかったメッセージはリトライキューに送られ、成功するか[再送の上限](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348)に達するまで、設定に基づいた間隔でリトライされます。
 
 ## ビルドクラスターのセットアップ
 
@@ -75,7 +80,7 @@ Stickinessについてですが、パイプラインの最初のビルドが実�
 1. `isActive`を`true`または`false`に設定することでビルドクラスターの有効/無効を切り替えられます。
 1. `weightage`にはビルドクラスターが1つの場合は100を設定し、2つ以上のビルドクラスターがある場合は重みを配分して下さい。
 
-**注意**: ビルドクラスターのscmContextは、scm毎のAPIトークンから派生します。
+***注意**: ビルドクラスターのscmContextは、scm毎のAPIトークンから派生します。
 複数のscmに対して同名のビルドクラスターを作成するには、scmアカウント毎に[/v4/buildClusters](https://api.screwdriver.cd/v4/documentation#/v4/postV4Buildclusters)APIへのPOSTを繰り返して下さい*
 
 ## RabbitMQメッセージブローカーのインストール
@@ -523,9 +528,9 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
     {
       "user": "sdrw",
       "vhost": "screwdriver",
-      "configure": "^(build|clusterA|ClusterB)$",
-      "write": "^(build|ClusterA|ClusterB)$",
-      "read": "^(build|ClusterA|ClusterB)$"
+      "configure": "^(build|clusterA|ClusterARetry|ClusterB|ClusterBRetry)$",
+      "write": "^(build|ClusterA|ClusterARetry|ClusterB|ClusterBRetry)$",
+      "read": "^(build|ClusterA|ClusterARetry|ClusterB|ClusterBRetry)$"
     },
     {
       "user": "sdadmin",
@@ -575,7 +580,7 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
     {
       "vhost": "screwdriver",
       "name": "ha-screwdriver",
-      "pattern": "^(build|ClusterA|ClusterAdlr|ClusterB|ClusterBdlr|default)$",
+      "pattern": "^(build|ClusterA|ClusterAdlr|ClusterARetry|ClusterARetrydlr|ClusterB|ClusterBdlr|ClusterBRetry|ClusterBRetrydlr|default)$",
       "apply-to": "all",
       "definition": {
         "ha-mode": "exactly",
@@ -584,6 +589,16 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
         "ha-sync-mode": "automatic"
       },
       "priority": 0
+    },
+    {
+      "vhost": "screwdriver",
+      "name": "message-delay",
+      "pattern": "^(ClusterARetrydlr|ClusterBRetrydlr)$",
+      "apply-to": "queues",
+      "definition": {
+        "message-ttl": 60000
+      },
+      "priority": 1
     }
   ],
   "queues": [
@@ -644,6 +659,52 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
         "x-max-priority": 2,
         "x-message-ttl": 28800000
       }
+    },
+    {
+      "name": "ClusterARetry",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterARetrydlr",
+        "x-max-priority": 2,
+        "x-message-ttl": 28800000
+      }
+    },
+    {
+      "name": "ClusterARetrydlr",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterARetry",
+        "x-max-priority": 2
+      }
+    },
+    {
+      "name": "ClusterBRetry",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterBRetrydlr",
+        "x-max-priority": 2,
+        "x-message-ttl": 28800000
+      }
+    },
+    {
+      "name": "ClusterBRetrydlr",
+      "vhost": "screwdriver",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "build",
+        "x-dead-letter-routing-key": "ClusterBRetry",
+        "x-max-priority": 2
+      }
     }
   ],
   "exchanges": [
@@ -697,16 +758,50 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
       "destination_type": "queue",
       "routing_key": "ClusterAdlr",
       "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterARetry",
+      "destination_type": "queue",
+      "routing_key": "ClusterARetry",
+      "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterBRetry",
+      "destination_type": "queue",
+      "routing_key": "ClusterBRetry",
+      "arguments": {}
+    },
+    {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterARetrydlr",
+      "destination_type": "queue",
+      "routing_key": "ClusterARetrydlr",
+      "arguments": {}
+    },
+     {
+      "source": "build",
+      "vhost": "screwdriver",
+      "destination": "ClusterBRetrydlr",
+      "destination_type": "queue",
+      "routing_key": "ClusterBRetrydlr",
+      "arguments": {}
     }
   ]
 }
 ```
 
 メモ:
-1. dlrで終わる名称のキューはデッドレターキューです。エラーが発生した場合のリトライには、RabbitMQに内蔵されているデッドレターキューの仕組みを利用しています。デッドレターキューは、メッセージを消費してビルド処理をKubernetesクラスタにプッシュする際に[エラー](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/index.js#L118)が発生すると利用されます。メッセージは`nack`されると、デッドレタールーティングキューの設定に従いdlrキューに移動し、5秒（後述の設定による）遅延した後に元のキューに再プッシュされます。
+1. `dlr`で終わる名称のキューはデッドレターキューです。エラーが発生した場合のリトライには、RabbitMQに内蔵されているデッドレターキューの仕組みを利用しています。デッドレターキューは、メッセージを消費してビルド処理をKubernetesクラスタにプッシュする際に[エラー](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L116)が発生すると利用されます。メッセージは`nack`されると、デッドレタールーティングキューの設定に従いdlrキューに移動し、5秒（後述の設定による）遅延した後に元のキューに再プッシュされます。
 1. `build`はExchangeです。
 1. `ClusterA`と`ClusterB`はキューです
 1. `ClusterAdlr`と`ClusterBdlr`はそれぞれ`ClusterA`と`ClusterB`のデッドレターキューです。
+1. `ClusterARetry`と`ClusterBRetry`は、それぞれ`ClusterA`と`ClusterB`のリトライキューで、開始ジョブのビルドポッドのステータスが成功しなかった場合にメッセージを受け取ります。
+1. `ClusterARetrydlr`と`ClusterBRetrydlr`は、それぞれ`ClusterARetry`と`ClusterBRetry`のデッドレターキューで、メッセージを60秒間遅延させてから処理のために再度エンキューします。
 
 ### ユーザーインターフェース
 
@@ -727,6 +822,11 @@ RabbitMQ管理UIのExchangesページとQueuesページのスクリーンショ�
 #### ClusterAdlr キューの設定ページ:
 ![ClusterAdlr queue detail page](../../cluster-management/assets/rabbitmq/ClusterAdlr_queue.png)
 
+#### ClusterARetry キューの設定ページ:
+![ClusterAdlr queue detail page](../../cluster-management/assets/rabbitmq/ClusterARetry_queue.png)
+#### ClusterARetrydlr キューの設定ページ:
+![ClusterAdlr queue detail page](../../cluster-management/assets/rabbitmq/ClusterARetrydlr_queue.png)
+
 Screwdriverのキューサービス(Producer)とビルドクラスターキューワーカー(Consumer)で確立している接続を確認するには、`Connections`と`Channels`ページを参照して下さい。
 
 RabbitMQのメッセージのdelivery率とacknowledgement率については、`Queues`ページの各キューの`Message rates`を確認して下さい。
@@ -741,7 +841,7 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 
 ### RabbitMQ
 
-ビルドクラスターキューワーカーは、すでに[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L236)ですべての設定をデフォルトにしていますが、[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L348)の環境変数を使ってオーバーライドすることができます。
+ビルドクラスターキューワーカーは、すでに[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L242)ですべての設定をデフォルトにしていますが、[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L354)の環境変数を使ってオーバーライドすることができます。
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
@@ -751,14 +851,17 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 | host | RABBITMQ_HOST | RabbitMQ cluster hostname. Default: 127.0.0.1 |
 | port | RABBITMQ_PORT | RabbitMQのポート。デフォルト: 5672 |
 | vhost | RABBITMQ_VIRTUAL_HOST | キューのVirtual host。デフォルト: /screwdriver |
-| connectOptions | RABBITMQ_CONNECT_OPTIONS | オプションを使用し、接続が切れた場合に時間内にハートビートチェックと再接続を行う設定。デフォルト: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' | 
+| connectOptions | RABBITMQ_CONNECT_OPTIONS | オプションを使用し、接続が切れた場合に時間内にハートビートチェックと再接続を行う設定。デフォルト: '{ "json": true, "heartbeatIntervalInSeconds": 20, "reconnectTimeInSeconds": 30 }' |
 | queue | RABBITMQ_QUEUE | 使用するキュー |
 | prefetchCount | RABBITMQ_PREFETCH_COUNT | 同時に取得するメッセージ数。デフォルト: "20" |
 | messageReprocessLimit | RABBITMQ_MSG_REPROCESS_LIMIT | エラーが発生した場合の最大試行回数。デフォルト: "3"。これが0より大きい値に設定されている場合、ビルドクラスターキューワーカーはデッドレターキューによりリトライされる事を期待します。 |
+| retryQueue | RABBITMQ_RETRYQUEUE | リトライキューのキュー名 |
+| retryQueueEnabled | RABBITMQ_RETRYQUEUE_ENABLED | リトライキュー機能のenable/disableフラグ |
+| exchange | RABBITMQ_EXCHANGE | rabbitmqがメッセージをpublishするためのExchange/Router名 |
 
 ### Executors
 
-エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executor-plugin)と全く同じです。
+エクゼキュータの設定内容は、APIの[設定内容](./configure-api#executorプラグイン)と全く同じです。
 
 ### Ecosystem
 
@@ -785,4 +888,3 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 1. [ビルドクラスターのスキーマ定義はここに定義してあります。](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20190919-initdb-buildClusters.js)
 
 2. nameとscmContextのフィールドはビルドクラスターのために[ユニーク制約](https://github.com/screwdriver-cd/data-schema/blob/master/migrations/20191221-upd-buildClusters-uniqueconstraint.js)となります。
-

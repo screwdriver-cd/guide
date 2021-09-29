@@ -3,14 +3,26 @@ layout: main
 title: Configuring the Store
 category: Cluster Management
 menu: menu
-toc: 
-    - title: Managing the User Interface
-      url: "#managing-the-user-interface"
+toc:
+    - title: Managing the Store
+      url: "#managing-the-store"
       active: true
     - title: Packages
       url: "#packages"
     - title: Configuration
       url: "#configuration"
+    - title: Authentication
+      url: "#authentication"
+      subitem: true
+    - title: Serving
+      url: "#serving"
+      subitem: true
+    - title: Build Artifacts
+      url: "#build-artifacts"
+      subitem: true
+    - title:  Storage
+      url: "#storage"
+      subitem: true
 ---
 # Managing the Store
 

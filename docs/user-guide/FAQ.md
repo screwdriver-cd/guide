@@ -55,6 +55,8 @@ toc:
       url: "#why-do-i-get-not-found-when-i-try-to-start-or-delete-my-pipeline"
     - title: 'How do I override freeze windows to start a build?'
       url: "#how-do-i-override-freeze-windows-to-start-a-build"
+    - title: 'How do I cancel a freeze window and prevent a future scheduled build?'
+      url: "#how-do-i-cancel-a-freeze-window-and-prevent-a-future-scheduled-build"
 
 ---
 
@@ -104,6 +106,8 @@ See *How do I rerun a build?* section for the second option.
 If you want to update your pipeline repo and branch, modify the checkout URL in the Options tab on your pipeline page and click Update.
 
 ![Update a pipeline](./assets/update-pipeline.png)
+
+If you transferred or renamed your repo, you can simply [Sync your pipeline](#how-do-i-make-sure-my-code-is-in-sync-with-my-pipeline) and refresh the page.
 
 ## How do I disable/enable a job temporarily?
 
@@ -214,7 +218,7 @@ See the example repo: <https://github.com/screwdriver-cd-test/saucelabs-example>
 
 ## How do I run my pipeline when commits made from inside a build are pushed to my git repository?
 
-Screwdriver uses `sd_buildbot` as default [git user](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L284). So when you do `git` commits from inside a build, the commit user will be `sd-buildbot`.
+Screwdriver uses `sd-buildbot` as default [git user](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L284). So when you do `git` commits from inside a build, the commit user will be `sd-buildbot`.
 
 This has implications for webhook processing. In order to prevent headless users from running your pipeline indefinitely, Screwdriver cluster admins can configure Screwdriver webhook processor to ignore commits made by headless users. This is done by setting [IGNORE_COMMITS_BY](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325) environment variable. Default git user `sd-buildbot` is usually added to this list.
 
@@ -249,3 +253,15 @@ Add `[force start]` to the commit message of the build you want to start and mer
 
 In the API:
 Add `[force start]` to the `causeMessage` of the build you want to start and use the `POST SCREWDRIVER_API/v4/events` endpoint to start.
+
+## How do I cancel a freeze window and prevent a future scheduled build?
+Frozen builds are scheduled to run at the end of [freeze windows](./configuration/workflow#freeze-windows) duration. In some cases users may want to cancel the schedule without changing screwdriver.yaml configuration to prevent a future scheduled build from running. Users can do so by doing the following steps.
+
+In the UI:
+1. Click on the frozen build bubble.
+1. Click "Stop frozen build".
+
+This will set the status for a build from FROZEN to ABORTED and remove the configuration for the future scheduled run.
+![Stop frozen build](./assets/stop-frozen-build.png)
+![Aborted frozen build](./assets/stopped-frozen-build-view.png)
+![Aborted frozen build page](./assets/stopped-frozen-build.png)

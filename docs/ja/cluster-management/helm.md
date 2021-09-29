@@ -5,7 +5,7 @@ category: Cluster Management
 menu: menu_ja
 toc:
     - title: Kubernetes Helm Chartを利用してScrewdriverを構築
-      url: "#Kubernetes Helm Chartを利用してScrewdriverを構築"
+      url: "#kubernetes-helm-chartを利用してscrewdriverをセットアップする"
       active: true
 
 ---

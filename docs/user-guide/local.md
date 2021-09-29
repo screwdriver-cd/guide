@@ -5,7 +5,7 @@ category: User Guide
 menu: menu
 toc:
 - title: What is sd-local ?
-  url: "#what-is-sd-local-?"
+  url: "#what-is-sd-local-"
 - title: Installing sd-local
   url: "#installing-sd-local"
 - title: Quick start
@@ -55,13 +55,13 @@ export GITHUB_TOKEN=<token>
 
 
 # Quick start
-This section describes the steps needed to execute a build with sd-local.  
+This section describes the steps needed to execute a build with sd-local.
 Let Screwdriver API be `https://api.screwdriver.cd`, and let Screwdriver Store be `https://store.screwdriver.cd` in this section.
 
 
 ## Create user API token
-sd-local uses an user API token to communicate with Screwdriver API and Store.  
-Please create an user API token with reference to [Authentication and Authorization](api#authentication-and-authorization).
+sd-local uses an user API token to communicate with Screwdriver API and Store.
+Please create an user API token with reference to [Tokens](tokens#user-access-tokens).
 
 
 ## Get repository for build
@@ -110,7 +110,7 @@ set-metadata:
 
 
 The build artifacts are created under the "./sd-artifacts" directory after the build is finished.
- 
+
 ```bash
 $ ls ./sd-artifacts
 builds.log       environment.json steps.json
@@ -118,7 +118,7 @@ builds.log       environment.json steps.json
 
 
 # config command
-You can configure sd-local for multiple environments by config command.  
+You can configure sd-local for multiple environments by config command.
 Your settings are stored in `~/.sdlocal/config` like below.
 
 ```
@@ -170,7 +170,7 @@ $ sd-local config use <name>
 ```
 
 ### set subcommand
-You can configure the setting currently using by key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.  
+You can configure the setting currently using by key/value format. You must set `api-url`, `store-url`, and `token` in order to execute builds.
 Please refer to the [List of keys](#list-of-keys) about available settings.
 ```bash
 $ sd-local config set <key> <value>
@@ -206,7 +206,7 @@ You must set `api-url`, `store-url`, and `token` in order to execute builds.
 |---|---|
 |api-url|The Screwdriver API URL of the cluster you are using|
 |store-url|The Screwdriver Store URL of the cluster you are using|
-|token|An [API token](api#authentication-and-authorization) for the Screwdriver API of the cluster you are using|
+|token|An [API token](tokens#user-access-tokens) for the Screwdriver API of the cluster you are using|
 |launcher-image|The launcher image (default: `screwdrivercd/launcher`)|
 |launcher-version|The launcher version (default: `stable`)|
 

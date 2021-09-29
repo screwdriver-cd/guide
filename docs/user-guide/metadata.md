@@ -41,10 +41,10 @@ toc:
       subitem: level-2
     - title: Job-based minimized setting
       url: "#job-based-minimized-setting"
-      subitem: level-2      
+      subitem: level-2
     - title: Using Lua for atomic updates
       url: "#using-lua-for-atomic-updates"
-      subitem: true      
+      subitem: true
 ---
 # Metadata
 
@@ -169,11 +169,11 @@ To additional checks to a pull request, you just need to set `meta.status.<check
 
 The fields you can set:
 
-| Key | Description |
-| --- | ----------- |
-| status (String) | Status of the check, can be one of: (`SUCCESS`, `FAILURE`) |
-| message (String) | Description for the check |
-| url (String) | Url for the check to link to (default: build link)
+| Key | Default | Description |
+| --- | ------- | ----------- |
+| status (String) | `SUCCESS` | Status of the check, can be one of `SUCCESS`, `FAILURE`, `PENDING` |
+| message (String) | `fieldName check failed` | Description for the check |
+| url (String) | build link | URL for the check to link to |
 
 For example, to add two additional checks for `findbugs` and `coverage`, your screwdriver.yaml should look something like below:
 
@@ -274,7 +274,7 @@ Example screwdriver.yaml notifying different Slack channels upon job failure for
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
-    
+
     settings:
         slack:
             channels: [ main_channel ]
@@ -298,7 +298,7 @@ Example screwdriver.yaml sending a minimized Slack message in case the `componen
 ```yaml
 shared:
     image: docker.ouroath.com:4443/x/y/z
-    
+
     settings:
         slack:
             channels: [ main_channel ]

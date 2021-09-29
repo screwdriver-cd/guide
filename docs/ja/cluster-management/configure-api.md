@@ -35,7 +35,7 @@ toc:
 - title: 通知
   url: "#通知プラグイン"
   subitem: true
-- title: ソース管理
+- title: ソース管理(SCM)
   url: "#ソース管理プラグイン"
   subitem: true
 - title: Webhooks
@@ -46,6 +46,9 @@ toc:
   subitem: true
 - title: Canaryルーティング
   url: "#canaryルーティング"
+  subitem: true
+- title: Redisロックの設定
+  url: "#redisロックの設定"
   subitem: true
 - title: Dockerコンテナの拡張
   url: "#dockerコンテナの拡張"
@@ -103,7 +106,7 @@ auth:
         - github:batman
 ```
 ### マルチビルドクラスター
-デフォルトでは、[build cluster機能](../configure-buildcluster-queue-worker)はオフになっています。
+デフォルトでは、[build cluster機能](configure-buildcluster-queue-worker)はオフになっています。
 
 | キー | デフォルト | 説明 |
 |:----|:-------|:------------|
@@ -142,7 +145,7 @@ build:
 
 ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
 
-もしご自身で開発したブックエンドを使用したい場合は[こちら](#extending-the-docker-container)をご覧ください。
+もしご自身で開発したブックエンドを使用したい場合は[こちら](#dockerコンテナの拡張)をご覧ください。
 
 キー | デフォルト | 説明
 --- | --- | ---
@@ -204,14 +207,13 @@ httpd:
 
 ### エコシステム
 
-外部からアクセス可能なUI、アーティファクトストア、バッジサービスのURLを指定します。
+外部からアクセス可能なUI、アーティファクトストアのURLを指定します。
 
 キー | デフォルト | 説明
 --- | --- | ---
-ECOSYSTEM_UI | <https://cd.screwdriver.cd> | ユーザーインターフェースのURL
-ECOSYSTEM_STORE | <https://store.screwdriver.cd> | アーティファクトストアURL
-ECOSYSTEM_BADGES | <https://img.shields.io/badge/build-{{status}}-{{color}}.svg> | ステータステキストと色をテンプレートにしたURL
-ECOSYSTEM_QUEUE | <http://sdqueuesvc.screwdriver.svc.cluster.local> | キュープラグインで使用されるキューサービスの内部URL
+ECOSYSTEM_UI | https://cd.screwdriver.cd | ユーザーインターフェースのURL
+ECOSYSTEM_STORE | https://store.screwdriver.cd | アーティファクトストアURL
+ECOSYSTEM_QUEUE | http://sdqueuesvc.screwdriver.svc.cluster.local | キュープラグインで使用されるキューサービスの内部URL
 
 ```yaml
 # config/local.yaml
@@ -220,8 +222,6 @@ ecosystem:
     ui: https://cd.screwdriver.cd
     # 外部からルーティング可能なArtifact Store用URL
     store: https://store.screwdriver.cd
-    # バッジサービス (ステータスと色を追加する必要があります)
-    badges: https://img.shields.io/badge/build-{{status}}-{{color}}.svg
     # 内部でルーティング可能な、キューsvcのFQDNS
     queue: http://sdqueuesvc.screwdriver.svc.cluster.local
 ```
@@ -400,7 +400,7 @@ EXECUTOR_PLUGIN | k8s | `docker` を指定します
 LAUNCH_VERSION | stable | 使用する Launcher のバージョン
 EXECUTOR_DOCKER_ENABLED | true | Docker executor を利用可能にするフラグ
 EXECUTOR_DOCKER_DOCKER | `{}` | [Dockerode の設定](https://www.npmjs.com/package/dockerode#getting-started) (JSONオブジェクト)
-EXECUTOR_PREFIX | なし | Pod 名につけられる prefix 
+EXECUTOR_PREFIX | なし | Pod 名につけられる prefix
 
 ```yaml
 # config/local.yaml
@@ -461,7 +461,7 @@ executor:
 
 現在、[Email 通知](https://github.com/screwdriver-cd/notifications-email)と [Slack 通知](https://github.com/screwdriver-cd/notifications-slack)をサポートしています。
 
-これらの環境変数を設定します。  
+これらの環境変数を設定します。
 
 | 環境変数名 | 必須 | デフォルト値 | 説明                   |
 |:-------------------|:---------|:--------------|:------------------------------|
@@ -544,17 +544,23 @@ notifications:
 
 ### ソース管理プラグイン
 
-現在は[GithubとGitHub Enterprise](https://github.com/screwdriver-cd/scm-github)、 [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)と[Gitlab](https://github.com/bdangit/scm-gitlab)をサポートしています。
+現在は[GitHubとGitHub Enterprise](https://github.com/screwdriver-cd/scm-github)、 [Bitbucket.org](https://github.com/screwdriver-cd/scm-bitbucket)と[GitLab](https://github.com/screwdriver-cd/scm-gitlab)をサポートしています。対応機能の内訳は[SCM対応表](../user-guide/scm)を確認してください。
 
 #### ステップ1: OAuthアプリケーションをセットアップ
 
 OAuthアプリケーションのセットアップと、OAuth Client ID及びSecretの取得が必要です。
 
-##### Github:
+##### GitHub:
 
-1. [Github OAuth applications](https://github.com/settings/developers) ページを開きます。
+1. [GitHub OAuth applications](https://github.com/settings/developers) ページを開きます。
 2. 作成したアプリケーションをクリックし、OAuth Client IDとSecretを取得します。
 3. APIが動作しているホストのIPアドレスを`Homepage URL` と`Authorization callback URL`に入力します。
+
+##### GitLab:
+
+1. [GitLab applications](https://github.com/settings/developers) ページを開きます。
+2. `Redirect URI`に`https://YOUR_IP/v4/auth/login/gitlab:gitlab.com/web`を入力します。
+3. `Save Application`をクリックします。
 
 ##### Bitbucket.org:
 
@@ -570,7 +576,7 @@ OAuthアプリケーションのセットアップと、OAuth Client ID及びSec
 --- | --- | --- | ---
 SCM_SETTINGS | はい | {} | JSON object with SCM settings
 
-##### Github:
+##### GitHubの例:
 
 ```yaml
 # config/local.yaml
@@ -578,30 +584,73 @@ scms:
     github:
         plugin: github
         config:
-            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # OAuth Client ID (アプリケーションキー)
+            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # OAuth Client ID (アプリケーションキー) (https://developer.github.com/v3/oauth/)
             oauthClientSecret: AGAIN-SOMETHING-HERE-IS-USEFUL # OAuth Client Secret (アプリケーションsecret)
             secret: SUPER-SECRET-SIGNING-THING # webhooks署名用のパスワード(secret)
-            gheHost: github.screwdriver.cd # [Optional] Github Enterpriseの場合のGHEホスト
+            gheHost: github.screwdriver.cd # [Optional] GitHub Enterpriseの場合のGHEホスト
             username: sd-buildbot # [Optional] checkoutするユーザネーム
             email: dev-null@screwdriver.cd # [Optional] checkoutするユーザのEmailアドレス
-            commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] GithubのPRにコメントを書き込むためのトークン、"public_repo"のスコープが必要
+            https: false # [Optional] Screwdriver APIがHTTPSで動作しているか、デフォルトはfalse
+            commentUserToken: A_BOT_GITHUB_PERSONAL_ACCESS_TOKEN # [Optional] GitHubのPRにコメントを書き込むためのトークン、"public_repo"のスコープが必要
             privateRepo: false # [Optional] プライベートレポジトリの read/write権限
             autoDeployKeyGeneration: false # [Optional] trueにすると、deploy keyの公開鍵と秘密鍵を自動で生成し、それぞれをビルドパイプラインとチェックアウト用の Github のリポジトリに追加します。
+    ...
 ```
 
-プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](../../user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
+###### プライベートリポジトリ
+プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](/ja/user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
 
-[メタPRコメント](../user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
+###### メタPRコメント
+[メタPRコメント](/ja/user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
 
 ###### Deploy Keys
-
 Deploy Keyは、単一のGitHubリポジトリへのアクセスが許可されているSSH鍵です。この鍵はGitHubのpersonal access tokenと反対に、個人のユーザアカウントではなくリポジトリに直接紐付けられてます。GitHubのpersonal access tokenは全てのリポジトリに対してユーザ単位でのアクセス権を与える一方、Deploy Keyは単一のリポジトリへのアクセスを許可します。アクセスの制限が可能となるため、privateリポジトリではDeploy Keyの利用をおすすめします。
 
 パイプラインでDeploy Keyを利用したい場合、2つの方法があります:
 * `config/local.yaml`で、`autoDeployKeyGeneration`のフラグを`true`にすることで、パイプラインの一部としてDeploy Keyの自動生成と処理を有効にします。フラグを`true`にすることで、ユーザはUIで自動生成のオプションを追加できるようになります。
-* `openssl genrsa -out jwt.pem 2048`と`openssl rsa -in jwt.pem -pubout -out jwt.pub`を使用して公開鍵と秘密鍵のペアを手動で生成します。そして、公開鍵をDeploy Keyとしてリポジトリに登録します。秘密鍵は**base64でエンコード**される必要があり、それを`SD_SCM_DEPLOY_KEY`のsecretsとしてパイプラインに追加します。secretsの追加方法は、[secrets](../../user-guide/configuration/secrets)を参照してください。
+* `openssl genrsa -out jwt.pem 2048`と`openssl rsa -in jwt.pem -pubout -out jwt.pub`を使用して公開鍵と秘密鍵のペアを手動で生成します。そして、公開鍵をDeploy Keyとしてリポジトリに登録します。秘密鍵は**base64でエンコード**される必要があり、それを`SD_SCM_DEPLOY_KEY`のsecretsとしてパイプラインに追加します。secretsの追加方法は、[secrets](/ja/user-guide/configuration/secrets)を参照してください。
 
-##### Bitbucket.org
+###### Read-only SCM
+SCMを読み取り専用にしたい場合には、SCMのパイプラインを[child pipeline](../user-guide/configuration/externalConfig)としてリストアップすることで、間接的にSCMのパイプラインを作成できるようになります。以下に、read-only SCMの設定を追加する例を記します。ユーザーはUIでSCMにログインすることはできません。
+
+1. read-onlyのSCMにHeadlessユーザーを作成します。そのユーザーにpersonal access tokenを作成します。
+2. read-only SCMの設定をします。(下記の例を参考にしてください)
+3. 設定した`scmContext`を`POST https://YOUR_IP/v4/buildclusters`にリクエストして新しいビルドクラスタを追加します。詳細は[API](../user-guide/api)を参照してください。リクエスト時のペイロードは以下のようになります:
+```json
+{
+    "name": "readOnlyScm",
+    "managedByScrewdriver": true,
+    "maintainer": "foo@bar.com",
+    "description": "Read-only open source mirror",
+    "scmContext": "gitlab:gitlab.screwdriver.cd",
+    "scmOrganizations": [],
+    "isActive": true,
+    "weightage": 100
+}
+```
+
+##### GitLabの例
+```yaml
+# config/local.yaml
+scms:
+    ...
+    # 下記はread-only SCMの例
+    gitlab:
+        plugin: gitlab
+        config:
+            oauthClientId: YOU-PROBABLY-WANT-SOMETHING-HERE # OAuth Client ID (アプリケーションキー)
+            oauthClientSecret: AGAIN-SOMETHING-HERE-IS-USEFUL # OAuth Client Secret (アプリケーションsecret)
+            gitlabHost: gitlab.screwdriver.cd # [Optional] GitLab enterpriseのホスト名
+            commentUserToken: A_BOT_GITLAB_PERSONAL_ACCESS_TOKEN # [Optional] GitLabのPRにコメントを書き込むためのトークン
+            https: false # [Optional] Screwdriver APIがHTTPSで動作しているか、デフォルトはfalse
+            readOnly: # [Optional] read-only SCMのための設定
+                enabled: true # trueに設定するとread-onlyモードが有効
+                username: sd-buildbot # Headlessのユーザー名
+                accessToken: GITLAB-TOKEN # リポジトリへのread-onlyアクセスとwebhooksの追加が可能なHeadless GitLabトークン
+                cloneType: https # [Optional] sshまたはhttpsを設定、デフォルトはhttps
+```
+
+##### Bitbucket.orgの例
 
 ```yaml
 # config/local.yaml
@@ -609,8 +658,11 @@ scms:
     bitbucket:
         plugin: bitbucket
         config:
-            oauthClientId: YOUR-APP-KEY
-            oauthClientSecret: YOUR-APP-SECRET
+            oauthClientId: YOUR-APP-KEY # OAuth Client ID (アプリケーションキー)
+            oauthClientSecret: YOUR-APP-SECRET # OAuth Client Secret (アプリケーションsecret)
+            https: true # [Optional] Screwdriver APIがHTTPSで動作しているか、デフォルトはfalse
+            username: sd-buildbot # [Optional] checkoutするユーザネーム
+            email: dev-null@screwdriver.cd # [Optional] checkoutするユーザのEmailアドレス
 ```
 
 ## Webhooks
@@ -672,6 +724,48 @@ release:
     cookieTimeout: 2 # in minutes
     headerName: release
     headerValue: stable
+```
+
+### Redisロックの設定
+RedisロックはScrewdriver apiで使用されており、ビルドの更新が連続的に行われることを保証します。これを無効にすると、ビルド更新中にデータが失われたり、ビルドが開始されないことがあります。
+
+Redisのロックを設定するために、これらの環境変数を設定します:
+
+| 環境変数               | 必須            |  デフォルト              | 説明       |
+|:-------------------------|:---------------------|:---------------------|:-----------------------------|
+| REDLOCK_ENABLED          | はい                  | false                | Redisロックの有効化            |
+| REDLOCK_RETRY_COUNT      | はい                 | 200                  | ロック取得までの最大リトライ回数                 |
+| REDLOCK_DRIFT_FACTOR     | いいえ                   | 0.01                 | 予想されるクロックドリフト     |
+| REDLOCK_RETRY_DELAY      | いいえ                   | 500                  | 再実行するまでの時間(ミリ秒)            |
+| REDLOCK_RETRY_JITTER     | いいえ                   | 200                  | 再実行時にランダムに加えられる最大時間(ミリ秒)             |
+| REDLOCK_REDIS_HOST       | はい                  | 127.0.0.1            | Redis ホスト                  |
+| REDLOCK_REDIS_PORT       | はい                 | 9999                 | Redis ポート                   |
+| REDLOCK_REDIS_PASSWORD   | いいえ                   | THIS-IS-A-PASSWORD   | Redis パスワード               |
+| REDLOCK_REDIS_TLS_ENABLED| いいえ                   | false                | Redis tls 有効             |
+| REDLOCK_REDIS_DATABASE   | いいえ                  | 0                    | Redis db番号              |
+```yaml
+# config/local.yaml
+redisLock:
+  # Redisロックを有効にするには、trueを設定します。
+  enabled: true
+  options:
+    # ロック取得までの最大リトライ回数
+    retryCount: 200
+    # 予想されるクロックドリフト
+    driftFactor: 0.01
+    # 再試行するまでの時間（ミリ秒)
+    retryDelay: 500
+    # 再試行回数にランダムに追加される最大時間（ミリ秒)
+    retryJitter: 200
+    # Redisインスタンスの設定
+    redisConnection:
+        host: "127.0.0.1"
+        port: 6379
+        options:
+            password: '123'
+            tls: false
+        database: 0
+        prefix: ""
 ```
 
 ## Dockerコンテナの拡張

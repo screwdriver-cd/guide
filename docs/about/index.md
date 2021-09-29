@@ -3,7 +3,7 @@ layout: main
 title: What is Screwdriver?
 category: About
 menu: menu
-toc: 
+toc:
     - title: What is Screwdriver?
       url: "#what-is-screwdriver"
       active: true
@@ -20,13 +20,13 @@ A collection of services that facilitate the workflow for continuous delivery pi
         Easily define the path that your code takes from Pull Request to Production.</p>
     </div>
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/continuous_delivery.png" class="cd">
+        <img src="/assets/continuous_delivery.png" class="cd" alt="build publish deploy flowchart">
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/daily_habits.png" class="dh">
+        <img src="/assets/daily_habits.png" class="dh" alt="commit test release cycle">
     </div>
     <div class="col-xs-12 col-md-8">
         <h2>Integrates with Daily Habits</h2>
@@ -44,13 +44,13 @@ A collection of services that facilitate the workflow for continuous delivery pi
         so you can review pipeline changes and roll them out with the rest of your codebase.</p>
     </div>
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/pipeline_code.png" class="pc">
+        <img src="/assets/pipeline_code.png" class="pc" alt="screwdriver.yaml screenshot">
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-md-4">
-        <img src="/assets/3rd_party_services.png" class="party">
+        <img src="/assets/3rd_party_services.png" class="party" alt="third party services examples">
     </div>
     <div class="col-xs-12 col-md-8">
         <h2>Runs Anywhere</h2>
