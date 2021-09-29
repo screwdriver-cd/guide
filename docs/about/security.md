@@ -20,7 +20,7 @@ We take security very seriously, but any complex software project is going to ha
 
 ## Reporting Vulnerabilities
 
-Please report any security issues to our private mailing list <screwdriver-oss-security@verizonmedia.com>; use [github](./support#github) issues or [slack](./support#slack) for non security issues.
+Please report any security issues to our private mailing list <screwdriver-oss-security@yahooinc.com>; use [github](./support#github) issues or [slack](./support#slack) for non security issues.
 
 
 ## Team
