@@ -20,7 +20,7 @@ toc:
  | Hapi.js                | APIやStoreといったWebサーバはHapiをベースにしています。| [License](https://github.com/hapijs/hapijs.com/blob/master/LICENSE)        |
  | Helm (Optional)           | [Screwdriverをk8sにデプロイ](https://github.com/screwdriver-cd/screwdriver-chart)するために利用しています。|
  | HyperContainer (Optional) | Hypervisor-agnostic Docker runtime. [executor-k8s-vm](https://github.com/screwdriver-cd/executor-k8s-vm)で利用しています。 | [Apache 2.0](https://github.com/hyperhq/hyperd/blob/master/LICENSE) |
- | Jenkins (Optional)     | [executor-jenkins](https://github.com/screwdriver-cd/executor-jenkins)で利用しています。  | [MIT](https://jenkins.io/license) |
+ | Jenkins (Optional)     | [executor-jenkins](https://github.com/screwdriver-cd/executor-jenkins)で利用しています。  | [MIT](https://www.jenkins.io/doc/developer/publishing/preparation/#license) |
  | JWT                    | 認証認可で利用しています。| [MIT](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/LICENSE.txt) |
  | Kubernetes             | Screwdriverを[executor-k8s](https://github.com/screwdriver-cd/executor-k8s)を使って大規模に動作させるために利用しています。| [Apache 2.0](https://github.com/kubernetes/kubernetes/blob/master/LICENSE) |
  | MariaDB (Optional) | [Database](https://github.com/screwdriver-cd/datastore-sequelize/)の選択肢の一つです。| [GPL Licence](https://mariadb.com/kb/en/library/licensing-faq/) |

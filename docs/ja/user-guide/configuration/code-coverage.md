@@ -34,7 +34,7 @@ sonar.sources=index.js
 sonar.javascript.lcov.reportPaths=artifacts/coverage/lcov.info
 ```
 
-`reportPath` プロパティは使用する言語によって変わります。正しい指定の仕方は [SonarQube documentation](https://docs.sonarqube.org/display/PLUG) を確認してください。
+`reportPath` プロパティは使用する言語によって変わります。正しい指定の仕方は [SonarQube documentation](https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix) を確認してください。
 
 ### $SD_SONAR_OPTS
 
@@ -61,11 +61,11 @@ jobs:
 - Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。**`sonar.sources` は自分で設定する必要があります。**
 
 #### 関連リンク
-- [SonarQube properties](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
+- [SonarQube properties](https://docs.sonarqube.org/latest/analysis/analysis-parameters)
 - [Java example](https://github.com/screwdriver-cd-test/sonar-coverage-example-java)
 - [Javascript example](https://github.com/screwdriver-cd-test/sonar-coverage-example-javascript)
 - [Examples from the SonarQube website](https://github.com/SonarSource/sonar-scanning-examples)
-- [SonarQube docs](https://docs.sonarqube.org/display/SCAN)
+- [SonarQube docs](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
 - [SonarQube environment variables](../environment-variables#カバレッジsonar)
 
 ### GitHub pull request decoration

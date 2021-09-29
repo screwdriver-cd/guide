@@ -20,7 +20,7 @@ toc:
  | Hapi.js                | API & Store web servers are based on Hapi | [License](https://github.com/hapijs/hapijs.com/blob/master/LICENSE)        |
  | Helm (Optional)           | For [deploying Screwdriver into k8s](https://github.com/screwdriver-cd/screwdriver-chart) | [Apache 2.0](https://github.com/helm/helm/blob/master/LICENSE) |
  | HyperContainer (Optional) | Hypervisor-agnostic Docker runtime. Used with [executor-k8s-vm](https://github.com/screwdriver-cd/executor-k8s-vm) | [Apache 2.0](https://github.com/hyperhq/hyperd/blob/master/LICENSE) |
- | Jenkins (Optional)     | Used in [executor-jenkins](https://github.com/screwdriver-cd/executor-jenkins)  | [MIT](https://jenkins.io/license) |
+ | Jenkins (Optional)     | Used in [executor-jenkins](https://github.com/screwdriver-cd/executor-jenkins)  | [MIT](https://www.jenkins.io/doc/developer/publishing/preparation/#license) |
  | JWT                    | For authentication & authorization | [MIT](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/LICENSE.txt) |
  | Kubernetes             | For running Screwdriver at scale using [executor-k8s](https://github.com/screwdriver-cd/executor-k8s) | [Apache 2.0](https://github.com/kubernetes/kubernetes/blob/master/LICENSE) |
  | MariaDB (Optional) | One of the options for [Database](https://github.com/screwdriver-cd/datastore-sequelize/) | [GPL Licence](https://mariadb.com/kb/en/library/licensing-faq/) |
