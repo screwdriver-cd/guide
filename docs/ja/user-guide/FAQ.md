@@ -231,7 +231,7 @@ Screwdriverはビルドコンテナイメージに制限がありません。し
 
 Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L284)に`sd-buildbot`を使用します。したがって、ビルド内で`git`コミットを行うと、コミットユーザーは`sd-buildbot`になります。
 
-これは、webhook処理に影響を及ぼします。 ヘッドレスユーザーがパイプラインを無期限に実行することを防ぐために、ヘッドレスユーザーによるコミットを無視するようにScrewdriverクラスター管理者はwebhookプロセッサの設定を行えます。これを行うには、[IGNORE_COMMITS_BY]（https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325）環境変数を設定します。通常、デフォルトgitユーザーの`sd-buildbot`がこのリストに追加されます。
+これは、webhook処理に影響を及ぼします。 ヘッドレスユーザーがパイプラインを無期限に実行することを防ぐために、ヘッドレスユーザーによるコミットを無視するようにScrewdriverクラスター管理者はwebhookプロセッサの設定を行えます。これを行うには、[IGNORE_COMMITS_BY](https://github.com/screwdriver-cd/screwdriver/blob/ec959e1590909259479fe34f2f26d91f227025aa/config/custom-environment-variables.yaml#L323-L325)環境変数を設定します。通常、デフォルトgitユーザーの`sd-buildbot`がこのリストに追加されます。
 
 ユーザーは、別のgitユーザーを使用することでこの動作を上書きできます。例えば、`git config --global user.name my-buildbot` と `git config --global user.email my-buildbot-email` を行うことで、Screwdriverのビルドからの`git`コミットは`my-buildbot`ユーザーによって行われ、webhookプロセッサに無視されることなく、Screwdriverパイプラインが実行されます。
 
