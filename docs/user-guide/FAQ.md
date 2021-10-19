@@ -57,6 +57,8 @@ toc:
       url: "#how-do-i-override-freeze-windows-to-start-a-build"
     - title: 'How do I cancel a freeze window and prevent a future scheduled build?'
       url: "#how-do-i-cancel-a-freeze-window-and-prevent-a-future-scheduled-build"
+    - title: 'How do I know if my build ran with the latest SCM git sha?'
+      url: "#how-do-i-know-if-my-build-ran-with-the-latest-scm-git-sha"
 
 ---
 
@@ -264,4 +266,14 @@ In the UI:
 This will set the status for a build from FROZEN to ABORTED and remove the configuration for the future scheduled run.
 ![Stop frozen build](./assets/stop-frozen-build.png)
 ![Aborted frozen build](./assets/stopped-frozen-build-view.png)
-![Aborted frozen build page](./assets/stopped-frozen-build.png)
+
+## How do I know if my build ran with the latest SCM git sha?
+If the [build](../about/appendix/domain#build) [event's](../about/appendix/domain#event) git sha is latest, then Screwdriver UI will display a `blue` colored background for the sha.
+
+In the following screenshot, the first event has the `blue` background for git sha because it's the latest, while the second one doesn't have any background color.
+
+_If you have restarted builds from an older event, then first event will not be the latest. You will have to scroll down to find the latest._
+
+![Latest SHA](./assets/latest-sha.png)
+
+
