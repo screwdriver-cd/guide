@@ -8,7 +8,7 @@ GEM
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     ffi (1.15.4)
@@ -48,7 +48,7 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
-    listen (3.5.1)
+    listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
@@ -66,13 +66,13 @@ GEM
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
-    racc (1.5.2)
+    racc (1.6.0)
     rainbow (3.0.0)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.5)
-    rouge (3.26.0)
+    rouge (3.26.1)
     safe_yaml (1.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -80,7 +80,8 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
-    unicode-display_width (1.7.0)
+    unicode-display_width (1.8.0)
+    webrick (1.7.0)
     yell (2.2.2)
 
 PLATFORMS
@@ -92,6 +93,7 @@ DEPENDENCIES
   html-proofer (~> 3.19, >= 3.19.2)
   jekyll (= 4.0.0)
   tzinfo-data
+  webrick (~> 1.7)
 
 BUNDLED WITH
-   2.1.4
+   2.2.15
