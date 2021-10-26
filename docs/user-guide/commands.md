@@ -120,6 +120,10 @@ habitat:
     command: node # Executable of the Habitat command
 ```
 
+#### Caveats
+- Cannot do the following in a pull request: publish a command, create a tag, delete a tag or command
+- A command can only be published by one pipeline
+
 ### Writing a screwdriver.yaml for your command repo
 
 To validate your command, run the `sd-cmd validate` command. `-f` stands for file (default `sd-command.yaml`).
