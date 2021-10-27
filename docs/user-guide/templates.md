@@ -395,6 +395,9 @@ config:
             locked: true
 ```
 
+#### Caveats
+- Cannot do the following in a pull request: publish a template, create a tag, delete a tag or template
+- A template can only be published by one pipeline
 
 ### Template Composition
 You can also use a template in the `config` section of an `sd-template.yaml` file.
