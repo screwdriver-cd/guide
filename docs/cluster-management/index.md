@@ -11,6 +11,8 @@ toc:
       url: "#workflow"
     - title: Components
       url: "#components"
+    - title: Reference Architecture in AWS
+      url: "#reference-architecture-in-aws"
 ---
 # Overall Architecture
 
@@ -85,6 +87,9 @@ built/maintained by Screwdriver:
     Pluggable storage for keeping information about pipelines
     (e.g. Postgres, MySQL, and Sqlite).
 
-## Architecture with executor-queue and k8s
+## Reference Architecture in AWS
 
 ![Architecture](assets/arch-k8s.png)
+
+Screwdriver application components are running in a Kubernetes environment in AWS. Builds are also launched in same Kubernetes environment under a different namespace. 
+Example environment [https://cd.screwdriver.cd/](https://cd.screwdriver.cd/)
