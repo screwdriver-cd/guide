@@ -11,6 +11,8 @@ toc:
   url: "#workflow"
 - title: コンポーネント
   url: "#コンポーネント"
+- title: AWSにおけるリファレンスアーキテクチャ
+  url: "#awsにおけるリファレンスアーキテクチャ"
 ---
 
 # 全体の構成
@@ -65,5 +67,8 @@ Screwdriverには5つの主要コンポーネントがあり、最初の3つはS
 - **データストア**
     パイプラインについての情報を保存する挿し替え可能なストレージ(Postgres, MySQLやSqliteなど)
 
-## executor-queue と k8s のアーキテクチャ
+## AWSにおけるリファレンスアーキテクチャ
 ![Architecture](../../cluster-management/assets/arch-k8s.png)
+
+Screwdriverのアプリケーションコンポーネントは、AWSのKubernetes環境で動作しています。ビルドは同じKubernetes環境の異なるネームスペースで起動しています。
+環境の例 [https://cd.screwdriver.cd/](https://cd.screwdriver.cd/)

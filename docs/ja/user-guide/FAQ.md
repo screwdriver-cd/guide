@@ -57,6 +57,8 @@ toc:
       url: "#凍結したジョブを開始するには"
     - title: '凍結したジョブをキャンセルして予定されたビルドが行われないようにするには？'
       url: "#凍結したジョブをキャンセルして予定されたビルドが行われないようにするには"
+    - title: 'ビルドが最新のgit shaで実行されたかどうかを知るには？'
+      url: "#ビルドが最新のgit-shaで実行されたかどうかを知るには"
 
 ---
 
@@ -279,4 +281,12 @@ UIでは
 
 ![Stop frozen build](../../user-guide/assets/stop-frozen-build.png)
 ![Aborted frozen build](../../user-guide/assets/stopped-frozen-build-view.png)
-![Aborted frozen build page](../../user-guide/assets/stopped-frozen-build.png)
+
+## ビルドが最新のgit shaで実行されたかどうかを知るには？
+もし[ビルド](../about/appendix/domain#ビルド)[イベント](../about/appendix/domain#イベント)のgit shaが最新のものであれば、Screwdriver UI上ではgit shaを青背景で表示します。
+
+以下のスクリーンショットでは、最初のイベントはgit shaが細心なので背景が青になっていますが、2番目のイベントでは背景色はありません。
+
+_古いイベントからビルドを開始した場合、イベント一覧の一番上は最新のイベントのものではなくなります。最新のイベントは下にスクロールすると見つけられます。_
+
+![Latest SHA](../../user-guide/assets/latest-sha.png)

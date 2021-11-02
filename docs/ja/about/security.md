@@ -19,7 +19,7 @@ toc:
 
 
 ## 脆弱性の報告
-セキュリティ上の問題は、私たちのプライベートメーリングリスト<screwdriver-oss-security@verizonmedia.com>に報告してください。
+セキュリティ上の問題は、私たちのプライベートメーリングリスト<screwdriver-oss-security@yahooinc.com>に報告してください。
 セキュリティ以外の問題については、[github](./support#github)のIssue、または[slack](./support#slack)を使用してください。
 
 
