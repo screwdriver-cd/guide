@@ -112,7 +112,7 @@ SD_CONFIG_DIR | 親パイプラインのリポジトリのディレクトリ([�
 以下のように、ドットを含む環境変数を使用する場合には注意してください。
 
 ```yaml
-environments:
+environment:
    REGION.INSTANCE: 'xyz'
 ```
 
