@@ -49,34 +49,57 @@ parameters:
 screwdriver.yamlの全容は以下の通り:
 ```yaml
 shared:
-    image: node:8
+  image: node:8
 
 parameters:
-    region: "us-west-1"
-    az:
-        value: "1"
-        description: "default availability zone"
-    cluster: ["cluster1", "cluster2"]
+  skip_test: ["no", "yes"]
+  test_coverage:
+    value: "80"
+    description: "test coverage threshold percentage"
 
 jobs:
-    main:
-        requires: [~pr, ~commit]
-        steps:
-            - step1: 'echo "Region: $(meta get parameters.region.value)"'
-            - step2: 'echo "AZ: $(meta get parameters.az.value)"'
-            - step3: 'echo "Cluster: $(meta get parameters.cluster.value)"'
+  deploy_stage:
+    requires: [~pr, ~commit]
+    parameters:
+      test_coverage: "60"
+      region: "us-east-1"
+      az:
+        value: ["use1-az1", "use1-az2"]
+        description: "availability zone"
+    steps:
+      - step_print_pramaeters: |
+          echo skip_test = $(meta get parameters.skip_test)
+          echo test_coverage = $(meta get parameters.test_coverage)
+          echo region = $(meta get parameters.region)
+          echo az = $(meta get parameters.az)
+
+  deploy_prod:
+    requires: deploy_stage
+    parameters:
+      region: "us-west-2"
+      az:
+        value: ["usw2-az1", "usw2-az2"]
+        description: "availability zone"
+    steps:
+      - step_print_pramaeters: |
+          echo skip_test = $(meta get parameters.skip_test)
+          echo test_coverage = $(meta get parameters.test_coverage)
+          echo region = $(meta get parameters.region)
+          echo az = $(meta get parameters.az)
 ```
 
 ビルドで利用されるパラメーターは`Setup` -> `sd-setup-init`ステップで確認することができます。
 
 パイプラインの動作イメージ:
 
-![image](../../../user-guide/assets/parameters1-event-start.png)
+![image](../../../user-guide/assets/parameters-event-start.png)
 
-![image](../../../user-guide/assets/parameters1-event-start-dropdown.png)
+![image](../../../user-guide/assets/parameters-event-start-dropdown.png)
 
-![image](../../../user-guide/assets/parameters2-sd-init-step.png)
+![image](../../../user-guide/assets/parameters-sd-init-step.png)
 
-![image](../../../user-guide/assets/parameters3-event-view.png)
+![image](../../../user-guide/assets/parameters-for-deploy_stage-job.png)
+
+![image](../../../user-guide/assets/parameters-for-deploy_prod-job.png)
 
 サンプルは[parameters-build-sample](https://github.com/screwdriver-cd-test/parameters-build-sample)をご覧ください。
