@@ -7,6 +7,12 @@ toc:
     - title: Parameters
       url: "#defining-parameters"
       active: true
+    - title: Scope
+      url: "#scope"
+    - title: Example
+      url: "#example"
+    - title: Sample Builds
+      url: "#sample-builds"
 ---
 ## Defining Parameters
 There are 3 ways to define parameters, you can see them in the example below:
@@ -44,39 +50,73 @@ You can also define parameters in an array for drop down options. The first valu
 parameters:
     nameA: ["value1", "value2"]
 ```
+## Scope
+Parameters can be defined at two scopes:
+ - Pipeline
+    - Parameters defined at pipeline level is available to all the jobs
+ - Job
+    - Parameters defined at job level is exclusively available to that job.
+    - Parameter with the same name defined at different jobs does not conflict.
+    - When a parameter with the same name is defined at both pipeline and job levels, value at job supercedes the value at pipeline.
+ 
 
 ## Example
 You can see a full screwdriver.yaml example below:
 ```yaml
 shared:
-    image: node:8
+  image: node:8
 
 parameters:
-    region: "us-west-1"
-    az:
-        value: "1"
-        description: "default availability zone"
-    cluster: ["cluster1", "cluster2"]
+  skip_test: ["no", "yes"]
+  test_coverage:
+    value: "80"
+    description: "test coverage threshold percentage"
 
 jobs:
-    main:
-        requires: [~pr, ~commit]
-        steps:
-            - step1: 'echo "Region: $(meta get parameters.region.value)"'
-            - step2: 'echo "AZ: $(meta get parameters.az.value)"'
-            - step3: 'echo "Cluster: $(meta get parameters.cluster.value)"'
+  deploy_stage:
+    requires: [~pr, ~commit]
+    parameters:
+      test_coverage: "60"
+      region: "us-east-1"
+      az:
+        value: ["use1-az1", "use1-az2"]
+        description: "availability zone"
+    steps:
+      - step_print_pramaeters: |
+          echo skip_test = $(meta get parameters.skip_test)
+          echo test_coverage = $(meta get parameters.test_coverage)
+          echo region = $(meta get parameters.region)
+          echo az = $(meta get parameters.az)
+
+  deploy_prod:
+    requires: deploy_stage
+    parameters:
+      region: "us-west-2"
+      az:
+        value: ["usw2-az1", "usw2-az2"]
+        description: "availability zone"
+    steps:
+      - step_print_pramaeters: |
+          echo skip_test = $(meta get parameters.skip_test)
+          echo test_coverage = $(meta get parameters.test_coverage)
+          echo region = $(meta get parameters.region)
+          echo az = $(meta get parameters.az)
 ```
 
 You can also preview the parameters that are used during a build in the `Setup` -> `sd-setup-init` step.
 
 Pipeline Preview Screenshot:
 
-![image](../assets/parameters1-event-start.png)
+![image](../assets/parameters-event-start.png)
 
-![image](../assets/parameters1-event-start-dropdown.png)
+![image](../assets/parameters-event-start-dropdown.png)
 
-![image](../assets/parameters2-sd-init-step.png)
+![image](../assets/parameters-sd-init-step.png)
 
-![image](../assets/parameters3-event-view.png)
+![image](../assets/parameters-for-deploy_stage-job.png)
 
-Please see [parameters-build-sample](https://github.com/screwdriver-cd-test/parameters-build-sample) as example.
+![image](../assets/parameters-for-deploy_prod-job.png)
+
+## Sample Builds
+- Please see [parameters-build-sample](https://github.com/screwdriver-cd-test/parameters-build-sample) for parameters defined at pipeline level only.
+- Please see [job-parameters-build-example](https://github.com/screwdriver-cd-test/job-parameters-build-example) for parameters defined at both pipeline and job levels.
