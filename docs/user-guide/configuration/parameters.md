@@ -53,11 +53,11 @@ parameters:
 ## Scope
 Parameters can be defined at two scopes:
  - Pipeline
-    - Parameters defined at pipeline level is available to all the jobs
+    - Parameters defined at pipeline level are available to all the jobs
  - Job
-    - Parameters defined at job level is exclusively available to that job.
-    - Parameter with the same name defined at different jobs does not conflict.
-    - When a parameter with the same name is defined at both pipeline and job levels, value at job supercedes the value at pipeline.
+    - Parameters defined at job level are exclusively available to that job.
+    - Parameters with the same name defined at different jobs do not conflict.
+    - When a parameter with the same name is defined at both pipeline and job scopes, value at job scope supercedes the value at pipeline scope.
  
 
 ## Example
