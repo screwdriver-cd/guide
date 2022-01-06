@@ -108,7 +108,7 @@ These environment variables may or may not be available depending on what plugin
 
 Please be aware if you are using dot notations in the environment variables, like:
 ```
-environments:
+environment:
    REGION.INSTANCE: 'xyz'
 ```
 Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['REGION.INSTANCE']` dot notation to access as well.

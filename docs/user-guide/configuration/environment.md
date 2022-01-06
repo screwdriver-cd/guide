@@ -41,7 +41,7 @@ Please be aware if you are using dot notations in the environment variables, lik
 
 ```yaml
 shared:
-    environments:
+    environment:
        X.Y: "Z"
 ```
 
