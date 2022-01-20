@@ -42,6 +42,9 @@ toc:
     - title: Template locked steps
       url: "#template-locked-steps"
       subitem: level-2
+    - title: Template parameters
+      url: "#template-parameters"
+      subitem: level-2
     - title: Template composition
       url: "#template-composition"
       subitem: true
@@ -394,6 +397,107 @@ config:
             command: npm test
             locked: true
 ```
+
+#### Template parameters
+You can define [parameters](./configuration/parameters) that can be used in the steps.  
+
+Example `sd-template.yaml`:
+```yaml
+namespace: myNamespace
+name: favorites
+version: '2.0.1'
+description: template for testing parameters
+maintainer: foo@bar.com
+config:
+  image: node:12
+  parameters:
+    music:
+      value: [ "country", "hip hop" ]
+      description: "favorite music"
+    color: [ "black", "white" ]
+    sports:
+      value: [ "baseball", "basketball" ]
+  steps:
+    - step_print_template_parameters: |
+        echo music = $(meta get parameters.music)
+        echo color = $(meta get parameters.color)
+        echo sports = $(meta get parameters.sports)
+```
+Example repo: <https://github.com/screwdriver-cd-test/template-parameters-example>
+
+These parameters are inherited by all the jobs using the template.
+
+Example `screwdriver.yaml`:
+```yaml
+jobs:
+  # Inherits parameters "music", "color" and "sports" from the template.
+  main1:
+    requires: [~pr, ~commit]
+    template: favorites/myNamespace@2
+  # Inherits parameters "music", "color" and "sports" from the template.
+  main2:
+    requires: [main1]
+    template: favorites/myNamespace@2
+```
+is equivalent to 
+```yaml
+jobs:
+  main1:
+    requires: [~pr, ~commit]
+    parameters:
+      music:
+        value: [ "country", "hip hop" ]
+        description: "favorite music"
+      color: [ "black", "white" ]
+      sports:
+        value: [ "baseball", "basketball" ]
+    steps:
+      - step_print_template_parameters: |
+          echo music = $(meta get parameters.music)
+          echo color = $(meta get parameters.color)
+          echo sports = $(meta get parameters.sports)
+  main2:
+    requires: [main1]
+    parameters:
+      music:
+        value: [ "country", "hip hop" ]
+        description: "favorite music"
+      color: [ "black", "white" ]
+      sports:
+        value: [ "baseball", "basketball" ]
+    steps:
+      - step_print_template_parameters: |
+          echo music = $(meta get parameters.music)
+          echo color = $(meta get parameters.color)
+          echo sports = $(meta get parameters.sports)
+```
+
+Users can override the parameter definition at `pipeline` scope or/and at `job` scope with `job` scope taking precedence over `pipeline scope`. 
+
+Example `screwdriver.yaml`
+```yaml
+# Overrides the parameter "music" from the template (favorites/myNamespace) used by the jobs at pipeline scope which get applied to all the jobs, unless the job overrides it.
+parameters:
+  music: [jazz, rock]
+
+jobs:
+  # Inherits parameters "color" and "sports" from the template.
+  # Since the parameter "music" from the template is overridden at the pipeline scope, it is not is not inherited at job scope.
+  default_template_params:
+    requires: [~pr, ~commit]
+    template: favorites/myNamespace@2
+
+  # Inherits parameter "sports" from the template.
+  # Since the parameter "music" from the template is overridden at the pipeline scope, it is not is not inherited at job scope.
+  # Overrides the parameter "color" from the template.
+  override_template_params:
+    requires: default_template_params
+    template: favorites/myNamespace@2
+    parameters:
+      color: [ red, blue ]
+```
+
+Example repo: <https://github.com/screwdriver-cd-test/job-with-template-parameters-build-example>
 
 #### Caveats
 - Cannot do the following in a pull request: publish a template, create a tag, delete a tag or template
