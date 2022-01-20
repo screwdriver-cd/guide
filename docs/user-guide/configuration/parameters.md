@@ -59,7 +59,7 @@ Parameters can be defined at two scopes:
     * Parameters defined at job level are exclusively available to that job.
     * Parameters with the same name defined at different jobs do not conflict.
     * When a parameter with the same name is defined at both pipeline and job scopes, value at job scope supercedes the value at pipeline scope.
-    * Parameters from the template are inherited at job scope, unless it is overridden at `pipeline` scope.
+    * Parameters from the template are inherited at `job` scope, unless it is overridden at `pipeline` scope.
 
 ## Example
 You can see a full screwdriver.yaml example below:
