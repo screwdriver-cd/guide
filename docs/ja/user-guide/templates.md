@@ -41,6 +41,9 @@ toc:
 - title: ロックされたテンプレートステップ
   url: "#ロックされたテンプレートステップ"
   subitem: level-2
+- title: テンプレートのパラメーター
+  url: "#テンプレートのパラメーター"
+  subitem: level-2
 - title: テンプレート合成
   url: "#テンプレート合成"
   subitem: true
@@ -388,6 +391,106 @@ config:
             command: npm test
             locked: true
 ```
+
+#### テンプレートのパラメーター
+ステップ内で使用される[パラメーター](./configuration/parameters)を定義することができます。
+
+例 `sd-template.yaml`:
+```yaml
+namespace: myNamespace
+name: favorites
+version: '2.0.1'
+description: template for testing parameters
+maintainer: foo@bar.com
+config:
+  image: node:12
+  parameters:
+    music:
+      value: [ "country", "hip hop" ]
+      description: "favorite music"
+    color: [ "black", "white" ]
+    sports:
+      value: [ "baseball", "basketball" ]
+  steps:
+    - step_print_template_parameters: |
+        echo music = $(meta get parameters.music)
+        echo color = $(meta get parameters.color)
+        echo sports = $(meta get parameters.sports)
+```
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/template-parameters-example>
+
+これらのパラメーターはテンプレートを使う全てのジョブで継承されます。
+
+例 `screwdriver.yaml`:
+```yaml
+jobs:
+  # パラメーター "music", "color", "sports" をテンプレートから継承します。
+  main1:
+    requires: [~pr, ~commit]
+    template: favorites/myNamespace@2
+  # パラメーター "music", "color", "sports" をテンプレートから継承します。
+  main2:
+    requires: [main1]
+    template: favorites/myNamespace@2
+```
+これは下記の例と同じです。
+```yaml
+jobs:
+  main1:
+    requires: [~pr, ~commit]
+    parameters:
+      music:
+        value: [ "country", "hip hop" ]
+        description: "favorite music"
+      color: [ "black", "white" ]
+      sports:
+        value: [ "baseball", "basketball" ]
+    steps:
+      - step_print_template_parameters: |
+          echo music = $(meta get parameters.music)
+          echo color = $(meta get parameters.color)
+          echo sports = $(meta get parameters.sports)
+  main2:
+    requires: [main1]
+    parameters:
+      music:
+        value: [ "country", "hip hop" ]
+        description: "favorite music"
+      color: [ "black", "white" ]
+      sports:
+        value: [ "baseball", "basketball" ]
+    steps:
+      - step_print_template_parameters: |
+          echo music = $(meta get parameters.music)
+          echo color = $(meta get parameters.color)
+          echo sports = $(meta get parameters.sports)
+```
+
+テンプレートで定義されたパラメーターは、パイプライン、ジョブの両方のスコープで上書きすることができ、ジョブのスコープがパイプラインのスコープより優先されます。
+
+例 `screwdriver.yaml`
+```yaml
+# パイプラインスコープのパラメーターは、ジョブスコープで上書きしない限り全てのジョブに適用されます。
+# ジョブで使用されているテンプレート(favorites/myNamespace)のパラメーター "music" をパイプラインスコープのもので上書きします。
+parameters:
+  music: [jazz, rock]
+jobs:
+  # パラメーター "color" と "sports" をテンプレートから継承します。
+  # テンプレートのパラメーター "music" はパイプラインスコープで上書きされるため、ジョブスコープでは継承されません。
+  default_template_params:
+    requires: [~pr, ~commit]
+    template: favorites/myNamespace@2
+  # パラメーター "sports" をテンプレートから継承します。
+  # テンプレートのパラメーター "music" はパイプラインスコープで上書きされるため、ジョブスコープでは継承されません。
+  # テンプレートのパラメーター "color" を上書きします。
+  override_template_params:
+    requires: default_template_params
+    template: favorites/myNamespace@2
+    parameters:
+      color: [ red, blue ]
+```
+
+サンプルリポジトリ: <https://github.com/screwdriver-cd-test/job-with-template-parameters-build-example>
 
 #### 警告
 - プルリクエストでは、テンプレートのpublish、タグの作成、タグやテンプレートの削除を行うことはできません。
