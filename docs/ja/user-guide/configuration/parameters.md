@@ -7,9 +7,15 @@ toc:
     - title: パラメーター
       url: "#パラメーター定義"
       active: true
+    - title: スコープ
+      url: "#スコープ"
+    - title: 例
+      url: "#例"
+    - title: ビルドのサンプル
+      url: "#ビルドのサンプル"
 ---
 ## パラメーター定義
-パラメータを定義するには、以下の例のように3つの方法があります。
+パラメーターを定義するには、以下の例のように3つの方法があります。
 
 ```yaml
 parameters:
@@ -44,6 +50,16 @@ parameters:
 parameters:
     nameA: ["value1", "value2"]
 ```
+## スコープ
+パラメーターは2つのスコープで定義できます。
+
+* **パイプライン**
+    * パイプラインレベルで定義されたパラメーターは全てのジョブで利用可能です。
+* **ジョブ**
+    * ジョブレベルで定義されたパラメーターは、そのジョブでのみ利用可能です。
+    * 異なるジョブ間で同じ名前のパラメーターが定義されたとしても競合しません。
+    * パイプラインとジョブの両方のスコープで同じ名前のパラメーターが定義された場合、ジョブのスコープの値が優先されます。
+    * テンプレートのパラメーターは、パイプラインのスコープでオーバーライドされない限り、ジョブのスコープで継承されます。
 
 ## 例
 screwdriver.yamlの全容は以下の通り:
@@ -102,4 +118,6 @@ jobs:
 
 ![image](../../../user-guide/assets/parameters-for-deploy_prod-job.png)
 
-サンプルは[parameters-build-sample](https://github.com/screwdriver-cd-test/parameters-build-sample)をご覧ください。
+## ビルドのサンプル
+- パイプラインのスコープでのみパラメーターが定義されているサンプルは、[parameters-build-sample](https://github.com/screwdriver-cd-test/parameters-build-sample)をご覧ください。
+- パイプラインとジョブの両方のスコープでパラメーターが定義されているサンプルは、[job-parameters-build-example](https://github.com/screwdriver-cd-test/job-parameters-build-example)をご覧ください。
