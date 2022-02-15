@@ -13,7 +13,7 @@ toc:
 Screwdriver can be used to orchestrate AWS native builds which runs in either Code Build or EKS.
 
 * [AWS](https://aws.amazon.com/)
-* [Code Buld](https://aws.amazon.com/codebuild/)
+* [Code Build](https://aws.amazon.com/codebuild/)
 * [EKS](https://aws.amazon.com/eks/)
 
 Architecture [diagram](https://github.com/screwdriver-cd/screwdriver/issues/2550#issuecomment-930380829).
