@@ -18,7 +18,7 @@ Screwdriver can be used to orchestrate AWS native builds which runs in either Co
 
 Architecture [diagram](https://github.com/screwdriver-cd/screwdriver/issues/2550#issuecomment-930380829).
 
-This integration uses [AWS MSK](https://aws.amazon.com/msk/) to schedule user builds in user's own accounts. This enables multi tenancy where different user AWS accounts can integrate with Screwdriver without having to provide any account access to Screwdriver.
+This integration uses [AWS MSK](https://aws.amazon.com/msk/) to schedule user builds in user's own AWS account. This enables Screwdriver Cluster admins to a setup multi tenant build environment where different user builds are send to their individual AWS accounts without impacting each other. And users can integrate with Screwdriver without having to provide any account or network access to Screwdriver and perform secure AWS deployments backed by [IAM role identities](https://aws.amazon.com/iam/).
 
 ## Setup
 
