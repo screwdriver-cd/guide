@@ -166,4 +166,4 @@ jobs:
 
 
 ### See also:
-* [Annotations](./annotations) - Freeform key/value store, often used to configure build execution settings
+* [Annotations](../user-guide/configuration/annotations.md) - Freeform key/value store, often used to configure build execution settings
