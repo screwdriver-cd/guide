@@ -37,12 +37,12 @@ cache:
 
 jobs:
     setnpmcache:
-        image: node:6
+        image: node:14
         steps:
             - install: npm install
         requires: [~commit, ~pr]
     usenpmcache:
-        image: node:6
+        image: node:14
         steps:
             - ls: ls
             - install: npm install
@@ -51,10 +51,10 @@ jobs:
         image: java:7
         steps:
             - ls: ls ~/
-            - install: git clone https://github.com/gradle-guides/gradle-site-plugin.git && cd gradle-site-plugin && ./gradlew build
+            - install: git clone https://github.com/gradle/gradle-site-plugin.git && cd gradle-site-plugin && ./gradlew build
         requires: [~commit, ~pr]
     usejobcache:
-        image: node:6
+        image: node:14
         steps:
             - ls-tmp: ls /tmp
             - echo: echo hi > /tmp/test

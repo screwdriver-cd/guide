@@ -51,7 +51,7 @@ jobs:
         image: java:7
         steps:
             - ls: ls ~/
-            - install: git clone https://github.com/gradle-guides/gradle-site-plugin.git && cd gradle-site-plugin && ./gradlew build
+            - install: git clone https://github.com/gradle/gradle-site-plugin.git && cd gradle-site-plugin && ./gradlew build
         requires: [~commit, ~pr]
     usejobcache:
         image: node:6
