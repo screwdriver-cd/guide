@@ -5,13 +5,13 @@ category: Cluster Management
 menu: menu_ja
 toc:
     - title: AWSネイティブビルド
-      url: "#AWSネイティブビルド"
+      url: "#awsネイティブビルド"
       active: true
     - title: ジョブプロバイダーの設定
       url: "#ジョブプロバイダーの設定"
       active: true
     - title: Sharedプロバイダーの設定
-      url: "#Sharedプロバイダーの設定"
+      url: "#sharedプロバイダーの設定"
       active: true
 ---
 ## AWSネイティブビルド
