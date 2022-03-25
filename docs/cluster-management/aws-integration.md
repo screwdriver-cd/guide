@@ -68,6 +68,18 @@ jobs:
       - init: npm install
       - test: npm test
 ```
+#### Example
+Alternatively, provider configuration can be stored remotely in another repo. You can reference this config by putting a checkout URL with the format `CHECKOUT_URL#BRANCH:PATH`.
+```
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
+    provider: git@github.com:configs/aws.git#main:cd/aws/provider.yaml
+    steps:
+      - init: npm install
+      - test: npm test
+```
 
 #### Example
 Alternatively, provider configuration can be stored remotely in another repo. You can reference this external provider config by putting a checkout URL with the format `CHECKOUT_URL#BRANCH:PATH`.
