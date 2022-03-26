@@ -13,7 +13,7 @@ toc:
   | Technology             | Description | License |
  | ----                   | ----        | ----    |
  | Bitbucket/GitHub/GitHub Enterprise/GitLab | Source Control Management System。ユーザーはサポートしているSCMのどれか一つにアクセスできなければなりません。|         |
- | Docker                 | [executor-k8s](https://github.com/screwdriver-cd/executor-k8s) もしくは [executor-docker](https://github.com/screwdriver-cd/executor-docker)で利用します。 [SD in a box](https://github.com/screwdriver-cd/in-a-box)を動作させるためにも必要です。| [Apache 2.0](https://www.docker.com/legal/components-licenses) |
+ | Docker                 | [executor-k8s](https://github.com/screwdriver-cd/executor-k8s) もしくは [executor-docker](https://github.com/screwdriver-cd/executor-docker)で利用します。 [SD in a box](https://github.com/screwdriver-cd/in-a-box)を動作させるためにも必要です。| [Commercial](https://www.docker.com/pricing/) |
  | Ember.js               | Screwdriver UI            | [MIT](https://github.com/emberjs/ember.js/blob/master/LICENSE)         |
  | Golang                 | [Launcher](https://github.com/screwdriver-cd/launcher) や [log-service](https://github.com/screwdriver-cd/log-service)はGo言語で書かれています。  | [License](https://golang.org/LICENSE) |
  | Habitat                | ビルドコンテナが持つツールを最小の要求とするために、[Launcher](https://github.com/screwdriver-cd/launcher)コンテナ内のcurlなどの依存関係のパッケージングに利用しています。| [Apache 2.0](https://www.habitat.sh/legal/licensing) |

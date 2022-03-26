@@ -13,7 +13,7 @@ toc:
  | Technology             | Description | License |
  | ----                   | ----        | ----    |
  | Bitbucket/GitHub/GitHub Enterprise/GitLab | Source Control Management System. Users must have access to one of the [supported SCMs](../user-guide/scm) |         |
- | Docker                 | Used with [executor-k8s](https://github.com/screwdriver-cd/executor-k8s) & [executor-docker](https://github.com/screwdriver-cd/executor-docker). Also required for running Screwdriver with [SD in a box](https://github.com/screwdriver-cd/in-a-box)  | [Apache 2.0](https://www.docker.com/legal/components-licenses) |
+ | Docker                 | Used with [executor-k8s](https://github.com/screwdriver-cd/executor-k8s) & [executor-docker](https://github.com/screwdriver-cd/executor-docker). Also required for running Screwdriver with [SD in a box](https://github.com/screwdriver-cd/in-a-box)  | [Commercial](https://www.docker.com/pricing/) |
  | Ember.js               | Screwdriver UI            | [MIT](https://github.com/emberjs/ember.js/blob/master/LICENSE)         |
  | Golang                 | [Launcher](https://github.com/screwdriver-cd/launcher) & [log-service](https://github.com/screwdriver-cd/log-service) are written in Golang  | [License](https://golang.org/LICENSE) |
  | Habitat                | For packaging dependencies like curl in the [Launcher](https://github.com/screwdriver-cd/launcher) container so that build containers have minimal required tooling | [Apache 2.0](https://www.habitat.sh/legal/licensing) |

@@ -27,7 +27,7 @@ Screwdriver can be used to orchestrate AWS native builds which runs in either Co
 
 Architecture [diagram](https://github.com/screwdriver-cd/screwdriver/issues/2550#issuecomment-930380829).
 
-This integration uses [AWS MSK](https://aws.amazon.com/msk/) to schedule user builds in user's own AWS account. This enables Screwdriver Cluster admins to a setup multi tenant build environment where different user builds are send to their individual AWS accounts without impacting each other. And users can integrate with Screwdriver without having to provide any account or network access to Screwdriver and perform secure AWS deployments backed by [IAM role identities](https://aws.amazon.com/iam/).
+This integration uses [AWS MSK](https://aws.amazon.com/msk/) to schedule user builds in the user's own AWS account. This enables Screwdriver Cluster admins to a setup multi-tenant build environments where different user builds are sent to their individual AWS accounts without impacting each other. Users can also integrate with Screwdriver without having to provide any account or network access to Screwdriver and perform secure AWS deployments backed by [IAM role identities](https://aws.amazon.com/iam/).
 
 ## Setup
 
@@ -36,8 +36,10 @@ In order to use this feature, Screwdriver Cluster admin must setup AWS MSK infra
 A user who wants to integrate should work with Screwdriver Cluster admin to [register their AWS account](https://github.com/screwdriver-cd/aws-consumer-scripts/#prerequisite) for scheduling builds. 
 
 Once registration is complete, then user should provision build infrastructure by running [this script](https://github.com/screwdriver-cd/aws-consumer-scripts/#instructions). 
+
 # Job Provider Configuration
 Provider configuration in jobs is required for identifying the cloud provider related configuration. For AWS Native builds it includes the identifier of the Virtual Private Cloud(VPC), the subnets and security groups which define the inbound and outbound communication, the IAM role for accessing various AWS services based on permissions. The example defines the mandatory parameters in provider config.
+
 #### Example
 ```
 jobs:
@@ -60,6 +62,20 @@ jobs:
       executor: sls
       launcherImage: screwdrivercd/launcher:v6.0.149
       launcherVersion: v6.0.149
+    steps:
+      - init: npm install
+      - test: npm test
+```
+
+#### Example
+Alternatively, provider configuration can be stored remotely in another repo. You can reference this config by putting a checkout URL with the format `CHECKOUT_URL#BRANCH:PATH`.
+
+```
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
+    provider: git@github.com:configs/aws.git#main:cd/aws/provider.yaml
     steps:
       - init: npm install
       - test: npm test

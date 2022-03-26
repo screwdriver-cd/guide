@@ -30,38 +30,39 @@ Top-level setting that contains file paths from your build that you would like t
 
 ```yaml
 cache:
-   pipeline: [~/.gradle]
+   pipeline: [~/versions]
    event: [$SD_SOURCE_DIR/node_modules]
    job:
        usejobcache: [/tmp/test]
 
 jobs:
     setnpmcache:
-        image: node:6
+        image: node:14
         steps:
             - install: npm install
         requires: [~commit, ~pr]
     usenpmcache:
-        image: node:6
+        image: node:14
         steps:
             - ls: ls
             - install: npm install
         requires: [setnpmcache]
-    usegradlecache:
+    usepipelinecache:
         image: java:7
         steps:
-            - ls: ls ~/
-            - install: git clone https://github.com/gradle-guides/gradle-site-plugin.git && cd gradle-site-plugin && ./gradlew build
+            - cat: cat ~/versions || echo "versions file doesn't exist"
+            - install: echo "v1.0.0" > ~/versions
         requires: [~commit, ~pr]
     usejobcache:
-        image: node:6
+        image: node:14
         steps:
             - ls-tmp: ls /tmp
             - echo: echo hi > /tmp/test
+            - cat: cat ~/versions || echo "versions file doesn't exist"
         requires: [~commit, ~pr]
 ```
 
-In the above example, the pipeline-scoped `.gradle` cache can be accessed under all builds in the pipeline to save time on `gradle install`. For event-scoped cache, we cache the `node_modules` folder under the event scope in the `setnpmcache` build so that the downstream `usenpmcache` build can save time on `npm install`. For job-scoped cache, we cache `/tmp/test` file so that it is available for any subsequent builds of the same job.
+In the above example, the pipeline-scoped `versions` cache can be accessed under all builds in the pipeline to share same version. For event-scoped cache, we cache the `node_modules` folder under the event scope in the `setnpmcache` build so that the downstream `usenpmcache` build can save time on `npm install`. For job-scoped cache, we cache `/tmp/test` file so that it is available for any subsequent builds of the same job.
 
 Example repo: <https://github.com/screwdriver-cd-test/cache-example>
 
