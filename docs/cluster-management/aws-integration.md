@@ -13,6 +13,9 @@ toc:
     - title: Shared Provider Configuration
       url: "#shared-provider-configuration"
       active: true
+    - title: Provider Configuration Definition
+      url: "#provider-configuration-definition"
+      active: true
 ---
 ## AWS Native Builds
 
@@ -144,7 +147,7 @@ jobs:
 
 ```
 
-# Provider Configuration
+# Provider Configuration Definition
  | Property | Values | Description |
  |------------|--------|-------------|
  | name| `aws` | Name of the supported cloud provider|
@@ -161,4 +164,4 @@ jobs:
 | executorLogs| `true` / `false` | Flag to view logs in AWS Cloudwatch for the AWS CodeBuild project. Default value is `false`. |
 | privilegedMode| `true` / `false` | Flag to enable privileged mode for docker build in the AWS CodeBuild project. Default value is `false`. |
 | computeType| All supported [AWS CodeBuild Compute Types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | Default value is `BUILD_GENERAL1_SMALL`. This defines the different compute types with available memory, vCPUs, and disk space  |
-| environment| All supported [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | Default value is `LINUX_CONTAINER`. This defines the different environment types corresponding with `computeType`|
+| environmentType | All supported [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | Default value is `LINUX_CONTAINER`. This defines the different environment types corresponding with `computeType`|
