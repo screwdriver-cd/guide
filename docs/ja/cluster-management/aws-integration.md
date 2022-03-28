@@ -30,7 +30,7 @@ Screwdriverは、Code BuildまたはEKSで実行されるAWSネイティブビ�
 
 この機能を利用するには、Screwdriverクラスターの管理者は、[aws-producer-scripts](https://github.com/screwdriver-cd/aws-producer-scripts#readme)を使用してAWS MSKインフラを構築し、[queue-service](https://github.com/screwdriver-cd/queue-service/blob/master/config/custom-environment-variables.yaml#L275-L295)で有効化する必要があります。
 
-統合を希望するユーザーは、Screwdriverクラスターの管理者と協力して、ビルドをスケジューリングするための[AWSアカウントを登録する](https://github.com/screwdriver-cd/aws-consumer-scripts/#prerequisite)必要があります。 
+統合を希望するユーザーは、Screwdriverクラスターの管理者と協力して、ビルドをスケジューリングするために[AWSアカウントを登録する](https://github.com/screwdriver-cd/aws-consumer-scripts/#prerequisite)必要があります。 
 
 登録が完了したら、ユーザーは[スクリプト](https://github.com/screwdriver-cd/aws-consumer-scripts/#instructions)を実行して、ビルドインフラを構築する必要があります。 
 # ジョブプロバイダーの設定
