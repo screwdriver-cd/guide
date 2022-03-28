@@ -72,6 +72,8 @@
       url: "/ja/cluster-management/kubernetes"
     - title: "Kubernetes Helm Chartを利用してScrewdriverを構築"
       url: "/ja/cluster-management/helm"
+    - title: "AWSネイティブなCI/CDビルドを構築"
+      url: "/ja/cluster-management/aws-integration"
     - title: "依存関係"
       url: "/ja/cluster-management/dependencies"
     - title: "ビルドの設定"
