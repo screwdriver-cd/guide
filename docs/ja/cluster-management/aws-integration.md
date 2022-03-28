@@ -69,7 +69,7 @@ jobs:
 ```
 aws codebuild list-curated-environment-images
 ```
-イメージの完全なURLを指定することで、カスタムレジストリや自身のAWS ECR上のイメージを指定できます。
+イメージのURL全体を指定することで、カスタムレジストリや自身のAWS ECR上のイメージを指定できます。
 インフラ構築時に、必要な権限を持ったECRを作成したい場合は、[aws-consumer-scripts](https://github.com/screwdriver-cd/aws-consumer-scripts#config-definitions)で`create_ecr`フラグを設定すれば可能です。
 
 #### 例
