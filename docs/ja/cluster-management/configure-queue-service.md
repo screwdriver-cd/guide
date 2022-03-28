@@ -158,7 +158,7 @@ Schedulerが有効な場合、Queue ServiceはビルドをRabbitMQ Build Cluster
 
 | キー                   | 環境変数 | 説明                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
-| enabled | |SCHEDULER_ENABLED | `true` の場合、ビルドはRabbitMQのビルドクラスターキューに送られ、処理が行われます。 |
+| enabled | SCHEDULER_ENABLED | `true` の場合、ビルドはRabbitMQのビルドクラスターキューに送られ、処理が行われます。 |
 | protocol | RABBITMQ_PROTOCOL | RabbitMQに接続するためのプロトコル。非sslの場合はamqp、sslの場合はamqpsを使用します。デフォルト: amqp  |
 | username | RABBITMQ_USERNAME | RabbitMQのキューを利用することを許可された、接続するユーザー  |
 | password | RABBITMQ_PASSWORD | パスワード |
