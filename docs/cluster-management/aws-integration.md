@@ -181,3 +181,4 @@ jobs:
  | privilegedMode | `true` / `false` | Flag to enable privileged mode for Docker build in the AWS CodeBuild project. Default value is `false`. |
  | computeType | All supported [AWS CodeBuild Compute Types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | This defines the different compute types with available memory, vCPUs, and disk space. Default value is `BUILD_GENERAL1_SMALL`.   |
  | environmentType | All supported [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | This defines the different environment types corresponding with `computeType`. Default value is `LINUX_CONTAINER`. |
+
