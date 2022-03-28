@@ -35,6 +35,7 @@ Screwdriverは、Code BuildまたはEKSで実行されるAWSネイティブビ�
 登録が完了したら、ユーザーは[スクリプト](https://github.com/screwdriver-cd/aws-consumer-scripts/#instructions)を実行して、ビルドインフラを構築する必要があります。 
 # ジョブプロバイダーの設定
 クラウドプロバイダーに関する設定を識別するために、ジョブでのプロバイダー設定が必要です。AWSネイティブビルドの場合、Virtual Private Cloud（VPC）、インバウンド・アウトバウンドの通信を定義するサブネットとセキュリティグループ、権限に基づいて様々なAWSサービスにアクセスするためのIAMロールのそれぞれの識別子が含まれます。
+
 #### 例
 ```
 jobs:
@@ -57,6 +58,20 @@ jobs:
       executor: sls
       launcherImage: screwdrivercd/launcher:v6.0.149
       launcherVersion: v6.0.149
+    steps:
+      - init: npm install
+      - test: npm test
+```
+
+#### 例
+また、プロバイダの設定は、別のリポジトリにリモートで保存することもできます。チェックアウトURLを`CHECKOUT_URL#BRANCH:PATH`というフォーマットで記述することで、この設定を参照することができます。
+
+```
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
+    provider: git@github.com:configs/aws.git#main:cd/aws/provider.yaml
     steps:
       - init: npm install
       - test: npm test
