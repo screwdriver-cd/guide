@@ -13,6 +13,9 @@ toc:
     - title: Sharedプロバイダーの設定
       url: "#sharedプロバイダーの設定"
       active: true
+    - title: プロバイダー設定の定義
+      url: "#プロバイダー設定の定義"
+      active: true
 ---
 ## AWSネイティブビルド
 
@@ -159,7 +162,7 @@ jobs:
 
 ```
 
-# プロバイダーの設定
+# プロバイダー設定の定義
 
  | Property | Values | Description |
  |------------|--------|-------------|
@@ -177,4 +180,4 @@ jobs:
  | executorLogs | `true` / `false` | AWS CodeBuildプロジェクトのログをAWS CloudWatchで表示するためのフラグです。デフォルトは`false`です。 |
  | privilegedMode | `true` / `false` | AWS CodeBuildプロジェクトのDockerビルドで特権モードを有効にするためのフラグです。デフォルトは`false`です。 |
  | computeType | 全ての有効な [AWS CodeBuild Compute Types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | 利用可能なメモリ、vCPU、およびディスク領域を持つ様々なコンピュートタイプを定義します。デフォルトは`BUILD_GENERAL1_SMALL`です。 |
- | environment | 全ての有効な [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | `computeType` に対応する様々な環境のタイプを定義します。デフォルトは`LINUX_CONTAINER`です。 |
+ | environmentType | 全ての有効な [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | `computeType` に対応する様々な環境のタイプを定義します。デフォルトは`LINUX_CONTAINER`です。 |
