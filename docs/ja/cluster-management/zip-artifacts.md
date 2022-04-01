@@ -21,8 +21,8 @@ toc:
 
 # Zip Artifacts機能
 
-`screwdriver-artifact-bookend`を利用して、ビルド成果物をStoreアップロードする場合、それらのファイルをZip化して送ることができます。  
-この機能を有効化することで大量のファイルをアップロードする場合に`screwdriver-artifact-bookend`の実行時間を短縮することができます。  
+`screwdriver-artifact-bookend`を利用して、ビルド成果物をStoreにアップロードする際、それらのファイルをZip化して送信できます。  
+この機能を有効化することで大量のファイルをアップロードする場合に`screwdriver-artifact-bookend`の実行時間を短縮できます。  
 Zip化されたファイルをアップロード後に解凍するため、アップロードされたファイルがUIのArtifactsタブに表示されるまで時間がかかる場合があります。  
 
 ## 構成
@@ -60,12 +60,12 @@ unzipArtifacts:
 artifacts-unzip-serviceが解凍に失敗した場合、UIのArtifactsタブにファイルの一覧が表示されなくなります。  
 解凍に失敗した場合、管理者側で再度APIにリクエストを送る必要があります。
 
-1. [APIドキュメント](../user-guide/api.md)の`RESTクライアント経由で実行する`を参考に認証トークンの取得
-1. /builds/{id}/artifacts/unzipにリクエストを送る。
+1. [APIドキュメント](../user-guide/api.md)の`RESTクライアント経由で実行する`を参考に認証トークンを取得します。
+1. /builds/{id}/artifacts/unzipに、以下のようにリクエストを送信します。
 
     ```bash
     # 例
     curl -I -X POST -H "Authorization: Bearer {Token}" https://api.screwdriver.cd/v4/builds/{ID}/artifacts/unzip
     ```
 
-1. 解凍したビルドIDのページに行きArtifactsタブにファイルが表示されていることを確認
+1. 解凍したビルドIDのページにアクセスし、Artifactsタブにファイルが表示されていることを確認します。
