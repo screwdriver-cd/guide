@@ -21,7 +21,7 @@ toc:
 
 # Zip Artifacts機能
 
-`screwdriver-artifact-bookend`を利用して、build情報(Artifacts)をStoreアップロードする場合、それらのファイルをZip化して送ることができます。  
+`screwdriver-artifact-bookend`を利用して、ビルド成果物をStoreアップロードする場合、それらのファイルをZip化して送ることができます。  
 この機能を有効化することで大量のファイルをアップロードする場合に`screwdriver-artifact-bookend`の実行時間を短縮することができます。  
 Zip化されたファイルをアップロード後に解凍するため、アップロードされたファイルがUIのArtifactsタブに表示されるまで時間がかかる場合があります。  
 
@@ -29,10 +29,10 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 
 ![zip artifacts architecture](../../../docs/cluster-management/assets/zip-artifacts-architecture.png)  
 
-1. build(`screwdriver-artifact-bookend`)からZip化されたArtifactsをアップロードします。
+1. build(`screwdriver-artifact-bookend`)からZip化されたビルド成果物をアップロードします。
 1. buildはAPIに先程アップロードしたZipをUnzipするリクエストをAPIに投げます。
 1. APIはUnzipのリクエストが来たら、Redis Queueにメッセージを送信します。
-1. Unzip ServiceがQueueからメッセージを取得し、Zip化されたArtifactsをStoreから取得し、解凍してから再度Storeにアップロードします。
+1. Unzip ServiceがQueueからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
 
 ## 構築
 
