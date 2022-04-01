@@ -24,7 +24,7 @@ toc:
 ## パッケージ
 
 アップロードされたZipファイルを解凍するコンポーネントです。  
-[Aip Artifacts機能](./zip-artifacts.md)を利用する場合に必要となるコンポーネントです。  
+[Zip Artifacts機能](./zip-artifacts.md)を利用する場合に必要となるコンポーネントです。  
 他のサービスと同様[Dockerイメージ](https://hub.docker.com/r/screwdrivercd/artifacts-unzip-service)を提供しています。  
 
 ```bash
