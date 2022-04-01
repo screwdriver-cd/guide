@@ -22,7 +22,7 @@ toc:
 # Zip Artifacts機能
 
 `screwdriver-artifact-bookend`を利用して、ビルド成果物をStoreアップロードする場合、それらのファイルをZip化して送ることができます。  
-この機能を有効化することで大量のファイルをアップロードする場合に`screwdriver-artifact-bookend`の実行時間を短縮することができます。  
+この機能を有効化することで大量のファイルをアップロードする場合に`screwdriver-artifact-bookend`の実行時間を短縮できます。  
 Zip化されたファイルをアップロード後に解凍するため、アップロードされたファイルがUIのArtifactsタブに表示されるまで時間がかかる場合があります。  
 
 ## 構成
