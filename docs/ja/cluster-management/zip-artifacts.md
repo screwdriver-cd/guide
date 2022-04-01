@@ -42,12 +42,12 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 
 ### APIのfeature flagを設定
 
-APIの設定でartifacts-unzip-serviceのfeature flagをonにする必要があります。  
+APIの設定でZip Artifacts機能を有効にする必要があります。  
 この機能をOnにすることで、APIからqueue-serviceに解凍するためのmessageが飛ぶようになります。  
 
 キー | デフォルト | 説明
 --- | --- | ---
-UNZIP_ARTIFACTS_ENABLED | false | artifacts-unzip-service機能のサポートの有無
+UNZIP_ARTIFACTS_ENABLED | false | artifacts-unzip-serviceを利用するかの有無
 
 ```yaml
 # config/local.yaml
