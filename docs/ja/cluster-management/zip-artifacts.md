@@ -29,10 +29,10 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 
 ![zip artifacts architecture](../../../docs/cluster-management/assets/zip-artifacts-architecture.png)  
 
-1. build(`screwdriver-artifact-bookend`)からZip化されたビルド成果物をアップロードします。
-1. buildはAPIに先程アップロードしたZipをUnzipするリクエストをAPIに投げます。
+1. ビルドコンテナ(`screwdriver-artifact-bookend`ステップ)からZip化されたビルド成果物をStoreにアップロードします。
+1. buildは先程アップロードしたZipをUnzipするリクエストをAPIに投げます。
 1. APIはUnzipのリクエストが来たら、Redis Queueにメッセージを送信します。
-1. Unzip ServiceがQueueからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
+1. artifacts-unzip-serviceがQueueからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
 
 ## 構築
 
@@ -43,7 +43,7 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 ### APIのfeature flagを設定
 
 APIの設定でZip Artifacts機能を有効にする必要があります。  
-この機能をOnにすることで、APIからqueue-serviceに解凍するためのmessageが飛ぶようになります。  
+この機能をOnにすることで、APIはqueue-serviceに解凍するためのメッセージを送るようになります。  
 
 キー | デフォルト | 説明
 --- | --- | ---
