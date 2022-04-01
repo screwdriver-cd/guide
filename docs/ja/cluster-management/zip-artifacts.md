@@ -61,7 +61,7 @@ artifacts-unzip-serviceが解凍に失敗した場合、UIのArtifactsタブに�
 解凍に失敗した場合、管理者側で再度APIにリクエストを送る必要があります。
 
 1. [APIドキュメント](../user-guide/api.md)の`RESTクライアント経由で実行する`を参考に認証トークンの取得
-1. /builds/{id}/artifacts/unzipにリクエストを送る。
+1. /builds/{id}/artifacts/unzipに、以下のようにリクエストを送信します。
 
     ```bash
     # 例
