@@ -61,7 +61,7 @@ unzipArtifacts:
 artifacts-unzip-serviceが解凍に失敗した場合、UIのArtifactsタブにファイルの一覧が表示されなくなります。  
 解凍に失敗した場合、管理者側で再度APIにリクエストを送る必要があります。
 
-1. [APIドキュメント](../user-guide/api)の`RESTクライアント経由で実行する`を参考に認証トークンを取得します。
+1. [APIドキュメント](../user-guide/api#restクライアント経由で実行する)を参考に認証トークンを取得します。
 1. /builds/{id}/artifacts/unzipに、以下のようにリクエストを送信します。
 
     ```bash
