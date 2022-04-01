@@ -5,7 +5,7 @@ category: Cluster Management
 menu: menu_ja
 toc:
 - title: Zip Artifacts機能
-  url: "#Zip-Artifacts機能"
+  url: "#zip-artifacts機能"
   active: 'true'
 - title: 構成
   url: "#構成"
@@ -14,7 +14,7 @@ toc:
 - title: artifacts-unzip-serviceの構築
   url: "#artifacts-unzip-serviceの構築"
 - title: APIのfeature flagを設定
-  url: "#APIのfeature-flagを設定"
+  url: "#apiのfeature-flagを設定"
 - title: unzipに失敗した場合
   url: "#unzipに失敗した場合"
 ---
@@ -27,7 +27,7 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 
 ## 構成
 
-![zip artifacts architecture](../../../docs/cluster-management/assets/zip-artifacts-architecture.png)  
+![zip artifacts architecture](../../cluster-management/assets/zip-artifacts-architecture.png)  
 
 1. ビルドコンテナ(`screwdriver-artifact-bookend`ステップ)からZip化されたビルド成果物をStoreにアップロードします。
 1. buildはAPIに先程アップロードしたZipをUnzipするリクエストを行います。

@@ -12,11 +12,14 @@ toc:
     - title: 設定
       url: "#設定"
     - title: Queue
-      url: "#Queue"
+      url: "#queue"
+      subitem: true
     - title: MultiWorker
-      url: "#MultiWorker"
+      url: "#multiworker"
+      subitem: true
     - title: ヘルスチェック
       url: "#ヘルスチェック"
+      subitem: true
 ---
 
 # artifacts-unzip-serviceの設定
