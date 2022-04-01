@@ -27,7 +27,7 @@ toc:
 ## パッケージ
 
 アップロードされたZipファイルを解凍するコンポーネントです。  
-[Zip Artifacts機能](zip-artifacts.md)を利用する場合に必要となるコンポーネントです。  
+[Zip Artifacts機能](zip-artifacts)を利用する場合に必要となるコンポーネントです。  
 他のサービスと同様[Dockerイメージ](https://hub.docker.com/r/screwdrivercd/artifacts-unzip-service)を提供しています。  
 
 ```bash
@@ -96,7 +96,7 @@ unzip-service:
 --- | --- | ---
 PORT | 80 | listenするポート
 HOST | 0.0.0.0 | listenするホスト(そのマシン上からの接続だけを受け付けるときだけlocalhostに設定)
-URI | <http://localhost:80> | 外部から接続可能なURI (通常はロードバランサーやCNAME)
+URI | http://localhost:80 | 外部から接続可能なURI (通常はロードバランサーやCNAME)
 
 ```yaml
 # config/local.yaml
