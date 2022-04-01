@@ -68,4 +68,4 @@ artifacts-unzip-serviceが解凍に失敗した場合、UIのArtifactsタブに�
     curl -I -X POST -H "Authorization: Bearer {Token}" https://api.screwdriver.cd/v4/builds/{ID}/artifacts/unzip
     ```
 
-1. 解凍したビルドIDのページに行きArtifactsタブにファイルが表示されていることを確認
+1. 解凍したビルドIDのページにアクセスし、Artifactsタブにファイルが表示されていることを確認します。
