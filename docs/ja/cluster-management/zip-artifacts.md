@@ -31,8 +31,8 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 
 1. ビルドコンテナ(`screwdriver-artifact-bookend`ステップ)からZip化されたビルド成果物をStoreにアップロードします。
 1. ビルドコンテナはAPIに先程アップロードしたZipをUnzipするリクエストを行います。
-1. APIはUnzipのリクエストが来たら、Redis Queueにメッセージを送信します。
-1. artifacts-unzip-serviceがQueueからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
+1. APIはUnzipのリクエストが来たら、Redisにメッセージを送信します。
+1. artifacts-unzip-serviceがRedisからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
 1. artifacts-unzip-serviceはZip化されたビルド成果物をStoreから削除します。
 
 ## 構築
