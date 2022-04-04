@@ -732,17 +732,18 @@ RedisロックはScrewdriver apiで使用されており、ビルドの更新が
 Redisのロックを設定するために、これらの環境変数を設定します:
 
 | 環境変数               | 必須            |  デフォルト              | 説明       |
-|:-------------------------|:---------------------|:---------------------|:-----------------------------|
-| REDLOCK_ENABLED          | はい                  | false                | Redisロックの有効化            |
-| REDLOCK_RETRY_COUNT      | はい                 | 200                  | ロック取得までの最大リトライ回数                 |
-| REDLOCK_DRIFT_FACTOR     | いいえ                   | 0.01                 | 予想されるクロックドリフト     |
-| REDLOCK_RETRY_DELAY      | いいえ                   | 500                  | 再実行するまでの時間(ミリ秒)            |
-| REDLOCK_RETRY_JITTER     | いいえ                   | 200                  | 再実行時にランダムに加えられる最大時間(ミリ秒)             |
-| REDLOCK_REDIS_HOST       | はい                  | 127.0.0.1            | Redis ホスト                  |
-| REDLOCK_REDIS_PORT       | はい                 | 9999                 | Redis ポート                   |
-| REDLOCK_REDIS_PASSWORD   | いいえ                   | THIS-IS-A-PASSWORD   | Redis パスワード               |
-| REDLOCK_REDIS_TLS_ENABLED| いいえ                   | false                | Redis tls 有効             |
-| REDLOCK_REDIS_DATABASE   | いいえ                  | 0                    | Redis db番号              |
+|:--------------------------|:---------------------|:---------------------|:-----------------------------|
+| REDLOCK_ENABLED           | はい                  | false                | Redisロックの有効化            |
+| REDLOCK_RETRY_COUNT       | はい                 | 200                  | ロック取得までの最大リトライ回数                 |
+| REDLOCK_DRIFT_FACTOR      | いいえ                   | 0.01                 | 予想されるクロックドリフト     |
+| REDLOCK_RETRY_DELAY       | いいえ                   | 500                  | 再実行するまでの時間(ミリ秒)            |
+| REDLOCK_RETRY_JITTER      | いいえ                   | 200                  | 再実行時にランダムに加えられる最大時間(ミリ秒)             |
+| REDLOCK_REDIS_HOST        | はい                  | 127.0.0.1            | Redis ホスト                  |
+| REDLOCK_REDIS_PORT        | はい                 | 9999                 | Redis ポート                   |
+| REDLOCK_REDIS_PASSWORD    | いいえ                   | THIS-IS-A-PASSWORD   | Redis パスワード               |
+| REDLOCK_REDIS_TLS_ENABLED | いいえ                   | false                | Redis tls 有効             |
+| REDLOCK_REDIS_DATABASE    | いいえ                  | 0                    | Redis db番号              |
+
 ```yaml
 # config/local.yaml
 redisLock:
