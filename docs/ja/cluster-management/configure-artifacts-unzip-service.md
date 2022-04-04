@@ -96,12 +96,12 @@ unzip-service:
 --- | --- | ---
 PORT | 80 | listenするポート
 HOST | 0.0.0.0 | listenするホスト(そのマシン上からの接続だけを受け付けるときだけlocalhostに設定)
-URI | http://localhost:80 | 外部から接続可能なURI (通常はロードバランサーやCNAME)
+URI | <http://localhost:80> | 外部から接続可能なURI (通常はロードバランサーやCNAME)
 
 ```yaml
 # config/local.yaml
 httpd:
-    port: 443
+    port: 80
     host: 0.0.0.0
     uri: https://localhost
 ```
