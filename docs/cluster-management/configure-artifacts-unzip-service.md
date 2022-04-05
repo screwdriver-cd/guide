@@ -34,7 +34,7 @@ Like the other services, Artifacts Unzip Service is shipped as a [Docker image](
 docker run -d screwdrivercd/artifacts-unzip-service:latest
 ```
 
-This images are tagged for their version (eg. 1.2.3) as well as a floating latest. Most installations should be using the fixed version tags.
+This images are tagged for their version (eg. `v1.2.3`) as well as a floating `latest`. Most installations should be using the fixed version tags.
 
 ## Configuration
 
