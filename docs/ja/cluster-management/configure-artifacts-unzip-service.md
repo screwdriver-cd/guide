@@ -34,7 +34,7 @@ toc:
 docker run -d screwdrivercd/artifacts-unzip-service:latest
 ```
 
-このDockerイメージはそのバージョン(例: 1.2.3) や動的なlatestタグ付けされています。プロダクションで利用する場合は固定のバージョンタグを利用してください。
+このDockerイメージはそのバージョン(例: `v1.2.3`) や動的な`latest`タグ付けされています。プロダクションで利用する場合は固定のバージョンタグを利用してください。
 
 ## 設定
 
