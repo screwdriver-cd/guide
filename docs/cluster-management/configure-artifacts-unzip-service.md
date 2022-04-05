@@ -1,10 +1,10 @@
 ---
 layout: main
-title: Configure the artifacts-unzip-service
+title: Configure the Artifacts Unzip Service
 category: Cluster Management
 menu: menu
 toc:
-    - title: Managing the artifacts-unzip-service
+    - title: Managing the Artifacts Unzip Service
       url: "#managing-the-artifacts-unzip-service"
       active: true
     - title: Package
@@ -26,9 +26,9 @@ toc:
 
 ## Package
 
-artifacts-unzip-service is a service that unzips the build artifacts that uploaded as a zip.  
+Artifacts Unzip Service is a service that unzips the build artifacts that uploaded as a zip.  
 It is required to use this component, when you use the [Zip Artifacts feature](zip-artifacts).  
-Like the other services, artifacts-unzip-service is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/artifacts-unzip-service).  
+Like the other services, Artifacts Unzip Service is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/artifacts-unzip-service).  
 
 ```bash
 docker run -d screwdrivercd/artifacts-unzip-service:latest
