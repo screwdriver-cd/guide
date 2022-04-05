@@ -1,10 +1,10 @@
 ---
 layout: main
-title: artifacts-unzip-serviceの設定
+title: Artifacts Unzip Serviceの設定
 category: Cluster Management
 menu: menu_ja
 toc:
-    - title: artifacts-unzip-serviceの設定
+    - title: Artifacts Unzip Serviceの設定
       url: "#artifacts-unzip-serviceの設定"
       active: true
     - title: パッケージ
@@ -22,7 +22,7 @@ toc:
       subitem: true
 ---
 
-# artifacts-unzip-serviceの設定
+# Artifacts Unzip Serviceの設定
 
 ## パッケージ
 

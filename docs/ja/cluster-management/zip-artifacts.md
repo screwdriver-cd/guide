@@ -11,7 +11,7 @@ toc:
   url: "#構成"
 - title: 構築
   url: "#構築"
-- title: artifacts-unzip-serviceの構築
+- title: Artifacts Unzip Serviceの構築
   url: "#artifacts-unzip-serviceの構築"
 - title: APIのfeature flagを設定
   url: "#apiのfeature-flagを設定"
@@ -32,14 +32,14 @@ Zip化されたファイルをアップロード後に解凍するため、ア�
 1. ビルドコンテナ(`screwdriver-artifact-bookend`ステップ)からZip化されたビルド成果物をStoreにアップロードします。
 1. ビルドコンテナはAPIに先程アップロードしたZipをUnzipするリクエストを行います。
 1. APIはUnzipのリクエストが来たら、Redisにメッセージを送信します。
-1. artifacts-unzip-serviceがRedisからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
-1. artifacts-unzip-serviceはZip化されたビルド成果物をStoreから削除します。
+1. Artifacts Unzip ServiceがRedisからメッセージを取得し、Zip化されたビルド成果物をStoreから取得し、解凍してから再度Storeにアップロードします。
+1. Artifacts Unzip ServiceはZip化されたビルド成果物をStoreから削除します。
 
 ## 構築
 
-### artifacts-unzip-serviceの構築
+### Artifacts Unzip Serviceの構築
 
-[artifacts-unzip-serviceの設定](configure-artifacts-unzip-service)を参考にartifacts-unzip-serviceを構築してください。
+[Artifacts Unzip Serviceの設定](configure-artifacts-unzip-service)を参考にArtifacts Unzip Serviceを構築してください。
 
 ### APIのfeature flagを設定
 
@@ -48,7 +48,7 @@ APIにZip Artifacts機能を利用するための設定を追加する必要が�
 
 キー | デフォルト | 説明
 --- | --- | ---
-UNZIP_ARTIFACTS_ENABLED | false | artifacts-unzip-serviceを利用するかの有無
+UNZIP_ARTIFACTS_ENABLED | false | Artifacts Unzip Serviceを利用するかの有無
 
 ```yaml
 # config/local.yaml
@@ -58,7 +58,7 @@ unzipArtifacts:
 
 ## unzipに失敗した場合
 
-artifacts-unzip-serviceが解凍に失敗した場合、UIのArtifactsタブにファイルの一覧が表示されなくなります。  
+Artifacts Unzip Serviceが解凍に失敗した場合、UIのArtifactsタブにファイルの一覧が表示されなくなります。  
 解凍に失敗した場合、管理者側で再度APIにリクエストを送る必要があります。
 
 1. [APIドキュメント](../user-guide/api#restクライアント経由で実行する)を参考に認証トークンを取得します。
