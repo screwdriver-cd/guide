@@ -66,7 +66,7 @@
       url: "/ja/cluster-management/configure-queue-service"
     - title: ビルドクラスターキューワーカーの設定
       url: "/ja/cluster-management/configure-buildcluster-queue-worker"
-    - title: artifacts-unzip-serviceの設定
+    - title: Artifacts Unzip Serviceの設定
       url: "/ja/cluster-management/configure-artifacts-unzip-service"
     - title: "SD-in-a-Box"
       url: "/ja/cluster-management/running-locally"
