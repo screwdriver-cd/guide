@@ -22,7 +22,7 @@ toc:
       subitem: true
 ---
 
-# Managing the artifacts-unzip-service
+# Managing the Artifacts Unzip Service
 
 ## Package
 
