@@ -31,8 +31,8 @@ It will takes time for the uploaded files to appear on UI, because the ZIP file 
 
 1. Build container(`screwdriver-artifact-bookend` step) uploads a zipped build artifact.
 1. Build container sends request to API to unzip the zipped file.
-1. API sends the unzip message to Redis Queue.
-1. Artifacts Unzip Service pulls the message from Queue and publishes the unzipped files to Store after get the zip file from Store.
+1. API sends the unzip message to Redis.
+1. Artifacts Unzip Service pulls the message from Redis and publishes the unzipped files to Store after getting the zip file from Store.
 1. Artifacts Unzip Service deletes the zipped file from Store.
 
 ## Setup

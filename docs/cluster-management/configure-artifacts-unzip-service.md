@@ -1,6 +1,6 @@
 ---
 layout: main
-title: Configure the Artifacts Unzip Service
+title: Configuring the Artifacts Unzip Service
 category: Cluster Management
 menu: menu
 toc:

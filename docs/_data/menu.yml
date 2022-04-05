@@ -66,7 +66,7 @@
       url: "/cluster-management/configure-queue-service"
     - title: "Configuring Build Cluster Queue Worker"
       url: "/cluster-management/configure-buildcluster-queue-worker"
-    - title: Configure the artifacts-unzip-service
+    - title: Configuring the Artifacts Unzip Service
       url: "/cluster-management/configure-artifacts-unzip-service"
     - title: "SD-in-a-Box"
       url: "/cluster-management/running-locally"
