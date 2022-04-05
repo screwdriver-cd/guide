@@ -27,7 +27,7 @@ toc:
 ## Package
 
 Artifacts Unzip Service is a service that unzips the build artifacts that uploaded as a zip.  
-It is required to use this component, when you use the [Zip Artifacts feature](zip-artifacts).  
+It's required to use the [Zip Artifacts feature](zip-artifacts).  
 Like the other services, Artifacts Unzip Service is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/artifacts-unzip-service).  
 
 ```bash
