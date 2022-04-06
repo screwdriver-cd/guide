@@ -67,7 +67,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 
 | Name | Default Value | Description |
 |------|---------------|-------------|
-| SD_ZIP_ARTIFACTS | false | **Options:** (`true`/`false`) <br><br>Compresses and uploads artifacts in a single ZIP file.<br><br>**Use case:** Reduces upload time when your build has a lot of artifacts. If the upload fails, it's likely that the zip is larger than can handle.<br><br>**Note:** Consult with your cluster admin to see if this option is available. |
+| SD_ZIP_ARTIFACTS | false | **Options:** (`true`/`false`) <br><br>Compresses and uploads artifacts in a single ZIP file.<br><br>**Use case:** Reduces upload time when your build has a lot of artifacts. If the upload fails, it's likely that the zip is too larger to handle.<br><br>**Note:** Consult with your cluster admin to see if this option is available. |
 | USER_SHELL_BIN | sh | The user shell bin to run the build in. Can also be the full path such as `/bin/bash`. Example repo: <https://github.com/screwdriver-cd-test/user-shell-example> |
 | GIT_SHALLOW_CLONE | true | **Options:** (`true`/`false`) <br><br>Shallow clones source repository. |
 | GIT_SHALLOW_CLONE_DEPTH | 50 | Shallow clone with a history truncated to the specified number of commits |
