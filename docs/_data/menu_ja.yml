@@ -66,10 +66,14 @@
       url: "/ja/cluster-management/configure-queue-service"
     - title: ビルドクラスターキューワーカーの設定
       url: "/ja/cluster-management/configure-buildcluster-queue-worker"
+    - title: Artifacts Unzip Serviceの設定
+      url: "/ja/cluster-management/configure-artifacts-unzip-service"
     - title: "SD-in-a-Box"
       url: "/ja/cluster-management/running-locally"
     - title: "Kubernetesを利用してAWS上にScrewdriverのクラスタを構築"
       url: "/ja/cluster-management/kubernetes"
+    - title: "Zip Artifacts機能"
+      url: "/ja/cluster-management/zip-artifacts"
     - title: "Kubernetes Helm Chartを利用してScrewdriverを構築"
       url: "/ja/cluster-management/helm"
     - title: "AWSネイティブなCI/CDビルドを構築"
