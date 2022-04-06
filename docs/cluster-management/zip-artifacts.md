@@ -58,7 +58,7 @@ unzipArtifacts:
 ## When unzip failed
 
 If the Artifacts Unzip Service fails to unzip, the files will not be listed in the Artifacts tab of the UI.  
-To unzip the files, administrator have to again send request to API.
+To unzip the files, the administrators have to send request to API again.
 
 1. Get an authorization token, by referring [Configure API](../user-guide/api#with-a-rest-client) page.
 1. Send request to `/builds/{id}/artifacts/unzip` like below
