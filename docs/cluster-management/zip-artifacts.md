@@ -23,7 +23,7 @@ toc:
 
 Screwdriver can upload build artifacts as a zip file using `screwdriver-artifact-bookend`.  
 This feature reduces the execution time of `screwdriver-artifact-bookend`.  
-It will takes time for the uploaded files to appear on UI, because the ZIP file is uploaded and then unzipped.
+It takes time for the uploaded files to appear on UI, because the ZIP file is uploaded and then unzipped.
 
 ## Architecture
 
