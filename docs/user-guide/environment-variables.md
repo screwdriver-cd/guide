@@ -67,7 +67,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 
 | Name | Default Value | Description |
 |------|---------------|-------------|
-| SD_ZIP_ARTIFACTS | false | **Options:** (`true`/`false`) <br><br>Compresses and uploads artifacts in a single ZIP file.<br><br>**Use case:** If you're using Amazon S3 for your store, the zip file can be unzipped on the store end using AWS Lambda. Reduces upload time when your build has a lot of artifacts but there's an upper limit to the size and number of files in the zip file you upload, since the compute resources on Lambda are limited per build. If the upload fails, it's likely that you have more artifacts or that the zip is larger than Lambda can handle.<br><br>**Note:** Consult with your cluster admin to see if this option is available. |
+| SD_ZIP_ARTIFACTS | false | **Options:** (`true`/`false`) <br><br>Compresses and uploads artifacts in a single ZIP file.<br><br>**Use case:** Reduces upload time when your build has a lot of artifacts. If the upload fails, it's likely that the zip is too larger to handle.<br><br>**Note:** Consult with your cluster admin to see if this option is available. |
 | USER_SHELL_BIN | sh | The user shell bin to run the build in. Can also be the full path such as `/bin/bash`. Example repo: <https://github.com/screwdriver-cd-test/user-shell-example> |
 | GIT_SHALLOW_CLONE | true | **Options:** (`true`/`false`) <br><br>Shallow clones source repository. |
 | GIT_SHALLOW_CLONE_DEPTH | 50 | Shallow clone with a history truncated to the specified number of commits |
@@ -76,6 +76,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_COVERAGE_PLUGIN_ENABLED  | `true` |If set to string `false`, step `sd-teardown-screwdriver-coverage-bookend` will be skipped. |
 
 ## Plugins
+
 These environment variables may or may not be available depending on what plugins are installed.
 
 #### Coverage (Sonar)
@@ -107,10 +108,12 @@ These environment variables may or may not be available depending on what plugin
 | &lt;environment_variable&gt; | Environment variable specified under the "environment" section in your [screwdriver.yaml](configuration/) |
 
 Please be aware if you are using dot notations in the environment variables, like:
+
 ```
 environment:
    REGION.INSTANCE: 'xyz'
 ```
+
 Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['REGION.INSTANCE']` dot notation to access as well.
 
 ## Source Code
@@ -134,7 +137,6 @@ Then `process.env.REGION.INSTANCE` won't work, and you must use `process.env['RE
 | SD_STORE_URL | Link to the Screwdriver Store URL (e.g.: `https://store.screwdriver.cd/v1/`) |
 | SD_UI_URL | Link to the Screwdriver UI URL (e.g.: `https://cd.screwdriver.cd/`) |
 | SD_UI_BUILD_URL | Link to the Screwdriver UI build URL (e.g.: `https://cd.screwdriver.cd/pipelines/259/builds/173`) |
-
 
 ## Continuous Integration
 
