@@ -124,7 +124,7 @@ start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, da
 - ビルドの成功・失敗情報でpull-requestを更新
 - Screwdriverが変更の通知を受け取れるよう、リポジトリに対しwebhookを追加・削除
 
-より詳しい情報については[GitHub OAuth](https://developer.github.com/v3/oauth/)のドキュメントをご覧ください。
+より詳しい情報については[GitHub OAuth](https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps)のドキュメントをご覧ください。
 
 ## バッジ
 

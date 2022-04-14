@@ -47,7 +47,7 @@ Successfully updated to version 1.0.x
 ```
 Error occurred while detecting version: GET https://api.github.com/repos/screwdriver-cd/sd-local/releases: 403 API rate limit exceeded.
 ```
-[GitHub personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)を設定してください。
+[GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)を設定してください。
 ```bash
 export GITHUB_TOKEN=<token>
 ```

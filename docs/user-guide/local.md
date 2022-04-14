@@ -48,7 +48,7 @@ If you get the following error while running the update command,
 ```
 Error occurred while detecting version: GET https://api.github.com/repos/screwdriver-cd/sd-local/releases: 403 API rate limit exceeded.
 ```
-Please set the [GitHub personal access token.](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)
+Please set the [GitHub personal access token.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 ```bash
 export GITHUB_TOKEN=<token>
 ```

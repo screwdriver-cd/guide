@@ -32,7 +32,7 @@ Screwdriverは継続的デリバリーパイプラインのためのワークフ
 
 1. **Screwdriverへ通知**
 
-    署名された[webhooks](https://developer.github.com/webhooks/) がScrewdriverのAPIに対して変更を通知します。
+    署名された[webhooks](https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks) がScrewdriverのAPIに対して変更を通知します。
 
 2. **ビルド実行エンジンが動作**
 
