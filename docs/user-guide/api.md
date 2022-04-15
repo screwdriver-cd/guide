@@ -159,6 +159,6 @@ is possible.
 If you'd like to make your own Swagger documentation, check out our JSON for reference at  [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json). To see your Swagger.json, visit `/v4/swagger.json`.
 
 [JSON Web Tokens]: http://jwt.io
-[GitHub OAuth]: https://developer.github.com/v3/oauth/
+[GitHub OAuth]: https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
 [Postman]: https://www.getpostman.com/
 [Swagger]: http://swagger.io/

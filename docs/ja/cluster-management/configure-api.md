@@ -601,7 +601,7 @@ scms:
 プライベートレポジトリを使用する場合は、`SCM_USERNAME` と `SCM_ACCESS_TOKEN` を [secrets](/ja/user-guide/configuration/secrets) として `screwdriver.yaml`に記述する必要があります。
 
 ###### メタPRコメント
-[メタPRコメント](/ja/user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
+[メタPRコメント](/ja/user-guide/metadata)を有効にするためには、Git上でbotユーザを作成し、そのユーザで`public_repo`のスコープを持ったトークンを作成する必要があります。Githubで、新規にユーザを作成し、[create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)の説明に従ってスコープを`public_repo`に設定します。このトークンをコピーして[API config yaml](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L268-L269)内の`scms`の設定内の`commentUserToken`として設定します。
 
 ###### Deploy Keys
 Deploy Keyは、単一のGitHubリポジトリへのアクセスが許可されているSSH鍵です。この鍵はGitHubのpersonal access tokenと反対に、個人のユーザアカウントではなくリポジトリに直接紐付けられてます。GitHubのpersonal access tokenは全てのリポジトリに対してユーザ単位でのアクセス権を与える一方、Deploy Keyは単一のリポジトリへのアクセスを許可します。アクセスの制限が可能となるため、privateリポジトリではDeploy Keyの利用をおすすめします。
