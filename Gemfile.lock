@@ -89,7 +89,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  html-proofer (~> 3.19, >= 3.19.2)
+  html-proofer (~> 3.19, >= 3.19.3)
   jekyll (= 4.0.0)
   tzinfo-data
   webrick (~> 1.7)
