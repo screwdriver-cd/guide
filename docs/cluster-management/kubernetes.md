@@ -52,7 +52,7 @@ Here's a list of secrets we will need:
 | DATASTORE_SEQUELIZE_DATABASE | SQL database name |
 | DATASTORE_SEQUELIZE_USERNAME | SQL database username |
 | DATASTORE_SEQUELIZE_PASSWORD | SQL database password |
-| SECRET_OAUTH_CLIENT_ID | The client ID used for [OAuth](https://developer.github.com/v3/oauth) with Github |
+| SECRET_OAUTH_CLIENT_ID | The client ID used for [OAuth](https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps) with Github |
 | SECRET_OAUTH_CLIENT_SECRET | The client secret used for OAuth with github |
 | WEBHOOK_GITHUB_SECRET | Secret to add to GitHub webhooks so that we can validate them |
 | SECRET_PASSWORD | A password used for encrypting session, and OAuth data. Can be anything. **Needs to be minimum 32 characters** |
