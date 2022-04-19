@@ -58,6 +58,8 @@ The following annotations are supported by plugins maintained by Screwdriver.cd.
 | screwdriver.cd/mergeSharedSteps | `true` / `false` | When using a template, set it to `true`, and allow the user to merge steps defined in shared and job. Default is `false`. |
 | screwdriver.cd/manualStartEnabled | `true` / `false` | You will not be able to start from a job in the UI when this is set to `false`. Default is `true`. |
 | screwdriver.cd/terminationGracePeriodSeconds | Number of seconds | This will allow the user to choose the number of seconds a build should wait before aborting to execute the teardown steps. Default is `'60'` seconds and Max is `'120'` seconds. In most cases more than default will not be required. |
+| screwdriver.cd/blockedBySameJob | `true` / `false` | Setting it to `false` will allow builds from same job to run concurrently with a default wait time of 5 minute, waiting time can be specified by setting `screwdriver.cd/blockedBySameJobWaitTime`. |
+| screwdriver.cd/blockedBySameJobWaitTime | Number of minutes | Concurrent builds will have 5 minute of wait time by default, set this annotation to override wait time. |
 
 ## Pipeline-Level Annotations
 

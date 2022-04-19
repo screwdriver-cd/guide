@@ -34,7 +34,7 @@ Continuous Delivery pipelines.
 
 2. **Notify Screwdriver**
 
-    Signed [webhooks](https://developer.github.com/webhooks/) notify
+    Signed [webhooks](https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks) notify
     Screwdriver's API about the change.
 
 3. **Trigger execution engine**

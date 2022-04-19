@@ -57,7 +57,7 @@ SECRET_JWT_PUBLIC_KEY | JWT トークンの署名に使用する公開鍵
 DATASTORE_SEQUELIZE_DATABASE | SQL のデータベース名
 DATASTORE_SEQUELIZE_USERNAME | SQL のデータベースユーザ
 DATASTORE_SEQUELIZE_PASSWORD | SQL のデータベースパスワード
-SECRET_OAUTH_CLIENT_ID | Githubの[OAuth](https://developer.github.com/v3/oauth)で使用するClient ID
+SECRET_OAUTH_CLIENT_ID | Githubの[OAuth](https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps)で使用するClient ID
 SECRET_OAUTH_CLIENT_SECRET | GithubのOAuthで使用するClient Secret
 WEBHOOK_GITHUB_SECRET | GitHub webhookに設定して正当性を検証するためのパスワード
 SECRET_PASSWORD | セッションとOAuthデータを暗号化するためのパスワード。中身は何でもよいですが**32文字以上である必要があります。**

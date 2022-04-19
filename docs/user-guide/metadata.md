@@ -64,6 +64,7 @@ By default, Screwdriver sets the following keys in metadata:
 | build.pipelineId | ID of the pipeline that this build belongs to |
 | build.sha | The commit sha that this build ran |
 | build.jobName | The name of the job |
+| event.creator | The creator of the event that this build belongs to |
 | commit.author | The author info object with the following fields: `avatar`, `name`, `url` and `username` |
 | commit.committer | The committer info object with the following fields: `avatar`, `name`, `url` and `username` |
 | commit.message | The commit message |

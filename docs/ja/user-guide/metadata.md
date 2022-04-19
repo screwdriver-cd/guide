@@ -65,6 +65,7 @@ Screwdriver.cdはデフォルトでMetadataに以下のキーを設定してい�
 | build.pipelineId | ビルドと紐付いているパイプラインのID |
 | build.sha | ビルドが実行しているコミットのsha |
 | build.jobName | ジョブ名 |
+| event.creator | ビルドと紐付いているイベントの作成者 |
 | commit.author | `avatar`, `name`, `url`, `username`を含むAuthor情報のオブジェクト |
 | commit.committer | `avatar`, `name`, `url`, `username`を含むCommitter情報のオブジェクト |
 | commit.message | コミットメッセージ |
