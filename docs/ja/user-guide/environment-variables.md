@@ -63,6 +63,8 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_SCHEDULED_BUILD | スケジューラーによってビルドを開始する(true)か、否(false)か |
 | SD_DIND_SHARE_PATH | Docker-in-Docker機能が有効な場合に使われる。ビルドコンテナとDinDコンテナの共有ディレクトリへのパス |
 | CONTAINER_IMAGE | ビルドコンテナイメージ ビルド[エグゼキューター](../cluster-management/configure-api#executorプラグイン)としてKubernetesを使用している場合に利用可能|
+| CONTAINER_CPU_LIMIT | ビルドコンテナに割り当てられたCPUの値 |
+| CONTAINER_MEMORY_LIMIT | ビルドコンテナに割り当てられたメモリの値 |
 
 ### ユーザ設定
 

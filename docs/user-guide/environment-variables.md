@@ -62,6 +62,8 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | SD_SCHEDULED_BUILD | Whether the build is triggered by scheduler(true) or not(false) |
 | SD_DIND_SHARE_PATH | Path to shared directory between build container and DinD container when Docker-in-Docker feature is enabled |
 | CONTAINER_IMAGE | Build container image. Available when Kubernetes is used as build [executor](../cluster-management/configure-api#executor-plugin) |
+| CONTAINER_CPU_LIMIT | Value of CPU allocated to build container |
+| CONTAINER_MEMORY_LIMIT | Value of memory allocated to build container |
 
 ### User configurable
 
