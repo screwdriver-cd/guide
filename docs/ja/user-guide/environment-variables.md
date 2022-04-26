@@ -53,6 +53,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_PR_PARENT_JOB_ID | PRジョブの 本来のID。例えば、`PR-1:main`ビルドにおいては、本環境変数が指す値は`main`ジョブのIDとなる |
 | SD_PIPELINE_ID | パイプラインの ID |
 | SD_PIPELINE_NAME | パイプラインの名前(例: `d2lam/myPipeline`) |
+| SD_PRIVATE_PIPELINE | パイプラインがプライベート(true)か、パブリック(false）か |
 | SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空) |
 | SD_STEP_EXIT_CODE | 以前実行されたステップの終了コード。teardown stepsのみで利用可能。（例: 以前のすべてのステップがパスしていれば`0`、そうでなければ最後の`0`でない終了コード。)|
 | SD_TEMPLATE_FULLNAME | 使用しているテンプレートの完全な名前 (テンプレートを使用していない場合は空) |
