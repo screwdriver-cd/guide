@@ -74,6 +74,7 @@ WORKER_MIN_TASK_PROCESSORS | 1 | The minimum number of workers to spawn under th
 WORKER_MAX_TASK_PROCESSORS | 10 | The maximum number of workers to spawn under this multiWorker.
 WORKER_CHECK_TIMEOUT | 1000 | How often to check if the event loop is blocked (in ms)
 WORKER_MAX_EVENT_LOOP_DELAY | 10 | How long the event loop has to be delayed before considering it blocked (in ms)
+WORKER_PARALLEL_UPLOAD_LIMIT| 0 | Number of parallel executions of decompressing ZIP files and uploading to the Store (unlimited when 0)
 
 ```yaml
 # config/local.yaml
@@ -82,6 +83,7 @@ unzip-service:
   maxTaskProcessors: 10
   checkTimeout: 1000
   maxEventLoopDelay: 10
+  parallelUploadLimit: 0
 ```
 
 You need to see the [MultiWorker page](https://github.com/actionhero/node-resque#multiworker-options) for more information.
