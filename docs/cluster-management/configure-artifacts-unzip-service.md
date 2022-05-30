@@ -74,7 +74,7 @@ WORKER_MIN_TASK_PROCESSORS | 1 | The minimum number of workers to spawn under th
 WORKER_MAX_TASK_PROCESSORS | 10 | The maximum number of workers to spawn under this multiWorker.
 WORKER_CHECK_TIMEOUT | 1000 | How often to check if the event loop is blocked (in ms)
 WORKER_MAX_EVENT_LOOP_DELAY | 10 | How long the event loop has to be delayed before considering it blocked (in ms)
-WORKER_PARALLEL_UPLOAD_LIMIT| 0 | Number of parallel executions of uploading to the Store (unlimited when less than 0)
+WORKER_PARALLEL_UPLOAD_LIMIT| 0 | Maximum number of parallel executions of uploads to the store (unlimited when less than 0)
 
 ```yaml
 # config/local.yaml

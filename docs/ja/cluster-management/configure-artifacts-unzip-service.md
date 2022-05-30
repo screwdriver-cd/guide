@@ -74,7 +74,7 @@ WORKER_MIN_TASK_PROCESSORS | 1 | MultiWorkerが生成するworkerの最小数
 WORKER_MAX_TASK_PROCESSORS | 10 | MultiWorkerが生成するworkerの最大数
 WORKER_CHECK_TIMEOUT | 1000 | イベントループがブロックされているかを確認する頻度(ミリ秒)
 WORKER_MAX_EVENT_LOOP_DELAY | 10 | イベントループがブロックされたと判断する遅延時間(ミリ秒)
-WORKER_PARALLEL_UPLOAD_LIMIT| 0 |　Storeへのアップロードの並列実行数（0未満の場合は無制限）
+WORKER_PARALLEL_UPLOAD_LIMIT| 0 |　Storeへのアップロードの最大並列実行数（0未満の場合は無制限）
 
 ```yaml
 # config/local.yaml
