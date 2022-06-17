@@ -64,7 +64,7 @@ jobs:
 | screwdriver.cd/terminationGracePeriodSeconds | 時間(秒) | ビルドが停止する前にteardownステップを実行するための猶予時間(秒)を設定できます。デフォルトは `'60'` 秒で、最大は `'120'` 秒です。殆どの場合、デフォルト以上の時間は必要ありません。 |
 | screwdriver.cd/blockedBySameJob | `true` / `false` | これが`false`に設定されていると、指定の待ち時間後に同一ジョブのビルドが同時に実行できるようになります。デフォルトの待ち時間は`'5'`分で、`screwdriver.cd/blockedBySameJobWaitTime`アノテーションで変更することができます。 |
 | screwdriver.cd/blockedBySameJobWaitTime | 時間(分) | 同一ジョブのビルドを同時実行する際に発生する待ち時間を設定できます。デフォルトの待ち時間は`'5'`分です。 |
-| screwdriver.cd/jobDisabledByDefault | `true` / `false` | 定期的にビルドが実行されているパイプラインがfork・コピーされた際に、fork先でビルドが定期的に実行されることを防ぎたい場合があります。このアノテーションを`true`に設定すると、作成されたジョブははじめ`disabled`となます。ユーザはUIからジョブを`enabled`にできます。デフォルトは`false`です。 |
+| screwdriver.cd/jobDisabledByDefault | `true` / `false` | 定期的にビルドが実行されているパイプラインがfork・コピーされた際に、fork先でビルドが定期的に実行されることを防ぎたい場合があります。このアノテーションを`true`に設定すると、作成されたジョブははじめ`disabled`となります。ユーザはUIからジョブを`enabled`にできます。デフォルトは`false`です。 |
 
 ## パイプラインレベルのアノテーション
 
