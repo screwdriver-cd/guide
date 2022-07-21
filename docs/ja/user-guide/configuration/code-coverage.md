@@ -49,7 +49,7 @@ shared:
 jobs:
   main:
     requires: [~pr, ~commit]
-    image: node:8
+    image: node:14
     steps:
       - install: npm install
       - test: npm test
@@ -59,6 +59,31 @@ jobs:
 
 - `sonar-project.properties` と `$SD_SONAR_OPTS` で同じプロパティを設定していた場合、`$SD_SONAR_OPTS` の設定が優先されます。
 - Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。**`sonar.sources` は自分で設定する必要があります。**
+
+### セルフホスト型のSonarQubeを利用する
+
+環境変数 `$SD_SELF_SONAR_HOST` に Sonar ホストの URL を設定することで、Screwdriver クラスタに設定されているものではないホストにコードカバレッジをアップロードすることができます。  
+`$SD_SELF_SONAR_HOST` を使用する場合、そのホストの admin の User Token を環境変数 `$SD_SELF_SONAR_ADMIN_TOKEN` に設定する必要があります。
+
+`screwdriver.yaml` の例:
+
+```yaml
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    image: node:14
+    steps:
+      - install: npm install
+      - test: npm test
+  environment:
+    SD_SELF_SONAR_HOST: 'http://YOUR_SONAR_URL'
+  secrets:
+    - SD_SELF_SONAR_ADMIN_TOKEN
+```
+
+#### 注意
+
+- `SD_SELF_SONAR_HOST` にコードカバレッジをアップロードした場合、UI上でのコードカバレッジ率の表示は `N/A` となります。
 
 #### 関連リンク
 - [SonarQube properties](https://docs.sonarqube.org/latest/analysis/analysis-parameters)
