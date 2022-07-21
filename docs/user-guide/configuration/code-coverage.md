@@ -49,7 +49,7 @@ shared:
 jobs:
   main:
     requires: [~pr, ~commit]
-    image: node:8
+    image: node:14
     steps:
       - install: npm install
       - test: npm test
@@ -59,6 +59,31 @@ jobs:
 
 - If you define the same property in both the `sonar-project.properties` file and `$SD_SONAR_OPTS`, `$SD_SONAR_OPTS` will override the properties file.
 - Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`; **you must set `sonar.sources` yourself**.
+
+### Use a self-hosted SonarQube
+
+You can upload code coverage to a host that is not configured for the Screwdriver cluster by setting the Sonar host URL in the environment variable `$SD_SELF_SONAR_HOST`.  
+If you use `$SD_SELF_SONAR_HOST`, you must set the admin's User Token for that host in the environment variable `$SD_SELF_SONAR_ADMIN_TOKEN`.
+
+Example `screwdriver.yaml`:
+
+```yaml
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    image: node:14
+    steps:
+      - install: npm install
+      - test: npm test
+  environment:
+    SD_SELF_SONAR_HOST: 'http://YOUR_SONAR_URL'
+  secrets:
+    - SD_SELF_SONAR_ADMIN_TOKEN
+```
+
+#### Notes
+
+- If you upload code coverage to `$SD_SELF_SONAR_HOST`, the code coverage percentage displayed on the UI will be `N/A`.
 
 #### Related links
 - [SonarQube properties](https://docs.sonarqube.org/latest/analysis/analysis-parameters)
