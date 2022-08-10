@@ -8,6 +8,9 @@ toc:
       url: "#code-coverage"
     - title: SonarQube
       url: "#sonarqube"
+    - title: Self-hosted SonarQube
+      url: "#use-a-self-hosted-sonarqube"
+      subitem: true
     - title: GitHub PR decoration
       url: "#github-pull-request-decoration"
       subitem: true
