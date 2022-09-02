@@ -19,7 +19,7 @@ RUN set -x \
   # General clean-up
   && rm -rf guide.tgz \
   # Need jekyll to serve the pages
-  && gem install jekyll
+  && gem install public_suffix:4.0.7 jekyll
 
 EXPOSE 4000
 
