@@ -56,6 +56,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_PRIVATE_PIPELINE | パイプラインがプライベート(true)か、パブリック(false）か |
 | SD_PULL_REQUEST | プルリクエスト番号 (プルリクエストでない場合は空) |
 | SD_STEP_EXIT_CODE | 以前実行されたステップの終了コード。teardown stepsのみで利用可能。（例: 以前のすべてのステップがパスしていれば`0`、そうでなければ最後の`0`でない終了コード。)|
+| SD_STEP_NAME | 現在のステップ名。ただしsetup stepsとteardown stepsでは利用不可 (例: teardownステップではsetup stepsとteardown steps以外で最後に成功したステップ名が設定される) |
 | SD_TEMPLATE_FULLNAME | 使用しているテンプレートの完全な名前 (テンプレートを使用していない場合は空) |
 | SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空) |
 | SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空) |

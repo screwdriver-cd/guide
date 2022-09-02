@@ -8,6 +8,9 @@ toc:
       url: "#コードカバレッジ"
     - title: SonarQube
       url: "#sonarqube"
+    - title: セルフホスト型のSonarQubeを利用する
+      url: "#セルフホスト型のsonarqubeを利用する"
+      subitem: true
     - title: GitHub PR decoration
       url: "#github-pull-request-decoration"
       subitem: true
