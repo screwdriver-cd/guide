@@ -281,6 +281,6 @@ _If you have restarted builds from an older event, then first event will not be 
 ![Latest SHA](./assets/latest-sha.png)
 
 ## Why do I get `Pipeline does not have admin, unable to start job.` message?
-If pipeline does not have any active admin, scheduled job such as periodic build will fail. Screwdriver sends this message to slack/email upon job scheduling failure if slack/email settings was set for the job.
+If a pipeline does not have any active admin, scheduled jobs such as periodic builds will fail. Screwdriver sends this message to Slack/email upon job scheduling failure if Slack/email settings was set for the job.
 
 To resolve this issue, simply sync the pipeline in the Options menu.
