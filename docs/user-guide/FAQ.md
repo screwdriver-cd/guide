@@ -59,7 +59,8 @@ toc:
       url: "#how-do-i-cancel-a-freeze-window-and-prevent-a-future-scheduled-build"
     - title: 'How do I know if my build ran with the latest SCM git sha?'
       url: "#how-do-i-know-if-my-build-ran-with-the-latest-scm-git-sha"
-
+    - title: 'Why do I get "Pipeline does not have admin, unable to start job." message?'
+      url: "#why-do-i-get-pipeline-does-not-have-admin-unable-to-start-job-message"
 ---
 
 # Frequently Asked Questions
@@ -279,4 +280,7 @@ _If you have restarted builds from an older event, then first event will not be 
 
 ![Latest SHA](./assets/latest-sha.png)
 
+## Why do I get `Pipeline does not have admin, unable to start job.` message?
+If a pipeline does not have any active admin, scheduled jobs such as periodic builds will fail. Screwdriver sends this message to Slack/email upon job scheduling failure if Slack/email settings was set for the job.
 
+To resolve this issue, simply sync the pipeline in the Options menu.
