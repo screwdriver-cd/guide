@@ -12,7 +12,7 @@ RUN set -x \
   # You know you're using a lean image when you need to install wget
   && apk add --no-cache --virtual ca-certificates wget \
   # Fetch the latest Guide release
-  && wget -q -O - https://github.com/screwdriver-cd/guide/releases/latest \
+  && wget -q -O - https://api.github.com/repos/screwdriver-cd/guide/releases/latest \
       | egrep -o '/screwdriver-cd/guide/releases/download/v[0-9.]*/guide.tgz' \
       | wget --base=http://github.com/ -i - -O guide.tgz \
   && tar -zxvf guide.tgz \
