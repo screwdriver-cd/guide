@@ -164,8 +164,9 @@ jobs:
 ```
 
 # Provider Configuration Definition
+
  | Property | Values | Description |
- |------------|--------|-------------|
+ | ------------ | -------- | ------------- |
  | name | `aws` | Name of the supported cloud provider |
  | region | `us-east-1` / `us-west-2` / [all AWS regions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html) | Default value is `us-west-2`. It defines the region where the required infrastructure is setup and where builds will run |
  | accountId | Valid AWS account ID | This defines the AWS account ID where builds will be provisioned |
