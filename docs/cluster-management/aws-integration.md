@@ -7,17 +7,23 @@ toc:
     - title: AWS Native Builds
       url: "#aws-native-builds"
       active: true
-    - title: Job Provider Configuration
-      url: "#job-provider-configuration"
-      active: true
+    - title: Setup
+      url: "#setup"
+    - title: Image
+      url: "#image"
+    - title: Provider Configuration
+      url: "#provider-configuration"
+    - title: Job-level Provider Configuration
+      url: "#job-level-provider-configuration"
+      subitem: true
+    - title: External Provider Configuration
+      url: "#external-provider-configuration"
+      subitem: true
     - title: Shared Provider Configuration
       url: "#shared-provider-configuration"
-      active: true
-    - title: Provider Configuration Definition
-      url: "#provider-configuration-definition"
-      active: true
+      subitem: true
 ---
-## AWS Native Builds
+# AWS Native Builds
 
 Screwdriver can be used to orchestrate AWS native builds which runs in either Code Build or EKS.
 
@@ -37,12 +43,53 @@ A user who wants to integrate should work with Screwdriver Cluster admin to [reg
 
 Once registration is complete, then user should provision build infrastructure by running [this script](https://github.com/screwdriver-cd/aws-consumer-scripts/#instructions). 
 
-# Job Provider Configuration
-Provider configuration in jobs is required for identifying the cloud provider related configuration. For AWS Native builds it includes the identifier of the Virtual Private Cloud(VPC), the subnets and security groups which define the inbound and outbound communication, the IAM role for accessing various AWS services based on permissions. The example defines the mandatory parameters in provider config.
+## Image
+The `image` configuration refers to a Docker image, e.g. an container from [hub.docker.com](https://hub.docker.com) or a container from [public aws ecr images](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html) 
+
+List of images support in your AWS account region can be checked using:
+```
+aws codebuild list-curated-environment-images
+```
+You can specify an image from a custom registry/your own AWS ECR by specifying the full url to that image.
+If you wish to create an ECR with required permission during infrastructure provisioning, you can do so by setting the `create_ecr` flag in [aws-consumer-scripts](https://github.com/screwdriver-cd/aws-consumer-scripts#config-definitions)
 
 #### Example
-You can store the full provider configuration in your `screwdriver.yaml`.
+```
+jobs:
+    main:
+        requires: [~pr, ~commit]
+        image: 123456789012.dkr.ecr.us-west-2.amazonaws.com/screwdriver-hub:example_image
+        provider:
+          ...mandatory_params
+        steps:
+            - step1: echo hello
+```
 
+## Provider Configuration
+Provider configuration is required for identifying the cloud provider related configuration. For AWS Native builds it includes the identifier of the Virtual Private Cloud(VPC), the subnets and security groups which define the inbound and outbound communication, the IAM role for accessing various AWS services based on permissions.
+
+| Property | Values | Description |
+| ------------ | -------- | ------------- |
+| name | `aws` | Name of the supported cloud provider |
+| region | `us-east-1` / `us-west-2` / [all AWS regions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html) | Default value is `us-west-2`. It defines the region where the required infrastructure is setup and where builds will run |
+| accountId | Valid AWS account ID | This defines the AWS account ID where builds will be provisioned |
+| vpcId | Valid AWS VPC ID | This defines the AWS VPC ID |
+| securityGroupIds | List of valid security group IDs | This defines the AWS Security Group Id |
+| subnetIds | List of valid subnet IDs | This defines the AWS Subnet ID |
+| role | ARN of a valid AWS IAM role  | This defines the AWS IAM Role ARN with permissions and policies |
+| executor | `sls` / `eks` | Defines the two executor modes for native builds: `sls` (AWS CodeBuild) and `eks` (AWS EKS). |
+| launcherImage | Valid Screwdriver launcher Docker image | This defines the Screwdriver launcher image required for starting builds `e.g: screwdrivercd/launcher:v6.0.149` |
+| launcherVersion | e.g: `v6.0.149` | Version of the Screwdriver launcher image |
+| buildRegion | `us-east-1` / `us-west-2` | Region where builds will run if different from service region. Default value is same as `region`. |
+| executorLogs | `true` / `false` | Flag to view logs in AWS CloudWatch for the AWS CodeBuild project. Default value is `false`. |
+| privilegedMode | `true` / `false` | Flag to enable privileged mode for Docker build in the AWS CodeBuild project. Default value is `false`. |
+| computeType | All supported [AWS CodeBuild Compute Types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | This defines the different compute types with available memory, vCPUs, and disk space. Default value is `BUILD_GENERAL1_SMALL`.   |
+| environmentType | All supported [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | This defines the different environment types corresponding with `computeType`. Default value is `LINUX_CONTAINER`. |
+
+### Job-level Provider Configuration
+The `provider` configuration can be stored in a job in the `screwdriver.yaml`. The example defines the mandatory parameters in provider config.
+
+#### Example
 ```
 jobs:
   main:
@@ -68,8 +115,12 @@ jobs:
       - init: npm install
       - test: npm test
 ```
+
+### External Provider Configuration
+
+Alternatively, `provider` configuration can be stored remotely in another file in an external repo. You can reference this config by putting a checkout URL with the format `CHECKOUT_URL#BRANCH:PATH`.
+
 #### Example
-Alternatively, provider configuration can be stored remotely in another repo. You can reference this config by putting a checkout URL with the format `CHECKOUT_URL#BRANCH:PATH`.
 ```
 jobs:
   main:
@@ -81,47 +132,11 @@ jobs:
       - test: npm test
 ```
 
-#### Example
-Alternatively, provider configuration can be stored remotely in another repo. You can reference this external provider config by putting a checkout URL with the format `CHECKOUT_URL#BRANCH:PATH`.
-
-```
-jobs:
-  main:
-    requires: [~pr, ~commit]
-    image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
-    provider: git@github.com:configs/aws.git#main:cd/aws/provider.yaml
-    steps:
-      - init: npm install
-      - test: npm test
-```
-
-## Image
-The `image` configuration refers to a docker image, e.g. an container from [hub.docker.com](https://hub.docker.com) or a container from [public aws ecr images](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html) 
-
-List of images support in your AWS account region can be checked using :
-```
-aws codebuild list-curated-environment-images
-```
-You can specify an image from a custom registry/your own AWS ECR by specifying the full url to that image.
-If you wish to create an ECR with required permission during infrastructure provisioning, you can do so by setting the `create_ecr` flag in [aws-consumer-scripts](https://github.com/screwdriver-cd/aws-consumer-scripts#config-definitions)
+### Shared Provider Configuration
+The `provider` configuration can be added to the `shared` configuration. A provider that is specified in a job configuration will override the same configuration in `shared.provider`.
 
 #### Example
-```
-jobs:
-    main:
-        requires: [~pr, ~commit]
-        image: 123456789012.dkr.ecr.us-west-2.amazonaws.com/screwdriver-hub:example_image
-        provider:
-          ...mandatory_params
-        steps:
-            - step1: echo hello
-```
-
-# Shared Provider Configuration
-The `provider` configuration can be added to the `shared` configuration. Provider Configuration that is specified in a job configuration will override the same configuration in `shared.provider`.
-
-#### Example
-The following example defines a shared configuration for `provider` which is used by the main and main2 jobs.
+The following example defines a shared configuration for `provider` which is used by the `main` and `main2` jobs.
 ```
 shared:
   image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
@@ -176,24 +191,4 @@ jobs:
             - test: echo Skipping test
 
 ```
-
-# Provider Configuration Definition
-
-| Property | Values | Description |
-| ------------ | -------- | ------------- |
-| name | `aws` | Name of the supported cloud provider |
-| region | `us-east-1` / `us-west-2` / [all AWS regions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html) | Default value is `us-west-2`. It defines the region where the required infrastructure is setup and where builds will run |
-| accountId | Valid AWS account ID | This defines the AWS account ID where builds will be provisioned |
-| vpcId | Valid AWS VPC ID | This defines the AWS VPC ID |
-| securityGroupIds | List of valid security group IDs | This defines the AWS Security Group Id |
-| subnetIds | List of valid subnet IDs | This defines the AWS Subnet ID |
-| role | ARN of a valid AWS IAM role  | This defines the AWS IAM Role ARN with permissions and policies |
-| executor | `sls` / `eks` | Defines the two executor modes for native builds: `sls` (AWS CodeBuild) and `eks` (AWS EKS). |
-| launcherImage | Valid Screwdriver launcher Docker image | This defines the Screwdriver launcher image required for starting builds `e.g: screwdrivercd/launcher:v6.0.149` |
-| launcherVersion | e.g: `v6.0.149` | Version of the Screwdriver launcher image |
-| buildRegion | `us-east-1` / `us-west-2` | Region where builds will run if different from service region. Default value is same as `region`. |
-| executorLogs | `true` / `false` | Flag to view logs in AWS CloudWatch for the AWS CodeBuild project. Default value is `false`. |
-| privilegedMode | `true` / `false` | Flag to enable privileged mode for Docker build in the AWS CodeBuild project. Default value is `false`. |
-| computeType | All supported [AWS CodeBuild Compute Types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | This defines the different compute types with available memory, vCPUs, and disk space. Default value is `BUILD_GENERAL1_SMALL`.   |
-| environmentType | All supported [AWS CodeBuild Environment](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html) | This defines the different environment types corresponding with `computeType`. Default value is `LINUX_CONTAINER`. |
 
