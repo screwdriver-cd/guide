@@ -59,6 +59,8 @@ toc:
       url: "#凍結したジョブをキャンセルして予定されたビルドが行われないようにするには"
     - title: 'ビルドが最新のgit shaで実行されたかどうかを知るには？'
       url: "#ビルドが最新のgit-shaで実行されたかどうかを知るには"
+    - title: '"Pipeline does not have admin, unable to start job."のメッセージが表示されるのはなぜ？'
+      url: "#Pipeline-does-not-have-admin-unable-to-start-jobのメッセージが表示されるのはなぜ"
 
 ---
 
@@ -290,3 +292,8 @@ UIでは
 _古いイベントからビルドを開始した場合、イベント一覧の一番上は最新のイベントのものではなくなります。最新のイベントは下にスクロールすると見つけられます。_
 
 ![Latest SHA](../../user-guide/assets/latest-sha.png)
+
+## `Pipeline does not have admin, unable to start job.`のメッセージが表示されるのはなぜ？
+パイプラインに有効なadminが存在しない場合、定期実行ジョブのようなスケジューリングされたジョブは失敗します。このジョブにSlackやメールの通知設定がされていた場合Screwdriverはこのメッセージをジョブの定期実行が失敗した際にSlackやメールでこのメッセージを送信します。
+
+この問題を解消するには、オプションタブからパイプラインのsyncを実行してください。
