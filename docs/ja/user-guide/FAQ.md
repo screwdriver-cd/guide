@@ -60,7 +60,7 @@ toc:
     - title: 'ビルドが最新のgit shaで実行されたかどうかを知るには？'
       url: "#ビルドが最新のgit-shaで実行されたかどうかを知るには"
     - title: '"Pipeline does not have admin, unable to start job."のメッセージが表示されるのはなぜ？'
-      url: "#Pipeline-does-not-have-admin-unable-to-start-jobのメッセージが表示されるのはなぜ"
+      url: "#pipeline-does-not-have-admin-unable-to-start-jobのメッセージが表示されるのはなぜ"
 
 ---
 
