@@ -43,7 +43,7 @@ Screwdriverは、Code BuildまたはEKSで実行されるAWSネイティブビ�
 
 登録が完了したら、ユーザーは[スクリプト](https://github.com/screwdriver-cd/aws-consumer-scripts/#instructions)を実行して、ビルドインフラを構築する必要があります。 
 
-# イメージ
+## イメージ
 `image`の設定は、[hub.docker.com](https://hub.docker.com)のコンテナや、[公開されているAWS ECRのイメージ](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html)のコンテナなどのDockerイメージを参照します。 
 
 自身のAWSアカウントのリージョンでサポートされているイメージの一覧を確認する方法:
