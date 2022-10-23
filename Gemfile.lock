@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.9)
     em-websocket (0.5.2)
@@ -53,17 +53,17 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
     mini_portile2 (2.8.0)
-    nokogiri (1.13.6)
+    nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.6-x86_64-darwin)
+    nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.6-x86_64-linux)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     parallel (1.22.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    public_suffix (4.0.7)
+    public_suffix (5.0.0)
     racc (1.6.0)
     rainbow (3.1.1)
     rb-fsevent (0.11.0)
@@ -89,7 +89,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  html-proofer (~> 3.19, >= 3.19.3)
+  html-proofer (~> 3.19, >= 3.19.4)
   jekyll (= 4.0.0)
   tzinfo-data
   webrick (~> 1.7)
