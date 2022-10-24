@@ -13,6 +13,9 @@ toc:
       url: "#general-guidelines-for-contributing"
     - title: Submitting Pull Requests
       url: "#submitting-pull-requests"
+    - title: Commit Message Format
+      url: "#commit-message-format"
+      subitem: true
 ---
 # Contributing
 
@@ -52,9 +55,9 @@ We use [semantic-release](https://www.npmjs.com/package/semantic-release), which
 | Scope | anything that specifies the scope of the commit; can be blank, the issue number that your commit pertains to, or `*` |
 | Subject | description of the commit |
 
-**Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE: MESSAGE` somewhere in the commit title or message, also commit type must be `feat`.
+**Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE: <message>` at the end of the commit title or message. Type must be `feat`.
 
-**Examples commit titles:**
+**Example commit titles:**
 * For a bug fix: `fix: Remove extra space`
 * For a breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
 
