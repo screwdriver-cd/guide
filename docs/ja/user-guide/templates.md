@@ -200,6 +200,7 @@ jobs:
 ```yaml
 shared:
     image: node:8
+    template: nodejs/test
     steps:
         - init: npm install
         - pretest: npm lint
@@ -233,6 +234,7 @@ jobs:
         requires: [main]
         image: node:8
         steps:
+             - init: npm install
              - pretest: npm lint
              - test: echo Skipping test
 ```
