@@ -57,7 +57,7 @@ We use [semantic-release](https://www.npmjs.com/package/semantic-release), which
 
 **Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE: <message>` preceded by a space or two newlines in the footer of the commit message. The rest of the commit message is then used for this.
 
-**Example commit titles:**
+**Example commit messages:**
 * For a bug fix: `fix: Remove extra space`
 * For a breaking change:
 ```
