@@ -55,11 +55,18 @@ We use [semantic-release](https://www.npmjs.com/package/semantic-release), which
 | Scope | anything that specifies the scope of the commit; can be blank, the issue number that your commit pertains to, or `*` |
 | Subject | description of the commit |
 
-**Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE: <message>` at the end of the commit title or message. Type must be `feat`.
+**Important:** For any **breaking changes** that require a major version bump, add `BREAKING CHANGE: <message>` preceded by a space or two newlines in the footer of the commit message. The rest of the commit message is then used for this.
 
 **Example commit titles:**
 * For a bug fix: `fix: Remove extra space`
-* For a breaking change: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
+* For a breaking change:
+```
+feat(1234): remove graphiteWidth option
+
+BREAKING CHANGE: The graphiteWidth option has been removed.
+
+The default graphite width of 10mm is always used for performance reasons.
+```
 
 [api-issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
 [api-repo]: https://github.com/screwdriver-cd/screwdriver
