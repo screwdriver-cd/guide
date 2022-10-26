@@ -60,6 +60,7 @@ We use [semantic-release](https://www.npmjs.com/package/semantic-release), which
 **Example commit messages:**
 * For a bug fix: `fix: Remove extra space`
 * For a breaking change:
+
 ```
 feat(1234): remove graphiteWidth option
 
