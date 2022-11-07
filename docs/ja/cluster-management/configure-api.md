@@ -170,7 +170,7 @@ bookends:
     teardown: ...
 ```
 
-`clusterA`や`clusterB`には、クラスター管理者が用意したexecutorのpluginを指定してください。詳細については[#Executorプラグイン]をご確認ください。  
+`clusterA`や`clusterB`には、クラスター管理者が用意したビルドクラスターを指定してください。詳細については[こちら](configure-buildcluster-queue-worker)をご確認ください。  
 `bookends`で設定されたクラスタ以外に割り当てられた場合、`default`に設定されたブックエンドプラグインが使用されます。
 
 #### カバレッジ bookend
