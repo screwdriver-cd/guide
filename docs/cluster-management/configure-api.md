@@ -143,22 +143,32 @@ build:
 
 ### Bookend Plugins
 
-You can globally configure which built-in bookend plugins will be used during a build. By default, `scm` is enabled to begin builds with a SCM checkout command.
+You can globally configure which built-in bookend plugins will be used during a build. Bookend plugins can be configured per cluster.
+By default, `scm` is enabled to begin builds with a SCM checkout command.
 
 If you're looking to include a custom bookend in the API, please refer [here](#extending-the-docker-container).
 
 | Key | Default| Description |
 |:----|:-------|:------------|
-| BOOKENDS_SETUP | None | The ordered list of plugins to execute at the beginning of every build. Take the forms of `'["first", "second", ...]'` |
-| BOOKENDS_TEARDOWN | None | The ordered list of plugins to execute at the end of every build. Take the forms of `'["first", "second", ...]'` |
+| BOOKENDS | None | The Ordered list of bookends to be executed at the beginning and end of every build. Take the forms of `{"default": {"setup": ["scm", ...], "teardown": [...]}, "clusterA": {"setup": ["scm", ...], "teardown": [...]}}` |
 
 
 ```yaml
 # config/local.yaml
 bookends:
+  default: 
     setup:
-        - scm
-        - my-custom-bookend
+      - scm
+      - my-custom-bookend
+    teardown:
+      - screwdriver-artifact-bookend
+      - screwdriver-cache-bookend
+  clusterA:
+    setup: ...
+    teardown: ...
+  clusterB:
+    setup: ...
+    teardown: ...
 ```
 
 #### Coverage bookends
@@ -180,7 +190,7 @@ In order to use Sonar in your cluster, set up a Sonar server (see example at [ou
 | COVERAGE_SONAR_ENTERPRISE | No | Whether using Enterprise(true) or open source edition of SonarQube(false); default `false` |
 | COVERAGE_SONAR_GIT_APP_NAME | No | Github app name for Sonar pull request decoration; default `Screwdriver Sonar PR Checks`; This feature requires Sonar enterprise edition. Follow [instructions in the Sonar docs](https://docs.sonarqube.org/latest/analysis/pr-decoration) for details. |
 
-You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS_TEARDOWN` variable (in JSON format). See the Bookend Plugins section above for more details. Using Enterprise edition of SonarQube will default to _pipeline_ scope for SonarQube project keys and names. Will also allow for usage of PR analysis and prevent creation of separate projects for each Screwdriver job. Using non-Enterprise SonarQube will default to _job_ scope for SonarQube project keys and names.
+You’ll also need to add the `screwdriver-coverage-bookend` along with the `screwdriver-artifact-bookend` as teardown bookends by setting the `BOOKENDS` variable (in JSON format). See the Bookend Plugins section above for more details. Using Enterprise edition of SonarQube will default to _pipeline_ scope for SonarQube project keys and names. Will also allow for usage of PR analysis and prevent creation of separate projects for each Screwdriver job. Using non-Enterprise SonarQube will default to _job_ scope for SonarQube project keys and names.
 
 ### Serving
 
@@ -775,6 +785,7 @@ This is shown in the following `local.yaml` snippet:
 ---
   ...
 bookends:
+  default:
   setup:
     - my-custom-bookend
     - scm
