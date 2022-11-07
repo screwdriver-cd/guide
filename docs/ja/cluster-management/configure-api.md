@@ -170,22 +170,8 @@ bookends:
     teardown: ...
 ```
 
-以下のような`screwdriver.yaml`の場合、`clusterA`に設定されたブックエンドプラグインが実行されます。
-
-```yaml
-#screwdriver.yaml
-
-jobs:
-  foo:
-    annotations:
-      screwdriver.cd/executor: clusterA
-    requires: [ ~commit, ~pr ]
-    image: node16
-    steps:
-      - echo: echo "Hello Screwdriver.cd"
-
-```
-クラスタが設定されていない場合は、`default`に設定されたブックエンドプラグインが使用されます。
+`clusterA`や`clusterB`には、クラスター管理者が用意したexecutorのpluginを指定してください。詳細については[#Executorプラグイン]をご確認ください。  
+`bookends`で設定されたクラスタ以外に割り当てられた場合、`default`に設定されたブックエンドプラグインが使用されます。
 
 #### カバレッジ bookend
 

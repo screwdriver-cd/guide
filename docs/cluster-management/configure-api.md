@@ -170,22 +170,8 @@ bookends:
     setup: ...
     teardown: ...
 ```
-
-In the case of the following `screwdriver.yaml`, the bookend plugin configured for `clusterA` will be executed.
-```yaml
-#screwdriver.yaml
-
-jobs:
-  foo:
-    annotations:
-      screwdriver.cd/executor: clusterA
-    requires: [ ~commit, ~pr ]
-    image: node16
-    steps:
-      - echo: echo "Hello Screwdriver.cd"
-
-```
-The `default` bookend plugin is used when no cluster is configured.
+For `clusterA` and `clusterB`, specify the executor plugin provided by the cluster administrator. please refer [here](#executor-plugin).  
+If assigned to a cluster other than the one set in `bookends`, the bookend plugin set in `default` can be used.
 
 #### Coverage bookends
 
