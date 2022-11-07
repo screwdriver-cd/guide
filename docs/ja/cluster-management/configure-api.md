@@ -170,6 +170,23 @@ bookends:
     teardown: ...
 ```
 
+以下のような`screwdriver.yaml`の場合、`clusterA`に設定されたブックエンドプラグインが実行されます。
+
+```yaml
+#screwdriver.yaml
+
+jobs:
+  foo:
+    annotations:
+      screwdriver.cd/executor: clusterA
+    requires: [ ~commit, ~pr ]
+    image: node16
+    steps:
+      - echo: echo "Hello Screwdriver.cd"
+
+```
+クラスタが設定されていない場合は、`default`に設定されたブックエンドプラグインが使用されます。
+
 #### カバレッジ bookend
 
 現在のところ、[SonarQube](https://github.com/screwdriver-cd/coverage-sonar) をカバレッジ bookend としてサポートしています。

@@ -171,6 +171,22 @@ bookends:
     teardown: ...
 ```
 
+In the case of the following `screwdriver.yaml`, the bookend plugin configured for `clusterA` will be executed.
+```yaml
+#screwdriver.yaml
+
+jobs:
+  foo:
+    annotations:
+      screwdriver.cd/executor: clusterA
+    requires: [ ~commit, ~pr ]
+    image: node16
+    steps:
+      - echo: echo "Hello Screwdriver.cd"
+
+```
+The `default` bookend plugin is used when no cluster is configured.
+
 #### Coverage bookends
 
 We currently support [SonarQube](https://github.com/screwdriver-cd/coverage-sonar) for coverage bookends.
