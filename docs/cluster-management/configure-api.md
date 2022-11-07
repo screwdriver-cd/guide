@@ -143,7 +143,7 @@ build:
 
 ### Bookend Plugins
 
-You can globally configure which built-in bookend plugins will be used during a build. Bookend plugins can be configured per cluster.
+You can globally configure which built-in bookend plugins will be used during a build. Bookend plugins can be configured for each cluster.
 By default, `scm` is enabled to begin builds with a SCM checkout command.
 
 If you're looking to include a custom bookend in the API, please refer [here](#extending-the-docker-container).
