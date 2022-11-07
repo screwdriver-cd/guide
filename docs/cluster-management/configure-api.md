@@ -170,7 +170,7 @@ bookends:
     setup: ...
     teardown: ...
 ```
-For `clusterA` and `clusterB`, specify the build cluster provided by the cluster administrator. please refer [here](./configure-buildcluster-queue-worker).  
+For `clusterA` and `clusterB`, specify the build cluster provided by the cluster administrator. please refer [here](configure-buildcluster-queue-worker).  
 If assigned to a cluster other than the one set in `bookends`, the bookend plugin set in `default` can be used.
 
 #### Coverage bookends
