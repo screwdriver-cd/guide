@@ -797,9 +797,9 @@ Screwdriver.cdのDokcerイメージを拡張したい場合、カスタムbooken
   ...
 bookends:
   default:
-  setup:
-    - my-custom-bookend
-    - scm
+    setup:
+      - my-custom-bookend
+      - scm
 ```
 
 拡張したDockerイメージをビルドするために、追加の依存をインストールする`Dockerfile`の作成が必要です。もし`local.yaml`を後でマウントするのではなくDockerイメージに保存したければ、以下のようにDockerfileを作成してください。

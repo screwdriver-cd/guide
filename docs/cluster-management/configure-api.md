@@ -786,9 +786,9 @@ This is shown in the following `local.yaml` snippet:
   ...
 bookends:
   default:
-  setup:
-    - my-custom-bookend
-    - scm
+    setup:
+      - my-custom-bookend
+      - scm
 ```
 
 For building our extended Docker image, we will need to create a `Dockerfile` that will have our extra dependencies installed. If you would prefer to save the `local.yaml` configuration file in the Docker image instead of mounting it in later, you may do so in the Dockerfile as well.
