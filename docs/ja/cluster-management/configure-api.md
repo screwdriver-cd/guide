@@ -150,7 +150,7 @@ build:
 
 キー | デフォルト | 説明
 --- | --- | ---
-BOOKENDS | None | 各ビルドの最初と最後に実行されるブックエンドの順序付きリスト 以下の書式で記述します。`{"default": {"setup": ["scm", ...], "teardown": [...]}, "clusterA": {"setup": ["scm", ...], "teardown": [...]}}`
+BOOKENDS | None | 各ビルドの最初と最後に実行されるブックエンドの連想配列 以下の書式で記述します。`{"default": {"setup": ["scm", ...], "teardown": [...]}, "clusterA": {"setup": ["scm", ...], "teardown": [...]}}`
 
 ```yaml
 # config/local.yaml

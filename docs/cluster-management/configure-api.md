@@ -150,7 +150,7 @@ If you're looking to include a custom bookend in the API, please refer [here](#e
 
 | Key | Default| Description |
 |:----|:-------|:------------|
-| BOOKENDS | None | The Ordered list of bookends to be executed at the beginning and end of every build. Take the forms of `{"default": {"setup": ["scm", ...], "teardown": [...]}, "clusterA": {"setup": ["scm", ...], "teardown": [...]}}` |
+| BOOKENDS | None | The associative array of bookends to be executed at the beginning and end of every build. Take the forms of `{"default": {"setup": ["scm", ...], "teardown": [...]}, "clusterA": {"setup": ["scm", ...], "teardown": [...]}}` |
 
 
 ```yaml
