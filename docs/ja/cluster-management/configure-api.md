@@ -143,22 +143,35 @@ build:
 
 ### ブックエンドプラグイン
 
-ビルド中に使用されるブックエンドプラグインを設定できます。デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
+ビルド中に使用されるブックエンドプラグインを設定できます。ブックエンドプラグインは、各クラスター毎に設定することができます。  
+デフォルトでは`scm`が有効になっており、SCMのcheckoutコマンドでビルドを開始します。
 
 もしご自身で開発したブックエンドを使用したい場合は[こちら](#dockerコンテナの拡張)をご覧ください。
 
 キー | デフォルト | 説明
 --- | --- | ---
-BOOKENDS_SETUP | None | ビルドの最初に実行されるプラグインの順番付きリストです。以下の書式で記述します。 `'["first", "second", ...]'`
-BOOKENDS_TEARDOWN | None | ビルドの終わりに実行されるプラグインの順番付きリストです。以下の書式で記述します。`'["first", "second", ...]'`
+BOOKENDS | None | 各ビルドの最初と最後に実行されるブックエンドの連想配列です。以下の書式で記述します。`{"default": {"setup": ["scm", ...], "teardown": [...]}, "clusterA": {"setup": ["scm", ...], "teardown": [...]}}`
 
 ```yaml
 # config/local.yaml
 bookends:
+  default: 
     setup:
-        - scm
-        - my-custom-bookend
+      - scm
+      - my-custom-bookend
+    teardown:
+      - screwdriver-artifact-bookend
+      - screwdriver-cache-bookend
+  clusterA:
+    setup: ...
+    teardown: ...
+  clusterB:
+    setup: ...
+    teardown: ...
 ```
+
+`clusterA`や`clusterB`には、クラスター管理者が用意したビルドクラスターを指定してください。詳細については[こちら](configure-buildcluster-queue-worker)をご確認ください。  
+`bookends`で設定されたクラスタ以外に割り当てられた場合、`default`に設定されたブックエンドプラグインが使用されます。
 
 #### カバレッジ bookend
 
@@ -179,7 +192,7 @@ bookends:
 | COVERAGE_SONAR_ENTERPRISE | いいえ | SonarQube を Enterprise 版で利用している(true)か、OpenSourceEdition で利用している(false）か。デフォルト値は `false` |
 | COVERAGE_SONAR_GIT_APP_NAME | いいえ | SonarのPull Request DecorationのためのGithub app名。デフォルト値は `Screwdriver Sonar PR Checks` です。この機能にはSonar Enterprise Editionが必要です。詳細は[Sonarのドキュメント](https://docs.sonarqube.org/latest/analysis/pr-decoration)をご覧ください。
 
-更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS_TEARDOWN` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。SonarQube の Enterprise 版を利用している場合には、 SonarQube のプロジェクトキーや名前はデフォルトでは _パイプライン_ スコープになります。これにより、 PR 解析が使えるようになったり、 Screwdriver のジョブ毎に個別のプロジェクトが作成されることを防げます。Enterprise 版の SonarQube を使用していない場合、SonarQube のプロジェクトキーや名前はデフォルトでは _ジョブ_ スコープになります。
+更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。SonarQube の Enterprise 版を利用している場合には、 SonarQube のプロジェクトキーや名前はデフォルトでは _パイプライン_ スコープになります。これにより、 PR 解析が使えるようになったり、 Screwdriver のジョブ毎に個別のプロジェクトが作成されることを防げます。Enterprise 版の SonarQube を使用していない場合、SonarQube のプロジェクトキーや名前はデフォルトでは _ジョブ_ スコープになります。
 
 ### 配信
 
@@ -786,9 +799,10 @@ Screwdriver.cdのDokcerイメージを拡張したい場合、カスタムbooken
 ---
   ...
 bookends:
-  setup:
-    - my-custom-bookend
-    - scm
+  default:
+    setup:
+      - my-custom-bookend
+      - scm
 ```
 
 拡張したDockerイメージをビルドするために、追加の依存をインストールする`Dockerfile`の作成が必要です。もし`local.yaml`を後でマウントするのではなくDockerイメージに保存したければ、以下のようにDockerfileを作成してください。
