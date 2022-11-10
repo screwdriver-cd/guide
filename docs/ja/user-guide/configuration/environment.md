@@ -44,5 +44,5 @@ jobs:
 ```yaml
 shared:
     environment:
-       X.Y: "Z"
+        X.Y: "Z"
 ```
