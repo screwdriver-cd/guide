@@ -36,7 +36,7 @@ jobs:
             MYVAR: hello    # This will set MYVAR=hello in the build
 ```
 
-Environment variables containing a dot notation are not allowed, like:
+Environment variables containing dot notations are not allowed, like:
 
 ```yaml
 shared:
