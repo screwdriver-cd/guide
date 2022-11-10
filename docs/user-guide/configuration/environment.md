@@ -25,7 +25,6 @@ shared:
     environment:
         FOO: bar
         MYVAR: ${FOO}        # This will set MYVAR=bar in all builds
-        X.Y: "Z"
 jobs:
     main:
         requires: [~pr, ~commit]
@@ -37,12 +36,10 @@ jobs:
             MYVAR: hello    # This will set MYVAR=hello in the build
 ```
 
-Please be aware if you are using dot notations in the environment variables, like:
+Environment variables containing a dot notation are not allowed, like:
 
 ```yaml
 shared:
     environment:
-       X.Y: "Z"
+        X.Y: "Z"
 ```
-
-Then `process.env.X.Y` won't work, and you must use `process.env['X.Y']` dot notation to access as well in nodejs, or other programming languages.
