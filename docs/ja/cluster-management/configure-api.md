@@ -190,7 +190,7 @@ bookends:
 | COVERAGE_SONAR_HOST | はい | Sonar の host の URL |
 | COVERAGE_SONAR_ADMIN_TOKEN | はい | Sonar の admin token |
 | COVERAGE_SONAR_ENTERPRISE | いいえ | SonarQube を Enterprise 版で利用している(true)か、OpenSourceEdition で利用している(false）か。デフォルト値は `false` |
-| COVERAGE_SONAR_GIT_APP_NAME | いいえ | SonarのPull Request DecorationのためのGithub app名。デフォルト値は `Screwdriver Sonar PR Checks` です。この機能にはSonar Enterprise Editionが必要です。詳細は[Sonarのドキュメント](https://docs.sonarqube.org/latest/analysis/pr-decoration)をご覧ください。
+| COVERAGE_SONAR_GIT_APP_NAME | いいえ | SonarのPull Request DecorationのためのGithub app名。デフォルト値は `Screwdriver Sonar PR Checks` です。この機能にはSonar Enterprise Editionが必要です。詳細は[Sonarのドキュメント](https://docs.sonarqube.org/latest/analyzing-source-code/pull-request-analysis)をご覧ください。
 
 更に `screwdriver-artifact-bookend` に加えて、`screwdriver-coverage-bookend` も `BOOKENDS` の環境変数に JSON フォーマットで teardown bookend として設定する必要があります。詳しくは、上の Bookend Plugins の節を見てください。SonarQube の Enterprise 版を利用している場合には、 SonarQube のプロジェクトキーや名前はデフォルトでは _パイプライン_ スコープになります。これにより、 PR 解析が使えるようになったり、 Screwdriver のジョブ毎に個別のプロジェクトが作成されることを防げます。Enterprise 版の SonarQube を使用していない場合、SonarQube のプロジェクトキーや名前はデフォルトでは _ジョブ_ スコープになります。
 
