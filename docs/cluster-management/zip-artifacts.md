@@ -27,7 +27,7 @@ It takes time for the uploaded files to appear on UI, because the ZIP file is up
 
 ## Architecture
 
-![zip artifacts architecture](../../cluster-management/assets/zip-artifacts-architecture.png)  
+![zip artifacts architecture](../cluster-management/assets/zip-artifacts-architecture.png)  
 
 1. Build container(`screwdriver-artifact-bookend` step) uploads a zipped build artifact.
 1. Build container sends request to API to unzip the zipped file.
