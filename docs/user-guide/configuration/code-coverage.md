@@ -97,4 +97,4 @@ jobs:
 - [SonarQube environment variables](../environment-variables#coverage-sonar)
 
 ### GitHub pull request decoration
-If your Screwdriver cluster supports Sonar Enterprise, you might have the ability to add [Pull Request decoration](https://docs.sonarqube.org/7.8/analysis/pull-request/) to Checks in GitHub. If this feature is supported, you can enable it by adding the Screwdriver Sonar PR Checks GitHub app to your repository. Check with your Screwdriver cluster admin for support details.
+If your Screwdriver cluster supports Sonar Enterprise, you might have the ability to add [Pull Request decoration](https://docs.sonarqube.org/latest/analyzing-source-code/pull-request-analysis/) to Checks in GitHub. If this feature is supported, you can enable it by adding the Screwdriver Sonar PR Checks GitHub app to your repository. Check with your Screwdriver cluster admin for support details.
