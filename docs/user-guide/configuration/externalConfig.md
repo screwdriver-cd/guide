@@ -10,6 +10,8 @@ toc:
       url: "#configure-external-config-in-parent-pipeline"
     - title: Parent and Child Relationship
       url: "#parent-and-child-relationship"
+    - title: Manage Child Pipelines
+      url: "#manage-child-pipelines"
     - title: User Interface
       url: "#user-interface"
 
@@ -49,11 +51,31 @@ jobs:
 
 Builds for child pipeline will have access to parent pipeline's repository at [`$SD_CONFIG_DIR`](../environment-variables#directories).
 
+## Manage Child Pipelines
+When a child pipeline SCM URL is added to the parent pipeline configuration, child pipeline gets created with `ACTIVE` state.
+
+Child pipeline state will be set to `INACTIVE` when the associated SCM URL has been removed from the parent pipeline configuration.
+Pipeline admin can review and take necessary action on such inactive child pipeline
+* reactivate the pipeline by restoring the SCM URL in the parent pipeline configuration
+* explicitly delete the pipeline from the UI/API
+
+![External config child pipeline state](../assets/external-config-child-state.png)
+
 ## User Interface
-Parent pipeline UI:
+### Parent pipeline UI:
 ![External config parent](../assets/external-config.png)
 
-Child pipeline UI:
-![External config child pipeline ](../assets/external-config-child.png)
+### Child pipeline UI:
+#### An active child pipeline:
+![External config active child pipeline](../assets/external-config-child-active.png)
+
+#### An inactive child pipeline:
+Operations on inactive child pipeline are limited.
+* New event/build cannot be created
+
+![External config inactive child pipeline](../assets/external-config-child-inactive.png)
+
+#### Child pipeline inherits parent pipeline secrets:
+![External config child pipeline inheriting secrets](../assets/external-config-child-secrets.png)
 
 Example repo: <https://github.com/screwdriver-cd-test/external-config-example>
