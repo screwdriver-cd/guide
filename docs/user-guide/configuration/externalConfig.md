@@ -54,16 +54,16 @@ Builds for child pipeline will have access to parent pipeline's repository at [`
 ## Manage Child Pipelines
 When a child pipeline SCM URL is added to the parent pipeline configuration, child pipeline gets created with `ACTIVE` state.
 
-Child pipeline state will be set to `INACTIVE` when the associated SCM URL has been removed from the parent pipeline configuration.
+sChild pipeline state will be set to `INACTIVE` when the associated SCM URL has been removed from the screwdriver.yaml of the parent pipeline.
 Pipeline admin can review and take necessary action on such inactive child pipeline
-* reactivate the pipeline by restoring the SCM URL in the parent pipeline configuration
+* reactivate the pipeline by restoring the SCM URL in the screwdriver.yaml of the parent pipeline 
 * explicitly delete the pipeline from the UI/API
 
 ![External config child pipeline state](../assets/external-config-child-state.png)
 
 ## User Interface
 ### Parent pipeline UI:
-![External config parent](../assets/external-config.png)
+![External config parent](../assets/external-config-parent.png)
 
 ### Child pipeline UI:
 #### An active child pipeline:
