@@ -1,4 +1,4 @@
-FROM ruby:3.1.3-alpine
+FROM ruby:2.7.6-alpine
 
 # Create our application directory
 RUN mkdir -p /usr/src/app
@@ -19,7 +19,7 @@ RUN set -x \
   # General clean-up
   && rm -rf guide.tgz \
   # Need jekyll to serve the pages
-  && gem install public_suffix:4.0.7 jekyll
+  && gem install public_suffix:4.0.7 jekyll:4.2.2
 
 EXPOSE 4000
 
