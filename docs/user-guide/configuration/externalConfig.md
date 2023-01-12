@@ -59,6 +59,8 @@ Parent pipeline admins can review and take necessary action on these inactive ch
 * reactivating the pipeline by restoring the SCM URL in the `screwdriver.yaml` of the parent pipeline 
 * explicitly deleting the pipeline from the UI/API
 
+New events/builds cannot be created for `INACTIVE` pipelines.
+
 ![External config child pipeline state](../assets/external-config-child-state.png)
 
 ## User Interface
