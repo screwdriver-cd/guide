@@ -67,7 +67,7 @@ jobs:
 
 ## ユーザーインタフェース
 ### 親パイプライン UI:
-![External config parent](../../../user-guide/assets/external-config.png)
+![External config parent](../../../user-guide/assets/external-config-parent.png)
 
 ### 子パイプライン UI:
 #### アクティブな子パイプライン:
