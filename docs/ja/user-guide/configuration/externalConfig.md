@@ -10,6 +10,8 @@ toc:
   url: "#親パイプラインでのパイプラインの親子設定方法"
 - title: 親子関係
   url: "#親子関係"
+- title: 子パイプラインの管理
+  url: "#子パイプラインの管理"
 - title: ユーザーインタフェース
   url: "#ユーザーインタフェース"
 ---
@@ -52,12 +54,29 @@ jobs:
 
 子パイプラインのビルドは、[`$SD_CONFIG_DIR`](../environment-variables#ディレクトリ)にある親パイプラインのリポジトリにアクセスすることができます。
 
-## ユーザーインタフェース
+## 子パイプラインの管理
+親パイプラインの `screwdriver.yaml` に子パイプラインの SCM URL を追加すると、子パイプラインはアクティブ状態で作成されます。
 
-親パイプライン UI:
+親パイプラインの `screwdriver.yaml` から子パイプラインの SCM URL を削除すると、子パイプラインの状態はインアクティブに設定されます。
+
+親パイプラインの管理者は、インアクティブな子パイプラインを以下のように管理できます。
+* 親パイプラインの `screwdriver.yaml` の SCM URL を元に戻すと子パイプラインは再びアクティブになります。
+* UI や API からインアクティブな子パイプラインを明示的に削除すると子パイプラインは完全に消えます。
+
+![External config child pipeline state](../../../user-guide/assets/external-config-child-state.png)
+
+## ユーザーインタフェース
+### 親パイプライン UI:
 ![External config parent](../../../user-guide/assets/external-config.png)
 
-子パイプライン UI:
+### 子パイプライン UI:
+#### アクティブな子パイプライン:
 ![External config child pipeline ](../../../user-guide/assets/external-config-child.png)
+
+#### インアクティブな子パイプライン:
+インアクティブな子パイプラインにはできる操作が限られています。
+* 新しいイベントやビルドの作成ができません。
+
+![External config inactive child pipeline](../../../user-guide/assets/external-config-child-inactive.png)
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/external-config-example>

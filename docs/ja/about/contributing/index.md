@@ -13,6 +13,9 @@ toc:
       url: "#貢献のための一般的なガイドライン"
     - title: プルリクエストを送る
       url: "#プルリクエストを送る"
+    - title: コミットメッセージのフォーマット
+      url: "#コミットメッセージのフォーマット"
+      subitem: true
 ---
 # 貢献する
 
@@ -52,10 +55,18 @@ Screwdriver の全ての issue は、[screwdriver repo][api-issues-url] にあ�
 | Scope | コミットの範囲を特定するもの。空白や関連する issue 番号、`*` でも構いません。 |
 | Subject | コミットの説明 |
 
-**重要:** メジャーバージョンを更新する必要のある**破壊的変更**の際には、`BREAKING CHANGE:MESSAGE` をコミットメッセージのどこかに入れてください。コミットタイプは `feat` でなければなりません。
+**重要:** メジャーバージョンを更新する必要のある**破壊的変更**の際には、コミットメッセージに `BREAKING CHANGE: <message>` を追加し、その前にスペースか改行を2文字入れてください。そして、コミットメッセージの残りの部分がこの説明に使われます。
 **コミットメッセージの例:**
 * バグ修正の場合: `fix: Remove extra space`
-* 破壊的変更の場合: `feat(scm): Support new scm plugin. BREAKING CHANGE: github no longer works`
+* 破壊的変更の場合: 
+
+```
+feat(1234): remove graphiteWidth option
+
+BREAKING CHANGE: The graphiteWidth option has been removed.
+
+The default graphite width of 10mm is always used for performance reasons.
+```
 
 [api-issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
 [api-repo]: https://github.com/screwdriver-cd/screwdriver
