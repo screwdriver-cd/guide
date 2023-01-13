@@ -80,6 +80,6 @@ jobs:
 ![External config inactive child pipeline](../../../user-guide/assets/external-config-child-inactive.png)
 
 #### 子パイプラインは親パイプラインのシークレットを継承:
- ![External config child pipeline inheriting secrets](../../../user-guide/assets/external-config-child-secrets.png)
+![External config child pipeline inheriting secrets](../../../user-guide/assets/external-config-child-secrets.png)
 
 サンプルリポジトリ: <https://github.com/screwdriver-cd-test/external-config-example>
