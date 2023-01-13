@@ -71,7 +71,7 @@ jobs:
 
 ### 子パイプライン UI:
 #### アクティブな子パイプライン:
-![External config child pipeline ](../../../user-guide/assets/external-config-child.png)
+![External config child pipeline ](../../../user-guide/assets/external-config-child-active.png)
 
 #### インアクティブな子パイプライン:
 インアクティブな子パイプラインにはできる操作が限られています。
