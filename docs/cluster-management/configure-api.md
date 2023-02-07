@@ -50,6 +50,9 @@ toc:
     - title: Configure Redis Lock
       url: "#configure-redis-lock"
       subitem: true
+    - title: Logging
+      url: "#logging"
+      subitem: true
     - title: Extending the Docker container
       url: "#extending-the-docker-container"
 ---
@@ -768,6 +771,30 @@ redisLock:
             tls: false
         database: 0
         prefix: ""
+```
+
+### Logging
+For more verbose or precise logging, you can configure these environment variables:
+
+| Environment Variable      | Required            | Default              | Description       |
+|:--------------------------|:--------------------|:---------------------|:-----------------------------|
+| LOG_AUDIT_ENABLED         | No                  | false                | Enable audit logs for all API calls            |
+| LOG_AUDIT_SCOPE           | No                  | []                   | Target token scopes (e.g. pipeline, build, temporal, admin, guest, user) |
+
+```yaml
+# config/local.yaml
+log:
+  audit:
+    # set true to enable audit logs for all API calls
+    enabled: false
+    # add target scope tokens(pipeline, build, temporal, admin, guest, user)
+    scope: []
+```
+
+Example output logs:
+```
+{"level":"info","message":"[Login] User tkyi get /v4/events/41/builds","timestamp":"2022-11-04T22:19:33.039Z"}
+{"level":"info","message":"[Login] Pipeline 7 post /v4/pipelines/7/sync","timestamp":"2022-11-04T22:19:33.985Z"}
 ```
 
 ## Extending the Docker container
