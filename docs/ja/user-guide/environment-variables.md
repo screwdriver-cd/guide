@@ -61,6 +61,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_TEMPLATE_NAME | 使用しているテンプレートの名前 (テンプレートを使用していない場合は空) |
 | SD_TEMPLATE_NAMESPACE | 使用しているテンプレートのネームスペース (テンプレートを使用していない場合は空) |
 | SD_TEMPLATE_VERSION | 使用しているテンプレートのバージョン (テンプレートを使用していない場合は空) |
+| SD_BUILD_CLUSTER_NAME | 使用している[ビルドクラスター](../cluster-management/configure-buildcluster-queue-worker)の名前 |
 | SD_TOKEN | ビルド用の JWT トークン |
 | SD_SCHEDULED_BUILD | スケジューラーによってビルドを開始する(true)か、否(false)か |
 | SD_DIND_SHARE_PATH | Docker-in-Docker機能が有効な場合に使われる。ビルドコンテナとDinDコンテナの共有ディレクトリへのパス |
