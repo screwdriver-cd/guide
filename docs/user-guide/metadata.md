@@ -208,7 +208,8 @@ jobs:
           meta set tests.resultsUrl /test/testReport.html # this should be a relative path to a build artifact
 ```
 
-> Note: metadata will override SonarQube results
+> Note: metadata will override SonarQube results,
+> and the precedence of meta overrides is: meta.tests.saucelabs > meta.tests.sonarqube > meta.tests
 
 These settings will result in build page that looks like:
 
