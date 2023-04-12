@@ -30,13 +30,8 @@ sd-local enables running a more feature-complete local Screwdriver without needi
 
 ## How to Install
 
-Download a latest binary of [sd-local](https://github.com/screwdriver-cd/sd-local/releases) and install it in your environment like following.
+Use [Homebrew](https://brew.sh/) to install `sd-local`. Instructions [here](https://github.com/screwdriver-cd/sd-local/blob/master/README.md#installing-locally-using-homebrew).
 
-```bash
-$ mv sd-local_*_amd64 /usr/local/bin/sd-local
-$ chmod +x /usr/local/bin/sd-local
-$ xattr -d com.apple.quarantine /usr/local/bin/sd-local #In Mac to remove Apple unverified developer warning
-```
 ## How to Update
 Use the sd-local update command.
 ```bash
