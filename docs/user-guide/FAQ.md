@@ -240,9 +240,9 @@ To resolve this issue, you could disable or tune the shallow clone settings ([se
 
 Screwdriver pipelines have a 1:1 relation to the underlying SCM repository and this is validated by using not only the SCM repository name but also its unique repository ID. The `Not Found` error occurs when the SCM repository is deleted and re-created under same repository name (delete & re-fork has same effect). This action results in the new SCM repository getting a new ID and hence failing Screwdriver validations.
 
-If your pipeline is in this state, you have few options.
-1. Re-create the pipeline and reach out Screwdriver cluster admins to remove the old pipeline.
-1. If you want to retain previous Pipeline ID, reach out to Screwdriver Cluster admins to update database directly, `pipeline.scmUri` field must be updated with the new SCM repository ID.
+If your pipeline is in this state, you have a few options:
+1. Re-create the pipeline and reach out to Screwdriver cluster admins to remove the old pipeline.
+1. If you want to retain previous Pipeline ID, reach out to Screwdriver Cluster admins to update the database directly. The `pipeline.scmUri` field must be updated with the new SCM repository ID.
 
 ## How do I override freeze windows to start a build?
 
