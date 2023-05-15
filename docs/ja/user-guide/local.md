@@ -28,13 +28,8 @@ sd-local実行には以下のコマンドが必要になります
   - `--src-url`オプションを利用する場合に必要になります
 
 ## インストール方法
-最新の[sd-local](https://github.com/screwdriver-cd/sd-local/releases) をダウンロードし、以下のようにインストールします。
-
-```bash
-$ mv sd-local_*_amd64 /usr/local/bin/sd-local
-$ chmod +x /usr/local/bin/sd-local
-$ xattr -d com.apple.quarantine /usr/local/bin/sd-local #MacでのAppleの未検証の開発者に関する警告を削除
-```
+sd-localをインストールするのには[Homebrew](https://brew.sh/)を使ってください。
+手順は[こちら](https://github.com/screwdriver-cd/sd-local/blob/master/README.md#installing-locally-using-homebrew)を参照してください。
 
 ## アップデート方法
 sd-localのupdateコマンドを利用できます。

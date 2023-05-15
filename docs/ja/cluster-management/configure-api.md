@@ -50,6 +50,9 @@ toc:
 - title: Redisロックの設定
   url: "#redisロックの設定"
   subitem: true
+- title: ログの記録
+  url: "#ログの記録"
+  subitem: true
 - title: Dockerコンテナの拡張
   url: "#dockerコンテナの拡張"
 ---
@@ -721,7 +724,7 @@ rateLimit:
 
 ScrewdriverのKubernetesクラスタが[nginx Canary ingress](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary)を利用している場合、この環境変数を設定することでAPIサーバに一定期間だけCookieをセットさせ、後続のAPIリクエストが同じCanaryのAPIポッドに割り振られるようにします。
 
-| Environment name     | Example Value | Description          |
+| 環境変数名     | 例 | 説明          |
 |:---------------------|:--------------|:---------------------|
 | RELEASE_ENVIRONMENT_VARIABLES | `'{ "cookieName": "release", "cookieValue": "canary"}'` | リリース情報をJSON文字列で設定 |
 
@@ -744,7 +747,7 @@ RedisロックはScrewdriver apiで使用されており、ビルドの更新が
 
 Redisのロックを設定するために、これらの環境変数を設定します:
 
-| 環境変数               | 必須            |  デフォルト              | 説明       |
+| 環境変数名              | 必須            |  デフォルト値              | 説明       |
 |:--------------------------|:---------------------|:---------------------|:-----------------------------|
 | REDLOCK_ENABLED           | はい                  | false                | Redisロックの有効化            |
 | REDLOCK_RETRY_COUNT       | はい                 | 200                  | ロック取得までの最大リトライ回数                 |
@@ -785,6 +788,30 @@ redisLock:
 ## Dockerコンテナの拡張
 
 Screwdriver.cdのDockerイメージを拡張したい場合は、カスタムBookendプラグインを使用してください。この章で全てをお伝えすることはできないですが、基本的な利用方法はお伝えできるでしょう。
+
+### ログの記録
+以下の環境変数を設定するとより多くのログが出力されるようになります。
+
+| 環境変数名      | 必須            | デフォルト値              | 説明       |
+|:--------------------------|:--------------------|:---------------------|:-----------------------------|
+| LOG_AUDIT_ENABLED         | いいえ                  | false                | trueにすると全てのAPIで呼び出し毎に Audit ログが出力されるようになります。            |
+| LOG_AUDIT_SCOPE           | いいえ                  | []                   | 対象となるトークンのスコープ (e.g. pipeline, build, temporal, admin, guest, user) |
+
+```yaml
+# config/local.yaml
+log:
+  audit:
+    # APIの呼び出し毎に Audit ログを出力するようにする場合はtrueにしてください
+    enabled: false
+    # 対象となるトークンのスコープ(pipeline, build, temporal, admin, guest, user)
+    scope: []
+```
+
+ログの出力の例:
+```
+{"level":"info","message":"[Login] User tkyi get /v4/events/41/builds","timestamp":"2022-11-04T22:19:33.039Z"}
+{"level":"info","message":"[Login] Pipeline 7 post /v4/pipelines/7/sync","timestamp":"2022-11-04T22:19:33.985Z"}
+```
 
 ### カスタムbookendを使用する
 
