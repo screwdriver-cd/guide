@@ -250,9 +250,6 @@ Screwdriverはデフォルトで[gitユーザー](https://github.com/screwdriver
 ## パイプラインをスタートまたは削除した時に`Not found`となるのはなぜ？
 Screwdriverのパイプラインは利用しているSCMのリポジトリと1対1の関係があり、この関係はSCMのリポジトリ名だけでなくリポジトリのユニークIDによって関係付けられています。`Not Found`エラーはSCMのリポジトリを削除して同じ名前で再作成した際に発生します（削除後に再度forkした場合も同じです）。この操作により新しいSCMのリポジトリは新しいIDで作成されるのでScrewdriverの検証で失敗します。
 
-If your pipeline is in this state, you have a few options:
-1. Re-create the pipeline and reach out to Screwdriver cluster admins to remove the old pipeline.
-1. If you want to retain previous Pipeline ID, reach out to Screwdriver Cluster admins to update the database directly. The `pipeline.scmUri` field must be updated with the new SCM repository ID.
 もしパイプラインがこの状態になってしまったら、以下のいずれかを行ってください。
 1. パイプラインを作り直しScrewdriverの管理者に古いパイプラインを消すように言ってください。
 1. パイプラインのIDを元のままにしたい場合は、Screwdriverの管理者にDBを直接更新するように言ってください。`pipeline.scmUri` のフィールドが新しいSCMのリポジトリのIDに置き換わります。
