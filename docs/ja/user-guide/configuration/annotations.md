@@ -73,3 +73,4 @@ jobs:
  | screwdriver.cd/restrictPR | `none` / `all` / `fork` / `branch` | PRジョブが実行されないように制限します。`none` の場合は制限なしを意味します。`all` の場合はすべてのPRジョブ実行を制限します。`fork` はフォークされたリポジトリからのPRを制限します。`branch` はブランチからのPRを制限します。 |
 | screwdriver.cd/chainPR    | `false` / `true` | デフォルトは`false`です。`false`の場合、PRは`requires`に`~pr`を設定しているジョブのみトリガーします。`true`を指定した場合、PRは`requires`に`~pr`を設定しているジョブだけでなく、その後続のジョブも順番にトリガーします。サンプルリポジトリ: <https://github.com/screwdriver-cd-test/chain-pr-example> |
 | screwdriver.cd/pipelineDescription | パイプラインの説明文 | パイプラインページに説明文を表示します。 |
+| screwdriver.cd/useDeployKey | `false` / `true` | デフォルトは`false`です。ScrewdriverのビルドをユーザーのAWSアカウントで実行する場合、`git checkout`のために`true`を指定する必要があります。 |
