@@ -217,6 +217,7 @@ jobs:
 ```
 
 > 注意: metadataはSonarQubeの結果を上書きします。
+> metaの優先順位は meta.tests.saucelabs > meta.tests.sonarqube > meta.tests となります。
 
 これらの設定により、ビルドページは次のようになります:
 
