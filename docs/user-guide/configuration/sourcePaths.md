@@ -72,4 +72,5 @@ In this example, the job `main` will be triggered if there are any changes to fi
 ### Caveats
 - This feature is only available for the [Github SCM](https://github.com/screwdriver-cd/scm-github) right now.
 - `sourcePaths` will be ignored if you manually start a pipeline or restart a job.
-- The `screwdriver.yaml` must still be located at root.
+- `screwdriver.yaml` must still be located at root.
+- `sourcePaths` does not support wildcards or globs.
