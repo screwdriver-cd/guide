@@ -158,6 +158,18 @@ These settings will result in a Git comment that looks like:
 
 ![PR comment](./assets/pr-comment.png)
 
+Additionally, you can set `meta.splitComments` to write multiple comments instead of one
+
+```yaml
+jobs:
+  main:
+    steps:
+      - comment: meta set meta.splitComments "split"
+```
+This setting will result in Git comments that looks like:
+
+![PR comment](./assets/pr-comment-split.png)
+
 _Note: Screwdriver will try to edit the same comment in Git if multiple builds are run on it._
 
 ### Additional Pull Request Checks
