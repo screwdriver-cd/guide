@@ -168,7 +168,7 @@ jobs:
 ```
 This setting will result in Git comments that looks like:
 
-![PR comment](./assets/pr-comment.png)
+![PR comment](./assets/pr-comment-split.png)
 
 _Note: Screwdriver will try to edit the same comment in Git if multiple builds are run on it._
 
