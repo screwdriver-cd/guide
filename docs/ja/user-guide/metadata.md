@@ -177,7 +177,7 @@ jobs:
 
 この設定を行うと、以下のようにGitにコメントがされます。
 
-![PR comment](./assets/pr-comment-split.png)
+![PR comment](./../../user-guide/assets/pr-comment-split.png)
 
 _注意: ビルドを複数実行すると、Gitの同じコメントを編集します。_
 
