@@ -166,6 +166,19 @@ jobs:
 
 ![PR comment](./../../user-guide/assets/pr-comment.png)
 
+さらに`meta.splitComments`を設定することで、1つではなく複数のコメントを行うことができます。
+
+```yaml
+jobs:
+  main:
+    steps:
+      - comment: meta set meta.splitComments "split"
+```
+
+この設定を行うと、以下のようにGitにコメントがされます。
+
+![PR comment](./assets/pr-comment-split.png)
+
 _注意: ビルドを複数実行すると、Gitの同じコメントを編集します。_
 
 ### 追加のプルリクエストチェック
