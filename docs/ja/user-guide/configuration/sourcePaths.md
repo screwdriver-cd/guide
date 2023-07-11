@@ -79,3 +79,4 @@ jobs:
 - この機能は現在 [Github SCM](https://github.com/screwdriver-cd/scm-github) のみでご利用いただけます。
 - `sourcePaths` の設定は手動でパイプラインを実行したり、ジョブをリスタートした際は無視されます。
 - `screwdriver.yaml` はリポジトリルートに配置されている必要があります。
+- `sourcePaths` の設定にワイルドカードやグロブは使用できません。
