@@ -84,11 +84,14 @@ Slack 通知を有効にしてビルドの結果を送信するには、`screwdr
 
 #### 複数Roomの設定
 
-`slack`の設定値には配列形式で複数のチャンネルを指定することができます。
+`slack`の設定値には配列形式で複数のチャンネルを指定することができます。また `<workspace>:<channel>` のカンマ区切りでワークスペースの指定も行えます。ワークスペース名は[notifications slack](../../cluster-management/configure-api#slack-通知)で設定したキー名を指定します。
 
 ```
         settings:
-            slack: [mychannel, my-other-channel]
+            slack:
+                - mychannel
+                - my-other-channel
+                - another-workspace:mychannel
 ```
 
 #### ビルドステータスの通知

@@ -78,11 +78,14 @@ To send data in steps as a notification, [notification meta](../metadata#slack-n
 
 #### Multiple Rooms
 
-The value of the `slack` setting can be an array of multiple channels.
+The value of the `slack` setting can be an array of multiple channels. And you can specify a workspace as `<workspace>:<channel>`. The workspace name is the key name set in [notifications slack](../../cluster-management/configure-api#slack-notifications).
 
 ```
         settings:
-            slack: [mychannel, my-other-channel]
+            slack:
+                - mychannel
+                - my-other-channel
+                - another-workspace:mychannel
 ```
 
 #### Notify on build statuses
