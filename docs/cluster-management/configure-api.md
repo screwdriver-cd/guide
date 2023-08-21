@@ -496,13 +496,18 @@ Configurable authentication settings have not yet been built, but can easily be 
 
 #### Slack Notifications
 
-Create a `screwdriver-bot` [Slack bot user](https://api.slack.com/bot-users) in your Slack instance. Generate a Slack token for the bot and set the `token` field with it in your Slack notifications settings.
+Create a `screwdriver-bot` [Slack bot user](https://api.slack.com/bot-users) in your Slack instance. Generate a Slack token for the bot and set the `token` field with it in your Slack notifications settings as below.
 
 ```yaml
 # config/local.yaml
 notifications:
     slack:
-        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+        defaultWorkspace: 'your-workspace'
+        workspaces:
+            your-workspace:
+                token: 'YOUR-SLACK-BOT-TOKEN-HERE'
+            another-workspace:
+                token: 'ANOTHER-SLACK-BOT-TOKEN-HERE'
 ```
 
 #### Custom Notifications
@@ -545,7 +550,12 @@ notifications:
     options:
         throwValidationErr: false # default true; boolean to throw error when validation fails or not
     slack:
-        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+        defaultWorkspace: 'your-workspace'
+        workspaces:
+            your-workspace:
+                token: 'YOUR-SLACK-BOT-TOKEN-HERE'
+            secondary-workspace:
+                token: 'ANOTHER-SLACK-BOT-TOKEN-HERE'
     email:
         host: smtp.yourhost.com
         port: 25

@@ -503,13 +503,18 @@ notifications:
 
 #### Slack 通知
 
-Slack インスタンスに `screwdriver-bot` の [Slack bot user](https://api.slack.com/bot-users) を作成してください。 bot のための Slack トークンを生成して、それを Slack 通知の設定欄の `token` に設定してください。
+Slack インスタンスに `screwdriver-bot` の [Slack bot user](https://api.slack.com/bot-users) を作成してください。 bot のための Slack トークンを生成して、それを Slack 通知の設定欄の `token` に以下のように設定してください。
 
 ```yaml
 # config/local.yaml
 notifications:
     slack:
-        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+        defaultWorkspace: your-workspace
+        workspaces:
+            your-workspace:
+                token: 'YOUR-SLACK-BOT-TOKEN-HERE'
+            secondary-workspace:
+                token: 'ANOTHER-SLACK-BOT-TOKEN-HERE'
 ```
 
 #### カスタム通知
@@ -551,7 +556,12 @@ notifications:
     options:
       throwValidationErr: false # デフォルト: true, バリデーションに失敗したときにエラーを出すかどうかの真偽値値
     slack:
-        token: 'YOUR-SLACK-USER-TOKEN-HERE'
+        defaultWorkspace: your-workspace
+        workspaces:
+            your-workspace:
+                token: 'YOUR-SLACK-BOT-TOKEN-HERE'
+            secondary-workspace:
+                token: 'ANOTHER-SLACK-BOT-TOKEN-HERE'
     email:
         host: smtp.yourhost.com
         port: 25
