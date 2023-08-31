@@ -262,7 +262,7 @@ In a commit:
 Add `[force start]` to the commit message of the build you want to start and merge it.
 
 In the API:
-Add `[force start]` to the `causeMessage` of the build you want to start and use the `POST SCREWDRIVER_API/v4/events` endpoint to start.
+Add `[force start]` to the `causeMessage` of the build you want to start and use the `POST SCREWDRIVER_API/v4/events` endpoint to start. Note that meta will not be inherited from parent event if buildId is not provided.
 
 ## How do I cancel a freeze window and prevent a future scheduled build?
 Frozen builds are scheduled to run at the end of [freeze windows](./configuration/workflow#freeze-windows) duration. In some cases users may want to cancel the schedule without changing screwdriver.yaml configuration to prevent a future scheduled build from running. Users can do so by doing the following steps.
