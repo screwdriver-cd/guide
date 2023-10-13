@@ -42,6 +42,9 @@ toc:
     - title: Job-based minimized setting
       url: "#job-based-minimized-setting"
       subitem: level-2
+    - title: Mark Builds and Set Warnings
+      url: "#mark-builds-and-set-warnings"
+      subitem: true
     - title: Using Lua for atomic updates
       url: "#using-lua-for-atomic-updates"
       subitem: true
@@ -328,6 +331,33 @@ jobs:
           fi
 ```
 In the above example a Slack notification message will be send in `minimized` format for the `component` job if it was triggered by the scheduler.
+
+### Mark Builds and Set Warnings
+
+You can mark builds/events with warning status by setting `build.warning`.
+
+Example screwdriver.yaml:
+```yaml
+jobs:
+  main:
+    steps:
+      - warning: meta set build.warning true
+```
+Result:
+![warning-event-tab](./assets/warning-event-tab.png)
+
+Additionally you can also set warning messages
+Example screwdriver.yaml:
+```yaml
+jobs:
+  main:
+    steps:
+      - setWarning: meta set build.warning.message "this is a warning message"
+      - setAnotherWarning: meta set build.warning.anotherMessage "this is another warning message"
+```
+Result:
+![warning-message](./assets/warning-message.png)
+*Note*: Only builds/events with successful status will be marked, warning message will still be displayed in build detail page regardless of build/event status
 
 ### Using [Lua](https://www.lua.org/) for atomic updates
 
