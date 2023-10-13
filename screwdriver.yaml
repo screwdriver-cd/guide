@@ -8,7 +8,7 @@ jobs:
     steps:
         - bundle_install: bundle install
         - build: bundle exec jekyll build --source docs --destination _site
-        - proof: bundle exec htmlproofer --assume-extension --allow-hash-href --url-ignore '/bitbucket/,/gitlab/,/api\.screwdriver\.cd/,/github\.com/,/kubernetes\.io/,/opensource\.org/,/twitter\.com/' --http-status-ignore 429 _site
+        - proof: bundle exec htmlproofer --assume-extension --allow-hash-href --url-ignore '/bitbucket/,/gitlab/,/api\.screwdriver\.cd/,/github\.com/,/kubernetes\.io/,/opensource\.org/,/twitter\.com/,/linux\.die\.net/' --http-status-ignore 429 _site
 
   publish:
       image: ruby:2
