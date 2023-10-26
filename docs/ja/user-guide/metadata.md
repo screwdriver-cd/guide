@@ -361,6 +361,11 @@ warningのメッセージを追加することもできます。
 
 screwdriver.yamlの例:
 ```yaml
+jobs:
+  main:
+    steps:
+      - setWarning: meta set build.warning.message "this is a warning message"
+      - setAnotherWarning: meta set build.warning.anotherMessage "this is another warning message"
 ```
 
 結果:
