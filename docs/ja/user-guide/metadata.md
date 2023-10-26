@@ -43,7 +43,7 @@ toc:
   url: "#ジョブベースで通知を最小化する設定"
   subitem: level-2
 - title: ビルドにWarningを設定してマークする
-  url: "#ビルドにWarningを設定してマークする"
+  url: "#ビルドにwarningを設定してマークする"
   subitem: true
 - title: アトミックな処理のためにLuaを使用
   url: "#アトミックな処理のためにluaを使用"
