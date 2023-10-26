@@ -42,6 +42,9 @@ toc:
 - title: ジョブベースで通知を最小化する設定
   url: "#ジョブベースで通知を最小化する設定"
   subitem: level-2
+- title: ビルドにWarningを設定してマークする
+  url: "#ビルドにWarningを設定してマークする"
+  subitem: true
 - title: アトミックな処理のためにLuaを使用
   url: "#アトミックな処理のためにluaを使用"
   subitem: true
@@ -338,6 +341,32 @@ jobs:
           fi
 ```
 上記の例では、スケジューラーによってトリガーされた `component` ジョブでのSlack通知は `minimized` 形式で投稿されます。
+
+### ビルドにWarningを設定してマークする
+
+`build.warning` を設定することで、ビルド/イベントを warning のステータスでマークできます。
+
+screwdriver.yamlの例:
+```yaml
+jobs:
+  main:
+    steps:
+      - warning: meta set build.warning true
+```
+
+結果:
+![warning-event-tab](./../../user-guide/assets/warning-event-tab.png)
+
+warningのメッセージを追加することもできます。
+
+screwdriver.yamlの例:
+```yaml
+```
+
+結果:
+![warning-message](./../../user-guide/assets/warning-message.png)
+
+*注意*: マークされるのはSUCCESSのビルド/イベントのステータスの場合のみですが、warningメッセージはビルド/イベントのステータスに関わらずビルド詳細ページに表示されます。
 
 ### アトミックな処理のために[Lua](https://www.lua.org/)を使用
 
