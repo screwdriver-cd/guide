@@ -37,7 +37,7 @@ toc:
 
 ## Packages
 
-Like the other services, the API is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/queue-service/) with port 80 exposed.
+Like the other services, the Queue service is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/queue-service/) with port 80 exposed.
 
 ```bash
 $ docker run -d -p 9003:80 screwdrivercd/queue-service:latest

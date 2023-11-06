@@ -28,7 +28,7 @@ toc:
 
 ## Packages
 
-Like the other services, the API is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/store/) with port 80 exposed.
+Like the other services, the Store is shipped as a [Docker image](https://hub.docker.com/r/screwdrivercd/store/) with port 80 exposed.
 
 ```bash
 $ docker run -d -p 7000:80 screwdrivercd/store:stable
