@@ -62,6 +62,7 @@ jobs:
 
 - `sonar-project.properties` と `$SD_SONAR_OPTS` で同じプロパティを設定していた場合、`$SD_SONAR_OPTS` の設定が優先されます。
 - Screwdriver は次のプロパティ(`sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`)を自動で設定します。**`sonar.sources` は自分で設定する必要があります。**
+- プライベートパイプラインではデフォルトでカバレッジが送信されません。送信したい場合は、`SD_ALLOW_PRIVATE_COVERAGE_SEND`を`true`に設定してください。
 
 ### セルフホスト型のSonarQubeを利用する
 
