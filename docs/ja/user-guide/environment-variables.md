@@ -94,6 +94,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | SD_SONAR_ENTERPRISE | SonarQube の Enterprise 版を利用している(true)か、オープンソース版を使っている(false)か |
 | SD_SONAR_PROJECT_KEY | Sonar の project key (例: `pipeline:123` or `job:456`) |
 | SD_SONAR_PROJECT_NAME | Sonar の project 名 (例: `d2lam/myPipeline` or `d2lam/myPipeline:main`) |
+| SD_ALLOW_PRIVATE_COVERAGE_SEND | `true` の場合、プライベートパイプラインデータがSonarQubeに送信されます |
 
 ## ディレクトリ
 
