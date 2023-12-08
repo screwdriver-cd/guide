@@ -93,7 +93,7 @@ These environment variables may or may not be available depending on what plugin
 | SD_SONAR_ENTERPRISE | Whether using Enterprise (true) or open source edition of SonarQube(false) |
 | SD_SONAR_PROJECT_KEY | Sonar project key (e.g.: `pipeline:123` or `job:456`) |
 | SD_SONAR_PROJECT_NAME | Sonar project name (e.g.: `d2lam/myPipeline` or `d2lam/myPipeline:main`) |
-| SD_ALLOW_PRIVATE_COVERAGE_SEND | If set to the string `true`, private pipeline data is sent to SonarQube |
+| SD_ALLOW_PRIVATE_COVERAGE_SEND | If set to the string `true`, private pipelines will also have the ability to send coverage data |
 
 ## Directories
 
