@@ -62,6 +62,7 @@ jobs:
 
 - If you define the same property in both the `sonar-project.properties` file and `$SD_SONAR_OPTS`, `$SD_SONAR_OPTS` will override the properties file.
 - Screwdriver sets the following properties for you: `sonar.host.url`, `sonar.login`, `sonar.projectKey`, `sonar.projectName`, `sonar.projectVersion`, `sonar.links.scm`, `sonar.links.ci`; **you must set `sonar.sources` yourself**.
+- By default, coverage is not sent for private pipelines. If you want to send coverage, please set `SD_ALLOW_PRIVATE_COVERAGE_SEND` to `true`
 
 ### Use a self-hosted SonarQube
 
