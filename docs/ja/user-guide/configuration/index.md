@@ -37,41 +37,41 @@ toc:
         <span class="key">value</span>: <span class="value">"zone 1"</span>
         <span class="key">description</span>: <span class="value">"default availability zone"</span></span></a>
 <a href="#jobs"><span class="key">jobs</span>:</a>
-      <span class="key">main</span>:
+    <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
         <a href="#sourcePaths"><span class="key">sourcePaths</span>: <span class="value">["src/app/", "screwdriver.yaml"]</span></a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
         <a href="#steps"><span class="key">steps</span>:
-    - <span class="key">init</span>: <span class="value">npm install</span>
-    - <span class="key">test</span>: <span class="value">npm test</span></a>
-      <span class="key">publish</span>:
-          <a href="#requires"><span class="key">requires</span>: <span class="value">[main]</span></a>
-          <a href="#template"><span class="key">template</span>: <span class="value">node/publish@4.3.1</span></a>
-          <a href="#order"><span class="key">order</span>: <span class="value">[init, publish, teardown-save-results]</span></a>
-          <span class="key">steps</span>:
- - <span class="key">publish</span>: <span class="value">npm install</span>
- - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
+            - <span class="key">init</span>: <span class="value">npm install</span>
+            - <span class="key">test</span>: <span class="value">npm test</span></a>
+    <span class="key">publish</span>:
+        <a href="#requires"><span class="key">requires</span>: <span class="value">[main]</span></a>
+        <a href="#template"><span class="key">template</span>: <span class="value">node/publish@4.3.1</span></a>
+        <a href="#order"><span class="key">order</span>: <span class="value">[init, publish, teardown-save-results]</span></a>
+        <span class="key">steps</span>:
+            - <span class="key">publish</span>: <span class="value">npm install</span>
+            - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
-    <span class="key">requires</span>: <span class="value">publish</span>
-    <span class="key">image</span>: <span class="value">node:6</span>
-    <span class="key">environment</span>:
-        <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
-    <span class="key">steps</span>:
-        - <span class="key">init</span>: <span class="value">npm install</span>
-        - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
+        <span class="key">requires</span>: <span class="value">publish</span>
+        <span class="key">image</span>: <span class="value">node:6</span>
+        <span class="key">environment</span>:
+            <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
+        <span class="key">steps</span>:
+            - <span class="key">init</span>: <span class="value">npm install</span>
+            - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
     <a href="#jobs"><span class="key">deploy-east</span>:
-    <span class="key">requires</span>: <span class="value">publish</span>
-    <span class="key">image</span>: <span class="value">node:6</span>
-    <span class="key">environment</span>:
-        <span class="key">DEPLOY_ENV</span>: <span class="value">east</span>
-    <span class="key">steps</span>:
-        - <span class="key">init</span>: <span class="value">npm install</span>
-        - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
+        <span class="key">requires</span>: <span class="value">publish</span>
+        <span class="key">image</span>: <span class="value">node:6</span>
+        <span class="key">environment</span>:
+            <span class="key">DEPLOY_ENV</span>: <span class="value">east</span>
+        <span class="key">steps</span>:
+            - <span class="key">init</span>: <span class="value">npm install</span>
+            - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
     <a href="#jobs"><span class="key">finished</span>:
-    <span class="key">requires</span>: <span class="value">[deploy-west, deploy-east]</span>
-    <span class="key">image</span>: <span class="value">node:6</span>
-    <span class="key">steps</span>:
-        - <span class="key">echo</span>: <span class="value">echo done</span></a>
+        <span class="key">requires</span>: <span class="value">[deploy-west, deploy-east]</span>
+        <span class="key">image</span>: <span class="value">node:6</span>
+        <span class="key">steps</span>:
+            - <span class="key">echo</span>: <span class="value">echo done</span></a>
     <a href="#jobs">...</a>
 </pre>
     <div class="yaml-side">
