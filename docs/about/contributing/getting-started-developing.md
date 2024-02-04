@@ -4,23 +4,22 @@ title: Getting Started Developing
 category: About
 menu: menu
 toc:
-  - title: Getting Started Developing
-    url: "#getting-started-developing"
-  - title: Developing locally
-    url: "#developing-locally"
-    active: true
-  - title: Developing locally with executor-queue
-    url: "#developing-locally-with-executor-queue-and-queue-service"
-  - title: Developing locally with custom launcher
-    url: "#developing-locally-with-a-custom-launcher-image"
+    - title: Getting Started Developing
+      url: "#getting-started-developing"
+    - title: Developing locally
+      url: "#developing-locally"
+      active: true
+    - title: Developing locally with executor-queue
+      url: "#developing-locally-with-executor-queue-and-queue-service"
+    - title: Developing locally with custom launcher
+      url: "#developing-locally-with-a-custom-launcher-image"
 ---
-
 # Getting Started Developing
 
 There's two different ways to set up your dev environment locally in order to run and test Screwdriver locally:
 
 1. **Run the Screwdriver API and UI locally** - ideal for testing out npm package dependencies and run build locally.
-   See [Developing locally docs](#developing-locally).
+See [Developing locally docs](#developing-locally).
 2. **Run SD-in-a-box** - ideal for running builds without manual configuration. See [Running SD-in-a-Box docs](../../cluster-management/running-locally).
 
 ## Developing Locally
@@ -29,24 +28,22 @@ There's two different ways to set up your dev environment locally in order to ru
 
 - [Node](https://nodejs.org/) v12.0.0 or higher
 - [Docker](https://www.docker.com/products/docker-desktop)
-  > If [`HTTP code 407` issue](https://github.com/screwdriver-cd/screwdriver/issues/2985) encountered when running docker using docker-desktop, please consider switching to another compatible clients.
+  > If [`HTTP code 407` issue](https://github.com/screwdriver-cd/screwdriver/issues/2985) encountered when running docker using docker-desktop, please consider switching to other compatible clients.
 
 ### Step 1: Map domain name sd.screwdriver.cd to your ip in hosts file
-
-- Append this line to your /etc/hosts file:
+* Append this line to your /etc/hosts file:
 
   ```
   127.0.0.1 sd.screwdriver.cd
   ```
 
 ### Step 2: Create a new Github OAuth Application
-
 Go to Settings > Developer settings > OAuth Apps, click `New OAuth App` button and configure as described below:
 
-- Application Name: (choose for yourself)
-- Homepage URL: `http://sd.screwdriver.cd:4200`
-- Application description: (choose for yourself)
-- Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
+* Application Name: (choose for yourself)
+* Homepage URL: `http://sd.screwdriver.cd:4200`
+* Application description: (choose for yourself)
+* Authorization callback URL: `http://sd.screwdriver.cd:9001/v4/auth/login`
 
 See screenshot below
 
@@ -55,11 +52,10 @@ See screenshot below
 > Take note of the client ID and the client Secret, you'll need them in the following step
 
 ## Step 3: Clone necessary repos from github of screwdriver-cd organization:
-
-- [ui](https://github.com/screwdriver-cd/ui)
-- [screwdriver](https://github.com/screwdriver-cd/screwdriver)
-- [store](https://github.com/screwdriver-cd/store)
-- [queue-service](https://github.com/screwdriver-cd/queue-service)
+* [ui](https://github.com/screwdriver-cd/ui)
+* [screwdriver](https://github.com/screwdriver-cd/screwdriver)
+* [store](https://github.com/screwdriver-cd/store)
+* [queue-service](https://github.com/screwdriver-cd/queue-service)
 
 ```bash
 git clone https://github.com/screwdriver-cd/ui.git
@@ -69,7 +65,6 @@ git clone https://github.com/screwdriver-cd/queue-service.git
 ```
 
 ## Step 4: Add local config files for these three repos
-
 Create a file called `local.js` in `ui/config` and `local.yaml` in `screwdriver/config` and `local.yaml` in `queue-service/config` and `store/config` folders.
 
 ### ui/config/local.js
@@ -78,28 +73,27 @@ Create a file called `local.js` in `ui/config` and `local.yaml` in `screwdriver/
 let SDAPI_HOSTNAME;
 let SDSTORE_HOSTNAME;
 
-SDAPI_HOSTNAME = "http://sd.screwdriver.cd:9001";
-SDSTORE_HOSTNAME = "http://sd.screwdriver.cd:9002";
+SDAPI_HOSTNAME = 'http://sd.screwdriver.cd:9001';
+SDSTORE_HOSTNAME = 'http://sd.screwdriver.cd:9002';
 
 module.exports = {
   SDAPI_HOSTNAME,
-  SDSTORE_HOSTNAME,
+  SDSTORE_HOSTNAME
 };
 ```
 
 ### screwdriver/config/local.yaml
+* Fill in your Github OAuth **client id** (oauthClientId) and OAuth **client secret**, (oauthClientSecret) you can find them in the OAuth application you created in Step2
 
-- Fill in your Github OAuth **client id** (oauthClientId) and OAuth **client secret**, (oauthClientSecret) you can find them in the OAuth application you created in Step2
+* Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
+    ```bash
+    openssl genrsa -out jwt.pem 2048
+    openssl rsa -in jwt.pem -pubout -out jwt.pub
+    ```
+* Create a folder called "mw-data" using `mkdir mw-data` in your screwdriver repo
 
-- Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
-  ```bash
-  openssl genrsa -out jwt.pem 2048
-  openssl rsa -in jwt.pem -pubout -out jwt.pub
-  ```
-- Create a folder called "mw-data" using `mkdir mw-data` in your screwdriver repo
-
-- Fill in your ip (YOUR_IP), look up your ip first using `ifconfig`
-  > You may need to update this IP because of location changes.
+* Fill in your ip (YOUR_IP), look up your ip first using `ifconfig`
+> You may need to update this IP because of location changes.
 
 ```
 auth:
@@ -164,8 +158,7 @@ datastore:
 ```
 
 ### store/config/local.yaml
-
-- Similar to the `mw-data` file for the screwdriver repo, you will need to create a folder called "store-data" in your store repo using `mkdir store-data`
+* Similar to the `mw-data` file for the screwdriver repo, you will need to create a folder called "store-data" in your store repo using `mkdir store-data`
 
 ```
 auth:
@@ -196,7 +189,6 @@ ecosystem:
 ```
 
 ### Step 5: Install dependencies and you are ready to go!
-
 Just need to run below commands inside each repo
 
 ```
@@ -260,11 +252,11 @@ git clone git@github.com:screwdriver-cd/queue-service.git
 
 Create this file for storing local configuration.
 
-- Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
-  ```bash
-  openssl genrsa -out jwt-qs.pem 2048
-  openssl rsa -in jwt-qs.pem -pubout -out jwt-qs.pub
-  ```
+* Generate your own **jwtPrivateKey** (jwtPrivateKey) and **jwtPublicKey** (jwtPublicKey) using
+    ```bash
+    openssl genrsa -out jwt-qs.pem 2048
+    openssl rsa -in jwt-qs.pem -pubout -out jwt-qs.pub
+    ```
 
 ```yaml
 
@@ -313,34 +305,36 @@ auth:
 ### Step 3: Modify screwdriver/config/local.yaml, change executor configuration and add queue uri
 
 ```yaml
-auth:
-  jwtQueueServicePublicKey: |
-    # paste jwt-qs.pub from previous step
 
-ecosystem:
-  # Externally routable URL for the User Interface
-  ui: http://sd.screwdriver.cd:4200
-  # Externally routable URL for the Artifact Store
-  store: http://$YOUR_IP:9002
-  # Routable URI of the queue service
-  queue: http://$YOUR_IP:9003
+ auth:
+    jwtQueueServicePublicKey: |
+      # paste jwt-qs.pub from previous step
 
-executor:
-  plugin: queue # <- this step is essential in order to use queue
-  queue:
-    options:
-      # Configuration of the redis instance containing resque
-      redisConnection:
-        host: "127.0.0.1"
-        port: 6379
+ ecosystem:
+    # Externally routable URL for the User Interface
+    ui: http://sd.screwdriver.cd:4200
+    # Externally routable URL for the Artifact Store
+    store: http://$YOUR_IP:9002
+    # Routable URI of the queue service
+    queue: http://$YOUR_IP:9003
+
+ executor:
+    plugin: queue # <- this step is essential in order to use queue
+    queue:
         options:
-          password: ""
-          tls: false
-        database: 0
-        prefix: ""
+            # Configuration of the redis instance containing resque
+            redisConnection:
+                host: "127.0.0.1"
+                port: 6379
+                options:
+                    password: ''
+                    tls: false
+                database: 0
+                prefix: ""
 ```
 
 Now, start the Screwdriver backend server and queue service to use Redis queue.
+
 
 ```bash
 npm install && npm run start
@@ -349,7 +343,6 @@ npm install && npm run start
 ## Developing locally with a custom launcher image
 
 ### Build your own launcher binary and image
-
 ```bash
 git clone git@github.com:screwdriver-cd/launcher.git
 cd launcher
@@ -362,15 +355,14 @@ docker push jithine/launcher:dev
 ```
 
 ### Modify API locl.yaml to use your local launcher
-
 ```yaml
-executor:
-  plugin: docker
-  docker:
-    enabled: true
-    options:
-      launchImage: jithine/launcher
-      launchVersion: dev
-      docker:
-        socketPath: "/var/run/docker.sock"
+ executor:
+    plugin: docker
+    docker:
+      enabled: true
+      options:
+        launchImage: jithine/launcher
+        launchVersion: dev
+        docker:
+            socketPath: "/var/run/docker.sock"
 ```
