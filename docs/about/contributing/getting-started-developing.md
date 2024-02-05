@@ -28,6 +28,7 @@ See [Developing locally docs](#developing-locally).
 
 - [Node](https://nodejs.org/) v12.0.0 or higher
 - [Docker](https://www.docker.com/products/docker-desktop)
+  > If [`HTTP code 407` issue](https://github.com/screwdriver-cd/screwdriver/issues/2985) encountered when running docker using docker-desktop, please consider switching to other compatible clients.
 
 ### Step 1: Map domain name sd.screwdriver.cd to your ip in hosts file
 * Append this line to your /etc/hosts file:
