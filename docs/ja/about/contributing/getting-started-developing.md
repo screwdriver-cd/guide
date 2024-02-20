@@ -28,6 +28,7 @@ Screwdriver をローカルで実行してテストするために、ローカ�
 
 - [Node](https://nodejs.org/) v12.0.0以上
 - [Docker](https://www.docker.com/products/docker-desktop)
+  > Docker Desktopを利用している際に、[`HTTP code 407` issue](https://github.com/screwdriver-cd/screwdriver/issues/2985)の問題が発生する場合は別のクライアントの利用を検討してください。
 
 ### ステップ1: hostsファイルでドメイン名sd.screwdriver.cdとあなたのipを関連付けます
 * この行を/etc/hostsファイルに追加します。
