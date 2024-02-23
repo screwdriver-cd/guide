@@ -70,13 +70,14 @@ The `jobs` section is where all the tasks (or `steps`) that each job will execut
 
 ### Stages
 
-`Jobs` can be grouped to form a `stage` to convey the role of the jobs that are performing actions to achieve the same goal. For example, CI jobs can be grouped as integration, while CD jobs as deployment.
+`Jobs` can be grouped to form a `stage` to convey the role of the jobs that are performing actions to achieve the same goal. For example, CI jobs can be grouped as integration, while CD jobs as deployment. A stage can contain one or more jobs, however a job is only allowed to be part of one single stage.
 
 ### Workflow
 
 The `requires` keyword denotes the order that jobs will run. Requires is a single job name or array of job names. Special keywords like `~pr` or `~commit` indicate that the job will run after certain Git events occur:
 
 - `requires: ~pr` job runs when a pull request is opened; reruns when a commit/push event is made to that same pull request
+  - please note that stages configuration is not currently supported on PR workflow
 - `requires: ~commit` job runs when a PR is merged or a commit/push is made directly to the defined SD branch; also runs when the Start button is clicked in the UI
 
 ### Steps
