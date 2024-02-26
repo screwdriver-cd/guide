@@ -49,10 +49,11 @@ You can access information about properties by hovering over the property name.
         <a href="#template"><span class="key">template</span>: <span class="value">node/publish@4.3.1</span></a>
         <a href="#order"><span class="key">order</span>: <span class="value">[init, publish, teardown-save-results]</span></a>
         <span class="key">steps</span>:
-            - <span class="key">publish</span>: <span class="value">npm install</span>
+            - <a><span class="key">publish</span>: <span class="value">npm install</span></a>
             - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
         <span class="key">requires</span>: <span class="value">[]</span> <!-- explanation here -->
+        <!-- A job within a stage may have an empty trigger, signaling it to execute promptly after the setup job, which is the first job within the stage, has completed.  -->
         <span class="key">image</span>: <span class="value">node:6</span>
         <span class="key">environment</span>:
             <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
@@ -69,6 +70,7 @@ You can access information about properties by hovering over the property name.
             - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
     <a href="#jobs"><span class="key">finished</span>:
         <span class="key">requires</span>: <span class="value">[stage@deployment]</span> <!-- explanation here -->
+        <!-- A job might execute following the completion of a stage, particularly after the teardown job, which is the final job within the stage, completes. -->
         <span class="key">image</span>: <span class="value">node:6</span>
         <span class="key">steps</span>:
             - <span class="key">echo</span>: <span class="value">echo done</span></a>
