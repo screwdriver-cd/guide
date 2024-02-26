@@ -4,9 +4,9 @@ title: Overall
 category: User Guide
 menu: menu
 toc:
-    - title: Yaml Configuration
-      url: "#yaml-configuration"
-      active: true
+  - title: Yaml Configuration
+    url: "#yaml-configuration"
+    active: true
 ---
 
 # Yaml Configuration
@@ -52,7 +52,7 @@ You can access information about properties by hovering over the property name.
             - <span class="key">publish</span>: <span class="value">npm install</span>
             - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
     <a href="#jobs"><span class="key">deploy-west</span>:
-        <span class="key">requires</span>: <span class="value">publish</span>
+        <span class="key">requires</span>: <span class="value">[]</span> <!-- explanation here -->
         <span class="key">image</span>: <span class="value">node:6</span>
         <span class="key">environment</span>:
             <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
@@ -60,7 +60,7 @@ You can access information about properties by hovering over the property name.
             - <span class="key">init</span>: <span class="value">npm install</span>
             - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
     <a href="#jobs"><span class="key">deploy-east</span>:
-        <span class="key">requires</span>: <span class="value">publish</span>
+        <span class="key">requires</span>: <span class="value">[deploy-west]</span>
         <span class="key">image</span>: <span class="value">node:6</span>
         <span class="key">environment</span>:
             <span class="key">DEPLOY_ENV</span>: <span class="value">east</span>
@@ -68,12 +68,18 @@ You can access information about properties by hovering over the property name.
             - <span class="key">init</span>: <span class="value">npm install</span>
             - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
     <a href="#jobs"><span class="key">finished</span>:
-        <span class="key">requires</span>: <span class="value">[deploy-west, deploy-east]</span>
+        <span class="key">requires</span>: <span class="value">[stage@deployment]</span> <!-- explanation here -->
         <span class="key">image</span>: <span class="value">node:6</span>
         <span class="key">steps</span>:
             - <span class="key">echo</span>: <span class="value">echo done</span></a>
     <a href="#jobs">...</a>
+<a href="#stages"><span class="key">stages</span>:</a>
+    <span class="key">deployment</span>:
+        <span class="key">requires</span>: <span class="value">[publish]</span>
+        <a href="#jobsInStage"><span class="key">jobs</span>: <span class="value">[deploy-west, deploy-east]</span></a>
+        <span class="key">description</span>: <span class="value">This stage is utilized for grouping jobs involved in deploying components to multiple regions.</span>
 </pre>
+
     <div class="yaml-side">
         <div id="requires" class="hidden">
             <h4>Requires</h4>
@@ -143,5 +149,14 @@ You can access information about properties by hovering over the property name.
             <h4>Teardown</h4>
             <p>User-defined steps that will always run at the end of a build (even if the previous steps fail or the build is aborted). Step name always starts with "teardown-".</p>
         </div>
+        <div id="stages" class="hidden">
+            <h4>Stages</h4>
+            <p>A list of stages designed to group jobs with similar purposes.</p>
+        </div>
+        <div id="jobsInStage" class="hidden">
+            <h4>Jobs in a stage</h4>
+            <p>A list of jobs that belong to a stage. It can consist of one or more jobs.</p>
+        </div>
     </div>
+
 </div>
