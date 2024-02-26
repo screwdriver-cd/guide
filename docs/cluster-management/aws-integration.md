@@ -37,7 +37,7 @@ This integration uses [AWS MSK](https://aws.amazon.com/msk/) to schedule user bu
 
 ## Setup
 
-In order to use this feature, Screwdriver Cluster admin must setup AWS MSK infrastructure using [aws-producer-scripts](https://github.com/screwdriver-cd/aws-producer-scripts#readme) and enable it in [queue-service](https://github.com/screwdriver-cd/queue-service/blob/master/config/custom-environment-variables.yaml#L275-L295)
+In order to use this feature, Screwdriver Cluster admin must setup AWS MSK infrastructure using [aws-producer-scripts](https://github.com/screwdriver-cd/aws-producer-scripts#readme) and enable it in [queue-service](https://github.com/screwdriver-cd/queue-service/blob/master/config/custom-environment-variables.yaml#L287-L307)
 
 A user who wants to integrate should work with Screwdriver Cluster admin to [register their AWS account](https://github.com/screwdriver-cd/aws-consumer-scripts/#prerequisite) for scheduling builds. 
 

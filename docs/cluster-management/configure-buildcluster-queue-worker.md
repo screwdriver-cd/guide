@@ -40,8 +40,8 @@ This page will cover how to setup [RabbitMQ Message Broker](https://www.rabbitmq
 
 ## Overview
 
-Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257) or using
-[environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369).
+Build cluster feature can be enabled/disabled by [multiBuildCluster feature flag](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L302) or using
+[environment variable](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L408).
 When enabled Screwdriver [Queue Service](configure-queue-service) will push build message to Rabbitmq exchange. Build message header will be set with routing key based on an active flag and
 weightage defined in buildClusters table. Rabbitmq exchange will route build message to queue based on routing key defined in message header and build message will be consumed and processed by
 Build Cluster Queue Worker. For build cluster stickiness, when first build is run for a pipeline, build cluster routing key will be added to pipeline annotations. Build cluster stickiness will
@@ -54,8 +54,8 @@ stickiness will be lost.*
 
 ### Retry queues
 Build clusters can be setup with retry queues to verify pod status and stop any rogue builds with image pull errors or config errors.
-This can be enabled by using an [active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352). It has a default value set to `true`. 
-When this is used messages which do not return successful (pod status `Running`) after first processing will be sent to the retry queue, where it will be delayed and retried based on configuration until it gets the successful status or exhausts the [reprocessing limit](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348).
+This can be enabled by using an [active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L361). It has a default value set to `true`. 
+When this is used messages which do not return successful (pod status `Running`) after first processing will be sent to the retry queue, where it will be delayed and retried based on configuration until it gets the successful status or exhausts the [reprocessing limit](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L359).
 
 ## Setup Build Cluster
 
@@ -797,7 +797,7 @@ Configure Rabbitmq definitions using Rabbitmq admin UI **manually** or use **Imp
 
 Note:
 1. Queues suffixed with `dlr` are deadletter queues. We use the built-in rabbitmq deadletter queue mechanism for a retry with delay in case of errors.
-   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L116)
+   Deadletter queues are used in case of any [error](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L117)
    in consuming the message and pushing to Kubernetes cluster for build processing. When a message is `nack'd` it goes to dlr queues via deadletter 
    routing key configuration and re-pushed to actual queue after a delay of 5s (per below configuration). 
 1. `build` is exchange.
@@ -845,8 +845,8 @@ Please refer to
 
 ### RabbitMQ
 
-Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L242), 
-but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L354).
+Build Cluster Queue Worker already defaults all configuration in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L223-L249), 
+but you can override defaults using environment variables in [rabbitmq section](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L339-L365).
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
@@ -887,7 +887,7 @@ Cache settigs are used for queue messages which deals with cleaning up disk base
 
 ### HTTP
 
-This is used for liveness checks. [See](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L350-L355)
+This is used for liveness checks. [See](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L366-L372)
 
 ## Build Cluster Schema Definition
 
