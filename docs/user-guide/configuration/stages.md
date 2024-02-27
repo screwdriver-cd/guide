@@ -40,7 +40,23 @@ stages:
 
 <br>Users have the option to define custom setup and teardown jobs, as shown in the configuration below.
 
-<br><br>
+```
+stages:
+  integration:
+    requires: [~commit]
+    jobs: [ci-deploy, ci-test, ci-certify]
+    description: "This stage will deploy the latest application to the CI environment and certify it after the tests have passed."
+    setup:
+      image: node:18
+      steps:
+        - init: echo 'integration setup'
+    teardown:
+      image: node:18
+      steps:
+        - init: echo 'integration teardown'
+```
+
+<br>
 
 #### Limitations
 
