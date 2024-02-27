@@ -135,5 +135,5 @@ jobs:
 * [Environment](./environment) - Define environment variables for jobs
 * [Secrets](./secrets) - Securely pass secrets as environment variables into the build
 * [Settings](./settings) - Define configuration of build plugins
-* [Templates](../templates) - Common, community supported job configurations
+* [Job Templates](../templates/job-templates) - Common, community supported job configurations
 * [Workflow](./workflow) - Define the path of the pipeline

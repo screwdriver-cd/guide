@@ -45,7 +45,11 @@
     - title: "Environment Variables"
       url: "/user-guide/environment-variables"
     - title: "Templates"
-      url: "/user-guide/templates"
+      subcategories:
+        - title: Job Templates
+          url: "/user-guide/templates/job-templates"
+        - title: Pipeline Templates
+          url: "/user-guide/templates/pipeline-templates"
     - title: "Commands"
       url: "/user-guide/commands"
     - title: "Local Build"
