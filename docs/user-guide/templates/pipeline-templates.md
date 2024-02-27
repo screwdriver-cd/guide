@@ -34,14 +34,12 @@ toc:
 ---
 # Pipeline Templates
 
-Pipeline Templates are snippets of predefined configuration that people can use to define a [screwdriver.yaml](./configuration). A pipeline template contains a series of predefined jobs with steps along with a selected container image.
+Pipeline Templates are snippets of predefined configuration that people can use to define a [screwdriver.yaml](../configuration). A pipeline template contains a series of predefined jobs with steps along with a selected container image.
 
 ## Finding pipeline templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/pipeline/templates` [API](./api) endpoint. You can also see templates in the UI at `<YOUR_UI_URL>/pipeline/templates`.
+To figure out which templates already exist, you can make a `GET` call to the `/pipeline/templates` [API](../api) endpoint.
 
-Example templates page:
-![Templates](assets/templates.png)
 
 ## Using a pipeline template
 
