@@ -41,47 +41,45 @@ You can access information about properties by hovering over the property name.
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
         <a href="#sourcePaths"><span class="key">sourcePaths</span>: <span class="value">["src/app/", "screwdriver.yaml"]</span></a>
         <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
-        <a href="#steps"><span class="key">steps</span>:
+        <a href="#steps"><span class="key">steps</span>:</a>
             - <span class="key">init</span>: <span class="value">npm install</span>
-            - <span class="key">test</span>: <span class="value">npm test</span></a>
+            - <span class="key">test</span>: <span class="value">npm test</span>
     <span class="key">publish</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[main]</span></a>
         <a href="#template"><span class="key">template</span>: <span class="value">node/publish@4.3.1</span></a>
         <a href="#order"><span class="key">order</span>: <span class="value">[init, publish, teardown-save-results]</span></a>
-        <span class="key">steps</span>:
+        <a><span class="key">steps</span>:</a>
             - <a><span class="key">publish</span>: <span class="value">npm install</span></a>
             - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
-    <a href="#jobs"><span class="key">deploy-west</span>:
-        <span class="key">requires</span>: <span class="value">[]</span> <!-- explanation here -->
-        <!-- A job within a stage may have an empty trigger, signaling it to execute promptly after the setup job, which is the first job within the stage, has completed.  -->
-        <span class="key">image</span>: <span class="value">node:6</span>
-        <span class="key">environment</span>:
+    <span class="key">deploy-west</span>:
+        <a href="#emptyTrigger"><span class="key">requires</span>: <span class="value">[]</span></a>
+        <a><span class="key">image</span>: <span class="value">node:6</span></a>
+        <a><span class="key">environment</span>:</a>
             <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
-        <span class="key">steps</span>:
+        <a><span class="key">steps</span>:</a>
             - <span class="key">init</span>: <span class="value">npm install</span>
-            - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
-    <a href="#jobs"><span class="key">deploy-east</span>:
+            - <span class="key">deploy</span>: <span class="value">npm deploy</span>
+    <span class="key">deploy-east</span>:
         <span class="key">requires</span>: <span class="value">[deploy-west]</span>
         <span class="key">image</span>: <span class="value">node:6</span>
         <span class="key">environment</span>:
             <span class="key">DEPLOY_ENV</span>: <span class="value">east</span>
         <span class="key">steps</span>:
             - <span class="key">init</span>: <span class="value">npm install</span>
-            - <span class="key">deploy</span>: <span class="value">npm deploy</span></a>
-    <a href="#jobs"><span class="key">finished</span>:
-        <span class="key">requires</span>: <span class="value">[stage@deployment]</span> <!-- explanation here -->
-        <!-- A job might execute following the completion of a stage, particularly after the teardown job, which is the final job within the stage, completes. -->
-        <span class="key">image</span>: <span class="value">node:6</span>
-        <span class="key">steps</span>:
-            - <span class="key">echo</span>: <span class="value">echo done</span></a>
+            - <span class="key">deploy</span>: <span class="value">npm deploy</span>
+    <span class="key">finished</span>:
+        <a href="#stageTrigger"><span class="key">requires</span>: <span class="value">[stage@deployment]</span></a>
+        <a><span class="key">image</span>: <span class="value">node:6</span></a>
+        <a><span class="key">steps</span>:</a>
+            - <span class="key">echo</span>: <span class="value">echo done</span>
 <a href="#stages"><span class="key">stages</span>:</a>
     <span class="key">deployment</span>:
         <a><span class="key">requires</span>: <span class="value">[publish]</span></a>
         <a href="#jobsInStage"><span class="key">jobs</span>: <span class="value">[deploy-west, deploy-east]</span></a>
         <a><span class="key">description</span>: <span class="value">This stage is utilized for grouping jobs involved in deploying components to multiple regions.</span></a>
+<br>
 </pre>
 
-<!-- todo: need to configure as such that the hidden div can be at viewport -->
 <div class="yaml-side">
     <div id="requires" class="hidden">
         <h4>Requires</h4>
@@ -159,6 +157,13 @@ You can access information about properties by hovering over the property name.
         <h4>Jobs in a stage</h4>
         <p>A list of jobs that belong to a stage. It can consist of one or more jobs.</p>
     </div>
+    <div id="emptyTrigger" class="hidden">
+        <h4>Empty trigger</h4>
+        <p>A job within a stage may have an empty trigger, signaling it to execute promptly after the setup job, which is the first job within the stage, has completed.</p>
+    </div>
+    <div id="stageTrigger" class="hidden">
+        <h4>Requires a stage</h4>
+        <p>A job might execute following the completion of a stage, particularly after the teardown job, which is the final job within the stage, completes.</p>
+    </div>
 </div>
-
 </div>
