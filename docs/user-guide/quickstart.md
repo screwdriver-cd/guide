@@ -91,8 +91,6 @@ In our example, our "main" job executes a simple piece of inline bash code. The 
 We also define another job called "second_job". In this job, we intend on running a different set of commands. The "make_target" step calls a Makefile target to perform some set of actions. This is incredibly useful when you need to perform a multi-line command.
 The "run_arbitrary_script" executes a script. This is an alternative to a Makefile target where you want to run a series of commands related to this step.
 
-- todo: make changes to add stages in yaml?
-
 ```yaml
 # Job definition block
 jobs:
