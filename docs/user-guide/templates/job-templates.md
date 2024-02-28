@@ -5,7 +5,7 @@ category: User Guide
 menu: menu
 toc:
     - title: Job Templates
-      url: "#templates"
+      url: "#job-templates"
     - title: Finding templates
       url: "#finding-templates"
     - title: Using a template

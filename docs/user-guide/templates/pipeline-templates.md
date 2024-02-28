@@ -5,11 +5,11 @@ category: User Guide
 menu: menu
 toc:
     - title: Pipeline Templates
-      url: "#templates"
+      url: "#pipeline-templates"
     - title: Finding templates
-      url: "#finding-templates"
+      url: "#finding-pipeline-templates"
     - title: Using a template
-      url: "#using-a-template"
+      url: "#using-a-pipeline-template"
     - title: "Version/Tag Semantics"
       url: "#versiontag-semantics"
       subitem: true
