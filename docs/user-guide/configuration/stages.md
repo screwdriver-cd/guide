@@ -60,4 +60,4 @@ stages:
 
 #### Limitations
 
-- Within the supported [SCM events](http://localhost:4000/user-guide/configuration/workflow#workflow), only the `~commit` workflow is implemented.
+- Within the supported [SCM events](./workflow#workflow), only the `~commit` workflow is implemented.
