@@ -40,7 +40,7 @@ RabbitMQメッセージブローカーとビルドクラスターキューワー
 
 ## Overview
 
-ビルドクラスター機能は、[multiBuildClusterのフラグ](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L257)または[環境変数](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L369)で有効/無効を切り替えることができます。
+ビルドクラスター機能は、[multiBuildClusterのフラグ](https://github.com/screwdriver-cd/screwdriver/blob/master/config/default.yaml#L302)または[環境変数](https://github.com/screwdriver-cd/screwdriver/blob/master/config/custom-environment-variables.yaml#L408)で有効/無効を切り替えることができます。
 有効にすると、Screwdriverの[キューサービス](configure-queue-service)は、ビルドメッセージをRabbitMQにプッシュします。
 ビルドメッセージのヘッダーには、buildClustersテーブルに設定されているisActiveフラグとweightageの重み付けに基づいて、ルーティングキー設定されます。
 RabbitMQはメッセージのヘッダーに設定されたルーティングキーに基づいてビルドメッセージをキューにルーティングし、
@@ -54,8 +54,8 @@ Stickinessについてですが、パイプラインの最初のビルドが実�
 
 ### Retry queues
 ビルドクラスタにリトライキューを設定することで、ポッドの状態を確認し、イメージPullエラーや設定エラーが発生した場合に不正なビルドを停止させることができます。
-この機能を有効にするには、[active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L352)を使用します。デフォルトは`true`です。
-この機能を使用すると、最初の処理で成功(ポッドステータスが`Running`)とならなかったメッセージはリトライキューに送られ、成功するか[再送の上限](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L348)に達するまで、設定に基づいた間隔でリトライされます。
+この機能を有効にするには、[active flag](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L363)を使用します。デフォルトは`true`です。
+この機能を使用すると、最初の処理で成功(ポッドステータスが`Running`)とならなかったメッセージはリトライキューに送られ、成功するか[再送の上限](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L359)に達するまで、設定に基づいた間隔でリトライされます。
 
 ## ビルドクラスターのセットアップ
 
@@ -796,7 +796,7 @@ RabbitMQのdefinitionsを設定するには、RabbitMQの管理UIを使って**�
 ```
 
 メモ:
-1. `dlr`で終わる名称のキューはデッドレターキューです。エラーが発生した場合のリトライには、RabbitMQに内蔵されているデッドレターキューの仕組みを利用しています。デッドレターキューは、メッセージを消費してビルド処理をKubernetesクラスタにプッシュする際に[エラー](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L116)が発生すると利用されます。メッセージは`nack`されると、デッドレタールーティングキューの設定に従いdlrキューに移動し、5秒（後述の設定による）遅延した後に元のキューに再プッシュされます。
+1. `dlr`で終わる名称のキューはデッドレターキューです。エラーが発生した場合のリトライには、RabbitMQに内蔵されているデッドレターキューの仕組みを利用しています。デッドレターキューは、メッセージを消費してビルド処理をKubernetesクラスタにプッシュする際に[エラー](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/receiver.js#L117)が発生すると利用されます。メッセージは`nack`されると、デッドレタールーティングキューの設定に従いdlrキューに移動し、5秒（後述の設定による）遅延した後に元のキューに再プッシュされます。
 1. `build`はExchangeです。
 1. `ClusterA`と`ClusterB`はキューです
 1. `ClusterAdlr`と`ClusterBdlr`はそれぞれ`ClusterA`と`ClusterB`のデッドレターキューです。
@@ -841,7 +841,7 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 
 ### RabbitMQ
 
-ビルドクラスターキューワーカーは、すでに[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L216-L242)ですべての設定をデフォルトにしていますが、[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L328-L354)の環境変数を使ってオーバーライドすることができます。
+ビルドクラスターキューワーカーは、すでに[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/default.yaml#L223-L249)ですべての設定をデフォルトにしていますが、[RabbitMQセクション](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L339-L365)の環境変数を使ってオーバーライドすることができます。
 
 | Key                   | environment variable | Description                                                                                           |
 |:----------------------|:---------------------|:------------------------------------------------------------------------------------------------------|
@@ -881,7 +881,7 @@ RabbitMQのメッセージのdelivery率とacknowledgement率については、`
 | CACHE_MAX_GO_THREADS | 10000 | ディスクベースのキャッシュ設定 |
 
 ### HTTP
-これはlivenessチェックに使用されます。[参照](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L350-L355)
+これはlivenessチェックに使用されます。[参照](https://github.com/screwdriver-cd/buildcluster-queue-worker/blob/master/config/custom-environment-variables.yaml#L366-L372)
 
 ## ビルドクラスターのスキーマ定義
 
