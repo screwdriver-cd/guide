@@ -159,11 +159,11 @@ You can access information about properties by hovering over the property name.
     </div>
     <div id="emptyTrigger" class="hidden">
         <h4>Empty trigger</h4>
-        <p>A job within a stage may have an empty trigger, signaling it to execute promptly after the setup job, which is the first job within the stage, has completed.</p>
+        <p>A job in a stage could have an empty trigger, indicating that it should run as the initial job in the stage immediately after the list of jobs triggering the stage has finished.</p>
     </div>
     <div id="stageTrigger" class="hidden">
         <h4>Requires a stage</h4>
-        <p>A job might execute following the completion of a stage, particularly after the teardown job, which is the final job within the stage, completes.</p>
+        <p>A job may execute after the completion of a stage, especially following the conclusion of the last job within the stage or after the teardown job if it has been explicitly defined.</p>
     </div>
 </div>
 </div>
