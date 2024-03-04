@@ -95,7 +95,7 @@ The teardown steps run a set of Screwdriver bookend steps after the build steps 
 
 ### Template
 
-You can also use [templates](../templates/job-templates.md) in a job configuration.
+You can also use [templates](../templates/job-templates) in a job configuration.
 
 # Shared Configuration
 
