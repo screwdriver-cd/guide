@@ -36,7 +36,7 @@ toc:
 ---
 # Pipeline Templates
 
-Pipeline Templates are snippets of predefined configuration that people can use to define a [screwdriver.yaml](../configuration). A pipeline template contains a series of predefined jobs with steps along with a selected container image.
+Pipeline Templates are snippets of predefined configuration that users can use to define a [screwdriver.yaml](../configuration). A pipeline template contains a series of predefined jobs with steps along with a selected container image.
 
 ## Finding pipeline templates
 
