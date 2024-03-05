@@ -1,11 +1,11 @@
 ---
 layout: main
-title: Templates
+title: Job Templates
 category: User Guide
 menu: menu
 toc:
-    - title: Templates
-      url: "#templates"
+    - title: Job Templates
+      url: "#job-templates"
     - title: Finding templates
       url: "#finding-templates"
     - title: Using a template
@@ -64,16 +64,16 @@ toc:
     - title: Removing a template
       url: "#removing-a-template"
 ---
-# Templates
+# Job Templates
 
-Templates are snippets of predefined code that people can use to replace a job definition in a [screwdriver.yaml](./configuration). A template contains a series of predefined steps along with a selected Docker image.
+Templates are snippets of predefined code that people can use to replace a job definition in a [screwdriver.yaml](../configuration). A template contains a series of predefined steps along with a selected Docker image.
 
 ## Finding templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/templates` [API](./api) endpoint. You can also see templates in the UI at `<YOUR_UI_URL>/templates`.
+To figure out which templates already exist, you can make a `GET` call to the `/templates` [API](../api) endpoint. You can also see templates in the UI at `<YOUR_UI_URL>/templates`.
 
 Example templates page:
-![Templates](assets/templates.png)
+![Templates](../assets/templates.png)
 
 ## Using a template
 
@@ -184,7 +184,7 @@ jobs:
 
 ### Merging with shared steps
 
-When overriding Template steps, a job can get the step definitions from either `shared.steps` or `job.steps` with precedence for `steps` defined in `job` section. This follows the same order of precedence for step definitions without using a template. Users can change this behavior using [annotation](./configuration/annotations) `screwdriver.cd/mergeSharedSteps: true`. When `true` steps in `shared` and `job` sections are merged when a Template is used.
+When overriding Template steps, a job can get the step definitions from either `shared.steps` or `job.steps` with precedence for `steps` defined in `job` section. This follows the same order of precedence for step definitions without using a template. Users can change this behavior using [annotation](../configuration/annotations) `screwdriver.cd/mergeSharedSteps: true`. When `true` steps in `shared` and `job` sections are merged when a Template is used.
 
 
 #### Example
@@ -210,7 +210,6 @@ The following example defines a merged shared configuration for `image` and `ste
 ```yaml
 shared:
     image: node:8
-    template: nodejs/test
     steps:
         - init: npm install
         - pretest: npm lint
@@ -245,7 +244,6 @@ jobs:
         requires: [main]
         image: node:8
         steps:
-             - init: npm install
              - pretest: npm lint
              - test: echo Skipping test
 
@@ -401,7 +399,7 @@ config:
 ```
 
 #### Template parameters
-You can define [parameters](./configuration/parameters) that can be used in the steps.  
+You can define [parameters](../configuration/parameters) that can be used in the steps.  
 
 Example `sd-template.yaml`:
 ```yaml
@@ -633,7 +631,7 @@ _Note: You cannot test your template in the same pipeline, as template step expa
 
 ## Using the build cache
 
-To use the [build cache feature](./configuration/build-cache), the [store-cli command](https://github.com/screwdriver-cd/store-cli) can be invoked in a step. For instance, if you are caching your `node_modules/` folder, you can specify a step before the `npm install` command that downloads the cache and another step afterwards that uploads the cache. You can also move the uploading cache step to a teardown with the `teardown-` prefix.
+To use the [build cache feature](../configuration/build-cache), the [store-cli command](https://github.com/screwdriver-cd/store-cli) can be invoked in a step. For instance, if you are caching your `node_modules/` folder, you can specify a step before the `npm install` command that downloads the cache and another step afterwards that uploads the cache. You can also move the uploading cache step to a teardown with the `teardown-` prefix.
 
 ```yaml
 config:
@@ -654,4 +652,4 @@ Or, you can remove your template and all its associated tags and versions by cli
 
 _Note: Do not delete your template pipeline beforehand, because it is required to determine who has permission to delete the template._
 
-![Removing](assets/delete-template.png)
+![Removing](../assets/delete-template.png)
