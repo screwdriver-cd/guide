@@ -164,7 +164,7 @@ By default, the file at `./sd-template.yaml` will be read. However, a user can s
 You can also validate your `sd-template.yaml` and `screwdriver.yaml` through the UI by copy pasting it at `<YOUR_UI_URL>/validator`.
 
 #### Tagging templates
-You can optionally tag a specific template version by running the `pipeline-template-tag` script from the `screwdriver-template-main` npm package. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: template namespace, name and tag. You can optionally specify a version; the version needs to be an exact version (see `tag` step). If the version is omitted, the most recent version will be tagged (see `autotag` step).
+You can optionally tag a specific template version by running the `pipeline-template-tag` script from the `screwdriver-template-main` npm package. This must be done by the same pipeline that your template is created by. You will need to provide arguments to the script: template namespace, name and tag. You can optionally specify a version; the version needs to be an exact version (see `tag` step). If the version is omitted, the most recent version will be tagged.
 
 To remove a template tag, run the `pipeline-template-remove-tag` script. You will need to provide the template name and tag as arguments.
 
@@ -177,27 +177,22 @@ jobs:
   main:
       requires: [~pr, ~commit]
       steps:
-        - install: npm install screwdriver-template-main
-        - validate: ./node_modules/.bin/pipeline-template-validate
+        - validate: npx -y -p screwdriver-template-main pipeline-template-validate
       environment:
         SD_TEMPLATE_PATH: ./path/to/template.yaml
   publish:
       requires: [main]
       steps:
-        - install: npm install screwdriver-template-main
-        - publish: ./node_modules/.bin/pipeline-template-publish
-        - autotag: ./node_modules/.bin/pipeline-template-tag --namespace myNamespace --name template_name --tag latest
-        - tag: ./node_modules/.bin/pipeline-template-tag --namespace myNamespace --name template_name --version 1.3.0 --tag stable
+        - publish: npx -y -p screwdriver-template-main pipeline-template-publish
+        - tag: npx -y -p screwdriver-template-main pipeline-template-tag --namespace myNamespace --name template_name --version 1.3.0 --tag stable
       environment:
         SD_TEMPLATE_PATH: ./path/to/template.yaml
   remove:
       steps:
-        - install: npm install screwdriver-template-main
-        - remove: ./node_modules/.bin/pipeline-template-remove --namespace myNamespace --name template_name
+        - remove: npx -y -p screwdriver-template-main pipeline-template-remove --namespace myNamespace --name template_name
   remove_tag:
       steps:
-        - install: npm install screwdriver-template-main
-        - remove_tag: ./node_modules/.bin/pipeline-template-remove-tag --namespace myNamespace --name template_name --tag stable
+        - remove_tag: npx -y -p screwdriver-template-main pipeline-template-remove-tag --namespace myNamespace --name template_name --tag stable
 ```
 
 Create a Screwdriver pipeline with your template repo and start the build to validate and publish it.
