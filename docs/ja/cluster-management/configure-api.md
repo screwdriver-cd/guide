@@ -634,7 +634,7 @@ Deploy Keyは、単一のGitHubリポジトリへのアクセスが許可され�
 
 パイプラインでDeploy Keyを利用したい場合、2つの方法があります:
 * `config/local.yaml`で、`autoDeployKeyGeneration`のフラグを`true`にすることで、パイプラインの一部としてDeploy Keyの自動生成と処理を有効にします。フラグを`true`にすることで、ユーザはUIで自動生成のオプションを追加できるようになります。
-* `ssh-keygen -t ed25519 -C "your_email@example.com" -f jwt`を使用して公開鍵と秘密鍵のペアを手動で生成します。そして、公開鍵をDeploy Keyとしてリポジトリに登録します。秘密鍵は**base64でエンコード**される必要があり、それを`SD_SCM_DEPLOY_KEY`のsecretsとしてパイプラインに追加します。secretsの追加方法は、[secrets](/ja/user-guide/configuration/secrets)を参照してください。
+* `ssh-keygen -t ed25519 -C "your_email@example.com" -f sd_deploy_key`を使用して公開鍵と秘密鍵のペアを手動で生成します。そして、公開鍵をDeploy Keyとしてリポジトリに登録します。秘密鍵は**base64でエンコード**される必要があり、それを`SD_SCM_DEPLOY_KEY`のsecretsとしてパイプラインに追加します。secretsの追加方法は、[secrets](/ja/user-guide/configuration/secrets)を参照してください。
 
 ###### Read-only SCM
 SCMを読み取り専用にしたい場合には、SCMのパイプラインを[child pipeline](../user-guide/configuration/externalConfig)としてリストアップすることで、間接的にSCMのパイプラインを作成できるようになります。以下に、read-only SCMの設定を追加する例を記します。ユーザーはUIでSCMにログインすることはできません。
