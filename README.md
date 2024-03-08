@@ -1,4 +1,5 @@
 # Screwdriver Guide
+
 [![Build Status][status-image]][status-url] [![Open Issues][issues-image]][issues-url]
 
 > Documentation for the Screwdriver CD service
@@ -12,7 +13,6 @@ For more information about Screwdriver, check out our [homepage](https://screwdr
 ## To start contributing to Screwdriver
 
 Have a look at our guidelines, as well as pointers on where to start making changes, in our [contributing guide](http://docs.screwdriver.cd/about/contributing).
-
 
 The guide is powered by Jekyll. There are two ways to run Jekyll: via Docker and via installation.
 
@@ -60,6 +60,7 @@ jekyll 3.8.4
 ```
 
 ## Viewing docs locally
+
 There's a single configuration file named `_config.yml`, and a folder named `docs` that will contain our documentation source files.
 
 Jekyll comes with a built-in webserver that lets you preview your documentation as you work on it. You can start the webserver locally with Jekyll directly.
@@ -89,7 +90,7 @@ of the repository, execute:
 ```bash
 docker run --rm \
   --volume="$PWD:/srv/jekyll" -p 4000:4000 \
-  -it jekyll/builder:3.8 \
+  -it jekyll/jekyll:4.2.0 \
   jekyll serve --source docs --destination _site
 ```
 
@@ -116,6 +117,7 @@ And you'll also be able to see the other language index page open up http://127.
 For example, open up [http://127.0.0.1:4000/ja/](http://127.0.0.1:4000/ja/) in your browser, you'll be able to see the Japanese index page being displayed.
 
 ## Adding docs
+
 Simply add a new markdown document to the folder hierarchy in `docs`, and add an entry to the tree in `docs/_data/menu.yaml`
 
 ## Documentation Structure
@@ -125,12 +127,12 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
 - Cluster Management (for SD owners)
   - [x] Overall architecture
   - [x] Configuring API
-     - [x] Scm plugins
-     - [x] Datastore plugins
+    - [x] Scm plugins
+    - [x] Datastore plugins
   - [x] Configuring UI
   - [x] Configuring Store
-     - [x] Logging plugins
-  - [X] Configuring Queue Service
+    - [x] Logging plugins
+  - [x] Configuring Queue Service
   - [x] Running locally
   - [x] Configure Build
   - Examples
@@ -153,7 +155,6 @@ Simply add a new markdown document to the folder hierarchy in `docs`, and add an
     - [x] Execution engines
   - [x] Contributing
   - [x] Support
-
 
 [issues-image]: https://img.shields.io/github/issues/screwdriver-cd/screwdriver.svg
 [issues-url]: https://github.com/screwdriver-cd/screwdriver/issues
