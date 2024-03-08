@@ -12,8 +12,8 @@ toc:
   - title: Setup and Teardown
     url: "#setup-and-teardown"
     subitem: true
-  - title: Limitations
-    url: "#limitations"
+  - title: Caveats
+    url: "#caveats"
     subitem: true
 ---
 
@@ -48,7 +48,7 @@ Based on the configuration, the screenshot below illustrates the expected layout
 
 #### Setup and Teardown
 
-<br>Each stage can equipped with a **setup** job, which executes prior to any other jobs in the configuration, and a **teardown** job, which runs after all other jobs have finished. Users have the option to define custom setup and teardown jobs, as shown in the configuration below.
+<br>Each stage can be equipped with a **setup** job, which executes prior to any other jobs in the configuration, and a **teardown** job, which runs after all other jobs have finished. Users have the option to define custom setup and teardown jobs, as shown in the configuration below. The **teardown** job always runs in the stage, even if other jobs in the stage fail.
 
 ```
 stages:
@@ -66,7 +66,7 @@ stages:
         - init: echo 'integration teardown'
 ```
 
-
 #### Caveats
 
-- Within the supported [SCM events](./workflow#workflow), only the `~commit` workflow is implemented.
+- Each job belongs to a single stage.
+- The `~pr` workflow is not yet implemented for the listed [SCM events](./workflow#workflow).
