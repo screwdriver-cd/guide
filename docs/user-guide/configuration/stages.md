@@ -17,7 +17,7 @@ toc:
     subitem: true
 ---
 
-# Pipeline Stages
+# Stages
 
 The configuration of stages is employed to categorize one or more jobs that execute steps to achieve a similar objective. For instance, jobs such as `ci-deploy`, `ci-test`, and `ci-certify` can be grouped together under a stage named integration.
 
