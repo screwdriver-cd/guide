@@ -4,12 +4,17 @@ title: Stages
 category: User Guide
 menu: menu
 toc:
+  - title: Stages
+    url: "#stages"
   - title: Example
     url: "#example"
+    subitem: true
   - title: Setup and Teardown
     url: "#setup-and-teardown"
+    subitem: true
   - title: Limitations
     url: "#limitations"
+    subitem: true
 ---
 
 # Pipeline Stages
