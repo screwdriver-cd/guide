@@ -19,7 +19,7 @@ toc:
 
 # Stages
 
-The configuration of stages is employed to categorize one or more jobs that execute steps to achieve a similar objective. For instance, jobs such as `ci-deploy`, `ci-test`, and `ci-certify` can be grouped together under a stage named integration.
+Stages can be used to categorize one or more jobs that have steps with similar objectives. For instance, jobs `ci-deploy`, `ci-test`, and `ci-certify` can be grouped together under a stage named `integration`.
 
 #### Example
 
@@ -41,9 +41,9 @@ stages:
     description: "This stage will deploy the latest application to the CI environment and certify it after the tests have passed."
 ```
 
-<br>In the provided example, the `ci-deploy` job within the `integration` stage has an empty `requires` field, indicating that the job begins execution immediately upon stage activation, as demonstrated by the `commit` trigger. Conversely, the `triggered-by-stage` job, which is triggered by the integration stage, starts only after the completion of the last job or jobs within the stage.
+In the provided example, the `ci-deploy` job within the `integration` stage has an empty `requires` field, indicating that the job begins execution immediately upon stage activation, as demonstrated by the `commit` trigger. Conversely, the `triggered-by-stage` job, which is triggered by the `integration` stage, starts only after the completion of the last job or jobs within the stage. To configure a job that is triggered by the end of a stage, use the syntax `~stage@stageName`.
 
-<br>Based on the configuration, the screenshot below illustrates the expected layout of the workflow graph.
+Based on the configuration, the screenshot below illustrates the expected layout of the workflow graph.
 ![Basic Stages Graph](assets/pipeline_stages_basic.png)
 
 #### Setup and Teardown
@@ -66,8 +66,7 @@ stages:
         - init: echo 'integration teardown'
 ```
 
-<br>
 
-#### Limitations
+#### Caveats
 
 - Within the supported [SCM events](./workflow#workflow), only the `~commit` workflow is implemented.
