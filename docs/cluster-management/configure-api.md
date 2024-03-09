@@ -623,7 +623,7 @@ Deploy Keys are SSH keys that grant access to a single GitHub repository. This k
 
 If users want to use deploy keys in their pipeline they have 2 options:
 * Enable automatic generation and handling of deploy keys as a part of the pipeline by setting the `autoDeployKeyGeneration` flag to `true` in their `config/local.yaml`. With this flag enabled, the user will get an option to actually trigger the generation in the UI.
-* Manually generate the public and private key pair using `openssl genrsa -out jwt.pem 2048` and `openssl rsa -in jwt.pem -pubout -out jwt.pub`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](/user-guide/configuration/secrets) for adding secrets.
+* Manually generate the public and private key pair using `ssh-keygen -t ed25519 -C "your_email@example.com" -f sd_deploy_key`. Now add the public key as a deploy key to the repo. The private key needs to be **base64 encoded** and added as a secret `SD_SCM_DEPLOY_KEY` in the pipeline. Refer [secrets](/user-guide/configuration/secrets) for adding secrets.
 
 ###### Read-only SCM
 Sometimes you might want to have a SCM with read-only access. Users will be able to indirectly create pipelines for an SCM by listing them as a [child pipeline](../user-guide/configuration/externalConfig). Below is an example of an SCM configuration you would add to your SCMs for a read-only one. Users cannot login to the SCM in the UI.
