@@ -18,6 +18,8 @@
           url: "/user-guide/configuration/"
         - title: "Job Configuration"
           url: "/user-guide/configuration/jobconfiguration"
+        - title: "Stages"
+          url: "/user-guide/configuration/stages"
         - title: "Workflow"
           url: "/user-guide/configuration/workflow"
         - title: "Environment"

@@ -32,11 +32,14 @@
     padding-top: 5px;
     width: 30%;
     float: left;
+    position: fixed; /* fix to viewport */
+    top: inherit;
 }
 
 .yaml-side .hidden {
     display: none;
 }
+
 .yaml-side h4 {
     font-weight: bold;
 }
