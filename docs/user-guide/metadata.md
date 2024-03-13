@@ -250,6 +250,8 @@ Result:
 
 You can customize [notification](./configuration/settings.html#slack) messages with meta. Meta keys are different for each notification plugin.
 
+Slack requires special string formatting including a mention or channel link in the message. You can read more about the available options in the [Slack Documentation](https://api.slack.com/reference/surfaces/formatting#advanced).
+
 #### Basic
 Example screwdriver.yaml notifying with Slack:
 ```yaml
