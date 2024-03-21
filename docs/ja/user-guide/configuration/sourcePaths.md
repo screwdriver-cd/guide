@@ -41,7 +41,7 @@ toc:
 ```yaml
 jobs:
     main:
-        image: node:6
+        image: node:lts
         requires: [~pr, ~commit]
         sourcePaths: ["src/app/", "screwdriver.yaml"]
         steps:
@@ -65,7 +65,7 @@ Screwdriverはビルドをトリガーしたソースパスを環境変数`SD_SO
 ```yaml
 jobs:
     main:
-        image: node:6
+        image: node:lts
         requires: [~pr, ~commit]
         sourcePaths: ["src/app/", "screwdriver.yaml", "!src/app/package.json"]
         steps:

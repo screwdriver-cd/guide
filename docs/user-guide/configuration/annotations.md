@@ -21,7 +21,7 @@ shared:
     annotations:
         foo: &bar               # Making an anchor for this configuration
             requires: [~pr, ~commit]
-            image: node:8
+            image: node:lts
 
 jobs:
     main:

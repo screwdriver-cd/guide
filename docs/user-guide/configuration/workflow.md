@@ -56,13 +56,13 @@ In the following example, the job, `main`, will start after any SCM pull-request
 ```
 jobs:
     main:
-        image: node:14
+        image: node:lts
         requires: [~pr, ~commit]
         steps:
             - echo: echo hi
 
     second:
-        image: node:14
+        image: node:lts
         requires: [main]
         steps:
             - echo: echo bye
@@ -81,7 +81,7 @@ In the following example, where `A` and `B` requires `main`. This will cause `A`
 
 ```
 shared:
-    image: node:14
+    image: node:lts
 
 jobs:
     main:
@@ -112,7 +112,7 @@ In the following example, the `last` job will trigger once after either `first` 
 
 ```
 shared:
-    image: node:6
+    image: node:lts
     steps:
         - greet: echo hello
 jobs:
@@ -134,7 +134,7 @@ In the following example, when a commit is made on branch `staging`, both `stagi
 
 ```
 shared:
-    image: node:8
+    image: node:lts
 
 jobs:
     main:
@@ -169,7 +169,7 @@ In the following example, when `stable` release is pushed, `all-tag-and-release`
 
 ```
 shared:
-    image: node:12
+    image: node:lts
 
 jobs:
     all-tag-and-release:
@@ -195,7 +195,7 @@ In the following example, this pipeline will start the `main` job after any pull
 ```
 jobs:
     main:
-        image: node:14
+        image: node:lts
         requires: [~pr, ~commit, ~sd@456:publish]
         steps:
             - echo: echo hi
@@ -215,7 +215,7 @@ Pipeline 3 screwdriver.yaml:
 
 ```
 shared:
-  image: node:12
+  image: node:lts
   steps:
     - echo: echo hi
 jobs:
@@ -231,7 +231,7 @@ Pipeline 2 screwdriver.yaml:
 
 ```
 shared:
-  image: node:12
+  image: node:lts
   steps:
     - echo: echo hi
 jobs:
@@ -243,7 +243,7 @@ Pipeline 4 screwdriver.yaml:
 
 ```
 shared:
-  image: node:12
+  image: node:lts
   steps:
     - echo: echo hi
 jobs:
@@ -272,7 +272,7 @@ In the following example, `job2` is blocked by `job1` or `sd@456:publish`. If `j
 
 ```
 shared:
-    image: node:14
+    image: node:lts
 jobs:
     job1:
         requires: [~commit, ~pr]
@@ -301,7 +301,7 @@ In the following example, `job1` will be frozen during the month of March, `job2
 
 ```
 shared:
-    image: node:14
+    image: node:lts
 
 jobs:
   job1:
@@ -329,7 +329,7 @@ In the following example `detached` job is detached.
 
 ```
 shared:
-    image: node:8
+    image: node:lts
 
 jobs:
     detached:
@@ -347,7 +347,7 @@ In the following example, we can add repositories to subscribe to in the `scmUrl
 
 ```
 shared:
-    image: node:8
+    image: node:lts
 
 subscribe:
     scmUrls:

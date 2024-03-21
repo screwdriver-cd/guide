@@ -37,12 +37,12 @@ cache:
 
 jobs:
     setnpmcache:
-        image: node:14
+        image: node:lts
         steps:
             - install: npm install
         requires: [~commit, ~pr]
     usenpmcache:
-        image: node:14
+        image: node:lts
         steps:
             - ls: ls
             - install: npm install
@@ -54,7 +54,7 @@ jobs:
             - install: echo "v1.0.0" > ~/versions
         requires: [~commit, ~pr]
     usejobcache:
-        image: node:14
+        image: node:lts
         steps:
             - ls-tmp: ls /tmp
             - echo: echo hi > /tmp/test
@@ -80,18 +80,18 @@ cache:
 
 jobs:
     setnpmcache:
-        image: node:12
+        image: node:lts
         steps:
             - install: npm install
         requires: [~commit, ~pr]
     usenpmcache:
-        image: node:12
+        image: node:lts
         steps:
             - ls: ls
             - install: npm install
         requires: [setnpmcache]
     no-usenpmcache:
-        image: node:12
+        image: node:lts
         steps:
             - ls: ls
             - run-command: echo 'run command which will not use npmcache.'
