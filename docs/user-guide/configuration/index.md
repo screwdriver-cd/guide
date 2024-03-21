@@ -40,7 +40,7 @@ You can access information about properties by hovering over the property name.
     <span class="key">main</span>:
         <a href="#requires"><span class="key">requires</span>: <span class="value">[~pr, ~commit, ~sd@123:main]</span></a>
         <a href="#sourcePaths"><span class="key">sourcePaths</span>: <span class="value">["src/app/", "screwdriver.yaml"]</span></a>
-        <a href="#image"><span class="key">image</span>: <span class="value">node:6</span></a>
+        <a href="#image"><span class="key">image</span>: <span class="value">node:lts</span></a>
         <a href="#steps"><span class="key">steps</span>:</a>
             - <span class="key">init</span>: <span class="value">npm install</span>
             - <span class="key">test</span>: <span class="value">npm test</span>
@@ -53,7 +53,7 @@ You can access information about properties by hovering over the property name.
             - <a href="#teardown"><span class="key">teardown-save-results</span>: <span class="value">cp ./results $SD_ARTIFACTS_DIR</span></a>
     <span class="key">deploy-west</span>:
         <a href="#emptyTrigger"><span class="key">requires</span>: <span class="value">[]</span></a>
-        <a><span class="key">image</span>: <span class="value">node:6</span></a>
+        <a><span class="key">image</span>: <span class="value">node:lts</span></a>
         <a><span class="key">environment</span>:</a>
             <span class="key">DEPLOY_ENV</span>: <span class="value">west</span>
         <a><span class="key">steps</span>:</a>
@@ -61,7 +61,7 @@ You can access information about properties by hovering over the property name.
             - <span class="key">deploy</span>: <span class="value">npm deploy</span>
     <span class="key">deploy-east</span>:
         <span class="key">requires</span>: <span class="value">[deploy-west]</span>
-        <span class="key">image</span>: <span class="value">node:6</span>
+        <span class="key">image</span>: <span class="value">node:lts</span>
         <span class="key">environment</span>:
             <span class="key">DEPLOY_ENV</span>: <span class="value">east</span>
         <span class="key">steps</span>:
@@ -69,7 +69,7 @@ You can access information about properties by hovering over the property name.
             - <span class="key">deploy</span>: <span class="value">npm deploy</span>
     <span class="key">finished</span>:
         <a href="#stageTrigger"><span class="key">requires</span>: <span class="value">[stage@deployment]</span></a>
-        <a><span class="key">image</span>: <span class="value">node:6</span></a>
+        <a><span class="key">image</span>: <span class="value">node:lts</span></a>
         <a><span class="key">steps</span>:</a>
             - <span class="key">echo</span>: <span class="value">echo done</span>
 <a href="#stages"><span class="key">stages</span>:</a>

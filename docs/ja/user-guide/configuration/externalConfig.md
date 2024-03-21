@@ -39,7 +39,7 @@ childPipelines:
 
 jobs:
   main:
-    image: node:8
+    image: node:lts
     steps:
       - install: npm install
       - publish: npm publish

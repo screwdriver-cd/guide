@@ -62,13 +62,13 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 ```
 jobs:
     main:
-        image: node:14
+        image: node:lts
         requires: [~pr, ~commit]
         steps:
             - echo: echo hi
 
     second:
-        image: node:14
+        image: node:lts
         requires: [main]
         steps:
             - echo: echo bye
@@ -90,7 +90,7 @@ jobs:
 
 ```
 shared:
-    image: node:14
+    image: node:lts
 
 jobs:
     main:
@@ -120,7 +120,7 @@ Joinに似ていますが、_OR_は`requires`のジョブのいずれかが成�
 
 ```
 shared:
-    image: node:6
+    image: node:lts
     steps:
         - greet: echo hello
 jobs:
@@ -142,7 +142,7 @@ jobs:
 以下の例では、`staging`ブランチに対してコミットされると、`staging-commit`ジョブと `all-commit`ジョブが両方トリガーされます。また、`default`ブランチに対してコミットされると、` main`ジョブと `all-commit`ジョブが両方トリガーされます。プルリクエストが`staging`ブランチに対してオープンされると、` staging-pr`ジョブがトリガーされます。
 ```
 shared:
-    image: node:8
+    image: node:lts
 
 jobs:
     main:
@@ -177,7 +177,7 @@ _注意: ブランチに対するPRのワークフローは、そのブランチ
 
 ```
 shared:
-    image: node:12
+    image: node:lts
 
 jobs:
     all-tag-and-release:
@@ -205,7 +205,7 @@ jobs:
 ```
 jobs:
     main:
-        image: node:14
+        image: node:lts
         requires: [~pr, ~commit, ~sd@456:publish]
         steps:
             - echo: echo hi
@@ -225,7 +225,7 @@ Pipeline 3 screwdriver.yaml:
 
 ```
 shared:
-  image: node:12
+  image: node:lts
   steps:
     - echo: echo hi
 jobs:
@@ -241,7 +241,7 @@ Pipeline 2 screwdriver.yaml:
 
 ```
 shared:
-  image: node:12
+  image: node:lts
   steps:
     - echo: echo hi
 jobs:
@@ -253,7 +253,7 @@ Pipeline 4 screwdriver.yaml:
 
 ```
 shared:
-  image: node:12
+  image: node:lts
   steps:
     - echo: echo hi
 jobs:
@@ -284,7 +284,7 @@ jobs:
 
 ```
 shared:
-    image: node:14
+    image: node:lts
 jobs:
     job1:
         requires: [~commit, ~pr]
@@ -314,7 +314,7 @@ jobs:
 
 ```
 shared:
-    image: node:14
+    image: node:lts
 jobs:
   job1:
     freezeWindows: ['* * ? 3 *']
@@ -343,7 +343,7 @@ jobs:
 
 ```
 shared:
-    image: node:8
+    image: node:lts
 
 jobs:
       detached:
@@ -361,7 +361,7 @@ jobs:
 
 ```
 shared:
-    image: node:8
+    image: node:lts
 subscribe:
     scmUrls:
         - git@github.com:supra08/functional-workflow.git: ['~commit', '~pr']

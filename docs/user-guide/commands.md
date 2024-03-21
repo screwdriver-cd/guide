@@ -50,7 +50,7 @@ Example `screwdriver.yaml`:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
             - init: sd-cmd exec awscli/install@1.0 -i mySecretID -s secretAccessKey -r us-west-2
 ```
@@ -135,7 +135,7 @@ To tag your command, run the `sd-cmd promote` command with the format: `sd-cmd p
 Example `screwdriver.yaml`:
 ```yaml
 shared:
-    image: node:8
+    image: node:lts
 jobs:
     main:
         requires: [~pr, ~commit]

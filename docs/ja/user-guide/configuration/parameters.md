@@ -65,7 +65,7 @@ parameters:
 screwdriver.yamlの全容は以下の通り:
 ```yaml
 shared:
-  image: node:8
+  image: node:lts
 
 parameters:
   skip_test: ["no", "yes"]

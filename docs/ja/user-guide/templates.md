@@ -124,7 +124,7 @@ Screwdriverはテンプレートの設定を読み込み、`screwdriver.yaml`は
 ```yaml
 jobs:
     main:
-        image: node:8
+        image: node:lts
         requires: [~pr, ~commit]
         steps:
           - install: npm install
@@ -199,7 +199,7 @@ jobs:
 
 ```yaml
 shared:
-    image: node:8
+    image: node:lts
     template: nodejs/test
     steps:
         - init: npm install
@@ -208,7 +208,7 @@ shared:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
     main2:
         annotations:
             screwdriver.cd/mergeSharedSteps: true
@@ -223,7 +223,7 @@ jobs:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
              - init: npm install
              - pretest: npm lint
@@ -232,7 +232,7 @@ jobs:
         annotations:
              screwdriver.cd/mergeSharedSteps: true
         requires: [main]
-        image: node:8
+        image: node:lts
         steps:
              - init: npm install
              - pretest: npm lint
@@ -259,8 +259,8 @@ version: "2.0.1"
 description: 'Publish an npm package'
 maintainer: myname@foo.com
 images:
-  stable: node:8
-  latest: node:12
+  lts: node:lts
+  latest: node:latest
 config:
   image: stable
   steps:
@@ -288,7 +288,7 @@ jobs:
 jobs:
   main:
     requires: [~commit]
-    image: node:8
+    image: node:lts
     steps:
       - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
       - install: npm install
@@ -313,8 +313,8 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:12
-    latest-image: node:14
+    lts-image: node:lts
+    latest-image: node:latest
 config:
     image: stable-image
     steps:
@@ -337,8 +337,8 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:12
-    latest-image: node:8
+    lts-image: node:lts
+    latest-image: node:latest
 ```
 
 以下のように、リストからエイリアスを使用することもできます。
@@ -358,7 +358,7 @@ jobs:
 
 ```yaml
 config:
-    image: node:12
+    image: node:lts
     steps:
         - preinstall: echo Installing
         - install: npm install
@@ -385,7 +385,7 @@ jobs:
 
 ```yaml
 config:
-    image: node:12
+    image: node:lts
     steps:
         - preinstall: echo Installing
         - install: npm install
@@ -405,7 +405,7 @@ version: '2.0.1'
 description: template for testing parameters
 maintainer: foo@bar.com
 config:
-  image: node:12
+  image: node:lts
   parameters:
     music:
       value: [ "country", "hip hop" ]
@@ -517,8 +517,8 @@ version: "2.0.1"
 description: 'Publish an npm package'
 maintainer: myname@foo.com
 images:
-  stable: node:8
-  latest: node:12
+  lts: node:lts
+  latest: node:latest
 config:
   image: stable
   steps:
@@ -534,7 +534,7 @@ version: "1.0.2"
 description: 'Do some stuff'
 maintainer: d2lam@foo.com
 images:
-  test: node:18
+  test: node:lts
 config:
   template: nodejs/publish@2
   image: stable
@@ -553,9 +553,9 @@ version: "1.0.2"
 description: 'Do some stuff'
 maintainer: d2lam@foo.com
 images:
-  stable: node:8
-  latest: node:12
-  test: node:18
+  lts: node:lts
+  latest: node:latest
+  test: node:lts
 config:
   image: stable
   steps:
@@ -587,7 +587,7 @@ config:
 
 ```yaml
 shared:
-    image: node:12
+    image: node:lts
 jobs:
     main:
         requires: [~pr, ~commit]
@@ -630,7 +630,7 @@ _注意: イベント作成時にテンプレートが展開されるので、�
 
 ```yaml
 config:
-    image: node:8
+    image: node:lts
     steps:
         - getcache: store-cli get node_modules/ --type=cache --scope=event || echo "Failed to fetch Cache"
         - install: npm install

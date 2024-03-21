@@ -65,7 +65,7 @@ Parameters can be defined at two scopes:
 You can see a full screwdriver.yaml example below:
 ```yaml
 shared:
-  image: node:8
+  image: node:lts
 
 parameters:
   skip_test: ["no", "yes"]

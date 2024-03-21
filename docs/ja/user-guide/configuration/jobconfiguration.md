@@ -29,7 +29,7 @@ toc:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
             - init: npm install
             - test: npm test
@@ -70,7 +70,7 @@ jobs:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:8
+        image: node:lts
         environment:
             USER_SHELL_BIN: bash
         steps:
@@ -104,7 +104,7 @@ teardownステップは、ビルドステップが完了や中断または失敗
 
 ```
 shared:
-    image: node:8
+    image: node:lts
     steps:
         - init: npm install
         - pretest: npm lint
@@ -113,7 +113,7 @@ shared:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
     main2:
         requires: [main]
         steps:
@@ -126,14 +126,14 @@ jobs:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
             - init: npm install
             - pretest: npm lint
             - test: npm test
     main2:
         requires: [main]
-        image: node:8
+        image: node:lts
         steps:
             - test: echo Skipping test
 

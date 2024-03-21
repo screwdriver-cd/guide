@@ -39,7 +39,7 @@ And the `screwdriver.yaml`:
 ```yaml
 jobs:
     main:
-        image: node:6
+        image: node:lts
         requires: [~pr, ~commit]
         sourcePaths: ["src/app/", "screwdriver.yaml"]
         steps:
@@ -61,7 +61,7 @@ Given a same repository like above, and the `screwdriver.yaml`:
 ```yaml
 jobs:
     main:
-        image: node:6
+        image: node:lts
         requires: [~pr, ~commit]
         sourcePaths: ["src/app/", "screwdriver.yaml", "!src/app/package.json"]
         steps:

@@ -52,7 +52,7 @@ shared:
 jobs:
   main:
     requires: [~pr, ~commit]
-    image: node:14
+    image: node:lts
     steps:
       - install: npm install
       - test: npm test
@@ -75,7 +75,7 @@ Example `screwdriver.yaml`:
 jobs:
   main:
     requires: [~pr, ~commit]
-    image: node:14
+    image: node:lts
     steps:
       - install: npm install
       - test: npm test

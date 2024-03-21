@@ -24,7 +24,7 @@ shared:
     annotations:
         foo: &bar               # アンカーを作成
             requires: [~pr, ~commit]
-            image: node:8
+            image: node:lts
 
 jobs:
     main:

@@ -31,7 +31,7 @@ Jobs are how you define what happens in every build. Every job configuration mus
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
             - init: npm install
             - test: npm test
@@ -72,7 +72,7 @@ By default, instructions in steps are executed using the Bourne shell (`/bin/sh`
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:8
+        image: node:lts
         environment:
             USER_SHELL_BIN: bash
         steps:
@@ -107,7 +107,7 @@ The following example defines a shared configuration for `image` and `steps`, wh
 
 ```
 shared:
-    image: node:8
+    image: node:lts
     steps:
         - init: npm install
         - pretest: npm lint
@@ -116,7 +116,7 @@ shared:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
     main2:
         requires: [main]
         steps:
@@ -129,14 +129,14 @@ The above example would be equivalent to:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
             - init: npm install
             - pretest: npm lint
             - test: npm test
     main2:
         requires: [main]
-        image: node:8
+        image: node:lts
         steps:
             - test: echo Skipping test
 

@@ -52,7 +52,7 @@ description: An example pipeline template for nodejs
 maintainer: foo@bar.com
 config:
   shared:
-    image: node:18
+    image: node:lts
   jobs:
     main:
       steps:
@@ -114,7 +114,7 @@ shared:
     FOO: bar
 jobs:
     main:
-      image: node:18
+      image: node:lts
       requires: [~pr, ~commit]
       steps:
         - install: npm install
@@ -172,7 +172,7 @@ Example `screwdriver.yaml`:
 
 ```yaml
 shared:
-    image: node:18
+    image: node:lts
 jobs:
   main:
       requires: [~pr, ~commit]

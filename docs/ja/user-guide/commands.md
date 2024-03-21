@@ -51,7 +51,7 @@ Screwdriver のコマンドは、ユーザが [screwdriver.yaml](./configuration
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
             - init: sd-cmd exec awscli/install@1.0 -i mySecretID -s secretAccessKey -r us-west-2
 ```
@@ -142,7 +142,7 @@ habitat:
 
 ```yaml
 shared:
-    image: node:8
+    image: node:lts
 jobs:
     main:
         requires: [~pr, ~commit]

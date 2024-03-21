@@ -57,11 +57,11 @@ stages:
     jobs: [ci-deploy, ci-test, ci-certify]
     description: "This stage will deploy the latest application to the CI environment and certify it after the tests have passed."
     setup:
-      image: node:18
+      image: node:lts
       steps:
         - init: echo 'integration setup'
     teardown:
-      image: node:18
+      image: node:lts
       steps:
         - init: echo 'integration teardown'
 ```

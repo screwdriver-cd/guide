@@ -124,7 +124,7 @@ Screwdriver takes the template configuration and plugs it in, so that the `screw
 ```yaml
 jobs:
     main:
-        image: node:8
+        image: node:lts
         requires: [~pr, ~commit]
         steps:
           - install: npm install
@@ -209,7 +209,7 @@ The following example defines a merged shared configuration for `image` and `ste
 
 ```yaml
 shared:
-    image: node:8
+    image: node:lts
     steps:
         - init: npm install
         - pretest: npm lint
@@ -218,7 +218,7 @@ shared:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
     main2:
         annotations:
             screwdriver.cd/mergeSharedSteps: true
@@ -233,7 +233,7 @@ The above example would be equivalent to:
 jobs:
     main:
         requires: [~pr, ~commit]
-        image: node:6
+        image: node:lts
         steps:
              - init: npm install
              - pretest: npm lint
@@ -242,7 +242,7 @@ jobs:
         annotations:
              screwdriver.cd/mergeSharedSteps: true
         requires: [main]
-        image: node:8
+        image: node:lts
         steps:
              - pretest: npm lint
              - test: echo Skipping test
@@ -268,8 +268,8 @@ version: "2.0.1"
 description: 'Publish an npm package'
 maintainer: myname@foo.com
 images:
-  stable: node:8
-  latest: node:12
+  lts: node:lts
+  latest: node:latest
 config:
   image: stable
   steps:
@@ -297,7 +297,7 @@ Result:
 jobs:
   main:
     requires: [~commit]
-    image: node:8
+    image: node:lts
     steps:
       - clone: git clone https://github.com/screwdriver-cd/toolbox.git ci
       - install: npm install
@@ -323,8 +323,8 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:12
-    latest-image: node:14
+    lts-image: node:lts
+    latest-image: node:latest
 config:
     image: stable-image
     steps:
@@ -347,8 +347,8 @@ version: '1.3'
 description: template for testing
 maintainer: foo@bar.com
 images:
-    stable-image: node:12
-    latest-image: node:8
+    lts-image: node:lts
+    latest-image: node:latest
 ```
 
 Users can pick an alias from the list and use it like so:
@@ -366,7 +366,7 @@ Avoid using any [wrapping](#using-a-template) prefixes (`pre` or `post`) in your
 
 ```yaml
 config:
-    image: node:12
+    image: node:lts
     steps:
         - preinstall: echo Installing
         - install: npm install
@@ -389,7 +389,7 @@ This flag applies to any template or job that uses this template. All templates 
 
 ```yaml
 config:
-    image: node:12
+    image: node:lts
     steps:
         - preinstall: echo Installing
         - install: npm install
@@ -409,7 +409,7 @@ version: '2.0.1'
 description: template for testing parameters
 maintainer: foo@bar.com
 config:
-  image: node:12
+  image: node:lts
   parameters:
     music:
       value: [ "country", "hip hop" ]
@@ -522,8 +522,8 @@ version: "2.0.1"
 description: 'Publish an npm package'
 maintainer: myname@foo.com
 images:
-  stable: node:8
-  latest: node:12
+  lts: node:lts
+  latest: node:latest
 config:
   image: stable
   steps:
@@ -540,7 +540,7 @@ version: "1.0.2"
 description: 'Do some stuff'
 maintainer: d2lam@foo.com
 images:
-  test: node:18
+  test: node:lts
 config:
   template: nodejs/publish@2
   image: stable
@@ -559,9 +559,9 @@ version: "1.0.2"
 description: 'Do some stuff'
 maintainer: d2lam@foo.com
 images:
-  stable: node:8
-  latest: node:12
-  test: node:18
+  lts: node:lts
+  latest: node:latest
+  test: node:lts
 config:
   image: stable
   steps:
@@ -592,7 +592,7 @@ Example `screwdriver.yaml`:
 
 ```yaml
 shared:
-    image: node:12
+    image: node:lts
 jobs:
     main:
         requires: [~pr, ~commit]
@@ -635,7 +635,7 @@ To use the [build cache feature](../configuration/build-cache), the [store-cli c
 
 ```yaml
 config:
-    image: node:8
+    image: node:lts
     steps:
         - getcache: store-cli get node_modules/ --type=cache --scope=event || echo "Failed to fetch Cache"
         - install: npm install
