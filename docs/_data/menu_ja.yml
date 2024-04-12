@@ -18,6 +18,8 @@
           url: "/ja/user-guide/configuration/"
         - title: "ジョブの設定"
           url: "/ja/user-guide/configuration/jobconfiguration"
+        - title: "ステージ"
+          url: "/ja/user-guide/configuration/stages"
         - title: "ワークフロー"
           url: "/ja/user-guide/configuration/workflow"
         - title: "環境変数"
@@ -45,7 +47,11 @@
     - title: "環境変数"
       url: "/ja/user-guide/environment-variables"
     - title: "テンプレート"
-      url: "/ja/user-guide/templates"
+      subcategories:
+        - title: ジョブテンプレート
+          url: "/ja/user-guide/templates/job-templates"
+        - title: パイプラインテンプレート
+          url: "/ja/user-guide/templates/pipeline-templates"
     - title: "コマンド"
       url: "/ja/user-guide/commands"
     - title: "ローカルビルド"

@@ -1,11 +1,11 @@
 ---
 layout: main
-title: テンプレート
+title: ジョブテンプレート
 category: User Guide
 menu: menu_ja
 toc:
-- title: テンプレート
-  url: "#テンプレート"
+- title: ジョブテンプレート
+  url: "#ジョブテンプレート"
 - title: テンプレートを検索する
   url: "#テンプレートを検索する"
 - title: テンプレートを利用する
@@ -64,17 +64,17 @@ toc:
   url: "#テンプレートを削除する"
 ---
 
-# テンプレート
+# ジョブテンプレート
 
-テンプレートは、ユーザーが[screwdriver.yaml](./configuration)でジョブを設定する代わりに使用できる定義済みのコードのスニペットです。
-テンプレートには、一連の定義済みのステップとDockerイメージが含まれます。
+ジョブテンプレートは、ユーザーが[screwdriver.yaml](../configuration)でジョブを設定する代わりに使用できる定義済みのコードのスニペットです。
+ジョブテンプレートには、一連の定義済みのステップとDockerイメージが含まれます。
 
 ## テンプレートを検索する
 
-既に作成済みのテンプレートを見つけるには、`GET` メソッドで `/templates` [API](./api)エンドポイントにアクセスしてください。またこちらのパス`<YOUR_UI_URL>/templates`にアクセスすることでテンプレートを確認できます。
+既に作成済みのテンプレートを見つけるには、`GET` メソッドで `/templates` [API](../api)エンドポイントにアクセスしてください。またこちらのパス`<YOUR_UI_URL>/templates`にアクセスすることでテンプレートを確認できます。
 
 テンプレートページの例:
-![Templates](../../user-guide/assets/templates.png)
+![Templates](../../../user-guide/assets/templates.png)
 
 ## テンプレートを利用する
 
@@ -191,7 +191,7 @@ jobs:
 
 ### sharedステップをマージ
 
-テンプレートのステップを上書きする場合、ジョブは `shared.steps` または `job.steps` のいずれかのステップ定義を使用し、 `jobs` セクションで定義した `steps` が優先されます。これはテンプレートを使用しない場合のステップ定義の優先順位と同じです。この挙動は[アノテーション](./configuration/annotations)の `screwdriver.cd/mergeSharedSteps: true` で変更することができます。テンプレートを使用している場合に `true` を設定すると、 `shared` セクションと `job` セクションのステップはマージされます。
+テンプレートのステップを上書きする場合、ジョブは `shared.steps` または `job.steps` のいずれかのステップ定義を使用し、 `jobs` セクションで定義した `steps` が優先されます。これはテンプレートを使用しない場合のステップ定義の優先順位と同じです。この挙動は[アノテーション](../configuration/annotations)の `screwdriver.cd/mergeSharedSteps: true` で変更することができます。テンプレートを使用している場合に `true` を設定すると、 `shared` セクションと `job` セクションのステップはマージされます。
 
 #### 例
 次の例では、`image`と`steps`のマージされた構成を定義し、それをmainとmain2のジョブが使用します。
@@ -395,7 +395,7 @@ config:
 ```
 
 #### テンプレートのパラメーター
-ステップ内で使用される[パラメーター](./configuration/parameters)を定義することができます。
+ステップ内で使用される[パラメーター](../configuration/parameters)を定義することができます。
 
 例 `sd-template.yaml`:
 ```yaml
@@ -570,12 +570,12 @@ config:
 
 #### テンプレートの検証
 
-テンプレートをバリデートするために、`template-validate` という npm モジュールを  `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている
+テンプレートを検証するために、`template-validate` という npm モジュールを  `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている
 `template-publish` を別のジョブで実行します。
 
 デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。
 
-また、<YOUR_UI_URL>/validator>にコピーペーストすることで、UIを通して`sd-template.yaml`と`screwdriver.yaml`を検証することができます。
+また、`<YOUR_UI_URL>/validator`にコピーペーストすることで、UIを通して `sd-template.yaml` と `screwdriver.yaml` を検証することができます。
 
 #### テンプレートのタグ付け
 
@@ -615,7 +615,7 @@ jobs:
             - remove_tag: ./node_modules/.bin/template-remove-tag --name myNamespace/template_name --tag stable
 ```
 
-Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートのバリデートとパブリッシュを行うためにビルドを開始します。
+Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートの検証とパブリッシュを行うためにビルドを開始します。
 
 Screwdriverのテンプレートを更新するには、ご利用のSCMリポジトリに変更を加え、パイプラインのビルドを再度実行します。
 
@@ -626,7 +626,7 @@ _注意: イベント作成時にテンプレートが展開されるので、�
 
 ## ビルドキャッシュを利用する
 
-[ビルドキャッシュ](./configuration/build-cache)を利用するには、[store-cliコマンド](https://github.com/screwdriver-cd/store-cli)をステップ内で使用します。例えば、`node_modules/`フォルダをキャッシュする場合、`npm install`を実行するステップの前にキャッシュをダウンロードするステップを設定し、その後キャッシュをアップロードする別のステップを指定します。`teardown-`プレフィックスを使用して、キャッシュをアップロードするステップをteardownに移動することもできます。
+[ビルドキャッシュ](../configuration/build-cache)を利用するには、[store-cliコマンド](https://github.com/screwdriver-cd/store-cli)をステップ内で使用します。例えば、`node_modules/`フォルダをキャッシュする場合、`npm install`を実行するステップの前にキャッシュをダウンロードするステップを設定し、その後キャッシュをアップロードする別のステップを指定します。`teardown-`プレフィックスを使用して、キャッシュをアップロードするステップをteardownに移動することもできます。
 
 ```yaml
 config:
@@ -647,4 +647,4 @@ config:
 
 _注意: 誰がテンプレートを削除する権限を持っているか判断するのに必要なため、事前にテンプレートのパイプラインを削除しないでください。_
 
-![Removing](../../user-guide/assets/delete-template.png)
+![Removing](../../../user-guide/assets/delete-template.png)
