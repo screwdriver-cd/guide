@@ -78,7 +78,7 @@ toc:
 
 ## テンプレートを利用する
 
-テンプレートを利用するためには、`screwdriver.yaml`に`template`を定義します。以下の例では、[nodejs/test template](https://cd.screwdriver.cd/templates/nodejs/test)を使用しています。
+テンプレートを利用するためには、`screwdriver.yaml`のジョブ内に`template`を記述します。以下の例では、[nodejs/test template](https://cd.screwdriver.cd/templates/nodejs/test)を使用しています。
 
 `screwdriver.yaml`の例:
 

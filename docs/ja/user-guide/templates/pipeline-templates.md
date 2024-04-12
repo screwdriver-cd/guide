@@ -66,7 +66,7 @@ config:
 
 ## テンプレートを利用する
 
-テンプレートを利用するためには、`screwdriver.yaml`のトップに`template`を定義します。以下の例では、nodejs/test templateを使用しています。
+テンプレートを利用するためには、`screwdriver.yaml`のトップに`template`を記述します。以下の例では、nodejs/test templateを使用しています。
 
 Example `screwdriver.yaml`:
 
