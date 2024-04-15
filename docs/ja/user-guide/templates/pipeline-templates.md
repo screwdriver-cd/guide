@@ -158,7 +158,7 @@ config:
 
 #### テンプレートの検証
 
-テンプレートを検証するために、[screwdriver-template-main](https://www.npmjs.com/package/screwdriver-template-main) という npm モジュールにある `pipeline-template-validate` スクリプトを `main` ジョブで実行します。これは、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があるということです。テンプレートをパブリッシュするために、同様のモジュールに含まれている `pipeline-template-publish` を別のジョブで実行します。
+テンプレートを検証するために、[screwdriver-template-main](https://www.npmjs.com/package/screwdriver-template-main) という npm モジュールにある `pipeline-template-validate` スクリプトを `main` ジョブで実行します。つまり、ビルドに利用するイメージは Node.js と NPM が正しくインストールされている必要があります。テンプレートをパブリッシュするために、同様のモジュールに含まれている `pipeline-template-publish` を別のジョブで実行します。
 
 デフォルトでは、`./sd-template.yaml` が読み込まれます。しかし、`SD_TEMPLATE_PATH` という環境変数を利用することで、任意のパスを指定することができます。
 
