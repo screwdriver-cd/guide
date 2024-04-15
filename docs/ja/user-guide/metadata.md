@@ -259,6 +259,8 @@ jobs:
 
 metaを利用することで[通知](./configuration/settings.html#slack)メッセージをカスタマイズすることができます。metaのキーは通知ブラグインごとに異なります。
 
+Slackのメンションやチャンネルリンクには特殊なフォーマット文字列が必要です。利用可能なオプションについては、[Slack ドキュメント](https://api.slack.com/reference/surfaces/formatting#advanced) を参照してください。
+
 #### 基本
 Slack通知をするscrewdriver.yamlの例:
 ```yaml

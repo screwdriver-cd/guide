@@ -31,7 +31,7 @@ toc:
 
 まず最初に、サンプルリポジトリを開発環境にcloneし、そのプロジェクトディレクトリにcdします。この先の例ではgenericについて説明します。
 
-- [generic](https://github.com/screwdriver-cd-test/quickstart-generic)*
+- [generic](https://github.com/screwdriver-cd-test/quickstart-generic)\*
 - [Golang](https://github.com/screwdriver-cd-test/quickstart-golang)
 - [Nodejs](https://github.com/screwdriver-cd-test/quickstart-nodejs)
 - [Ruby](https://github.com/screwdriver-cd-test/quickstart-ruby)
@@ -41,7 +41,7 @@ $ git clone git@github.com:<YOUR_USERNAME_HERE>/quickstart-generic.git
 $ cd quickstart-generic/
 ```
 
-**Makefileや小さなスクリプトの場合はgenericの`screwdriver.yaml`を参照することをお勧めします。*
+_Makefileや小さなスクリプトの場合はgenericの`screwdriver.yaml`を参照することをお勧めします。_
 
 ## アプリケーションの開発
 
@@ -68,10 +68,15 @@ shared:
 
 `jobs`セクションはそれぞれのジョブで実行するすべてのタスクや`steps`が定義される場所です。
 
+### Stages
+
+同じ目的のために実行されるジョブの役割を分かりやすくするために、`Jobs`をグループ化して`stage`を形成することができます。例えば、CIジョブはインテグレーションとして、CDジョブはデプロイメントとしてグループ化することができます。ステージは1つ以上のジョブを含むことができますが、1つのジョブは1つのステージにだけ属することができます。
+
 ### Workflow
 
 `requires`キーワードはジョブが実行される順序を示します。`requires`には単一のジョブ名もしくは配列で複数のジョブ名を指定します。`~pr`や`~commit`といった特別なキーワードを指定した場合にはそれぞれ特定の Git イベントが発生した時に実行されます。
 - `requires: ~pr` はプルリクエストがオープンされた時にジョブが実行されます。同じプルリクエストにコミット/プッシュがされると、再実行されます。
+  - PRワークフローでは、ステージ設定は現在サポートされていません。
 - `requires: ~commit` はSDの設定ブランチにプルリクエストがマージされたり、直接コミット/プッシュがされた時にジョブが実行されます。UIから Start ボタンが押されたときにも実行されます。
 
 

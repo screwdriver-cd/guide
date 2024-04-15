@@ -88,11 +88,12 @@ jobs:
 ```
 
 ### Teardown
+
 teardownステップは、ビルドステップが完了や中断または失敗した後にScrewdriverのbookendステップの一式を実行します。これらのステップはジョブの最後に暗黙的に追加され、名称は `sd-teardown-` または `teardown-` で始まります。ポッド/コンテナはこれらのステップが完了すると削除されます。ビルドが中断されたケースのおいてポッドが終了する前に、teardownステップを実行するための猶予期間を設定することもできます。詳しい使用方法は[annotation](/ja/user-guide/configuration/annotations)の `screwdriver.cd/terminationGracePeriodSeconds` を参照してください。
 
 ### Template
 
-また、ジョブの設定で[templates](../templates)を使用することもできます。
+また、ジョブの設定で[templates](../templates/job-templates)を使用することもできます。
 
 # Shared設定
 
@@ -145,5 +146,5 @@ jobs:
 - [Environment](./environment) - ジョブのための環境変数を設定する
 - [Secrets](./secrets) - ビルド中にsecretsを環境変数として安全に渡す
 - [Settings](./settings) - ビルドのプラグインを設定する
-- [Templates](../templates) - 共通で使用できるジョブの設定
+- [Job Templates](../templates/job-templates) - 共通で使用できるジョブの設定
 - [Workflow](./workflow) - パイプラインの構造を定義する
