@@ -130,7 +130,7 @@ jobs:
 テンプレートの作成と利用は、Screwdriverのパイプラインから実行する必要があります。
 
 ### テンプレートyamlを書く
-テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートのネームスペース、名前、バージョン、説明、管理者のメールアドレス、とジョブの設定が必要です。基本的な例は [screwdriver-cd-test/pipe;line-template-example repo](https://github.com/screwdriver-cd-test/pipeline-template-example)にあります。
+テンプレートを作成するために、`sd-template.yaml` を含んだ新しいリポジトリを作成します。yamlには、テンプレートのネームスペース、名前、バージョン、説明、管理者のメールアドレス、ジョブの設定が必要です。基本的な例は [screwdriver-cd-test/pipe;line-template-example repo](https://github.com/screwdriver-cd-test/pipeline-template-example)にあります。
 
 Example `sd-template.yaml`:
 
