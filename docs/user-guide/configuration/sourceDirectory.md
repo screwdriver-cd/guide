@@ -9,7 +9,7 @@ toc:
 
 ---
 # Source Directory
-Source directory can be used to specify a custom directory that a pipeline is based upon. You can specify it when you create the pipeline in Screwdriver UI or update your current pipeline to add the directory. This can be useful for running workflows based on subdirectories in a [monorepo](https://developer.atlassian.com/blog/2015/10/monorepos-in-git). With custom source directory, now you can create multiple pipelines on a single repository.
+Source directory can be used to specify a custom directory that a pipeline is based upon. You can specify it when you create the pipeline in Screwdriver UI or update your current pipeline to add the directory. This can be useful for running workflows based on subdirectories in a [monorepo](https://www.atlassian.com/git/tutorials/monorepos). With custom source directory, now you can create multiple pipelines on a single repository.
 
 ### Source Directory format
 The directory path is relative to the root of the repository. You must have a `screwdriver.yaml` under your source directory.
