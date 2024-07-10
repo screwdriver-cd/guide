@@ -100,7 +100,7 @@ Given a pipeline template:
 
 ```
 shared:
-  image: node:10
+  image: node:lts
   environment:
     VAR1: "one"
     VAR2: "two"
@@ -132,7 +132,7 @@ jobs:
       VAR1: "empty"
   third:
     requires: []
-    image: node:10
+    image: node:lts
     steps:
       - echo: echo third job
 ```
@@ -155,7 +155,7 @@ jobs:
       slack: 'mychannel'
   second:
     requires: [main]
-    image: node:10
+    image: node:lts
     steps:
       - init: npm install
       - test: npm test
@@ -167,7 +167,7 @@ jobs:
       slack: 'mychannel'
   third:
     requires: []
-    image: node:10
+    image: node:lts
     steps:
       - echo: echo third job
 ```
