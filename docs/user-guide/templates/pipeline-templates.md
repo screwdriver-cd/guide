@@ -8,8 +8,11 @@ toc:
       url: "#pipeline-templates"
     - title: Finding templates
       url: "#finding-pipeline-templates"
-    - title: Using a template
+    - title: Using a pipeline template
       url: "#using-a-pipeline-template"
+    - title: Customization
+      url: "#customization"
+      subitem: true
     - title: Example pipeline template
       url: "#example-pipeline-template"
     - title: "Version/Tag Semantics"
@@ -85,6 +88,90 @@ If no template version is specified, the most recently published will be used. T
 
 The most reliable way to avoid unexpected template changes is to refer to a specific version of the template. For instance, `nodejs/test@1.0.4` is an immutable reference to a particular list of steps. Using a reference such as `nodejs/test@1.0` means that a job will automatically use `nodejs/test@1.0.5` when it becomes available, but that comes with risk of an unexpected change in behavior.
 
+### Customization
+Some customization can be done within the `jobs` configuration when using a Pipeline Template.
+
+For user-defined jobs with names that *already exist* in the pipeline template, customization is limited to a set of certain fields: `image`, `settings`, `environment`, and `requires`.
+
+For user-defined jobs with names that *do not already exist* in the pipeline template, all jobs fields are allowed.
+
+#### Example
+Given a pipeline template:
+
+```
+shared:
+  image: node:lts
+  environment:
+    VAR1: "one"
+    VAR2: "two"
+  steps:
+    - init: npm install
+    - test: npm test
+  settings:
+    email: [test@email.com, test2@email.com]
+    slack: 'mychannel'
+jobs:
+  main:
+    requires: [~pr, ~commit]
+  second:
+    requires: [main]
+```
+
+And user defined yaml:
+
+```
+template: sd-test/example-template@latest
+jobs:
+  main:
+    requires: [~commit]
+    image: node:20
+    settings:
+      email: [test@email.com, test3@email.com]
+    environment:
+      VAR3: "three"
+      VAR1: "empty"
+  third:
+    requires: []
+    image: node:lts
+    steps:
+      - echo: echo third job
+```
+
+Resulting config would be:
+```
+jobs:
+  main:
+    requires: [~commit]
+    image: node:20
+    steps:
+      - init: npm install
+      - test: npm test
+    environment:
+      VAR1: "empty"
+      VAR2: "two"
+      VAR3: "three"
+    settings:
+      email: [test@email.com, test3@email.com]
+      slack: 'mychannel'
+  second:
+    requires: [main]
+    image: node:lts
+    steps:
+      - init: npm install
+      - test: npm test
+    environment:
+      VAR1: "one"
+      VAR2: "two"
+    settings:
+      email: [test@email.com, test2@email.com]
+      slack: 'mychannel'
+  third:
+    requires: []
+    image: node:lts
+    steps:
+      - echo: echo third job
+```
+
 ## Version/Tag Semantics
 
 Template versions can be referenced in a variety of ways that express users' trade-off between an unchanging set of steps and automatically using improvements that a template's maintainers have added. As above, these examples reference nodejs/test template.
@@ -113,14 +200,14 @@ shared:
   environment:
     FOO: bar
 jobs:
-    main:
-      image: node:lts
-      requires: [~pr, ~commit]
-      steps:
-        - install: npm install
-        - test: npm test
-      secrets:
-        - NPM_TOKEN
+  main:
+    image: node:lts
+    requires: [~pr, ~commit]
+    steps:
+      - install: npm install
+      - test: npm test
+    secrets:
+      - NPM_TOKEN
 ```
 
 ## Creating a template
@@ -172,27 +259,27 @@ Example `screwdriver.yaml`:
 
 ```yaml
 shared:
-    image: node:lts
+  image: node:lts
 jobs:
   main:
-      requires: [~pr, ~commit]
-      steps:
-        - validate: npx -y -p screwdriver-template-main pipeline-template-validate
-      environment:
-        SD_TEMPLATE_PATH: ./path/to/template.yaml
+    requires: [~pr, ~commit]
+    steps:
+      - validate: npx -y -p screwdriver-template-main pipeline-template-validate
+    environment:
+      SD_TEMPLATE_PATH: ./path/to/template.yaml
   publish:
-      requires: [main]
-      steps:
-        - publish: npx -y -p screwdriver-template-main pipeline-template-publish
-        - tag: npx -y -p screwdriver-template-main pipeline-template-tag --namespace myNamespace --name template_name --version 1.3.0 --tag stable
-      environment:
-        SD_TEMPLATE_PATH: ./path/to/template.yaml
+    requires: [main]
+    steps:
+      - publish: npx -y -p screwdriver-template-main pipeline-template-publish
+      - tag: npx -y -p screwdriver-template-main pipeline-template-tag --namespace myNamespace --name template_name --version 1.3.0 --tag stable
+    environment:
+      SD_TEMPLATE_PATH: ./path/to/template.yaml
   remove:
-      steps:
-        - remove: npx -y -p screwdriver-template-main pipeline-template-remove --namespace myNamespace --name template_name
+    steps:
+      - remove: npx -y -p screwdriver-template-main pipeline-template-remove --namespace myNamespace --name template_name
   remove_tag:
-      steps:
-        - remove_tag: npx -y -p screwdriver-template-main pipeline-template-remove-tag --namespace myNamespace --name template_name --tag stable
+    steps:
+      - remove_tag: npx -y -p screwdriver-template-main pipeline-template-remove-tag --namespace myNamespace --name template_name --tag stable
 ```
 
 Create a Screwdriver pipeline with your template repo and start the build to validate and publish it.

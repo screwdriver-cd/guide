@@ -220,6 +220,7 @@ jobs:
         requires: [~pr, ~commit]
         image: node:lts
     main2:
+        template: sd/noop@latest
         annotations:
             screwdriver.cd/mergeSharedSteps: true
         requires: [main]
@@ -239,6 +240,7 @@ jobs:
              - pretest: npm lint
              - test: npm test
     main2:
+        template: sd/noop@latest
         annotations:
              screwdriver.cd/mergeSharedSteps: true
         requires: [main]
