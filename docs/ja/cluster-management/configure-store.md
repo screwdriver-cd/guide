@@ -49,12 +49,14 @@ APIから渡されるJWTのバリデーションについて設定します。
 キー | デフォルト | 説明
 --- | --- | ---
 SECRET_JWT_PUBLIC_KEY | *なし* | JWTの署名を検証するために使用される公開鍵。APIと同じものを設定します。
+JWT_MAX_AGE | 13h | JWTの有効期間。
 
 ```yaml
 # config/local.yaml
 auth:
     jwtPublicKey: |
         PUBLIC KEY HERE
+    jwtMaxAge: 13h
 ```
 
 ### 配信
