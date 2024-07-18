@@ -48,12 +48,14 @@ Configure the validation of incoming JWTs from the API.
 | Key                   | Default | Description                                                                                           |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------------|
 | SECRET_JWT_PUBLIC_KEY | *none*  | The public key used for verifying the signature of the JWT. Use the same one as configured in the API |
+| JWT_MAX_AGE           | 13h     | Expiration of JWT                                                                                     |
 
 ```yaml
 # config/local.yaml
 auth:
     jwtPublicKey: |
         PUBLIC KEY HERE
+    jwtMaxAge: 13h
 ```
 
 ### Serving
