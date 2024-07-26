@@ -1,4 +1,7 @@
-FROM ruby:3.3.4-alpine
+FROM ruby:2.7.6-alpine
+
+# Update RubyGems
+RUN gem update --system 3.3.22
 
 # Create our application directory
 RUN mkdir -p /usr/src/app
