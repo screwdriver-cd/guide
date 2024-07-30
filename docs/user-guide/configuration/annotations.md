@@ -59,6 +59,7 @@ The following annotations are supported by plugins maintained by Screwdriver.cd.
 | screwdriver.cd/blockedBySameJob | `true` / `false` | Setting it to `false` will allow builds from same job to run concurrently with a default wait time of 5 minute, waiting time can be specified by setting `screwdriver.cd/blockedBySameJobWaitTime`. |
 | screwdriver.cd/blockedBySameJobWaitTime | Number of minutes | Concurrent builds will have 5 minute of wait time by default, set this annotation to override wait time. |
 | screwdriver.cd/jobDisabledByDefault | `true` / `false` | When writing a Screwdriver yaml file, you might want to prevent people forking or copying the config from running a configured periodic build. The job will be disabled upon creation when this is set to `true`. Default is `false`. The user can go to the Screwdriver UI options page to enable the job. |
+| screwdriver.cd/virtualJob | `true` / `false` | To skip execution of certain jobs, set this to `true`. These jobs will not be executed while processing the workflow for an event, but will proceed with SUCCESS status. Will also skip queueing and execution and builds of its downstream jobs will be immediately created to continue the processing of the workflow. Default is `false`. |
 
 ## Pipeline-Level Annotations
 
