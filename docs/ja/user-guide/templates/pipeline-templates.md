@@ -10,6 +10,9 @@ toc:
   url: "#テンプレートを検索する"
 - title: テンプレートを利用する
   url: "#テンプレートを利用する"
+- title: カスタマイズ
+  url: "#カスタマイズ"
+  subitem: true
 - title: テンプレートの例
   url: "#テンプレートの例"
 - title: "バージョンタグの意味"
@@ -87,6 +90,90 @@ shared:
 
 テンプレートの予期しない変更を回避する最も信頼できる方法は、テンプレートの特定のバージョンを明示的に指定することです。例えば、`nodejs/test@1.0.4`は不変な特定のバージョンのテンプレートへの参照を表しています。`nodejs/test@1.0`などと記述すると、`nodejs/test@1.0.5`が利用可能となったときにそれを使用しますが、振る舞いが予期せず変更される可能性があります。
 
+### カスタマイズ
+パイプラインテンプレートを使用する場合、`jobs`設定内でいくつかのカスタマイズが可能です。
+
+パイプラインテンプレートに*既に存在する*名前のユーザー定義ジョブについては、`image`、`settings`、`environment`、`requires`のフィールドのみカスタマイズが可能です。
+
+パイプラインテンプレート内に*存在しない*名前のユーザー定義ジョブについては、すべてのフィールドでカスタマイズが可能です。
+
+#### 例
+次のようなパイプラインテンプレートがある場合:
+
+```
+shared:
+  image: node:lts
+  environment:
+    VAR1: "one"
+    VAR2: "two"
+  steps:
+    - init: npm install
+    - test: npm test
+  settings:
+    email: [test@email.com, test2@email.com]
+    slack: 'mychannel'
+jobs:
+  main:
+    requires: [~pr, ~commit]
+  second:
+    requires: [main]
+```
+
+そしてユーザー定義のyamlが次のような場合:
+
+```
+template: sd-test/example-template@latest
+jobs:
+  main:
+    requires: [~commit]
+    image: node:20
+    settings:
+      email: [test@email.com, test3@email.com]
+    environment:
+      VAR3: "three"
+      VAR1: "empty"
+  third:
+    requires: []
+    image: node:lts
+    steps:
+      - echo: echo third job
+```
+
+結果として得られる設定は次のようになります:
+```
+jobs:
+  main:
+    requires: [~commit]
+    image: node:20
+    steps:
+      - init: npm install
+      - test: npm test
+    environment:
+      VAR1: "empty"
+      VAR2: "two"
+      VAR3: "three"
+    settings:
+      email: [test@email.com, test3@email.com]
+      slack: 'mychannel'
+  second:
+    requires: [main]
+    image: node:lts
+    steps:
+      - init: npm install
+      - test: npm test
+    environment:
+      VAR1: "one"
+      VAR2: "two"
+    settings:
+      email: [test@email.com, test2@email.com]
+      slack: 'mychannel'
+  third:
+    requires: []
+    image: node:lts
+    steps:
+      - echo: echo third job
+```
+
 ## バージョンタグの意味
 
 テンプレートのバージョンは様々な方法で参照でき、振る舞いを固定するか、テンプレート管理者による機能改善を自動的に取り込むかがユーザーのトレードオフとして現れます。上記の例はnodejs/testテンプレートの例を参照してください。
@@ -115,14 +202,14 @@ shared:
   environment:
     FOO: bar
 jobs:
-    main:
-      image: node:lts
-      requires: [~pr, ~commit]
-      steps:
-        - install: npm install
-        - test: npm test
-      secrets:
-        - NPM_TOKEN
+  main:
+    image: node:lts
+    requires: [~pr, ~commit]
+    steps:
+      - install: npm install
+      - test: npm test
+    secrets:
+      - NPM_TOKEN
 ```
 
 ## テンプレートを作成する
@@ -174,27 +261,27 @@ Example `screwdriver.yaml`:
 
 ```yaml
 shared:
-    image: node:lts
+  image: node:lts
 jobs:
   main:
-      requires: [~pr, ~commit]
-      steps:
-        - validate: npx -y -p screwdriver-template-main pipeline-template-validate
-      environment:
-        SD_TEMPLATE_PATH: ./path/to/template.yaml
+    requires: [~pr, ~commit]
+    steps:
+      - validate: npx -y -p screwdriver-template-main pipeline-template-validate
+    environment:
+      SD_TEMPLATE_PATH: ./path/to/template.yaml
   publish:
-      requires: [main]
-      steps:
-        - publish: npx -y -p screwdriver-template-main pipeline-template-publish
-        - tag: npx -y -p screwdriver-template-main pipeline-template-tag --namespace myNamespace --name template_name --version 1.3.0 --tag stable
-      environment:
-        SD_TEMPLATE_PATH: ./path/to/template.yaml
+    requires: [main]
+    steps:
+      - publish: npx -y -p screwdriver-template-main pipeline-template-publish
+      - tag: npx -y -p screwdriver-template-main pipeline-template-tag --namespace myNamespace --name template_name --version 1.3.0 --tag stable
+    environment:
+      SD_TEMPLATE_PATH: ./path/to/template.yaml
   remove:
-      steps:
-        - remove: npx -y -p screwdriver-template-main pipeline-template-remove --namespace myNamespace --name template_name
+    steps:
+      - remove: npx -y -p screwdriver-template-main pipeline-template-remove --namespace myNamespace --name template_name
   remove_tag:
-      steps:
-        - remove_tag: npx -y -p screwdriver-template-main pipeline-template-remove-tag --namespace myNamespace --name template_name --tag stable
+    steps:
+      - remove_tag: npx -y -p screwdriver-template-main pipeline-template-remove-tag --namespace myNamespace --name template_name --tag stable
 ```
 
 Screwdriverのパイプラインをテンプレートリポジトリで作成し、テンプレートのバリデートとパブリッシュを行うためにビルドを開始します。
