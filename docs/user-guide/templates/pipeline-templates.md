@@ -13,6 +13,12 @@ toc:
     - title: Customization
       url: "#customization"
       subitem: true
+    - title: Shared
+      url: "#shared"
+      subitem: level-2
+    - title: Jobs
+      url: "#jobs"
+      subitem: level-2
     - title: Example pipeline template
       url: "#example-pipeline-template"
     - title: "Version/Tag Semantics"
@@ -43,7 +49,7 @@ Pipeline Templates are snippets of predefined configuration that users can use t
 
 ## Finding pipeline templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/pipeline/templates` [API](../api) endpoint.
+To figure out which templates already exist, you can make a `GET` call to the `/pipeline/templates` [API](../api) endpoint. You can also find Pipeline Templates through the UI by navigating to `<YOUR_UI_URL>/templates/pipeline`.
 
 ## Example pipeline template
 
@@ -89,6 +95,12 @@ If no template version is specified, the most recently published will be used. T
 The most reliable way to avoid unexpected template changes is to refer to a specific version of the template. For instance, `nodejs/test@1.0.4` is an immutable reference to a particular list of steps. Using a reference such as `nodejs/test@1.0` means that a job will automatically use `nodejs/test@1.0.5` when it becomes available, but that comes with risk of an unexpected change in behavior.
 
 ### Customization
+Many fields can be customized when using Pipeline Template: shared, jobs, cache, subscribe, parameters, annotations, and stages. 
+
+#### Shared
+When `shared` is set in either the Pipeline Template or user yaml, priority will be (in decreasing order): user job > user shared > pipeline template job > pipeline template shared
+
+#### Jobs
 Some customization can be done within the `jobs` configuration when using a Pipeline Template.
 
 For user-defined jobs with names that *already exist* in the pipeline template, customization is limited to a set of certain fields: `image`, `settings`, `environment`, and `requires`.
@@ -296,3 +308,7 @@ _Note: You cannot test your template in the same pipeline, as template step expa
 ### Using screwdriver-template-main npm package
 To remove your template, you can run the `pipeline-template-remove` script. You will need to provide the template namespace and name as an argument.
 
+### Using the UI
+Or, you can remove your template and all its associated tags and versions by clicking on the trash icon in the UI on the template page.
+
+_Note: Do not delete your template pipeline beforehand, because it is required to determine who has permission to delete the template._
