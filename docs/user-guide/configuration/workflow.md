@@ -24,6 +24,8 @@ toc:
     url: "#remote-triggers"
   - title: Remote Join
     url: "#remote-join"
+  - title: Caveats
+    url: "#caveats"
   - title: Blocked By
     url: "#blocked-by"
   - title: Freeze Windows
@@ -266,7 +268,9 @@ jobs:
     requires: [~sd@3:main]
 ```
 
-### Caveats of Using Remote Triggers and Remote Join
+### Caveats
+
+_Section covering known limitations and special considerations when using remote triggers and remote join in workflows._
 
 - In the downstream remote job (e.g.: for instance, in pipeline 2 or pipeline 4 examples above), we currently do not support `AND` syntax (e.g.: `requires: [sd@3:main]` or `requires: [sd@3:main, sd@1:main]`) for external triggers in the start nodes; you must use `OR` syntax for these nodes (e.g.: `requires: [~sd@3:main]` or `requires: [~sd@3:main, ~sd@1:main]`)
 - This feature is only guaranteed one external dependency level deep
