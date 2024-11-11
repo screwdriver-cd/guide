@@ -75,6 +75,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 |------|---------------|-------------|
 | SD_ZIP_ARTIFACTS | false | **オプション:** (`true`/`false`) <br><br>artifacts を単一の zip ファイルにしてアップロードします。<br><br>**ユースケース:** ビルドで大量の artifacts が生成される場合にアップロード時間を短縮できます。アップロードに失敗する場合は、zipファイルのサイズが処理可能なサイズより大きい可能性があります。<br><br>**注意:** このオプションが利用可能かどうかは、クラスタ管理者に問い合わせてください。 |
 | USER_SHELL_BIN | sh | ビルド内で実行されるシェルを指定します。`/bin/bash`のように、絶対パスでの指定もできます。サンプルリポジトリ: <https://github.com/screwdriver-cd-test/user-shell-example> |
+| GIT_RECURSIVE_CLONE | true | **Options:** (`true`/`false`) <br><br>サブモジュールを recursive clone します. |
 | GIT_SHALLOW_CLONE | true | **オプション:** (`true`/`false`) <br><br>shallow clone します。|
 | GIT_SHALLOW_CLONE_DEPTH | 50 | shallow clone する際の履歴を指定されたコミット数までで切り捨てます。 |
 | GIT_SHALLOW_CLONE_SINCE |  | 指定した日時から始まる履歴の一部でShallow cloneします。設定されている場合、`GIT_SHALLOW_CLONE_DEPTH`よりも優先されます。<br><br>`--shallow-since`を利用しており、絶対年代(例: `2019-04-01`)と相対年代(例: `4 weeks ago`)が設定できます。 |
