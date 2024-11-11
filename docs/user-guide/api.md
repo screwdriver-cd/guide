@@ -4,32 +4,35 @@ title: API
 category: User Guide
 menu: menu
 toc:
-    - title: API
-      url: "#api"
-      active: true
-    - title: Using the API
-      url: "#using-the-api"
-    - title: With Swagger
-      url: "#with-swagger"
-      subitem: true
-    - title: Get a Bearer Token
-      url: "#get-a-bearer-token"
-      subitem: level-2
-    - title: With a REST Client
-      url: "#with-a-rest-client"
-      subitem: true
-    - title: With User or Pipeline tokens
-      url: "#with-user-or-pipeline-tokens"
-      subitem: true
-    - title: Authentication and Authorization
-      url: "#authentication-and-authorization"
-    - title: Badges
-      url: "#badges"
-    - title: Design
-      url: "#design"
-    - title: Make Your Own
-      url: "#make-your-own"
+  - title: API
+    url: "#api"
+    active: true
+  - title: Using the API
+    url: "#using-the-api"
+  - title: With Swagger
+    url: "#with-swagger"
+    subitem: true
+  - title: Get a Bearer Token
+    url: "#get-a-bearer-token"
+    subitem: level-2
+  - title: With a REST Client
+    url: "#with-a-rest-client"
+    subitem: true
+  - title: With User or Pipeline tokens
+    url: "#with-user-or-pipeline-tokens"
+    subitem: true
+  - title: Authentication and Authorization
+    url: "#authentication-and-authorization"
+  - title: Badges
+    url: "#badges"
+  - title: Design
+    url: "#design"
+  - title: Payload Limitation
+    url: "#payload-limitation"
+  - title: Make Your Own
+    url: "#make-your-own"
 ---
+
 # API
 
 Screwdriver APIs and the data models around them are documented via [Swagger]. This prevents out-of-date documentation, enables clients to be auto-generated, and most importantly exposes a human-readable interface.
@@ -41,6 +44,7 @@ Our API documentation can be found at [api.screwdriver.cd/v4/documentation](http
 ## Using the API
 
 ### With Swagger
+
 Swagger documentation includes examples and editable parameters to play around with. Visit the `/v4/documentation` page and use the interactive `Try it out!` buttons to make calls to our API.
 
 Swagger page:
@@ -55,18 +59,20 @@ Swagger model:
 ![Swagger model](./assets/swagger-model.png)
 
 ### Get a Bearer Token
+
 1. After login to Screwdriver UI, you can go to [https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token) or your `<API URL>/v4/auth/token` to get a Bearer Token:
-![Swagger Get Bearer Token](./assets/swagger-get-bearer-token.jpg)
+   ![Swagger Get Bearer Token](./assets/swagger-get-bearer-token.jpg)
 
 2. Now go back [API documentation](https://api.screwdriver.cd/v4/documentation) or yours `<API URL>/v4/documentation`, click on the 🔒 icon to the enter the Bearer Token, like the following:
 
 ![Swagger Use bearer token](./assets/swagger-use-bearer-token.png)
 
-
 ### With a REST Client
+
 Use a REST client like [Postman] to make requests against the API. You will need an authorization token. To get an authorization token, login using `/v4/auth/login` and copy the token value when redirected to `/v4/auth/token`. See the [Authorization and Authentication](#authentication-and-authorization) section for more information.
 
 Requests can be made to the API with headers like below:
+
 ```yaml
 Content-Type: application/json
 Authorization: Bearer <YOUR_TOKEN_HERE>
@@ -80,9 +86,11 @@ Example request:
 For easy scripting with our API, we recommend using [tokens](./tokens).
 
 #### Using Tokens to Authenticate
+
 To authenticate with your newly created token, make a GET request to `https://${API_URL}/v4/auth/token?api_token=${YOUR_TOKEN_VALUE}`. This returns a JSON object with a token field. The value of this field will be a JSON Web Token, which you can use in an Authorization header to make further requests to the Screwdriver API. This JWT will be valid for 12 hours, after which you must re-authenticate.
 
 #### Example: Starting a Pipeline
+
 Here’s a short example written in Python showing how you can use an API token to start a pipeline. This script will directly call the Screwdriver API.
 
 ```python
@@ -107,20 +115,21 @@ For more information and examples, check out our [API documentation](https://api
 
 For Authentication we're using [JSON Web Tokens] (JWTs) and Screwdriver API Tokens. JWTs need to be passed via
 an `Authorization` header.
-* To generate a JWT with OAuth, visit the `/v4/auth/login` endpoint, which will redirect you to the `/v4/auth/token` endpoint.
-* To generate a JWT with a Screwdriver API Token, make a `GET` request to the `/v4/auth/token` endpoint with your API token as the `api_token` query parameter.
+
+- To generate a JWT with OAuth, visit the `/v4/auth/login` endpoint, which will redirect you to the `/v4/auth/token` endpoint.
+- To generate a JWT with a Screwdriver API Token, make a `GET` request to the `/v4/auth/token` endpoint with your API token as the `api_token` query parameter.
 
 [Authorization](./authentication-authorization) is handled by your SCM. Screwdriver uses SCM user tokens
 and identity to:
 
- - identify what repositories you have read, write, and admin access to
-     - read allows you to view the pipeline
-     - write allows you to start or stop jobs
-     - admin allows you to create, edit, or delete pipelines
- - read the repository's `screwdriver.yaml`
- - enumerate the list of pull-requests open on your repository
- - update the pull-request with the success/failure of the build
- - add/remove repository web-hooks so Screwdriver can be notified on changes
+- identify what repositories you have read, write, and admin access to
+  - read allows you to view the pipeline
+  - write allows you to start or stop jobs
+  - admin allows you to create, edit, or delete pipelines
+- read the repository's `screwdriver.yaml`
+- enumerate the list of pull-requests open on your repository
+- update the pull-request with the success/failure of the build
+- add/remove repository web-hooks so Screwdriver can be notified on changes
 
 For more information, see the [GitHub OAuth] documentation.
 
@@ -149,14 +158,19 @@ For example, we display the badge above by using this code in Markdown. The `sta
 Our API was designed with three principles in mind:
 
 1. All interactions of user's data should be done through the API, so that
-there is a consistent interface across the tools (CLI, Web UI, etc.).
+   there is a consistent interface across the tools (CLI, Web UI, etc.).
 1. Resources should be REST-ful and operations should be atomic so that intent
-is clear and human readable.
+   is clear and human readable.
 1. API should be versioned and self-documented, so that client code generation
-is possible.
+   is possible.
+
+## Payload Limitation
+
+The API enforces a maximum payload size of 1 MB per request. This limitation is due to constraints imposed by the [Hapi framework](https://hapi.dev/) on which our API server is built. Requests exceeding this size will be rejected, so please design your API interactions accordingly.
 
 ## Make Your Own
-If you'd like to make your own Swagger documentation, check out our JSON for reference at  [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json). To see your Swagger.json, visit `/v4/swagger.json`.
+
+If you'd like to make your own Swagger documentation, check out our JSON for reference at [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json). To see your Swagger.json, visit `/v4/swagger.json`.
 
 [JSON Web Tokens]: http://jwt.io
 [GitHub OAuth]: https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps

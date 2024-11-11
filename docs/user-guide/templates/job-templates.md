@@ -70,7 +70,7 @@ Templates are snippets of predefined code that people can use to replace a job d
 
 ## Finding templates
 
-To figure out which templates already exist, you can make a `GET` call to the `/templates` [API](../api) endpoint. You can also see templates in the UI at `<YOUR_UI_URL>/templates`.
+To figure out which templates already exist, you can make a `GET` call to the `/templates` [API](../api) endpoint. You can also see templates in the UI at `<YOUR_UI_URL>/templates`. You can also find Job Templates through the UI by navigating to `<YOUR_UI_URL>/templates/job`.
 
 Example templates page:
 ![Templates](../assets/templates.png)
