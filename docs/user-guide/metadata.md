@@ -123,7 +123,7 @@ Upon completion of `build3`, the metadata from `build1`, `build2`, and `build3` 
 
 When `build1` is restarted, it will have access to metadata from `event1`. This metadata from `build1` will then be accessible to downstream builds, allowing `build2` and `build3` to also receive the metadata from `event1`.
 
-_Caveat_
+#### Caveat
 
 If a build is restarted from a parent event containing only one build that has never been run (e.g., a virtual job or frozen build), the restarted build will not inherit any metadata because the parent event’s metadata is empty.
 
