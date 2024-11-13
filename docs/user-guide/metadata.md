@@ -4,51 +4,52 @@ title: Metadata
 category: User Guide
 menu: menu
 toc:
-    - title: Metadata
-      url: "#metadata"
-    - title: What is Metadata?
-      url: "#what-is-metadata"
-    - title: Default Metadata
-      url: "#default-metadata"
-    - title: Manipulating Metadata
-      url: "#manipulating-metadata"
-    - title: Same Pipeline
-      url: "#same-pipeline"
-      subitem: true
-    - title: External Pipeline
-      url: "#external-pipeline"
-      subitem: true
-    - title: Pull Request Comments
-      url: "#pull-request-comments"
-      subitem: true
-    - title: Pull Request Checks
-      url: "#additional-pull-request-checks"
-      subitem: true
-    - title: Coverage and Test Results
-      url: "#coverage-and-test-results"
-      subitem: true
-    - title: Event Labels
-      url: "#event-labels"
-      subitem: true
-    - title: Slack Notifications
-      url: "#slack-notifications"
-      subitem: true
-    - title: Job-based Message
-      url: "#job-based-slack-message"
-      subitem: level-2
-    - title: Job-based Channel
-      url: "#job-based-slack-channel"
-      subitem: level-2
-    - title: Job-based minimized setting
-      url: "#job-based-minimized-setting"
-      subitem: level-2
-    - title: Mark Builds and Set Warnings
-      url: "#mark-builds-and-set-warnings"
-      subitem: true
-    - title: Using Lua for atomic updates
-      url: "#using-lua-for-atomic-updates"
-      subitem: true
+  - title: Metadata
+    url: "#metadata"
+  - title: What is Metadata?
+    url: "#what-is-metadata"
+  - title: Default Metadata
+    url: "#default-metadata"
+  - title: Manipulating Metadata
+    url: "#manipulating-metadata"
+  - title: Same Pipeline
+    url: "#same-pipeline"
+    subitem: true
+  - title: External Pipeline
+    url: "#external-pipeline"
+    subitem: true
+  - title: Pull Request Comments
+    url: "#pull-request-comments"
+    subitem: true
+  - title: Pull Request Checks
+    url: "#additional-pull-request-checks"
+    subitem: true
+  - title: Coverage and Test Results
+    url: "#coverage-and-test-results"
+    subitem: true
+  - title: Event Labels
+    url: "#event-labels"
+    subitem: true
+  - title: Slack Notifications
+    url: "#slack-notifications"
+    subitem: true
+  - title: Job-based Message
+    url: "#job-based-slack-message"
+    subitem: level-2
+  - title: Job-based Channel
+    url: "#job-based-slack-channel"
+    subitem: level-2
+  - title: Job-based minimized setting
+    url: "#job-based-minimized-setting"
+    subitem: level-2
+  - title: Mark Builds and Set Warnings
+    url: "#mark-builds-and-set-warnings"
+    subitem: true
+  - title: Using Lua for atomic updates
+    url: "#using-lua-for-atomic-updates"
+    subitem: true
 ---
+
 # Metadata
 
 ## What is Metadata?
@@ -59,24 +60,24 @@ Metadata is a structured key/value storage of relevant information about a [buil
 
 By default, Screwdriver sets the following keys in metadata:
 
-| Key | Description |
-| --- | ----------- |
-| build.buildId | ID of this build |
-| build.jobId | ID of the job that this build belongs to |
-| build.eventId | ID of the event that this build belongs to |
-| build.pipelineId | ID of the pipeline that this build belongs to |
-| build.sha | The commit sha that this build ran |
-| build.jobName | The name of the job |
-| event.creator | The creator of the event that this build belongs to |
-| commit.author | The author info object with the following fields: `avatar`, `name`, `url` and `username` |
-| commit.committer | The committer info object with the following fields: `avatar`, `name`, `url` and `username` |
-| commit.message | The commit message |
-| commit.url | The url to the commit |
+| Key                 | Description                                                                                                                                           |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| build.buildId       | ID of this build                                                                                                                                      |
+| build.jobId         | ID of the job that this build belongs to                                                                                                              |
+| build.eventId       | ID of the event that this build belongs to                                                                                                            |
+| build.pipelineId    | ID of the pipeline that this build belongs to                                                                                                         |
+| build.sha           | The commit sha that this build ran                                                                                                                    |
+| build.jobName       | The name of the job                                                                                                                                   |
+| event.creator       | The creator of the event that this build belongs to                                                                                                   |
+| commit.author       | The author info object with the following fields: `avatar`, `name`, `url` and `username`                                                              |
+| commit.committer    | The committer info object with the following fields: `avatar`, `name`, `url` and `username`                                                           |
+| commit.message      | The commit message                                                                                                                                    |
+| commit.url          | The url to the commit                                                                                                                                 |
 | commit.changedFiles | List of changed files separated by comma. **Note**: If you start a fresh event via UI, this value will be empty since it's not triggered by a commit. |
-| sd.tag.name | The name of the tag |
-| sd.release.id | ID of the release |
-| sd.release.name | The name of the release |
-| sd.release.author | The author name of the release |
+| sd.tag.name         | The name of the tag                                                                                                                                   |
+| sd.release.id       | ID of the release                                                                                                                                     |
+| sd.release.name     | The name of the release                                                                                                                               |
+| sd.release.author   | The author name of the release                                                                                                                        |
 
 ## Manipulating Metadata
 
@@ -101,6 +102,7 @@ $ meta get example
 ```
 
 Example:
+
 ```bash
 $ meta set foo[2].bar[1] baz
 $ meta get foo
@@ -109,20 +111,35 @@ $ meta get foo
 
 Example repo: <https://github.com/screwdriver-cd-test/workflow-metadata-example>
 
-Notes:
-- If `foo` is not set and you try to `meta get foo`, it will return a string with value `null` by default.
+_Note_: If `foo` is not set and you try to `meta get foo`, it will return a string with value `null` by default.
+
+### Restart case
+
+The metadata from the parent event will be accessible for use in the restarted build as well as in any downstream builds.
+
+Example: `build1` -> `build2` -> `build3` are builds in event1.
+
+Upon completion of `build3`, the metadata from `build1`, `build2`, and `build3` becomes available in `event1`. In other words, the metadata from each completed build is merged into the event in which the build is currently running.
+
+When `build1` is restarted, it will have access to metadata from `event1`. This metadata from `build1` will then be accessible to downstream builds, allowing `build2` and `build3` to also receive the metadata from `event1`.
+
+#### Caveat
+
+If a build is restarted from a parent event containing only one build that has never been run (e.g., a virtual job or frozen build), the restarted build will not inherit any metadata because the parent event’s metadata is empty.
 
 ### External pipeline
 
 Screwdriver build can also access metadata from an external triggering job by adding the `--external` flag followed by the triggering job.
 
 Example: `sd@123:publish` -> `build1`. Then inside `build1`:
+
 ```
 $ meta get example --external sd@123:publish
 {"coverage":99.95}
 ```
 
 Notes:
+
 - `meta set` is not allowed for external builds.
 - If the `--external` pipeline job did not trigger the build, then `meta` from the last successful build for the external job will be fetched.
 
@@ -151,12 +168,14 @@ jobs:
 ```
 
 You can also write things in markdown syntax as shown in the following example:
+
 ```yaml
 jobs:
   main:
     steps:
       - comment: meta set meta.summary.markdown "this markdown comment is **bold** and *italic*"
 ```
+
 These settings will result in a Git comment that looks like:
 
 ![PR comment](./assets/pr-comment.png)
@@ -169,6 +188,7 @@ jobs:
     steps:
       - comment: meta set meta.splitComments "split"
 ```
+
 This setting will result in Git comments that looks like:
 
 ![PR comment](./assets/pr-comment-split.png)
@@ -185,11 +205,11 @@ To additional checks to a pull request, you just need to set `meta.status.<check
 
 The fields you can set:
 
-| Key | Default | Description |
-| --- | ------- | ----------- |
-| status (String) | `SUCCESS` | Status of the check, can be one of `SUCCESS`, `FAILURE`, `PENDING` |
-| message (String) | `fieldName check failed` | Description for the check |
-| url (String) | build link | URL for the check to link to |
+| Key              | Default                  | Description                                                        |
+| ---------------- | ------------------------ | ------------------------------------------------------------------ |
+| status (String)  | `SUCCESS`                | Status of the check, can be one of `SUCCESS`, `FAILURE`, `PENDING` |
+| message (String) | `fieldName check failed` | Description for the check                                          |
+| url (String)     | build link               | URL for the check to link to                                       |
 
 For example, to add two additional checks for `findbugs` and `coverage`, your screwdriver.yaml should look something like below:
 
@@ -235,6 +255,7 @@ These settings will result in build page that looks like:
 You can label your events using the `label` key from meta. This key can be useful when trying to determine which event to [rollback](./FAQ.html#how-do-i-rollback).
 
 Example screwdriver.yaml:
+
 ```yaml
 jobs:
   main:
@@ -253,7 +274,9 @@ You can customize [notification](./configuration/settings.html#slack) messages w
 You will need special string formatting for mentions or channel links in Slack. You can read more about the available options in the [Slack Documentation](https://api.slack.com/reference/surfaces/formatting#advanced).
 
 #### Basic
+
 Example screwdriver.yaml notifying with Slack:
+
 ```yaml
 jobs:
   main:
@@ -266,11 +289,13 @@ Result:
 ![notification-meta](./assets/notification-meta.png)
 
 #### Job-based Slack message
-*Note*: Job-based Slack notification meta data will overwrite the basic notification message.
+
+_Note_: Job-based Slack notification meta data will overwrite the basic notification message.
 
 Structure of meta variable is `notification.slack.<jobname>.message`, replacing `<jobname>` with the name of the Screwdriver job.
 
 Example screwdriver.yaml notifying with specific Slack message for job `slack-notification-test`:
+
 ```yaml
 jobs:
   main:
@@ -283,31 +308,35 @@ Result:
 ![notification-meta](./assets/notification-meta.png)
 
 #### Job-based Slack Channel
-*Note*: Job-based Slack channel meta will only overwrite the basic Slack notification channel. It is not a replacement for setting a [notification channel](./configuration/settings#slack).
+
+_Note_: Job-based Slack channel meta will only overwrite the basic Slack notification channel. It is not a replacement for setting a [notification channel](./configuration/settings#slack).
 
 Structure of meta variable is `notification.slack.<jobName>.channels`, replacing `<jobname>` with the name of the Screwdriver job.
 
 The setting is a comma-separated string that allows setting multiple channels.
 
 Example screwdriver.yaml notifying different Slack channels upon job failure for the `component` job:
+
 ```yaml
 shared:
-    image: docker.ouroath.com:4443/x/y/z
+  image: docker.ouroath.com:4443/x/y/z
 
-    settings:
-        slack:
-            channels: [ main_channel ]
-            statuses: [ FAILURE ]
+  settings:
+    slack:
+      channels: [main_channel]
+      statuses: [FAILURE]
 
 jobs:
-   component:
+  component:
     steps:
       - meta: |
           meta set notification.slack.component.channels "fail_channel, prod_channel"
 ```
+
 In the above example a Slack notification failure message will be send to channels `fail_channel` and `prod_channel` instead of `main_channel`. All other jobs in this pipeline would still post to `main_channel`.
 
 #### Job-based minimized setting
+
 Job-based Slack `minimized` meta setting will overwrite the default Slack minimized setting.
 
 Structure of meta variable is `notification.slack.<jobName>.minimized`, replacing `<jobName>` with the name of the Screwdriver job.
@@ -316,22 +345,23 @@ Example screwdriver.yaml sending a minimized Slack message in case the `componen
 
 ```yaml
 shared:
-    image: docker.ouroath.com:4443/x/y/z
+  image: docker.ouroath.com:4443/x/y/z
 
-    settings:
-        slack:
-            channels: [ main_channel ]
-            statuses: [ FAILURE ]
-            minimized: false
+  settings:
+    slack:
+      channels: [main_channel]
+      statuses: [FAILURE]
+      minimized: false
 
 jobs:
-   component:
+  component:
     steps:
       - meta: |
           if [[ $SD_SCHEDULED_BUILD == true ]]; then
              meta set notification.slack.component.minimized true
           fi
 ```
+
 In the above example a Slack notification message will be send in `minimized` format for the `component` job if it was triggered by the scheduler.
 
 ### Mark Builds and Set Warnings
@@ -339,17 +369,20 @@ In the above example a Slack notification message will be send in `minimized` fo
 You can mark builds/events with warning status by setting `build.warning`.
 
 Example screwdriver.yaml:
+
 ```yaml
 jobs:
   main:
     steps:
       - warning: meta set build.warning true
 ```
+
 Result:
 ![warning-event-tab](./assets/warning-event-tab.png)
 
 Additionally you can also set warning messages
 Example screwdriver.yaml:
+
 ```yaml
 jobs:
   main:
@@ -357,9 +390,10 @@ jobs:
       - setWarning: meta set build.warning.message "this is a warning message"
       - setAnotherWarning: meta set build.warning.anotherMessage "this is another warning message"
 ```
+
 Result:
 ![warning-message](./assets/warning-message.png)
-*Note*: Only builds/events with successful status will be marked, warning message will still be displayed in build detail page regardless of build/event status
+_Note_: Only builds/events with successful status will be marked, warning message will still be displayed in build detail page regardless of build/event status
 
 ### Using [Lua](https://www.lua.org/) for atomic updates
 
@@ -378,13 +412,13 @@ Example use cases:
 meta lua -E 'meta.set("myNum", (tonumber(meta.get("myNum")) or 0) + 1)'
 ```
 
-| Lua code | Description |
-| ---  | ---  |
-| `meta.get("myNum")` | gets the previous value |
-| `tonumber(`<small>meta.get("myNum")</small>`)` | `tonumber` returns its arg if number, parses if string, and returns `nil` when unparseable or not a number or string. |
-| <small>tonumber(meta.get("myNum"))</small>` or 0` | `or 0` converts non-numbers to `0` so that arithmetic can be applied |
-| <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1` | `+ 1` increments the previous value (normalized to `0` in this example) by 1  |
-| `meta.set(`<small>"myNum", (tonumber(meta.get("myNum")) or 0) + 1</small>`)` | `meta.set` sets the value to the incremented value |
+| Lua code                                                                     | Description                                                                                                           |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `meta.get("myNum")`                                                          | gets the previous value                                                                                               |
+| `tonumber(`<small>meta.get("myNum")</small>`)`                               | `tonumber` returns its arg if number, parses if string, and returns `nil` when unparseable or not a number or string. |
+| <small>tonumber(meta.get("myNum"))</small>` or 0`                            | `or 0` converts non-numbers to `0` so that arithmetic can be applied                                                  |
+| <small>(tonumber(meta.get("myNum")) or 0)</small>` + 1`                      | `+ 1` increments the previous value (normalized to `0` in this example) by 1                                          |
+| `meta.set(`<small>"myNum", (tonumber(meta.get("myNum")) or 0) + 1</small>`)` | `meta.set` sets the value to the incremented value                                                                    |
 
 #### atomically insert some json into an array and return its index
 
