@@ -71,7 +71,7 @@ toc:
 
 ## テンプレートを検索する
 
-既に作成済みのテンプレートを見つけるには、`GET` メソッドで `/templates` [API](../api)エンドポイントにアクセスしてください。またこちらのパス`<YOUR_UI_URL>/templates`にアクセスすることでテンプレートを確認できます。
+既に作成済みのテンプレートを見つけるには、`GET` メソッドで `/templates` [API](../api)エンドポイントにアクセスしてください。またUIでパス`<YOUR_UI_URL>/templates`にアクセスすることでテンプレートを確認できます。
 
 テンプレートページの例:
 ![Templates](../../../user-guide/assets/templates.png)
