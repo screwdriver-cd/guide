@@ -27,6 +27,8 @@ toc:
   url: "#バッジ"
 - title: 設計思想
   url: "#設計思想"
+- title: ペイロードサイズの制限
+  url: "#ペイロードサイズの制限"
 - title: 自作する
   url: "#自作する"
 ---
@@ -59,11 +61,13 @@ Swaggerモデル:
 ![Swagger model](../../user-guide/assets/swagger-model.png)
 
 ### Bearer Tokenの取得
+
 1. Screwdriver UIにログインした後、[https://api.screwdriver.cd/v4/auth/token](https://api.screwdriver.cd/v4/auth/token)またはあなたの`<API URL>/v4/auth/token`にアクセスしてBearer Tokenを取得します。
 ![Swagger Get Bearer Token](../../user-guide/assets/swagger-get-bearer-token.jpg)
 
 2. 次に、[API documentation](https://api.screwdriver.cd/v4/documentation)またはあなたの `<API URL>/v4/documentation` に戻り、🔒アイコンをクリックして、以下のようにBearer Tokenを入力します。
 ![Swagger Use bearer token](../../user-guide/assets/swagger-use-bearer-token.png)
+
 ### RESTクライアント経由で実行する
 
 [Postman](https://www.getpostman.com/)のようなRESTクライアントをAPIリクエストに使用します。その際、認証トークンが必要です。認証トークンを取得するためには、`/v4/auth/login`からログインし、リダイレクト先の`/v4/auth/token`からトークンをコピーしてください。詳しくは[認証と認可](#認証と認可)をご覧ください。
@@ -110,15 +114,16 @@ start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, da
 ## 認証と認可
 
 認証のために、[JSON Web Tokens (JWT)](http://jwt.io) を使用しています。JWTは`Authorization`ヘッダを必要とします。
-* Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
-* ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。
+
+- Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
+- ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。
 
 [認可](./authentication-authorization)はSCMにより行われます。ScrewdriverはSCMトークンで以下を識別します。
 
 - レポジトリへのread, write, adminアクセスを識別します。
-    - read権限でpipelineを見ることができます。
-    - write権限でjobの開始と停止ができます。
-    - admin権限でpipelineの作成、編集、削除ができます。
+  - read権限でpipelineを見ることができます。
+  - write権限でjobの開始と停止ができます。
+  - admin権限でpipelineの作成、編集、削除ができます。
 - リポジトリの`screwdriver.yaml`の読み込み
 - リポジトリに対するオープン中のpull-requestのリストを取得
 - ビルドの成功・失敗情報でpull-requestを更新
@@ -150,6 +155,10 @@ ScrewdriverのAPIは次の三原則を念頭に設計されました。
 1. CLIやWebUIなど各ツールで一貫したインターフェースとするため、全てのユーザーデータへの操作をAPI経由にすべき
 2. 意図がわかりやすく、人間が読みやすくするため、リソースはREST-fulであるべきで、操作は小さく区切るべき
 3. クライアントのコード自動生成を可能にするため、APIにはバージョンがあり自己文書化されているべき
+
+## ペイロードサイズの制限
+
+APIでは、リクエストごとのペイロードサイズが最大1MBに制限されています。これは、APIサーバーが基づいている[Hapiフレームワーク](https://hapi.dev/)の制約によるものです。このサイズを超えるリクエストは受け付けられませんので、APIの利用設計を適切に行ってください。
 
 ## 自作する
 
