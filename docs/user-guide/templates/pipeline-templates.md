@@ -95,7 +95,7 @@ If no template version is specified, the most recently published will be used. T
 The most reliable way to avoid unexpected template changes is to refer to a specific version of the template. For instance, `nodejs/test@1.0.4` is an immutable reference to a particular list of steps. Using a reference such as `nodejs/test@1.0` means that a job will automatically use `nodejs/test@1.0.5` when it becomes available, but that comes with risk of an unexpected change in behavior.
 
 ### Customization
-Many fields can be customized when using Pipeline Template: shared, jobs, cache, subscribe, parameters, annotations, and stages. 
+Many fields can be customized when using Pipeline Template: shared, jobs, cache, subscribe, parameters, annotations, and stages.
 
 #### Shared
 When `shared` is set in either the Pipeline Template or user yaml, priority will be (in decreasing order): user job > user shared > pipeline template job > pipeline template shared
@@ -103,7 +103,7 @@ When `shared` is set in either the Pipeline Template or user yaml, priority will
 #### Jobs
 Some customization can be done within the `jobs` configuration when using a Pipeline Template.
 
-For user-defined jobs with names that *already exist* in the pipeline template, customization is limited to a set of certain fields: `image`, `settings`, `environment`, and `requires`.
+For user-defined jobs with names that *already exist* in the pipeline template, customization is limited to a set of certain fields: `image`, `settings`, `environment`, `annotations`, and `requires`.
 
 For user-defined jobs with names that *do not already exist* in the pipeline template, all jobs fields are allowed.
 

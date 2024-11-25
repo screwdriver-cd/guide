@@ -82,8 +82,8 @@ Example `screwdriver.yaml`:
 ```yaml
 template: nodejs/test@1.0.4
 shared:
-  environment: 
-    FOO: bar        
+  environment:
+    FOO: bar
 ```
 
 バージョンは[semver](https://semver.org/)互換です。例えば上記のテンプレートでは`nodejs/test@1`や`nodejs/test@1.0`と指定できます。
@@ -107,7 +107,7 @@ shared がパイプラインテンプレート、またはテンプレートを�
 #### Jobs
 パイプラインテンプレートを使用時に、`jobs`設定内でいくつかのカスタマイズが可能です。
 
-パイプラインテンプレートに*既に存在する*名前のユーザー定義ジョブについては、`image`、`settings`、`environment`、`requires`のフィールドのみカスタマイズが可能です。
+パイプラインテンプレートに*既に存在する*名前のユーザー定義ジョブについては、`image`、`settings`、`environment`、`annotations`、`requires`のフィールドのみカスタマイズが可能です。
 
 パイプラインテンプレート内に*存在しない*名前のユーザー定義ジョブについては、すべてのフィールドでカスタマイズが可能です。
 
