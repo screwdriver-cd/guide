@@ -39,7 +39,7 @@ Screwdriver APIs and the data models around them are documented via [Swagger]. T
 
 > **Version 4** is the current API, all links should be prefixed with `/v4`.
 
-Our API documentation can be found at [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation). To see yours, go to `<API URL>/v4/documentation`.
+Our API documentation can be found at [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation?url=/v4/openapi.json). To see yours, go to `<API URL>/v4/documentation`.
 
 ## Using the API
 
@@ -170,7 +170,7 @@ The API enforces a maximum payload size of 1 MB per request. This limitation is 
 
 ## Make Your Own
 
-If you'd like to make your own Swagger documentation, check out our JSON for reference at [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json). To see your Swagger.json, visit `/v4/swagger.json`.
+If you'd like to make your own Swagger documentation, check out our JSON for reference at [https://api.screwdriver.cd/v4/openapi.json](https://api.screwdriver.cd/v4/openapi.json). To see your Swagger.json, visit `/v4/openapi.json`.
 
 [JSON Web Tokens]: http://jwt.io
 [GitHub OAuth]: https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps

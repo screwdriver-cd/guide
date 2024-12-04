@@ -39,7 +39,7 @@ ScrewdriverのAPIとデータモデルは[Swagger](http://swagger.io/)を使っ�
 
 > 現在のAPIは**Version 4**で、全てのAPIは`/v4`で始まります。
 
-APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation)
+APIのドキュメントは次のURLで確認できます: [api.screwdriver.cd/v4/documentation](https://api.screwdriver.cd/v4/documentation?url=/v4/openapi.json)
 
 各自のScrewdriver.cdインスタンスでは、`<API URL>/v4/documentation`にアクセスしてください。
 
@@ -163,6 +163,6 @@ APIでは、リクエストごとのペイロードサイズが最大1MBに制�
 ## 自作する
 
 Swaggerドキュメントを作成したい場合は、次のJSONを参考にしてください:
- [https://api.screwdriver.cd/v4/swagger.json](https://api.screwdriver.cd/v4/swagger.json)
+ [https://api.screwdriver.cd/v4/openapi.json](https://api.screwdriver.cd/v4/openapi.json)
 
-各自のScrewdriver.cdインスタンスでは、`/v4/swagger.json` にアクセスしてください。
+各自のScrewdriver.cdインスタンスでは、`/v4/openapi.json` にアクセスしてください。
