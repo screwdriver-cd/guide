@@ -21,6 +21,8 @@ External config allows a single parent pipeline to create and manage the build c
 
 This feature allows easier management of multiple repositories with the same workflow.
 
+> Please note that a repository can only be added as a child if there are no pipelines already configured for the repository.
+
 ## Configure external config in parent pipeline
 In your parent repository's `screwdriver.yaml`, you can define child pipelines with the keyword `childPipelines`. Screwdriver will create or delete child pipelines on your behalf based on the listed `scmUrls`. Please make sure you have **admin** access in each child repository in order to manage child pipelines through this feature.
 
