@@ -19,7 +19,7 @@ The guide is powered by Jekyll. There are two ways to run Jekyll: via Docker and
 ### Running Jekyll using Docker
 
 1. Install [docker-desktop](https://www.docker.com/products/docker-desktop) if you haven't already.
-1. Ensure Docker is running with `docker info`; if not, then on Mac, you can launch easily using `open -a /Applications/Docker.app/`. Launching on CLI (rather than double-clicking) has advantage of exporting your `$SSH_AUTH_SOCK` and `ssh-agent` will work properly, should you need it at some point.
+1. Ensure Docker is running with `docker info`; if not, then on Mac, you can launch easily using `open -a /Applications/Docker.app/`. Launching on CLI (rather than double-clicking) has the advantage of exporting your `$SSH_AUTH_SOCK` and `ssh-agent` will work properly, should you need it at some point.
 1. Run the Jekyll Docker image with mount of `$PWD` to its serving location and with `-ti` so `^C` will kill it.
    ```bash
    docker run -v $PWD:/srv/jekyll:rw -p 4080:4000 -it jekyll/jekyll jekyll serve --source docs --destination _site
@@ -95,7 +95,7 @@ docker run --rm \
 ```
 
 This may take some time as it must download all gems specified in the Gemfile on every run. If you need to rebuild the
-guide frequently, you could simply commit your changes and work from your commited image containing all dependencies.
+guide frequently, you could simply commit your changes and work from your committed image containing all dependencies.
 
 For example:
 
