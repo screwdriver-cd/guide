@@ -23,7 +23,7 @@ toc:
  | Jenkins (Optional)     | [executor-jenkins](https://github.com/screwdriver-cd/executor-jenkins)で利用しています。  | [MIT](https://www.jenkins.io/doc/developer/publishing/preparation/#license) |
  | JWT                    | 認証認可で利用しています。| [MIT](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/LICENSE.txt) |
  | Kubernetes             | Screwdriverを[executor-k8s](https://github.com/screwdriver-cd/executor-k8s)を使って大規模に動作させるために利用しています。| [Apache 2.0](https://github.com/kubernetes/kubernetes/blob/master/LICENSE) |
- | MariaDB (Optional) | [Database](https://github.com/screwdriver-cd/datastore-sequelize/)の選択肢の一つです。| [GPL Licence](https://mariadb.com/kb/en/library/licensing-faq/) |
+ | MariaDB (Optional) | [Database](https://github.com/screwdriver-cd/datastore-sequelize/)の選択肢の一つです。| [GPL Licence](https://mariadb.com/bsl-faq-mariadb/) |
  | MySQL (Optional) | [Database](https://github.com/screwdriver-cd/datastore-sequelize/)の選択肢の一つです。| [GPL or Commercial](https://www.mysql.com/about/legal/) |
  | Node.js                | [ほぼ全てのアプリケーションコンポーネントは](https://docs.screwdriver.cd/about/contributing/where-to-contribute)はnode.jsで動作しています。             | [MIT](https://github.com/nodejs/node/blob/master/LICENSE) |
  | Postgres (Optional) | [Database](https://github.com/screwdriver-cd/datastore-sequelize/)の選択肢の一つです。| [PostgreSQL Licence](https://opensource.org/licenses/postgresql) |

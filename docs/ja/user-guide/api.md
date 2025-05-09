@@ -113,7 +113,7 @@ start_request = post('https://api.screwdriver.cd/v4/builds', headers=headers, da
 
 ## 認証と認可
 
-認証のために、[JSON Web Tokens (JWT)](http://jwt.io) を使用しています。JWTは`Authorization`ヘッダを必要とします。
+認証のために、[JSON Web Tokens (JWT)](https://jwt.io) を使用しています。JWTは`Authorization`ヘッダを必要とします。
 
 - Oauthを利用してJWTを生成するには、`/v4/auth/login` にアクセスします。こちらのエンドポイントにアクセスすると、`/v4/auth/token` に自動でリダイレクトされます。
 - ScrewdriverのAPIトークンを利用してJWTを生成するには、APIトークンをクエリパラメータの`api_token`に設定して`/v4/auth/token`へ`GET`リクエストを送信します。

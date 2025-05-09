@@ -46,8 +46,10 @@ Workflow is the way that individual jobs are wired together to form a pipeline. 
 | ~commit  | Event occurs when a commit is made against the pipeline's branch. When you start a pipeline manually, it runs all the jobs that have the `~commit` event trigger. |
 | ~tag     | Event occurs when a tag is created. Now, this trigger is only available for user using GitHub as scm.                                                             |
 | ~release | Event occurs when released. Now, this trigger is only available for user using GitHub as scm.                                                                     |
+| ~pr-closed | Event occurs when a pull-request is closed or merged. |
 
 See the [tag and release trigger example repo](https://github.com/screwdriver-cd-test/tag-trigger-example) for reference.
+See the [pr-closed trigger example repo](https://github.com/screwdriver-cd-test/pr-closed-trigger-example) for reference.
 
 ## Defining Workflow Order
 

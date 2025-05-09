@@ -23,7 +23,7 @@ toc:
  | Jenkins (Optional)     | Used in [executor-jenkins](https://github.com/screwdriver-cd/executor-jenkins)  | [MIT](https://www.jenkins.io/doc/developer/publishing/preparation/#license) |
  | JWT                    | For authentication & authorization | [MIT](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/LICENSE.txt) |
  | Kubernetes             | For running Screwdriver at scale using [executor-k8s](https://github.com/screwdriver-cd/executor-k8s) | [Apache 2.0](https://github.com/kubernetes/kubernetes/blob/master/LICENSE) |
- | MariaDB (Optional) | One of the options for [Database](https://github.com/screwdriver-cd/datastore-sequelize/) | [GPL Licence](https://mariadb.com/kb/en/library/licensing-faq/) |
+ | MariaDB (Optional) | One of the options for [Database](https://github.com/screwdriver-cd/datastore-sequelize/) | [GPL Licence](https://mariadb.com/bsl-faq-mariadb/) |
  | MySQL (Optional) | One of the options for [Database](https://github.com/screwdriver-cd/datastore-sequelize/) | [GPL or Commercial](https://www.mysql.com/about/legal/) |
  | Node.js                | [Most application components](../about/contributing/where-to-contribute) are running in node.js             | [MIT](https://github.com/nodejs/node/blob/master/LICENSE) |
  | Postgres (Optional) | One of the options for [Database](https://github.com/screwdriver-cd/datastore-sequelize/) | [PostgreSQL Licence](https://opensource.org/licenses/postgresql) |
