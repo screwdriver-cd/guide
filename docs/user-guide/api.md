@@ -172,7 +172,7 @@ The API enforces a maximum payload size of 1 MB per request. This limitation is 
 
 If you'd like to make your own Swagger documentation, check out our JSON for reference at [https://api.screwdriver.cd/v4/openapi.json](https://api.screwdriver.cd/v4/openapi.json). To see your Swagger.json, visit `/v4/openapi.json`.
 
-[JSON Web Tokens]: http://jwt.io
+[JSON Web Tokens]: https://jwt.io
 [GitHub OAuth]: https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
 [Postman]: https://www.getpostman.com/
 [Swagger]: http://swagger.io/
