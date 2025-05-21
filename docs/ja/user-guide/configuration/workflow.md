@@ -48,8 +48,10 @@ Screwdriver は全てのパイプラインに対し、SCM のイベントに対�
 | ~commit  | パイプラインのブランチに対してコミットが行われた場合にイベントが発生します。パイプラインを手動で開始した場合、`~commit`トリガーを持つ全てのジョブのビルドが発生します。 |
 | ~tag     | タグが作成された際にイベントが発生します。scmとしてGitHubを利用している場合のみこのトリガーを使うことができます。                                              |
 | ~release | リリースされたときにイベントが発生します。scmとしてGitHubを利用している場合のみこのトリガーを使うことができます。                                              |
+| ~pr-closed | Pull Requestがクローズ、またはマージされたときにイベントが発生します。 |
 
-[タグとリリーストリガーのサンプルリポジトリ](https://github.com/screwdriver-cd-test/tag-trigger-example)も参考にしてください。
+[タグとリリーストリガーのサンプルリポジトリ](https://github.com/screwdriver-cd-test/tag-trigger-example)も参考にしてください。  
+[pr-closedトリガーのサンプルリポジトリ](https://github.com/screwdriver-cd-test/pr-closed-trigger-example)も参考にしてください。
 
 ## ワークフローの順序を定義する
 
