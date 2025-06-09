@@ -80,7 +80,7 @@ Screwdriver はビルドの過程で利用できる環境変数をエクスポ�
 | GIT_SHALLOW_CLONE_DEPTH | 50 | shallow clone する際の履歴を指定されたコミット数までで切り捨てます。 |
 | GIT_SHALLOW_CLONE_SINCE |  | 指定した日時から始まる履歴の一部でShallow cloneします。設定されている場合、`GIT_SHALLOW_CLONE_DEPTH`よりも優先されます。<br><br>`--shallow-since`を利用しており、絶対年代(例: `2019-04-01`)と相対年代(例: `4 weeks ago`)が設定できます。 |
 | GIT_SHALLOW_CLONE_SINGLE_BRANCH |  | `true`の場合、shallow cloneの際に`--single-branch`オプションを使います。それ以外の場合、`--no-single-branch`オプションが使われます。 |
-| GIT_SPARSE_CHECKOUT_PATH |  | この環境変数が設定されていると、リポジトリのクローン時にScrewdriverはsparse checkoutを実行します。複数ディレクトリを指定する場合は、スペース区切りで複数のディレクトリを指定します。 （例: `dir1 dir2`） |
+| GIT_SPARSE_CHECKOUT_PATH |  | この環境変数が設定されていると、リポジトリのクローン時にScrewdriverはsparse checkoutを実行します。複数ディレクトリを指定する場合は、スペース区切りで複数のディレクトリを指定します。 （例: `dir1 dir2`）<br><br> クローン時に `--no-checkout` のオプションを利用して、指定されたディレクトリのみをチェックアウトします。 |
 | SD_COVERAGE_PLUGIN_ENABLED | `true` | `false`の場合、`sd-teardown-screwdriver-coverage-bookend`ステップがスキップされます。 |
 
 ## プラグイン

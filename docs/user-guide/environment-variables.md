@@ -79,7 +79,7 @@ _Note: Environment variables set in one job cannot be accessed in another job. T
 | GIT_SHALLOW_CLONE_DEPTH | 50 | Shallow clone with a history truncated to the specified number of commits |
 | GIT_SHALLOW_CLONE_SINCE |  | Shallow clone with a history truncated starting from the specified datetime (inclusive). If set, this has priority over `GIT_SHALLOW_CLONE_DEPTH`.<br><br>This uses `--shallow-since` which accepts both absolute dates (e.g.: `2019-04-01`) and relative dates (e.g.: `4 weeks ago`). |
 | GIT_SHALLOW_CLONE_SINGLE_BRANCH |  | If set to `true`, it will use `--single-branch` option for shallow clone. Otherwise, `--no-single-branch` option is used. |
-| GIT_SPARSE_CHECKOUT_PATH |  | If this env is set, screwdriver does sparse checkout source repository with given pattern. When users want to configure multiple directory, users define multiple directories separate with space (e.g.: `dir1 dir2`). |
+| GIT_SPARSE_CHECKOUT_PATH |  | If this env is set, screwdriver does sparse checkout source repository with given pattern. When users want to configure multiple directory, users define multiple directories separate with space (e.g.: `dir1 dir2`). <br><br>This uses `--no-checkout` option for clone and only checkouts defined directory. |
 | SD_COVERAGE_PLUGIN_ENABLED  | `true` |If set to string `false`, step `sd-teardown-screwdriver-coverage-bookend` will be skipped. |
 
 ## Plugins
