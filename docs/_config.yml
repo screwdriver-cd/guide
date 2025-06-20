@@ -52,3 +52,6 @@ extra_css:
 extra_javascript: [js/vendor/jquery-3.1.0.min.js, js/yaml.js, js/lunr.min.js, js/lunr-feed.js]
 
 google_analytics: ['UA-88158708-1', 'docs.screwdriver.cd']
+
+plugins:
+  - jekyll-llmstxt
