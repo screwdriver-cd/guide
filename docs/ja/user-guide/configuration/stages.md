@@ -13,7 +13,7 @@ toc:
     url: "#setupとteardown"
     subitem: true
   - title: PRワークフローでのステージ
-    url: "#PRワークフローでのステージ"
+    url: "#prワークフローでのステージ"
     subitem: true
   - title: 注意
     url: "#注意"
