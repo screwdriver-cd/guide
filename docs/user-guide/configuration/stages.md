@@ -12,6 +12,9 @@ toc:
   - title: Setup and Teardown
     url: "#setup-and-teardown"
     subitem: true
+  - title: Stage in PR workflow
+    url: "#stage-in-pr-workflow"
+    subitem: true
   - title: Caveats
     url: "#caveats"
     subitem: true
