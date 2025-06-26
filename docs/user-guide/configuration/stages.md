@@ -66,7 +66,17 @@ stages:
         - init: echo 'integration teardown'
 ```
 
+#### Stage in PR workflow
+
+Stage is available in the `~pr` workflow. In the PR workflow, only the stage setup job, its child jobs, and the stage teardown job are triggered.  
+Jobs other than the stage setup job does not trigger subsequent jobs.
+
+![PR Stages](../../user-guide/configuration/assets/pr-stages.png)
+
+Stage is executed like a normal build if `chainPR` is enabled.
+
+![Chain PR Stages](../../user-guide/configuration/assets/chain-pr-stages.png)
+
 #### Caveats
 
 - Each job belongs to a single stage.
-- The `~pr` workflow is not yet implemented for the listed [SCM events](./workflow#workflow).

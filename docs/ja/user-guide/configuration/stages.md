@@ -65,7 +65,17 @@ stages:
         - init: echo 'integration teardown'
 ```
 
+#### PRワークフローでのステージ
+
+`~pr` ワークフローでもステージを利用できます。その場合は、setupジョブとその次のジョブ、teardownジョブのみがトリガーされます。  
+setupジョブ以外のジョブから先にはトリガーされません。
+
+![PR Stages](../../../user-guide/configuration/assets/pr-stages.png)
+
+`chainPR` が有効になっている場合は、通常ビルドと同じように動作します。
+
+![Chain PR Stages](../../../user-guide/configuration/assets/chain-pr-stages.png)
+
 #### 注意
 
 - 各ジョブは1つのステージにだけ属します。
-- `~pr`ワークフローにはまだ対応していません。 [SCM events](./workflow#ワークフロー).
