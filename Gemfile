@@ -25,6 +25,6 @@ gem "jekyll-llmstxt"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'html-proofer', '~> 3.19', '>= 3.19.4'
+gem 'html-proofer', '~> 4.0', '>= 4.0.0'
 
 gem "webrick", "~> 1.8", ">= 1.8.2"
