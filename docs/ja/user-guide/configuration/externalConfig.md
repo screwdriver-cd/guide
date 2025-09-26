@@ -32,10 +32,10 @@ Screwdriverは`scmUrls`リストに基づいて子パイプラインを作成、
 ```yaml
 childPipelines:
   scmUrls:
-    - git@github.com:minz1027/test.template.git
-    - git@github.com:minz1027/quickstart-generic.git#main
+    - git@github.com:screwdriver-cd/test.template.git
+    - git@github.com:screwdriver-cd/quickstart-generic.git#main
     # ソースディレクトリがルートでないパイプラインもURLの後に:<ソースディレクトリ>を追加することで子パイプラインにできます
-    - git@github.com:minz1027/quickstart-generic.git#main:path/to/subdir
+    - git@github.com:screwdriver-cd/quickstart-generic.git#main:path/to/subdir
     # read-only SCM。このオプションが利用可能かどうかは、クラスタ管理者に問い合わせてください。
     - https://sd.gitlab.com/screwdriver-cd/data-schema.git
 

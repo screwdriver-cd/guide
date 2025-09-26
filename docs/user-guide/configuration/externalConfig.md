@@ -29,10 +29,10 @@ In your parent repository's `screwdriver.yaml`, you can define child pipelines w
 ```yaml
 childPipelines:
    scmUrls:
-      - git@github.com:minz1027/test.template.git
-      - git@github.com:minz1027/quickstart-generic.git#main
+      - git@github.com:screwdriver-cd/test.template.git
+      - git@github.com:screwdriver-cd/quickstart-generic.git#main
       # can have child pipeline with source dir not at checkout root by adding :<sourceDir> at the end of the scmUrl
-      - git@github.com:minz1027/quickstart-generic.git#main:path/to/subdir
+      - git@github.com:screwdriver-cd/quickstart-generic.git#main:path/to/subdir
       # read-only SCM. Check with your cluster admin for availability
       - https://sd.gitlab.com/screwdriver-cd/data-schema.git
 
