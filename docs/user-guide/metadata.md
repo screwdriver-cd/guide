@@ -78,6 +78,9 @@ By default, Screwdriver sets the following keys in metadata:
 | sd.release.id       | ID of the release                                                                                                                                     |
 | sd.release.name     | The name of the release                                                                                                                               |
 | sd.release.author   | The author name of the release                                                                                                                        |
+| sd.pr.merged        | In the build of the `pr-closed` trigger, whether it is closed due to a merge. Set to `true` or `false`.                                               |
+| sd.pr.name          | In the build of the `pr-closed` trigger, the Git reference name is set.                                                                               |
+| sd.pr.id            | In the build of the `pr-closed` trigger, the Pull Request ID is set.                                                                                  |
 
 ## Manipulating Metadata
 

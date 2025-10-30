@@ -78,6 +78,9 @@ Screwdriver.cdはデフォルトでMetadataに以下のキーを設定してい�
 | sd.release.id       | リリースID　                                                                                                                  |
 | sd.release.name     | リリース名                                                                                                                    |
 | sd.release.author   | リリース                                                                                                                      |
+| sd.pr.merged        | `pr-closed`トリガーのビルドにおいて、クローズがマージによるものであるかを `true` / `false` で設定                                       |
+| sd.pr.name          | `pr-closed`トリガーのビルドにおいて、Gitリファレンス名を設定                                                                        |
+| sd.pr.id            | `pr-closed`トリガーのビルドにおいて、Pull RequsetのIDを設定                                                                       |
 
 ## Metadataの操作
 
