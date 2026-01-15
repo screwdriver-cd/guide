@@ -26,4 +26,4 @@ RUN set -x \
 
 EXPOSE 4000
 
-CMD ["jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000"]
+CMD ["ruby", "-r", "./disable_dir_listing.rb", "/usr/local/bundle/bin/jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000"]
